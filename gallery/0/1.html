@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-Column Layout | Embedded Frame | Lunevedy UI | Brendan Munnelly</title>
+    <meta name="description" content="A JavaScript app for creating single-column HTML5 web page snippets. By Brendan Munnelly.">
+    <link rel="stylesheet" href="../../assets/css/lunevedy.css">
+
+	<!-- Font Awesome 6 icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<style>
+        section.theme-light { background-color: lightgreen;}
+        header:not(.text-center-desktop)  > .container-btn,
+        section:not(.text-center-desktop) > .container-btn {
+        /* display: flex; flex-direction: row; flex-wrap: wrap; */
+        display: block;
+        /* width: 100%; */ margin-bottom: 20px;
+        background-color: lightcoral !important;
+        width: fit-content;
+    }
+
+    header > .container-btn a.btn, section > .container-btn a.btn {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        margin-right: 30px;
+    }
+
+    /* Buttons: left-aligned */
+    @media (min-width: 768px) { 
+        header:not(.text-center-desktop)  > .container-btn,
+        section:not(.text-center-desktop) > .container-btn { 
+            margin-left: 0; margin-right: 0; margin-bottom: 12px !important;
+        }
+    }
+
+    @media (max-width: 767px) { 
+        header:not(.text-center-desktop)  > .container-btn,
+        section:not(.text-center-desktop) > .container-btn { 
+            margin-left: 0; margin-right: 0; margin-bottom: 12px !important;
+        }
+    }
+
+	</style>
+
+
+
+</head>
+
+
+<body>
+    
+    <main>
+	
+
+	<!-- section starts here -->
+
+    <section class="theme-light section-selector-1 w-800px">
+
+        <figure>
+            <img src="../../ui/assets/img/1024x618-cafe.jpg" alt="Placeholder image">
+        </figure>
+      
+        <h2>Nice section heading</h2>
+        <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+
+        <p>At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints.</p>
+
+        <p>Collaboratively administer empowered markets via plug-and-play networks. Dynamically visualize customer directed convergence. Bring to the table win-win survival strategies to ensure proactive domination.</p>
+
+        <div class="container-btn">
+            <a href="#" class="btn btn-solid"><span>Shop now</span><i class="fas fa-shopping-cart"></i></a>
+            <a class="btn btn-outline" href="#"><span>View details</span><i class="fas fa-arrow-right"></i></a>
+        </div>
+    
+    </section>
+
+	<!-- section ends here -->
+	
+    </main>
+
+    <script>
+
+        const btn_1 = document.querySelector('section > .container-btn a.btn:nth-child(1)');
+        const btn_2 = document.querySelector('section > .container-btn a.btn:nth-child(2)');
+
+        // function makeEqualWidth() {
+            btn_1.style.width = btn_2.offsetWidth  + 'px';
+            btn_2.style.width = (btn_2.offsetWidth-((btn_2.offsetWidth - btn_2.offsetWidth)*2))  + 'px';
+        // }
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-Column Layout | Embedded Frame | Lunevedy UI | Brendan Munnelly</title>
+    <meta name="description" content="A JavaScript app for creating single-column HTML5 web page snippets. By Brendan Munnelly.">
+    <link rel="stylesheet" href="../../assets/css/lunevedy.css">
+
+	<!-- Font Awesome 6 icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<style>
+    .theme-light.section-selector-1 { background-color: lightgreen }
+    .theme-light.section-selector-2 { background-color: lightblue }
+
+    /* Buttons */ 
+    header > .container-btn, 
+    section > .container-btn { margin-bottom: 20px }
+
+    .container-btn { background-color: lightcoral }
+
+    header > .container-btn,
+    section > .container-btn { 
+        display: flex; flex-direction: row; flex-wrap: wrap; row-gap: 30px
+    }
+
+    header  > .container-btn a.btn, 
+    section > .container-btn a.btn { 
+        margin-top: 0; margin-left:0; margin-right: 0; margin-bottom: 0 !important
+    }
+
+    /* Buttons: left-aligned */
+    header:not(.text-center-desktop)  > .container-btn,
+    section:not(.text-center-desktop) > .container-btn { justify-content: flex-start }
+
+    /* Buttons: center-aligned */
+    header.text-center-desktop  > .container-btn,
+    section.text-center-desktop > .container-btn { justify-content: center }
+
+    @media (min-width: 768px) {
+        header > .container-btn, section > .container-btn { column-gap: 48px }
+    }
+
+    @media (max-width: 767px) {
+        header > .container-btn, section > .container-btn { column-gap: 30px }
+    }
+
+	</style>
+
+
+
+</head>
+
+
+<body>
+    
+    <main>
+	
+
+	<!-- section starts here -->
+
+    <section class="theme-light section-selector-1 w-800px">
+
+        <figure>
+            <img src="../../ui/assets/img/1024x618-cafe.jpg" alt="Placeholder image">
+        </figure>
+      
+        <h2>Nice section heading</h2>
+        <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+
+        <p>At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints.</p>
+
+        <p>Collaboratively administer empowered markets via plug-and-play networks. Dynamically visualize customer directed convergence. Bring to the table win-win survival strategies to ensure proactive domination.</p>
+
+        <div class="container-btn">
+            <a href="#" class="btn btn-solid"><span>Shop now</span><i class="fas fa-shopping-cart"></i></a>
+            <a class="btn btn-outline" href="#"><span>View details</span><i class="fas fa-arrow-right"></i></a>
+        </div>
+ 
+
+    </section>
+
+	<!-- section ends here -->
+
+
+    <section class="theme-light section-selector-2 w-800px text-center-desktop text-center-mobile">
+
+        <figure>
+            <img src="../../ui/assets/img/1024x618-cafe.jpg" alt="Placeholder image">
+        </figure>
+      
+        <h2>Nice section heading</h2>
+        <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+
+        <p>At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints.</p>
+
+        <p>Collaboratively administer empowered markets via plug-and-play networks. Dynamically visualize customer directed convergence. Bring to the table win-win survival strategies to ensure proactive domination.</p>
+
+        <div class="container-btn">
+            <a href="#" class="btn btn-solid"><span>Shop now</span><i class="fas fa-shopping-cart"></i></a>
+            <a class="btn btn-outline" href="#"><span>View details</span><i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <p>Collaboratively administer empowered markets via plug-and-play networks. Dynamically visualize customer directed convergence. Bring to the table win-win survival strategies to ensure proactive domination.</p>
+    
+    </section>
+
+	<!-- section ends here -->
+
+  
+	
+    </main>
+
+
+
+</body>
+</html>
