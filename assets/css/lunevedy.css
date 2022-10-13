@@ -1228,9 +1228,9 @@ section > h2 {
     font-size: calc(28px + (48 - 28) * ((100vw - 320px) / (1140 - 320)));
 }
 
-@media (min-width: 768px) { section > h2 { margin-bottom: 42px } }
+@media (min-width: 768px) { section > h2 { margin-bottom: 30px } }
 
-@media (max-width: 767px) { section > h2 { margin-bottom: 28px } }
+@media (max-width: 767px) { section > h2 { margin-bottom: 20px } }
 
 section > h2 span.highlight { color: var(--gray-600); }
 
