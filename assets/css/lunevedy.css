@@ -1066,8 +1066,8 @@ section > h3, .col-2 > h3, .col-3 > h3, .col-4 > h3,
     }
 }
 
-@media (min-width: 1201px) { .col-2 { width: 47.5% } }
-@media (min-width: 768px) and (max-width: 1200px) { .col-2 { width: 44% } }
+/* @media (min-width: 1201px) { .col-2 { width: 47.5% } }
+@media (min-width: 768px) and (max-width: 1200px) { .col-2 { width: 44% } } */
 @media (min-width: 768px) and (max-width: 1024px) { .flex-cols-4 { gap: 3% } }
 
 @media (min-width: 768px) {
@@ -1235,12 +1235,12 @@ section > h2 {
 section > h2 span.highlight { color: var(--gray-600); }
 
 /* Sub-heading */
-section > h3 { margin-top: 28px }
+@media (min-width: 768px) { section > h3 { margin-top: 48px } }
+@media (max-width: 767px) { section > h3 { margin-top: 32px } }
+
 @media (min-width: 768px) { 
     section > h3 { font-size: calc(20px + (24 - 20) * ((100vw - 320px) / (1140 - 320))) }
 }
-
-@media (min-width: 1025px) { section > h3 { margin-top: 27px } }
 
 /* Paragraphs and lists */
 section > p, section > ul li { 
@@ -1276,7 +1276,7 @@ section > p.deckhead {
 }
 
 /* Illustrations */
-section > figure { width: 100% }
+section > figure { overflow: visible }
 
 @media (min-width: 768px) { 
     section > figure > .cols-img-textbox { left: 36px }
@@ -1304,13 +1304,13 @@ section.text-center-desktop > figure,
 section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
 
 /* == 50% text for widths 811px and wider == */
-@media (min-width: 811px) {
+/* @media (min-width: 811px) { */
     /* Narrow (50%-wide) text: left-aligned */
     section > .figure-width-50,
     section.fig-shadow > .figure-width-50 { width: 50% } 
     section > .figure-width-80, 
     section.fig-shadow > .figure-width-80 { width: 80% } 
-}
+/* }
 
 
 /* ============= TWO COLUMN LAYOUT ============ */
@@ -2104,8 +2104,6 @@ div.flex-cols-4 div.col-4 .badge { font-size: 72% }
     z-index: 3;
 }
 
-figure { position: relative }
-
 /* Top left text */
 figure .cols-img-textbox {
     position: absolute; top: 16px; left: 16px;
@@ -2114,8 +2112,34 @@ figure .cols-img-textbox {
     padding: 2px 8px; width: fit-content; z-index: 4;
 }
 
+@media (min-width: 1025px) {
+    figure .cols-img-textbox {
+        font-size: calc(12px + (16 - 12) * ((100vw - 320px) / (1920 - 320)));
+        top: 16px; left: 16px
+    }
+}
+
+@media (max-width: 1024px) {
+    figure .cols-img-textbox { 
+        font-size: calc(12px + (15 - 12) * ((100vw - 320px) / (1920 - 320)));
+        top: 12px; left: 12px 
+    }
+}
+
+@media (max-width: 767px) {
+    .mobile-col-2 .col-3 figure.figure-overlay::after,
+    .mobile-col-2 .col-4 figure.figure-overlay::after {
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+    }
+}
+
 figure .cols-img-textbox.corners-soft { 
     border-radius: 16px; padding-left: 14px; padding-right: 14px 
+}
+
+@media (max-width: 767px) {
+    .mobile-col-2 .col-3 .figure-overlay .cols-img-h4,
+    .mobile-col-2 .col-4 .figure-overlay .cols-img-h4 { display: none }
 }
 
 figure .cols-img-h4 {
@@ -2124,9 +2148,8 @@ figure .cols-img-h4 {
     font-size: 120%; font-weight: 700;
     padding-bottom: 12px; padding-right: 14px;
     text-shadow: 2px 1px 0 #000;
-    z-index: 4; line-height: 1.3;
+    z-index: 4; line-height: 1.25;
 }
-
 
 
 /* ============ Hyperlinks in text =========== */
@@ -2565,51 +2588,77 @@ footer p.privacy a:hover, footer p.privacy a:active {
     text-align: center; margin-left: auto; margin-right: auto } 
 }
 
-/* Animations - only when the web page loads */
-.slide-in-top {
-	animation: slide-in-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+figure.figure-width-full {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
-.slide-in-left {
-	animation: slide-in-left 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+/* Single-column section with full-width image */
+section:has(figure.full-width) { padding-top: 0 !important }
+
+/* Animations - on scroll */
+.reveal-slide-up, .reveal-slide-down {
+    position: relative; opacity: 0; transition: 1s all ease;
 }
 
-.slide-in-right {
-	animation: slide-in-right 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+.reveal-slide-from-left, .reveal-slide-from-right {
+    position: relative;
+    opacity: 0;
+    transition: 1s all ease;
 }
 
-.slide-in-bottom {
-	animation: slide-in-bottom 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+.reveal-slide-up    { transform: translateY(150px) }
+.reveal-slide-down  { transform: translateY(-150px) }
+
+@media (min-width: 768px) {
+    .reveal-slide-from-left  { transform: translateX(-250px) }
+    .reveal-slide-from-right { transform: translateX(250px) }  
 }
 
-.fade-in {
-    animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+@media (max-width: 768px) {
+    .reveal-slide-from-left  { transform: translateX(150px) }
+    .reveal-slide-from-right { transform: translateX(-150px) }      
 }
 
-@keyframes slide-in-top {
-    0%   { transform: translateY(-1000px); opacity: 0 }
-    100% { transform: translateY(0); opacity: 1 }
+.reveal-slide-up.active, 
+.reveal-slide-down.active { 
+    transform: translateY(0); opacity: 1 
 }
 
-@keyframes slide-in-left {
-    0% { transform: translateX(-1000px); opacity: 0 }
-    100% { transform: translateX(0); opacity: 1 }
+.reveal-slide-from-left.active, 
+.reveal-slide-from-right.active { 
+    transform: translateX(0); opacity: 1 
 }
 
-@keyframes slide-in-right {
-    0% { transform: translateX(1000px); opacity: 0 }
-    100% { transform: translateX(0); opacity: 1 }
-}
+.reveal-fade-in { opacity: 0 }
+.reveal-fade-in.active { animation: reveal-fade-in 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both }
 
-@keyframes slide-in-bottom {
-    0%   { transform: translateY(1000px); opacity: 0 }
-    100% { transform: translateY(0); opacity: 1 }
-}
-
-@keyframes fade-in { 
+@keyframes reveal-fade-in { 
     0%   { opacity: 0; }
     100% { opacity: 1 }
 }
+
+.reveal-scale-in { opacity: 0 }
+.reveal-scale-in.active {
+    animation: reveal-scale-in 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes reveal-scale-in { 
+    0%   { transform: scale(0); opacity: 1 }
+    100% { transform: scale(1); opacity: 1 }
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2022-10-13 21:22:45
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
 
 .img-rounded { border-radius: 50% }
 
@@ -2706,7 +2755,7 @@ h2.heading-underline::after {
 @media (max-width: 767px) {
     section > h2.heading-underline { margin: 0 0 52px 0 }
     section:not(.text-center-desktop) h2.heading-underline::after, 
-    section:not(.text-center-mobile) h2.heading-underline::after { margin: 24px 0 24px 0 }
+    section:not(.text-center-mobile) h2.heading-underline::after { margin: 16px 0 24px 0 }
     section.text-center-mobile > h2.heading-underline::after { margin: 24px auto 24px auto } 
 }
 
