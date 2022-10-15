@@ -156,7 +156,6 @@ function doPhotosRound() {
     }
 }
 
-
 /* photos: shadows */
 document.querySelector("#cb_photos_shadows").addEventListener("change", doPhotosShadows);
 
@@ -375,12 +374,14 @@ function doFigWidth() {
         el_section_fig.classList.remove("figure-width-50");
         el_section_fig.classList.remove("figure-width-80");
         el_section_fig.classList.remove("figure-width-full");
+        document.getElementById("figure-animate").disabled = false;
     }
 
     else if (opt==="80") {
         el_section_fig.classList.remove("figure-width-50");
         el_section_fig.classList.remove("figure-width-full");
         el_section_fig.classList.add("figure-width-80");
+        document.getElementById("figure-animate").disabled = false;
         // enableVisualAlign();
     }
 
@@ -388,6 +389,7 @@ function doFigWidth() {
         el_section_fig.classList.remove("figure-width-80");
         el_section_fig.classList.remove("figure-width-full");
         el_section_fig.classList.add("figure-width-50");
+        document.getElementById("figure-animate").disabled = false;
         // enableVisualAlign();        
     }
 
@@ -399,6 +401,9 @@ function doFigWidth() {
         el_section_fig_img.classList.remove("img-rounded");
         document.getElementById("cb_photos_round").checked = false;
         document.getElementById("cb_photos_round").disabled = true;
+        document.getElementById("figure-animate").disabled = true;
+        document.getElementById("figure-animate").value = "0";
+        removePlaceHolderContent();
     }
 }
 
