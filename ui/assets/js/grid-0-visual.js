@@ -575,14 +575,6 @@ function removeFigureAnimate() {
 function addPlaceHolderContent() {
     const strContent = "<section><div class='col-1 text-center'><h2>Some placeholder text</h2><h3>Leverage agile frameworks to provide a robust synopsis for high level overviews to foster collaborative thinking.</h3></div><div class='flex-cols-3'><div class='col-3'><figure><img src='../../ui/assets/img/460x280-bakery.png' alt='Placeholder image'></figure><h3>Lunevedy Cafe Bakery</h3><p>Our friendly baristas are waiting to pour your favourite beverage. We use only hand roasted coffee and expertly selected tea leaves.</p></div><div class='col-3'><figure><img src='../../ui/assets/img/460x280-fashion-yellow.png' alt='Placeholder image'></figure><h3>Lunevedy Fashion Store</h3><p>Level up your look with our ever-changing selection of on-trend brands. We ship to almost everywhere quickly and reliably.</p></div><div class='col-3'><figure><img src='../../ui/assets/img/460x280-student.png' alt='Placeholder image'></figure><h3>Learn JavaScript today</h3><p>Supercharge your web design career with the <i>Lunevedy: JavaScript for Beginners</i> training course. All important topics covered.</p></div></div></section>";
 
-    // const placeHolderDivAboveOuter = document.createElement('div');
-    // placeHolderDivAboveOuter.style.width = '100%';
-    // placeHolderDivAboveOuter.style.marginTop = '-48px';
-    // placeHolderDivAboveOuter.style.marginBottom = '-48px';
-
-    // placeHolderDivAboveOuter.id = 'placeholder';
-    // placeHolderDivAboveOuter.className = 'placeholder';
-
     const placeHolderSection = document.createElement('section');
     placeHolderSection.classList.add('placeholder');
     placeHolderSection.style.backgroundColor ='#eceff1';
@@ -591,8 +583,9 @@ function addPlaceHolderContent() {
     placeHolderSection.style.paddingBottom = '1%';
     placeHolderSection.innerHTML=strContent;
     const HTMLContent = iframe.contentWindow.document.getElementById('HTML-Content');
-    const currentSection = iframe.contentWindow.document.querySelector('section')
-    HTMLContent.insertBefore(placeHolderSection, currentSection)
+    const currentSection = iframe.contentWindow.document.querySelector('section');
+    HTMLContent.insertBefore(placeHolderSection, currentSection);        
+    window.scrollTo(0, 0);
 }
 
 function removePlaceHolderContent() {
