@@ -1,4 +1,4 @@
-import {arrPic, arrTrans, arrIllus, arrVidFile, arrVidYT, arrVidRumble, arrIconFA, arrIconLA, arrTextBox, arrH4Overlay} from '../js/arr-content.js';
+import {arrPic, arrPicSquare, arrTrans, arrIllus, arrVidFile, arrVidYT, arrVidRumble, arrIconFA, arrIconLA, arrTextBox, arrH4Overlay} from '../js/arr-content.js';
 
 /*
 ////////////////////// VISUALS: FOUR TYPES ///////////////////////
@@ -68,7 +68,6 @@ function doVisType() {
 
 function doPhotos() {
     removeVisual();
-
     // Visual types
     document.getElementById("form_vis_types").style.display = "block";
     document.getElementById("rb_vis_type_1").disabled=false;
@@ -101,6 +100,7 @@ function doPhotosType() {
 
     let opt = document.querySelector("#dd_photos_shape").value;
     removeVisual();
+    
     if (opt==="1") {
         doVisSubTypes(1);    
     }
@@ -424,6 +424,16 @@ function resetTransProps() {
     document.getElementById("cb_trans_shadows").checked = false;
 }
 
+
+function resetImgCircle() {
+    const objImgs = iframe.contentWindow.document.querySelectorAll("div[class^='col-']");
+    let el_img;
+    for (let i = 0; i < objImgs.length; i++) {
+        el_img = objImgs[i];
+        el_img.classList.remove("img-circle");
+    }
+}
+
 /*
 //////////////// VISUALS: DRAWINGS ///////////////
 */
@@ -687,15 +697,16 @@ function doVisSubTypes(n) {
     }
     // photos: square
     else if (n===3) {
-        for (let i = 0; i < (arrPic.length); i++) {
-            arrContent[i] = arrPic[i];
+        for (let i = 0; i < (arrPicSquare.length); i++) {
+            arrContent[i] = arrPicSquare[i];
         }
     }
     // photos: circle
     else if (n===4) {
-        for (let i = 0; i < (arrPic.length); i++) {
-            arrContent[i] = arrPic[i];
+        for (let i = 0; i < (arrPicSquare.length); i++) {
+            arrContent[i] = arrPicSquare[i];
         }
+        doImgCircle();
     }
 
     // transparent: landscape
@@ -800,7 +811,19 @@ function doVisSubTypes(n) {
 
 }
 
+
+function doImgCircle() {
+    const objImgs = iframe.contentWindow.document.querySelectorAll("div[class^='col-']");
+    let el_img;
+    for (let i = 0; i < objImgs.length; i++) {
+        el_img = objImgs[i];
+        el_img.classList.add("img-circle");
+    }
+    // 
+}
+
 function removeVisual() {
+    resetImgCircle();
     const parentNode = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
     var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0); 
     for (let i = 0; i < el_img.length; i++) {

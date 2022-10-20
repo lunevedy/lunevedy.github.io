@@ -92,6 +92,12 @@ arrPic[1]="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/460
 arrPic[2]="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/460x280-student.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 arrPic[3]="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/460x280-lisbon.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
+export const arrPicSquare = [];
+arrPicSquare[0]="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/400x400-coffee.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+arrPicSquare[1]="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/400x400-footwear.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+arrPicSquare[2]="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/400x400-laptop.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+arrPicSquare[3]="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/400x400-lisbon.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+
 export const arrTrans = [];
 arrTrans[0]="\n\t\t\t<figure>\n\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/460x300-trans-couple-coffee.png\" alt=\"Placeholder image\">\n\t\t\t<\/figure>";
 arrTrans[1]="\n\t\t\t<figure>\n\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/460x300-trans-woman-smiling.png\" alt=\"Placeholder image\">\n\t\t\t<\/figure>";

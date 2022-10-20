@@ -569,6 +569,8 @@ function removeFigureAnimate() {
     iframe.contentWindow.document.querySelector("section > figure").classList.remove("reveal-slide-up");
     iframe.contentWindow.document.querySelector("section > figure").classList.remove("reveal-slide-from-left");
     iframe.contentWindow.document.querySelector("section > figure").classList.remove("reveal-slide-from-right");
+    iframe.contentWindow.document.querySelector("section > figure").classList.remove("reveal-fade-in");
+    iframe.contentWindow.document.querySelector("section > figure").classList.remove("reveal-scale-in");
 }
 
 
@@ -585,7 +587,8 @@ function addPlaceHolderContent() {
     const HTMLContent = iframe.contentWindow.document.getElementById('HTML-Content');
     const currentSection = iframe.contentWindow.document.querySelector('section');
     HTMLContent.insertBefore(placeHolderSection, currentSection);        
-    window.scrollTo(0, 0);
+    document.getElementById("HTML-Content").scrollIntoView();
+    iframe.contentWindow.document.querySelector('section').scrollIntoView();
 }
 
 function removePlaceHolderContent() {
