@@ -366,3 +366,30 @@ function enableColButtons() {
     document.getElementById("cb_buttons_uppercase").disabled=false;
     document.getElementById("cb_buttons_uppercase").checked=false;
 }
+
+function disableColButtons() {
+    document.getElementById("btn_cols_text_passive").disabled=true;
+    document.getElementById("btn_cols_text_active").disabled=true;
+    document.getElementById("btn_cols_bg_passive").disabled=true;
+    document.getElementById("btn_cols_bg_active").disabled=true;
+    document.getElementById("btn_cols_border_passive").disabled=true;
+    document.getElementById("btn_cols_border_active").disabled=true;
+    document.getElementById("rb_btns_icons_left").checked=false;
+    document.getElementById("rb_btns_icons_right").checked=false;
+    document.getElementById("rd-btns-icons-none").checked=false;
+    document.getElementById("rb_btns_icons_left").disabled=true;
+    document.getElementById("rb_btns_icons_right").disabled=true;
+    document.getElementById("rd-btns-icons-none").disabled=true;
+    document.getElementById("dd_buttons_type").disabled=true;
+    document.getElementById("dd_buttons_type").value="0";
+    document.getElementById("dd_buttons_shape").value="0";
+    document.getElementById("dd_buttons_shape").disabled=true;
+    document.getElementById("dd_buttons_size").value="1";
+    document.getElementById("dd_buttons_size").disabled=true;
+    document.getElementById("cb_buttons_width").disabled=true;
+    document.getElementById("cb_buttons_width").checked=false;
+    document.getElementById("cb_buttons_shadow").disabled=true;
+    document.getElementById("cb_buttons_shadow").checked=false;
+    document.getElementById("cb_buttons_uppercase").disabled=true;
+    document.getElementById("cb_buttons_uppercase").checked=false;
+}
