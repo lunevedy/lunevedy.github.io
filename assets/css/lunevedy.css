@@ -1423,7 +1423,7 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     .flex-cols-3 > .col-3 > h3, 
     .flex-cols-3 > .col-3 > a.col-3-h3 { font-size: 24px }
     .flex-cols-3 > .col-3 > p, 
-    .flex-cols-3 > .col-3 > li { font-size: 19px }
+    .flex-cols-3 > .col-3 > ul li { font-size: 19px }
     .flex-cols-3 > .col-3 > ul li { margin-left: 16px; padding-left: 12px }
     .flex-cols-3 > .col-3 > ul.fa-ul li { margin-left: 20px; padding-left: 10px } 
     .flex-cols-3 > .col-3 > ul.fa-ul li span.fa-li { transform: translateY(2px) } 
@@ -2390,7 +2390,7 @@ div[class*='col-'] .btn-shadow {
     font-weight: bold; display: block;
     font-size: calc(15px + (17 - 15) * ((100vw - 320px)/(1140 - 320)));
     text-transform: uppercase; 
-    letter-spacing: 6px; word-spacing: 120%;
+    letter-spacing: 6px; word-spacing: 120;
     margin-bottom: 28px;
 }
 
