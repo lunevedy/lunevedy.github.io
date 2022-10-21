@@ -20,9 +20,12 @@ function setColumnBlocks() {
     let objAllCols = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
     
     console.log("objAllCols: "+objAllCols.length);
-    // Reduce to three
+
+    // ==== 3 COL LAYOUTS ==========
+
+    // reduce from 6 to 3
     if (selectedValue==="row-one") {
-        // from six to three
+
         if (objAllCols.length === 6) {
             for (let i = 0; i < 3; i++) {
                 objAllCols[i].remove();
@@ -30,7 +33,7 @@ function setColumnBlocks() {
             document.getElementById("slider-gap-row").disabled = true;
         }
 
-        // from nine to three
+        // reduce from 9 to 3
         else if (objAllCols.length === 9) {
             for (let i = 0; i < 6; i++) {
                 objAllCols[i].remove();
@@ -38,7 +41,9 @@ function setColumnBlocks() {
             document.getElementById("slider-gap-row").disabled = true;
         }
 
-        // from eight to four
+        // ==== 4 COL LAYOUTS ==========
+
+        // reduce from 8 to 4
         else if (objAllCols.length === 8) {
             for (let i = 0; i < 4; i++) {
                 objAllCols[i].remove();
@@ -46,9 +51,9 @@ function setColumnBlocks() {
             document.getElementById("slider-gap-row").disabled = true;
         }
         
-        // from 12 to 4 
+        // reduce from 12 to 4 
         else if (objAllCols.length === 12) {
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 8; i++) {
                 objAllCols[i].remove();
             }
             document.getElementById("slider-gap-row").disabled = true;
@@ -56,7 +61,11 @@ function setColumnBlocks() {
     }
 
     else if (selectedValue==="row-two") {
-        // 3 to 6. Double current content
+
+        // ==== 3 COL LAYOUTS ==========
+
+        // increase 3 to 6
+        // Double current content
         if (objAllCols.length === 3) {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
@@ -64,7 +73,7 @@ function setColumnBlocks() {
             document.getElementById("slider-gap-row").disabled = false;
         }
 
-        // 9 to 6. Remove 3.
+        // reduce from 9 to 6. Remove 3.
         else if (objAllCols.length === 9) {
             objAllCols = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
             for (let i = 0; i < 3; i++) {
@@ -73,7 +82,9 @@ function setColumnBlocks() {
             document.getElementById("slider-gap-row").disabled = false;            
         }
 
-        // 4 to 8. Double current content
+        // ==== 4 COL LAYOUTS ==========
+
+        // increase 4 to 8. Double current content
         if (objAllCols.length === 4) {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
@@ -81,7 +92,7 @@ function setColumnBlocks() {
             document.getElementById("slider-gap-row").disabled = false;            
         }
 
-        // 12 to 8. Remove 4.
+        // reduce from 12 to 8. Remove 4.
         else if (objAllCols.length === 12) {
             objAllCols = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
             for (let i = 0; i < 4; i++) {
@@ -91,8 +102,11 @@ function setColumnBlocks() {
         }
     }
 
+    // ==== 3 COL LAYOUTS ==========
+
     else if (selectedValue==="row-three") {
-        // 3 to 9. Treble current content
+        // increase from 3 to 9. 
+        // Treble current content
         if (objAllCols.length === 3) {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML + objRowOne.innerHTML;
@@ -111,7 +125,9 @@ function setColumnBlocks() {
             document.getElementById("slider-gap-row").disabled = false;            
         }
 
-        // 4 to 12. Treble current content
+        // ==== 4 COL LAYOUTS ==========
+
+        // increase 4 to 12. Treble current content
         if (objAllCols.length === 4) {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML + objRowOne.innerHTML;
