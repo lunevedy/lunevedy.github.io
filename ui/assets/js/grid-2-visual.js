@@ -1,4 +1,4 @@
-import {arrPic, arrTrans, arrIllus, arrVidFile, arrVidYT, arrVidRumble, arrIconFA, arrIconLA, arrTextBox, arrH4Overlay} from '../js/arr-content.js';
+import {arrPic, arrPicSquare, arrTrans, arrIllus, arrVidFile, arrVidYT, arrVidRumble, arrIconFA, arrIconLA, arrTextBox, arrH4Overlay} from '../js/arr-content.js';
 
 /*
 ////////////////////// VISUALS: FOUR TYPES ///////////////////////
@@ -68,7 +68,6 @@ function doVisType() {
 
 function doPhotos() {
     removeVisual();
-
     // Visual types
     document.getElementById("form_vis_types").style.display = "block";
     document.getElementById("rb_vis_type_1").disabled=false;
@@ -92,8 +91,11 @@ function doPhotos() {
     resetVideoProps();
     // Set properties
     document.getElementById("dd_photos_shape").value = "1";
+    document.getElementById("cb_img_textbox").checked = false;
     doVisSubTypes(1);
 }
+
+document.querySelector("#dd_photos_shape").addEventListener("change", doPhotosType);
 
 document.querySelector("#dd_photos_shape").addEventListener("change", doPhotosType);
 
@@ -674,78 +676,86 @@ function doVisSubTypes(n) {
 
     // photos: landscape
     if (n===1) {
-        for (let i = 0; i < (arrPic.length-1); i++) {
+        for (let i = 0; i < (arrPic.length); i++) {
             arrContent[i] = arrPic[i];
         }
     }
     // photos: portrait
     else if (n===2) {
-        for (let i = 0; i < (arrPic.length-1); i++) {
+        for (let i = 0; i < (arrPic.length); i++) {
             arrContent[i] = arrPic[i];
         }
     }
     // photos: square
     else if (n===3) {
-        for (let i = 0; i < (arrPic.length-1); i++) {
-            arrContent[i] = arrPic[i];
+        for (let i = 0; i < (arrPicSquare.length); i++) {
+            arrContent[i] = arrPicSquare[i];
         }
     }
     // photos: circle
     else if (n===4) {
-        for (let i = 0; i < (arrPic.length-1); i++) {
-            arrContent[i] = arrPic[i];
+        for (let i = 0; i < (arrPicSquare.length); i++) {
+            arrContent[i] = arrPicSquare[i];
         }
+        doImgCircle();
     }
 
     // transparent: landscape
     else if (n===5) {
-        for (let i = 0; i < (arrTrans.length-1); i++) {
+        for (let i = 0; i < (arrTrans.length); i++) {
             arrContent[i] = arrTrans[i];
         }
     }
 
     // drawings: landscape
     else if (n===6) {
-        for (let i = 0; i < (arrIllus.length-1); i++) {
+        for (let i = 0; i < (arrIllus.length); i++) {
             arrContent[i] = arrIllus[i];
         }
     }
 
     // icons: Font Awesome
     else if (n===7) {
-        for (let i = 0; i < (arrIconFA.length-1); i++) {
+        for (let i = 0; i < (arrIconFA.length); i++) {
             arrContent[i] = arrIconFA[i];
         }
     }
 
     // icons: Line Awesome
     else if (n===8) {
-        for (let i = 0; i < (arrIconLA.length-1); i++) {
+        for (let i = 0; i < (arrIconLA.length); i++) {
             arrContent[i] = arrIconLA[i];
         }
     }
 
     // videos: file
     else if (n===9) {
-        for (let i = 0; i < (arrVidFile.length-1); i++) {
+        for (let i = 0; i < (arrVidFile.length); i++) {
             arrContent[i] = arrVidFile[i];
         }
     }
 
     else if (n===10) {
-        for (let i = 0; i < (arrVidYT.length-1); i++) {
+        for (let i = 0; i < (arrVidYT.length); i++) {
             arrContent[i] = arrVidYT[i];
         }
     }
 
     else if (n===11) {
-        for (let i = 0; i < (arrVidRumble.length-1); i++) {
+        for (let i = 0; i < (arrVidRumble.length); i++) {
             arrContent[i] = arrVidRumble[i];
         }
     }    
 
+    // Number of column blocks
 
     if (objCols.length === 2) {
+        for (let i = 0; i < (arrContent.length-1); i++) {
+            arrContentLoop[i] = arrContent[i];
+        }
+    }
+
+    if (objCols.length === 3) {
         for (let i = 0; i < (arrContent.length-1); i++) {
             arrContentLoop[i] = arrContent[i];
         }
@@ -775,7 +785,21 @@ function doVisSubTypes(n) {
     }
 
     iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML.replaceAll("</figure>\t", "</figure>");
+}
 
+function doImgCircle() {
+    const objImgs = iframe.contentWindow.document.querySelectorAll("div[class^='col-']");
+    let el_img;
+    for (let i = 0; i < objImgs.length; i++) {
+        el_img = objImgs[i];
+        el_img.classList.add("img-circle");
+    }
+    document.getElementById("cb_photos_corners_soft").disabled=true;
+    document.getElementById("cb_photos_shadows").disabled=true;
+    document.getElementById("cb_photos_zoom").disabled=true;
+    document.getElementById("cb_img_textbox").disabled=true;
+    document.getElementById("cb_img_h4").disabled=true;
+    document.getElementById("cb_photos_zoom").disabled=true;
 }
 
 function removeVisual() {
