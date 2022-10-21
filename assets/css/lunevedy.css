@@ -1325,8 +1325,8 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     .flex-cols-2 > .col-2 > ul.fa-ul li { margin-left: 22px; padding-left: 10px } 
     .flex-cols-2 > .col-2 > ul.fa-ul li span.fa-li { transform: translateY(2px) } 
     .flex-cols-2 > .col-2 > figure { margin-bottom: 32px }
-    .flex-cols-2 > .cols-padding > .col-2 { padding: 20px 22px 28px 22px }
-    .flex-cols-2 > .cols-padding > .col-2 figure {
+    .flex-cols-2.cols-padding > .col-2 { padding: 20px 22px 28px 22px }
+    .flex-cols-2.cols-padding > .col-2 figure {
         margin-top: -20px;
         width: calc(100% + 44px);
         margin-left: calc(-22px);
@@ -1344,8 +1344,8 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     .flex-cols-2 > .col-2 > ul li { margin-left: 18px; padding-left: 8px } 
     .flex-cols-2 > .col-2 > ul.fa-ul li { margin-left: 22px } 
     .flex-cols-2 > .col-2 > figure { margin-bottom: 20px } 
-    .flex-cols-2 > .cols-padding > .col-2 { padding: 20px 22px 28px 22px }
-    .flex-cols-2 > .cols-padding > .col-2 figure {
+    .flex-cols-2.cols-padding > .col-2 { padding: 20px 22px 28px 22px }
+    .flex-cols-2.cols-padding > .col-2 figure {
         margin-top: -20px;
         width: calc(100% + 44px);
         margin-left: calc(-22px);
