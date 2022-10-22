@@ -471,6 +471,7 @@ body {
     position: relative; display: inline-block; cursor: pointer;  outline: none; 
     height: 22px; width: 48px; margin: 6px 0 0 0; 
     border-style: solid; border-width: 1px; border-radius: 11px; 
+    -webkit-appearance: none; -moz-appearance: none;
 }
 
 /* Background area: checked */
