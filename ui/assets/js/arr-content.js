@@ -57,6 +57,7 @@ export const content_buttons_pair = "\n\n\t<div class=\"container-btn\">\n\t\t<a
 
 /* 0 column layouts */
 export const content_h3 = ["\n\t\t\t<h3>Nice sub-heading here<\/h3>"]
+
 /* 3 column layouts */
 export const content_h3_col_3 = ["\n\t\t\t<h3>Lunevedy Cafe Bakery<\/h3>", "\n\t\t\t<h3>Lunevedy Fashion Store<\/h3>", "\n\t\t\t<h3>Learn JavaScript today<\/h3>"];
 
