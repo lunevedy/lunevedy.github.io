@@ -66,6 +66,7 @@ body {
 #page-preview-body.resp-mobile-large { width: 390px }
 #page-preview-body.resp-mobile-small { width: 320px }
 
+
 /* ============ CUSTOM PROPERTIES ============  */
 
 :root {
@@ -645,9 +646,12 @@ body {
 }
 
 /* Controls: cols border width */
-
 #form-cols-borders-width label { width: 34px; height: 36px }
 
+/* Controls: cols gap width */
+#content-1 #form-cols-gap-width label { width: 34px; height: 36px }
+#content-1 #form-cols-gap-width span.percent { 
+    color: #fff; padding-top: 5px; padding-left: 12px }
 
 #btn_cols_img_overlay_color_text svg { width: 22px; height: 22px; padding: 0 0 0 4px }
 
@@ -1110,13 +1114,48 @@ label .trans-000  { background: #000; border: solid 1px var(--gray-300) }
 
 #page-preview-options span img { display: inline;  }
 
+
+/* Tooltip container */
+#page-preview-options .tooltip {
+    position: relative;
+    display: inline-block;
+}
+    
+#page-preview-options .tooltip span.tooltiptext {
+    display: none;
+    min-width: 80px;
+    background-color: #1f364d;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    margin-top: -20px
+}
+
+#page-preview-options .tooltip:hover span.tooltiptext {
+    display: inline-block;
+}
+
 #respDesktopLarge img { width: 52px; height: 52px }
 #respDesktopSmall img { width: 48px; height: 52px }
 #respTabletLandscape img { width: 52px; height: 52px }
 #respTabletPortrait img { width: 42px; height: 52px }
 #respMobileSmall img, #respMobileLarge img { width: 40px; height: 52px }
 
+
+
 .page-preview-header span > * { pointer-events: none }
+
+
+
+
+
+
+
+
+
 
 /* menus for header or menu options */
 #control-menu #menu-0 a:link, 
