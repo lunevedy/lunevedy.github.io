@@ -145,29 +145,6 @@ function setColumnBlocks() {
     }
 }
 
-function enableRowsGap() {
-    document.getElementById("rows-gap-width-1").disabled = false;
-    document.getElementById("rows-gap-width-2").disabled = false;
-    document.getElementById("rows-gap-width-3").disabled = false;
-    document.getElementById("rows-gap-width-4").disabled = false;
-    document.getElementById("rows-gap-width-1").checked = false;
-    document.getElementById("rows-gap-width-2").checked = false;
-    document.getElementById("rows-gap-width-3").checked = true;
-    document.getElementById("rows-gap-width-4").checked = false;
-    document.querySelector("span.rows-gap-px").style.color ='#fff';
-}
-
-function disableRowsGap() {
-    document.getElementById("rows-gap-width-1").disabled = true;
-    document.getElementById("rows-gap-width-2").disabled = true;
-    document.getElementById("rows-gap-width-3").disabled = true;
-    document.getElementById("rows-gap-width-4").disabled = true;
-    document.getElementById("rows-gap-width-1").checked = false;
-    document.getElementById("rows-gap-width-2").checked = false;
-    document.getElementById("rows-gap-width-3").checked = false;
-    document.getElementById("rows-gap-width-4").checked = false;  
-    document.querySelector("span.rows-gap-px").style.color ='gray';
-}
 
 /*
 //////////////// COLUMNS GAP ///////////////
@@ -259,6 +236,29 @@ function doRowsGapWidth() {
     }
 }
 
+function enableRowsGap() {
+    document.getElementById("rows-gap-width-1").disabled = false;
+    document.getElementById("rows-gap-width-2").disabled = false;
+    document.getElementById("rows-gap-width-3").disabled = false;
+    document.getElementById("rows-gap-width-4").disabled = false;
+    document.getElementById("rows-gap-width-1").checked = false;
+    document.getElementById("rows-gap-width-2").checked = false;
+    document.getElementById("rows-gap-width-3").checked = true;
+    document.getElementById("rows-gap-width-4").checked = false;
+    document.querySelector("span.rows-gap-px").style.color ='#fff';
+}
+
+function disableRowsGap() {
+    document.getElementById("rows-gap-width-1").disabled = true;
+    document.getElementById("rows-gap-width-2").disabled = true;
+    document.getElementById("rows-gap-width-3").disabled = true;
+    document.getElementById("rows-gap-width-4").disabled = true;
+    document.getElementById("rows-gap-width-1").checked = false;
+    document.getElementById("rows-gap-width-2").checked = false;
+    document.getElementById("rows-gap-width-3").checked = false;
+    document.getElementById("rows-gap-width-4").checked = false;  
+    document.querySelector("span.rows-gap-px").style.color ='gray';
+}
 
 /*
 //////////////// COLUMNS ALIGN ///////////////
