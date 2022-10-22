@@ -30,7 +30,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 3; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = true;
+            disableRowsGap();
         }
 
         // reduce from 9 to 3
@@ -38,7 +38,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 6; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = true;
+            disableRowsGap();
         }
 
         // ==== 4 COL LAYOUTS ==========
@@ -48,7 +48,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 4; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = true;
+            disableRowsGap();
         }
         
         // reduce from 12 to 4 
@@ -56,7 +56,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 8; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = true;
+            disableRowsGap();
         }        
     }
 
@@ -70,7 +70,7 @@ function setColumnBlocks() {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML; 
-            document.getElementById("slider-gap-row").disabled = false;
+            enableRowsGap();
         }
 
         // reduce from 9 to 6. Remove 3.
@@ -79,7 +79,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 3; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = false;            
+            enableRowsGap();
         }
 
         // ==== 4 COL LAYOUTS ==========
@@ -89,7 +89,7 @@ function setColumnBlocks() {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML; 
-            document.getElementById("slider-gap-row").disabled = false;            
+            enableRowsGap();
         }
 
         // reduce from 12 to 8. Remove 4.
@@ -98,8 +98,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 4; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = false;            
-        }
+            enableRowsGap();        }
     }
 
     // ==== 3 COL LAYOUTS ==========
@@ -111,7 +110,7 @@ function setColumnBlocks() {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML + objRowOne.innerHTML;
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            document.getElementById("slider-gap-row").disabled = false;            
+            enableRowsGap();
         }
 
         // 6 to 9. Double and remove 3.
@@ -122,8 +121,7 @@ function setColumnBlocks() {
                 objRowOne.firstElementChild.remove();
             }
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            document.getElementById("slider-gap-row").disabled = false;            
-        }
+            enableRowsGap();        }
 
         // ==== 4 COL LAYOUTS ==========
 
@@ -132,7 +130,7 @@ function setColumnBlocks() {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML + objRowOne.innerHTML;
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            document.getElementById("slider-gap-row").disabled = false;            
+            enableRowsGap();
         }
 
         // 8 to 12. Double and remove 4.
@@ -143,37 +141,124 @@ function setColumnBlocks() {
                 objRowOne.firstElementChild.remove();
             }
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            document.getElementById("slider-gap-row").disabled = false;            
+            enableRowsGap();        }
+    }
+}
+
+function enableRowsGap() {
+    document.getElementById("rows-gap-width-1").disabled = false;
+    document.getElementById("rows-gap-width-2").disabled = false;
+    document.getElementById("rows-gap-width-3").disabled = false;
+    document.getElementById("rows-gap-width-4").disabled = false;
+    document.getElementById("rows-gap-width-1").checked = false;
+    document.getElementById("rows-gap-width-2").checked = false;
+    document.getElementById("rows-gap-width-3").checked = true;
+    document.getElementById("rows-gap-width-4").checked = false;
+    document.querySelector("span.rows-gap-px").style.color ='#fff';
+}
+
+function disableRowsGap() {
+    document.getElementById("rows-gap-width-1").disabled = true;
+    document.getElementById("rows-gap-width-2").disabled = true;
+    document.getElementById("rows-gap-width-3").disabled = true;
+    document.getElementById("rows-gap-width-4").disabled = true;
+    document.getElementById("rows-gap-width-1").checked = false;
+    document.getElementById("rows-gap-width-2").checked = false;
+    document.getElementById("rows-gap-width-3").checked = false;
+    document.getElementById("rows-gap-width-4").checked = false;  
+    document.querySelector("span.rows-gap-px").style.color ='gray';
+}
+
+/*
+//////////////// COLUMNS GAP ///////////////
+*/
+
+document.querySelector("#form-cols-gap-width").addEventListener("change", doColsGapWidth);
+
+function doColsGapWidth() {
+    console.log("got here doColsGapWidth")
+
+    const rbs = document.querySelectorAll("input[name='cols-gap-width']");
+
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
         }
+    }
+
+    console.log("cols gap selectedValue:" +selectedValue);
+    const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
+
+    objAllCols.classList.remove("cols-gap-1");
+    objAllCols.classList.remove("cols-gap-2");
+    objAllCols.classList.remove("cols-gap-3");
+    objAllCols.classList.remove("cols-gap-4");
+    
+    if (selectedValue==="1") {
+        objAllCols.classList.add("cols-gap-1");
+    }
+
+    else if (selectedValue==="2") {
+        objAllCols.classList.add("cols-gap-2");
+    }
+
+    else if (selectedValue==="3") {
+        objAllCols.classList.add("cols-gap-3");
+    }
+    
+    else if (selectedValue==="4") {
+        objAllCols.classList.add("cols-gap-4");
     }
 }
 
 /*
-//////////////// COLUMNS AND ROWS GAP ///////////////
+//////////////// ROWS GAP ///////////////
 */
 
-document.querySelector("#slider-gap-column").addEventListener("change", setColumnGap);
+document.querySelector("#form-rows-gap-width").addEventListener("change", doRowsGapWidth);
 
-function setColumnGap() {
-    let selectedValue = document.getElementById("slider-gap-column").value
-    const objCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
+function doRowsGapWidth() {
+    console.log("got here doRowsGapWidth")
+
+    const rbs = document.querySelectorAll("input[name='rows-gap-width']");
+
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+
+    console.log("rows gap selectedValue:" +selectedValue);
+    const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
+
+    objAllCols.classList.remove("rows-gap-1");
+    objAllCols.classList.remove("rows-gap-2");
+    objAllCols.classList.remove("rows-gap-3");
+    objAllCols.classList.remove("rows-gap-4");
     
-    for (let i = 0; i <= 10; i++) {
-        objCols.classList.remove("cols-gap-"+i);
+    if (selectedValue==="1") {
+        objAllCols.classList.add("rows-gap-1");
     }
-    objCols.classList.add("cols-gap-"+selectedValue);
+
+    else if (selectedValue==="2") {
+        objAllCols.classList.add("rows-gap-2");
+    }
+
+    else if (selectedValue==="3") {
+        objAllCols.classList.add("rows-gap-3");
+    }
+    
+    else if (selectedValue==="4") {
+        objAllCols.classList.add("rows-gap-4");
+    }
 }
 
-document.querySelector("#slider-gap-row").addEventListener("change", setRowGap);
-
-function setRowGap() {
-    let selectedValue = document.getElementById("slider-gap-row").value
-    const objCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
-    for (let i = 0; i <= 90; i+= 10) {
-        objCols.classList.remove("row-gap-"+i);
-    }
-    objCols.classList.add("row-gap-"+selectedValue);
-}
 
 /*
 //////////////// COLUMNS ALIGN ///////////////

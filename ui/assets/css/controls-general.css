@@ -471,7 +471,6 @@ body {
     position: relative; display: inline-block; cursor: pointer;  outline: none; 
     height: 22px; width: 48px; margin: 6px 0 0 0; 
     border-style: solid; border-width: 1px; border-radius: 11px; 
-    -webkit-appearance: none; -moz-appearance: none;
 }
 
 /* Background area: checked */
@@ -648,10 +647,14 @@ body {
 /* Controls: cols border width */
 #form-cols-borders-width label { width: 34px; height: 36px }
 
-/* Controls: cols gap width */
-#content-1 #form-cols-gap-width label { width: 34px; height: 36px }
-#content-1 #form-cols-gap-width span.percent { 
+/* Controls: cols and rows gap width */
+#content-1 #form-cols-gap-width label,
+#content-1 #form-rows-gap-width label { width: 34px; height: 36px }
+#content-1 #form-cols-gap-width span.percent,
+#content-1 #form-rows-gap-width span.percent { 
     color: #fff; padding-top: 5px; padding-left: 12px }
+
+span.rows-gap-px { padding-top: 4px; padding-left: 10px; color: var(--gray-500)}
 
 #btn_cols_img_overlay_color_text svg { width: 22px; height: 22px; padding: 0 0 0 4px }
 
