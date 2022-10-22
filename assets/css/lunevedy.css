@@ -1010,30 +1010,15 @@ section > h3, .col-2 > h3, .col-3 > h3, .col-4 > h3,
     }
 
     .flex-cols-2, .flex-cols-3, .flex-cols-4 { flex-direction: row }
-    .flex-cols-2 { column-gap: 5% }
     .flex-cols-2 { row-gap: 70px }
-    .flex-cols-3 { column-gap: 5% }
     .flex-cols-3 { row-gap: 50px }
-    .flex-cols-4 { column-gap: 4% }
     .flex-cols-4 { row-gap: 40px }
 
     .col-2, .col-3, .col-4 { flex-direction: column; flex: 1 }
 
     .col-2 { min-width: 40% }
     .col-3 { min-width: 26% }
-    .col-4 { min-width: 18% }
-
-    div[class*="flex-cols-"].cols-gap-0 { column-gap: 0% } 
-    div[class*="flex-cols-"].cols-gap-1 { column-gap: 1% } 
-    div[class*="flex-cols-"].cols-gap-2 { column-gap: 2% } 
-    div[class*="flex-cols-"].cols-gap-3 { column-gap: 3% } 
-    div[class*="flex-cols-"].cols-gap-4 { column-gap: 4% } 
-    div[class*="flex-cols-"].cols-gap-5 { column-gap: 5% } 
-    div[class*="flex-cols-"].cols-gap-6 { column-gap: 6% } 
-    div[class*="flex-cols-"].cols-gap-7 { column-gap: 7% } 
-    div[class*="flex-cols-"].cols-gap-8 { column-gap: 8% } 
-    div[class*="flex-cols-"].cols-gap-9 { column-gap: 9% } 
-    div[class*="flex-cols-"].cols-gap-10 { column-gap: 10% } 
+    .col-4 { min-width: 21% }
 
     div[class*="flex-cols-"].row-gap-0 { row-gap: 0 } 
     div[class*="flex-cols-"].row-gap-10 { row-gap: 10px } 
@@ -1045,6 +1030,28 @@ section > h3, .col-2 > h3, .col-3 > h3, .col-4 > h3,
     div[class*="flex-cols-"].row-gap-70 { row-gap: 70px } 
     div[class*="flex-cols-"].row-gap-80 { row-gap: 80px } 
     div[class*="flex-cols-"].row-gap-90 { row-gap: 90px } 
+
+    /* column gaps: default */
+    .flex-cols-2,
+    .flex-cols-3 { column-gap: 5% }
+    .flex-cols-4 { column-gap: 4% }
+
+    /* column gaps */
+    .flex-cols-2.cols-gap-0,
+    .flex-cols-3.cols-gap-0,
+    .flex-cols-4.cols-gap-0 { column-gap: 0% } 
+
+    .flex-cols-2.cols-gap-2,
+    .flex-cols-3.cols-gap-2 { column-gap: 2% } 
+    .flex-cols-3.cols-gap-2 { column-gap: 1% } 
+
+    .flex-cols-2.cols-gap-3,
+    .flex-cols-3.cols-gap-3 { column-gap: 5% } 
+    .flex-cols-3.cols-gap-3 { column-gap: 5% } 
+
+    .flex-cols-2.cols-gap-4,
+    .flex-cols-3.cols-gap-4 { column-gap: 8% } 
+    .flex-cols-3.cols-gap-4 { column-gap: 5% } 
 
     /* .col-2:nth-child(n+3) { margin-top: 64px }
     .col-3:nth-child(n+4), .col-4:nth-child(n+5) { margin-top: 48px }  */
