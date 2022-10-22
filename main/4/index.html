@@ -133,23 +133,49 @@
                             </form>
                         </div>
 
+
                         <div class="input-group">
-                            <label>Column Gap</label>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewbox="0 0 20 20" version="1.1" class="svg-icon-desktop">
-                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 18.332031 1.109375 L 1.667969 1.109375 C 0.746094 1.109375 0 1.855469 0 2.777344 L 0 13.886719 C 0 14.808594 0.746094 15.554688 1.667969 15.554688 L 8.332031 15.554688 L 7.777344 17.222656 L 5.277344 17.222656 C 4.816406 17.222656 4.445312 17.59375 4.445312 18.054688 C 4.445312 18.515625 4.816406 18.886719 5.277344 18.886719 L 14.722656 18.886719 C 15.179688 18.886719 15.554688 18.515625 15.554688 18.054688 C 15.554688 17.59375 15.179688 17.222656 14.722656 17.222656 L 12.222656 17.222656 L 11.664062 15.554688 L 18.332031 15.554688 C 19.25 15.554688 20 14.808594 20 13.890625 L 20 2.777344 C 20 1.855469 19.253906 1.109375 18.332031 1.109375 Z M 17.777344 13.332031 L 2.222656 13.332031 L 2.222656 3.332031 L 17.777344 3.332031 Z M 17.777344 13.332031 "/></svg>                            
-                            <input id="slider-gap-column" type="range" min="0" max="8" oninput="num_column.value = this.value" style="width: 100px; display: inline-block; margin-right: 15px">
-                            <output id="num_column" style="display: inline-block; color: #fff">4</output><span style="color:#fff">%</span>
+
+                            <label for="cols_gap" style="min-width: 110px">Column Gap</label>
+
+                            <form id="form-cols-gap-width" name="form-cols-gap-width" class="rb-switch">
+
+                                <input type="radio" id="cols-gap-width-1" name="cols-gap-width" value="0" />
+                                <label for="cols-gap-width-1"><span>0</span></label>
+            
+                                <input type="radio" id="cols-gap-width-2" name="cols-gap-width" value="1" />
+                                <label for="cols-gap-width-2"><span>1</span></label>
+
+                                <input type="radio" id="cols-gap-width-3" name="cols-gap-width" value="4" />
+                                <label for="cols-gap-width-3"><span>4</span></label>                                            
+              
+                                <input type="radio" id="cols-gap-width-4" name="cols-gap-width" value="5" />
+                                <label for="cols-gap-width-4"><span>5</span></label>
+                                <span class="percent">%</span>
+                            </form>
                         </div>
 
                         <div class="input-group">
-                            <label>Row Gap</label>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewbox="0 0 20 20" version="1.1" class="svg-icon-desktop">
-                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 18.332031 1.109375 L 1.667969 1.109375 C 0.746094 1.109375 0 1.855469 0 2.777344 L 0 13.886719 C 0 14.808594 0.746094 15.554688 1.667969 15.554688 L 8.332031 15.554688 L 7.777344 17.222656 L 5.277344 17.222656 C 4.816406 17.222656 4.445312 17.59375 4.445312 18.054688 C 4.445312 18.515625 4.816406 18.886719 5.277344 18.886719 L 14.722656 18.886719 C 15.179688 18.886719 15.554688 18.515625 15.554688 18.054688 C 15.554688 17.59375 15.179688 17.222656 14.722656 17.222656 L 12.222656 17.222656 L 11.664062 15.554688 L 18.332031 15.554688 C 19.25 15.554688 20 14.808594 20 13.890625 L 20 2.777344 C 20 1.855469 19.253906 1.109375 18.332031 1.109375 Z M 17.777344 13.332031 L 2.222656 13.332031 L 2.222656 3.332031 L 17.777344 3.332031 Z M 17.777344 13.332031 "/></svg>
-    
-                            <input id="slider-gap-row" value="40" type="range" min="0" max="100" step="10" oninput="num_row.value = this.value" onload="num_row.value = 40" style="width: 100px; display: inline-block; margin-right: 15px">
 
-                            <output id="num_row" style="display: inline-block; color: #fff">40</output><span style="color:#fff">px</span>
-                        </div>
+                            <label style="min-width: 110px">Row Gap</label>
+
+                            <form id="form-rows-gap-width" name="form-rows-gap-width" class="rb-switch">
+
+                                <input type="radio" id="row-gap-width-1" name="rows-gap-width" value="1" />
+                                <label for="row-gap-width-1"><span>0</span></label>
+            
+                                <input type="radio" id="row-gap-width-2" name="rows-gap-width" value="2" />
+                                <label for="row-gap-width-2"><span>20</span></label>
+
+                                <input type="radio" id="row-gap-width-3" name="rows-gap-width" value="3" />
+                                <label for="row-gap-width-3"><span>40</span></label>                                            
+              
+                                <input type="radio" id="row-gap-width-4" name="rows-gap-width" value="4" />
+                                <label for="row-gap-width-4"><span>80</span></label>
+                                <span class="percent">px</span>
+                            </form>
+                        </div>                        
+
 
                     </div>
                 </div><!-- /dropdown-content -->
@@ -2646,9 +2672,8 @@
             document.getElementById("dd_section_width").value = "3";
             document.getElementById("rb_theme_light").checked = true;
             document.getElementById("rb_row_one").checked = true;
-            document.getElementById("slider-gap-row").disabled = true;
-            document.getElementById("num_row").value="40";
-            document.getElementById("num_row").defaultValue="40"; 
+            document.getElementById("cols-gap-width-3").checked = true;
+            document.getElementById("form-rows-gap-width").disabled = true;
 
             // Upper block
             document.getElementById("cb_col_1").checked = true;
