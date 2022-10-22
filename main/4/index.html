@@ -140,18 +140,18 @@
 
                             <form id="form-cols-gap-width" name="form-cols-gap-width" class="rb-switch">
 
-                                <input type="radio" id="cols-gap-width-1" name="cols-gap-width" value="0" />
+                                <input type="radio" id="cols-gap-width-1" name="cols-gap-width" value="1" />
                                 <label for="cols-gap-width-1"><span>0</span></label>
             
-                                <input type="radio" id="cols-gap-width-2" name="cols-gap-width" value="1" />
+                                <input type="radio" id="cols-gap-width-2" name="cols-gap-width" value="2" />
                                 <label for="cols-gap-width-2"><span>1</span></label>
 
-                                <input type="radio" id="cols-gap-width-3" name="cols-gap-width" value="4" />
+                                <input type="radio" id="cols-gap-width-3" name="cols-gap-width" value="3" />
                                 <label for="cols-gap-width-3"><span>4</span></label>                                            
               
-                                <input type="radio" id="cols-gap-width-4" name="cols-gap-width" value="5" />
+                                <input type="radio" id="cols-gap-width-4" name="cols-gap-width" value="4" />
                                 <label for="cols-gap-width-4"><span>5</span></label>
-                                <span class="percent">%</span>
+                                <span class="rows-gap-px">px</span>
                             </form>
                         </div>
 
@@ -2673,7 +2673,10 @@
             document.getElementById("rb_theme_light").checked = true;
             document.getElementById("rb_row_one").checked = true;
             document.getElementById("cols-gap-width-3").checked = true;
-            document.getElementById("form-rows-gap-width").disabled = true;
+            document.getElementById("rows-gap-width-1").disabled = true;
+            document.getElementById("rows-gap-width-2").disabled = true;
+            document.getElementById("rows-gap-width-3").disabled = true;
+            document.getElementById("rows-gap-width-4").disabled = true;
 
             // Upper block
             document.getElementById("cb_col_1").checked = true;
