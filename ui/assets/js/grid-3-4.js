@@ -141,7 +141,8 @@ function setColumnBlocks() {
                 objRowOne.firstElementChild.remove();
             }
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            enableRowsGap();        }
+            enableRowsGap(); 
+        }
     }
 }
 
@@ -153,7 +154,6 @@ function setColumnBlocks() {
 document.querySelector("#form-cols-gap-width").addEventListener("change", doColsGapWidth);
 
 function doColsGapWidth() {
-    console.log("got here doColsGapWidth")
 
     const rbs = document.querySelectorAll("input[name='cols-gap-width']");
 
@@ -166,7 +166,6 @@ function doColsGapWidth() {
         }
     }
 
-    console.log("cols gap selectedValue:" +selectedValue);
     const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
 
     objAllCols.classList.remove("cols-gap-1");
@@ -198,7 +197,6 @@ function doColsGapWidth() {
 document.querySelector("#form-rows-gap-width").addEventListener("change", doRowsGapWidth);
 
 function doRowsGapWidth() {
-    console.log("got here doRowsGapWidth")
 
     const rbs = document.querySelectorAll("input[name='rows-gap-width']");
 
@@ -211,7 +209,6 @@ function doRowsGapWidth() {
         }
     }
 
-    console.log("rows gap selectedValue:" +selectedValue);
     const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
 
     objAllCols.classList.remove("rows-gap-1");

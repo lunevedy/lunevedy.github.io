@@ -25,7 +25,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 2; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = true;
+            disableRowsGap(); 
         }
 
         // reduce from 6 to 2
@@ -33,7 +33,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 4; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = true;
+            disableRowsGap(); 
         }
     }
 
@@ -43,7 +43,7 @@ function setColumnBlocks() {
             let objRowOne = iframe.contentWindow.document.querySelector(".flex-cols-2");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
             iframe.contentWindow.document.querySelector(".flex-cols-2").innerHTML = objRowOne.innerHTML; 
-            document.getElementById("slider-gap-row").disabled = false;
+            enableRowsGap(); 
         }
 
         // reduce from 6 to 4.
@@ -52,7 +52,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 2; i++) {
                 objAllCols[i].remove();
             }
-            document.getElementById("slider-gap-row").disabled = false;
+            enableRowsGap(); 
         }
     }
 
@@ -62,7 +62,7 @@ function setColumnBlocks() {
             let objRowOne = iframe.contentWindow.document.querySelector(".flex-cols-2");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML + objRowOne.innerHTML;
             iframe.contentWindow.document.querySelector(".flex-cols-2").innerHTML = objRowOne.innerHTML;
-            document.getElementById("slider-gap-row").disabled = false;
+            enableRowsGap(); 
         }
 
         // increase from 4 to 6. 
@@ -74,37 +74,124 @@ function setColumnBlocks() {
                 objRowOne.firstElementChild.remove();
             }
             iframe.contentWindow.document.querySelector(".flex-cols-2").innerHTML = objRowOne.innerHTML;
-            document.getElementById("slider-gap-row").disabled = false;
+            enableRowsGap(); 
         }
     }
 }
 
 /*
-//////////////// COLUMNS AND ROWS GAP ///////////////
+//////////////// COLUMNS GAP ///////////////
 */
 
-document.querySelector("#slider-gap-column").addEventListener("change", setColumnGap);
+document.querySelector("#form-cols-gap-width").addEventListener("change", doColsGapWidth);
 
-function setColumnGap() {
-    let selectedValue = document.getElementById("slider-gap-column").value
-    const objCols = iframe.contentWindow.document.querySelector(".flex-cols-2");
+function doColsGapWidth() {
+    console.log("got here doColsGapWidth")
+
+    const rbs = document.querySelectorAll("input[name='cols-gap-width']");
+
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+
+    console.log("cols gap selectedValue:" +selectedValue);
+    const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
+
+    objAllCols.classList.remove("cols-gap-1");
+    objAllCols.classList.remove("cols-gap-2");
+    objAllCols.classList.remove("cols-gap-3");
+    objAllCols.classList.remove("cols-gap-4");
     
-    for (let i = 0; i <= 10; i++) {
-        objCols.classList.remove("cols-gap-"+i);
+    if (selectedValue==="1") {
+        objAllCols.classList.add("cols-gap-1");
     }
-    objCols.classList.add("cols-gap-"+selectedValue);
+
+    else if (selectedValue==="2") {
+        objAllCols.classList.add("cols-gap-2");
+    }
+
+    else if (selectedValue==="3") {
+        objAllCols.classList.add("cols-gap-3");
+    }
+    
+    else if (selectedValue==="4") {
+        objAllCols.classList.add("cols-gap-4");
+    }
 }
 
-document.querySelector("#slider-gap-row").addEventListener("change", setRowGap);
+/*
+//////////////// ROWS GAP ///////////////
+*/
 
-function setRowGap() {
-    let selectedValue = document.getElementById("slider-gap-row").value
-    const objCols = iframe.contentWindow.document.querySelector(".flex-cols-2");
-    for (let i = 0; i <= 90; i+= 10) {
-        objCols.classList.remove("row-gap-"+i);
+document.querySelector("#form-rows-gap-width").addEventListener("change", doRowsGapWidth);
+
+function doRowsGapWidth() {
+  
+    const rbs = document.querySelectorAll("input[name='rows-gap-width']");
+
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
     }
-    objCols.classList.add("row-gap-"+selectedValue);
+
+    console.log("rows gap selectedValue:" +selectedValue);
+    const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
+
+    objAllCols.classList.remove("rows-gap-1");
+    objAllCols.classList.remove("rows-gap-2");
+    objAllCols.classList.remove("rows-gap-3");
+    objAllCols.classList.remove("rows-gap-4");
+    
+    if (selectedValue==="1") {
+        objAllCols.classList.add("rows-gap-1");
+    }
+
+    else if (selectedValue==="2") {
+        objAllCols.classList.add("rows-gap-2");
+    }
+
+    else if (selectedValue==="3") {
+        objAllCols.classList.add("rows-gap-3");
+    }
+    
+    else if (selectedValue==="4") {
+        objAllCols.classList.add("rows-gap-4");
+    }
 }
+
+function enableRowsGap() {
+    document.getElementById("rows-gap-width-1").disabled = false;
+    document.getElementById("rows-gap-width-2").disabled = false;
+    document.getElementById("rows-gap-width-3").disabled = false;
+    document.getElementById("rows-gap-width-4").disabled = false;
+    document.getElementById("rows-gap-width-1").checked = false;
+    document.getElementById("rows-gap-width-2").checked = false;
+    document.getElementById("rows-gap-width-3").checked = true;
+    document.getElementById("rows-gap-width-4").checked = false;
+    document.querySelector("span.rows-gap-px").style.color ='#fff';
+}
+
+function disableRowsGap() {
+    document.getElementById("rows-gap-width-1").disabled = true;
+    document.getElementById("rows-gap-width-2").disabled = true;
+    document.getElementById("rows-gap-width-3").disabled = true;
+    document.getElementById("rows-gap-width-4").disabled = true;
+    document.getElementById("rows-gap-width-1").checked = false;
+    document.getElementById("rows-gap-width-2").checked = false;
+    document.getElementById("rows-gap-width-3").checked = false;
+    document.getElementById("rows-gap-width-4").checked = false;  
+    document.querySelector("span.rows-gap-px").style.color ='gray';
+}
+
 
 /*
 //////////////// COLUMNS ALIGN ///////////////
