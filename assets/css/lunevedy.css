@@ -361,7 +361,7 @@ header:not(.text-center-desktop) .container-btn:not(.text-center-desktop) .conta
 section:not(.text-center-mobile) .container-btn:not(.text-center-mobile) .container-btn { justify-content: flex-start }
 
 /* Buttons: center-aligned */
-header.text-center-desktop .container-btn,
+/* header.text-center-desktop .container-btn,
 header .container-btn.text-center-desktop,
 header.text-center-mobile .container-btn,
 header .container-btn.text-center-mobile,
@@ -370,7 +370,7 @@ section.text-center-desktop .container-btn,
 section .container-btn.text-center-desktop,
 section.text-center-mobile .container-btn,
 section .container-btn.text-center-mobile {
-    justify-content: center; margin-left: auto; margin-right: auto }
+    justify-content: center; margin-left: auto; margin-right: auto } */
 
 
 /* ================ HEADER 'HERO BLOCK' ================ */
@@ -1362,7 +1362,7 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     .flex-cols-2.cols-padding > .col-2 figure.cols-fig-padding {
         margin-top: 0; margin-left: 0; margin-right: 0; width: 100%;
     }
-    .flex-cols-2 > .col-2 > .container-btn { margin-top: 24px }
+    /* .flex-cols-2 > .col-2 > .container-btn { margin-top: 24px } */
 }
 
 /* Tablets */
@@ -1391,8 +1391,8 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
 
 /* 2-column: button pairs */
 .flex-cols-2 .col-2 > .container-btn {
-    display: flex; flex-direction: row; flex-wrap: wrap;
-    row-gap: 30px; margin-bottom: 20px
+    display: flex; flex-direction: row; flex-wrap: wrap; row-gap: 30px; justify-content: flex-start;
+    margin-bottom: 1px !important
 }
 
 .flex-cols-2 .col-2 > .container-btn > a.btn {
@@ -1401,10 +1401,16 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
 
 @media (min-width: 768px) {
     .flex-cols-2 .col-2 > .container-btn { margin-top: 20px; column-gap: 48px }
+    .flex-cols-2 .col-2 > .container-btn.text-center-desktop {
+        justify-content: center !important
+    }
 }
 
 @media (max-width: 767px) {
     .flex-cols-2 .col-2 > .container-btn { margin-top: 32px; column-gap: 30px }
+    .flex-cols-2 .col-2 > .container-btn.text-center-mobile {
+        justify-content: center !important
+    }
 }
 
 /* Font Awesome: Larger and smaller icons */
