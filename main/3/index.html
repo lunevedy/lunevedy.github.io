@@ -692,6 +692,11 @@
                                                 </div><!-- /input-group -->
 
                                                 <div class="input-group">
+                                                    <label for="cb_photos_padding">Padding</label>
+                                                    <input id="cb_photos_padding" type="checkbox" class="cb-switch">
+                                                </div><!-- /input-group -->
+
+                                                <div class="input-group">
                                                     <label for="cb_photos_shadows">Shadows</label>
                                                     <input id="cb_photos_shadows" type="checkbox" class="cb-switch">
                                                 </div><!-- /input-group -->
@@ -770,6 +775,11 @@
                                                     <input id="cb_trans_shadows" type="checkbox" class="cb-switch">
                                                 </div><!-- /input-group -->
 
+                                                <div class="input-group">
+                                                    <label for="cb_trans_padding" style="width: 150px">Padding</label>
+                                                    <input id="cb_trans_padding" type="checkbox" class="cb-switch">
+                                                </div><!-- /input-group -->
+
                                             </div>
 
                                             <div id="properties-drawings">
@@ -777,6 +787,11 @@
                                                 <div class="input-group">
                                                     <label for="cb_drawings_shadows" style="width: 150px">Shadows</label>
                                                     <input id="cb_drawings_shadows" type="checkbox" class="cb-switch">
+                                                </div><!-- /input-group -->
+
+                                                <div class="input-group">
+                                                    <label for="cb_drawings_padding" style="width: 150px">Padding</label>
+                                                    <input id="cb_drawings_padding" type="checkbox" class="cb-switch">
                                                 </div><!-- /input-group -->
 
                                             </div>                                            
@@ -850,6 +865,11 @@
                                                         <option value="2">Rumble</option>
                                                     </select>
                                                 </div>
+
+                                                <div class="input-group">
+                                                    <label for="cb_videos_padding" style="width: 132px">Padding</label>
+                                                    <input id="cb_videos_padding" type="checkbox" class="cb-switch">
+                                                </div><!-- /input-group -->
                                             </div>
 
                                     </div><!-- /outer-properties -->
@@ -2777,6 +2797,14 @@
             document.getElementById("properties-photos").style.display = "block";
             document.getElementById("cb_img_textbox").checked=false;
             document.getElementById("cb_img_h4").checked=false;
+            document.getElementById("cb_photos_padding").disabled=true;
+            document.getElementById("cb_photos_padding").checked=false;
+            document.getElementById("cb_trans_padding").disabled=true;
+            document.getElementById("cb_trans_padding").checked=false;        
+            document.getElementById("cb_drawings_padding").disabled=true;
+            document.getElementById("cb_drawings_padding").checked=false;
+            document.getElementById("cb_videos_padding").disabled=true;
+            document.getElementById("cb_videos_padding").checked=false;            
 
             document.getElementById("show-textbox").style.display = "none";
 
