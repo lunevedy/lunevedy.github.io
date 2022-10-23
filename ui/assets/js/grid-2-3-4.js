@@ -1030,6 +1030,7 @@ function doColsText() {
             }
         }
 
+        // ======== do col-3 layouts
         else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
 
             // populate array
@@ -1059,6 +1060,9 @@ function doColsText() {
                 arrContentLoop = [].concat(...Array(3).fill(arrContentTemp));
             }
         }
+
+
+        // ======== do col-4 layouts
 
         else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
 
@@ -1269,6 +1273,7 @@ function doColBg() {
         }
         const arg1 = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] { background-color:";
         removeCSSTagPairs(arg1);
+        disableFigsPadding();
     }
 
     else {
@@ -1278,6 +1283,7 @@ function doColBg() {
         document.getElementById("btn_cols_bg").disabled=false;
         // soft corners enabled
         document.getElementById("cb_cols_corners_soft").disabled=false;
+        enableFigsPadding();
     }
 }
 
@@ -1306,6 +1312,7 @@ function doColShadows() {
             document.getElementById("cb_cols_corners_soft").disabled=true;
             document.getElementById("cb_cols_corners_soft").checked=false;
         }
+        disableFigsPadding();
     }
 
     else {
@@ -1315,6 +1322,7 @@ function doColShadows() {
         document.getElementById("cb_cols_corners_soft").disabled=false; 
         document.getElementById("cb_cols_corners_soft").checked=true;
         document.getElementById("btn_cols_shadows_color").disabled=false;
+        enableFigsPadding();
     }
 }
 
@@ -1350,6 +1358,7 @@ function doColBorders() {
             el_cols.classList.remove("cols-corners-soft");
             document.getElementById("cb_cols_corners_soft").disabled=true;
             document.getElementById("cb_cols_corners_soft").checked=false;
+            disableFigsPadding();
         }
     }
 
@@ -1365,9 +1374,31 @@ function doColBorders() {
         document.getElementById("cols-borders-width-3").disabled=false; 
         document.getElementById("cols-borders-width-4").disabled=false; 
         document.getElementById("btn_cols_borders_color").disabled=false; 
+        enableFigsPadding();
     }
 }
 
+function enableFigsPadding() {
+    document.getElementById("cb_photos_padding").disabled=false;
+    document.getElementById("cb_photos_padding").checked=false;
+    document.getElementById("cb_trans_padding").disabled=false;
+    document.getElementById("cb_trans_padding").checked=false;
+    document.getElementById("cb_drawings_padding").disabled=false;
+    document.getElementById("cb_drawings_padding").checked=false;    
+    document.getElementById("cb_videos_padding").disabled=false;
+    document.getElementById("cb_videos_padding").checked=false;    
+}
+
+function disableFigsPadding() {
+    document.getElementById("cb_photos_padding").disabled=true;
+    document.getElementById("cb_photos_padding").checked=false;
+    document.getElementById("cb_trans_padding").disabled=true;
+    document.getElementById("cb_trans_padding").checked=false;        
+    document.getElementById("cb_drawings_padding").disabled=true;
+    document.getElementById("cb_drawings_padding").checked=false;
+    document.getElementById("cb_videos_padding").disabled=true;
+    document.getElementById("cb_videos_padding").checked=false;            
+}
 /*
 //////////////// COLUMNS BORDERS WIDTH ///////////////
 */
@@ -1386,7 +1417,7 @@ function doColBordersWidth() {
         }
     }
 
-     const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
+    const objAllCols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
 
     objAllCols.classList.remove("cols-borders-width-1");
     objAllCols.classList.remove("cols-borders-width-2");

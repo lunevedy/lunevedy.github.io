@@ -26,16 +26,24 @@ function doVis() {
         document.getElementById("properties-videos").style.display = "none";
         document.getElementById("show-textbox").style.display = "none";
         document.getElementById("visible-hyperlinks").style.display = "none";
+        document.getElementById("cb_photos_padding").checked=false;
+        document.getElementById("cb_trans_padding").checked=false;
+        document.getElementById("cb_drawings_padding").checked=false;
+        document.getElementById("cb_videos_padding").checked=false;
     }
     else {
         document.getElementById("properties-photos").style.display = "block";
         doPhotos(1);
+        document.getElementById("cb_photos_padding").checked=false;
+        document.getElementById("cb_trans_padding").checked=false;
+        document.getElementById("cb_drawings_padding").checked=false;
+        document.getElementById("cb_videos_padding").checked=false;
     }
 }
 
 document.querySelector("#form_vis_types").addEventListener("click", doVisType);
 
-function doVisType() { 
+function doVisType() {
     const rbs = document.querySelectorAll("#form_vis_types input[name='vis_type']");
     let selectedValue;
     for (const rb of rbs) {
@@ -44,13 +52,17 @@ function doVisType() {
             break;
         }
     }
+    document.getElementById("cb_photos_padding").checked=false;
+    document.getElementById("cb_trans_padding").checked=false;
+    document.getElementById("cb_drawings_padding").checked=false;
+    document.getElementById("cb_videos_padding").checked=false;
     removeVisual();
     if (selectedValue==="photos") {
         doPhotos();
     }
     else if (selectedValue==="transparent") {
         doTransparent();
-    }    
+    }
     else if (selectedValue==="drawings") {
         doDrawings();
     }
@@ -86,7 +98,7 @@ function doPhotos() {
 
     // Property resets
     resetTransProps();
-    resetDrawingsProps();    
+    resetDrawingsProps();
     resetIconProps();
     resetVideoProps();
     // Set properties
@@ -102,19 +114,19 @@ function doPhotosType() {
     let opt = document.querySelector("#dd_photos_shape").value;
     removeVisual();
     document.getElementById("cb_img_textbox").checked = false;
-    
+
     if (opt==="1") {
-        doVisSubTypes(1);    
+        doVisSubTypes(1);
     }
     else if (opt==="2") {
-        doVisSubTypes(2);    
+        doVisSubTypes(2);
     }
     else if (opt==="3") {
-        doVisSubTypes(3);    
+        doVisSubTypes(3);
     }
     else if (opt==="4") {
-        doVisSubTypes(4);    
-    }        
+        doVisSubTypes(4);
+    }
 }
 
 /* photos: corners */
@@ -133,7 +145,7 @@ function doPhotosCorners() {
         }
     }
     else {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
             el_figs.classList.add("fig-corners-soft");
         }
@@ -147,7 +159,7 @@ function doPhotosShadows() {
 
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_figs;
-    
+
     if (!document.getElementById("cb_photos_shadows").checked) {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
@@ -155,7 +167,7 @@ function doPhotosShadows() {
         }
     }
     else {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
             el_figs.classList.add("fig-shadows-box");
         }
@@ -170,8 +182,8 @@ function doColH3TextBox() {
 
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_TextBox;
-    let node;   
-    const arrContent = []; 
+    let node;
+    const arrContent = [];
 
     if (!document.querySelector("#cb_img_textbox").checked) {
         // Remove div as child of figure
@@ -187,7 +199,7 @@ function doColH3TextBox() {
 
     else {
         // Add overlay textbox as child of figure
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             node = document.createElement("div");
             node.innerText = arrTextBox[i];
             node.classList.add("cols-img-textbox");
@@ -203,7 +215,7 @@ document.querySelector("#form_img_textbox_shape").addEventListener("change", doT
 
 function doTextBoxShape() {
 
-    const objTextBoxes = iframe.contentWindow.document.querySelectorAll(".cols-img-textbox"); 
+    const objTextBoxes = iframe.contentWindow.document.querySelectorAll(".cols-img-textbox");
     let el_TextBox
     const rbs = document.querySelectorAll("input[name='switch_img_textbox_shape']");
     let selectedValue;
@@ -216,13 +228,13 @@ function doTextBoxShape() {
     }
 
     if (selectedValue==="square") {
-        for (el_TextBox of objTextBoxes) { 
+        for (el_TextBox of objTextBoxes) {
             el_TextBox.classList.remove("corners-soft");
         }
     }
-        
+
     else if (selectedValue==="soft") {
-        for (el_TextBox of objTextBoxes) { 
+        for (el_TextBox of objTextBoxes) {
             el_TextBox.classList.add("corners-soft");
         }
     }
@@ -236,7 +248,7 @@ function doColH4Overlay() {
 
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_H4_overlay;
-    let node;   
+    let node;
 
     if (!document.querySelector("#cb_img_h4").checked) {
         // Remove div as child of figure
@@ -249,7 +261,7 @@ function doColH4Overlay() {
 
     else {
         // Add overlay textbox as child of figure
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             node = document.createElement("div");
             node.innerText = arrH4Overlay[i];
             node.classList.add("cols-img-h4");
@@ -269,7 +281,7 @@ function doPhotosHyperlinks() {
     let el_fig_content;
 
     if (!document.getElementById("cb_photos_hyperlinks").checked) {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig_content = objFigs[i].innerHTML;
             el_fig_content = el_fig_content.replace('<a href=\"#\">', '');
             el_fig_content = el_fig_content.replace('</a>', '');
@@ -287,7 +299,7 @@ function doPhotosHyperlinks() {
     }
 
     else {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig_content = objFigs[i].innerHTML;
             el_fig_content = '<a href=\"#\">'+el_fig_content+'</a>';
             objFigs[i].innerHTML = el_fig_content;
@@ -316,16 +328,16 @@ function doPhotosZoom() {
     let el_fig;
 
     if (!document.getElementById("cb_photos_zoom").checked) {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.remove("photos-zoom");
             document.getElementById("cb_photos_shadows").disabled=false;
-            document.getElementById("cb_photos_shadows").checked=false;            
+            document.getElementById("cb_photos_shadows").checked=false;
         }
     }
 
     else {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.add("photos-zoom");
             el_fig.classList.remove("fig-shadows-box");
@@ -345,14 +357,14 @@ function doPhotosBrightness() {
     let el_fig;
 
     if (!document.getElementById("cb_photos_brightness").checked) {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.remove("photos-brightness");
         }
     }
 
     else {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.add("photos-brightness");
         }
@@ -414,7 +426,7 @@ function doTransShadows() {
 
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_figs;
-    
+
     if (!document.getElementById("cb_trans_shadows").checked) {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
@@ -422,7 +434,7 @@ function doTransShadows() {
         }
     }
     else {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
             el_figs.classList.add("fig-shadows-trans");
         }
@@ -490,7 +502,7 @@ function doDrawingsShadows() {
 
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_figs;
-    
+
     if (!document.getElementById("cb_drawings_shadows").checked) {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
@@ -498,7 +510,7 @@ function doDrawingsShadows() {
         }
     }
     else {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
             el_figs.classList.add("fig-shadows-trans");
         }
@@ -515,7 +527,7 @@ function resetDrawingsProps() {
 
 function doIcons() {
     removeVisual();
-    
+
     // Visual types
     document.getElementById("form_vis_types").style.display = "block";
     document.getElementById("rb_vis_type_1").disabled=false;
@@ -541,8 +553,8 @@ function doIcons() {
     document.getElementById("dd_icons_type").value = "0";
     document.getElementById("rb_icon_align_center").checked = true;
     document.getElementById("cb_icon_size_plus").checked = true;
-    
-    doVisSubTypes(7);    
+
+    doVisSubTypes(7);
 }
 
 document.querySelector("#dd_icons_type").addEventListener("change", doIconsType);
@@ -552,12 +564,12 @@ function doIconsType() {
     let opt = document.querySelector("#dd_icons_type").value;
     removeVisual();
     if (opt==="0") {
-        doVisSubTypes(7);    
+        doVisSubTypes(7);
     }
-    
+
     else if (opt==="1") {
-        doVisSubTypes(8);    
-    }    
+        doVisSubTypes(8);
+    }
 }
 
 /* Icons: size */
@@ -577,15 +589,15 @@ function doIconSize() {
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_fig;
 
-    if (selectedValue==="icon-plus") {    
-        for (let i = 0; i < objFigs.length; i++) { 
+    if (selectedValue==="icon-plus") {
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.remove("icon-small");
         }
     }
 
     else if (selectedValue==="icon-minus") {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.add("icon-small");
         }
@@ -610,15 +622,15 @@ function doIconAlign() {
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_fig;
 
-    if (selectedValue==="left") {    
-        for (let i = 0; i < objFigs.length; i++) { 
+    if (selectedValue==="left") {
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.add("icon-left");
         }
     }
 
     else if (selectedValue==="center") {
-        for (let i = 0; i < objFigs.length; i++) { 
+        for (let i = 0; i < objFigs.length; i++) {
             el_fig = objFigs[i];
             el_fig.classList.remove("icon-left");
         }
@@ -632,7 +644,7 @@ function resetIconProps() {
     document.getElementById("rb_icon_align_left").checked=true;
     document.getElementById("rb_icon_align_center").checked=false;
     document.getElementById("rb_icon_align_left").checked=false;
-    document.getElementById("rb_icon_align_center").checked=false;        
+    document.getElementById("rb_icon_align_center").checked=false;
 }
 
 /*
@@ -642,7 +654,7 @@ function resetIconProps() {
 function doVideos() {
 
     removeVisual();
-    
+
     // Visual types
     document.getElementById("form_vis_types").style.display = "block";
     document.getElementById("rb_vis_type_1").disabled=false;
@@ -665,7 +677,7 @@ function doVideos() {
     resetIconProps();
     // Set properties
     document.getElementById("dd_videos_type").value = "0";
-    doVisSubTypes(9);    
+    doVisSubTypes(9);
 }
 
 document.querySelector("#dd_videos_type").addEventListener("change", doVideosType);
@@ -673,16 +685,21 @@ document.querySelector("#dd_videos_type").addEventListener("change", doVideosTyp
 function doVideosType() {
 
     let opt = document.querySelector("#dd_videos_type").value;
+    document.getElementById("cb_photos_padding").checked=false;
+    document.getElementById("cb_trans_padding").checked=false;
+    document.getElementById("cb_drawings_padding").checked=false;
+    document.getElementById("cb_videos_padding").checked=false;
+
     removeVisual();
     if (opt==="0") {
-        doVisSubTypes(9);    
+        doVisSubTypes(9);
     }
-    
+
     else if (opt==="1") {
-        doVisSubTypes(10);    
+        doVisSubTypes(10);
     }
     else if (opt==="2") {
-        doVisSubTypes(11);    
+        doVisSubTypes(11);
     }
 }
 
@@ -702,6 +719,8 @@ function resetHyperlinks() {
 
 
 function doVisSubTypes(n) {
+
+    // count column blocks
     const objCols = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
 
     let el_col;
@@ -714,18 +733,21 @@ function doVisSubTypes(n) {
             arrContent[i] = arrPic[i];
         }
     }
+
     // photos: portrait
     else if (n===2) {
         for (let i = 0; i < (arrPicPortrait.length); i++) {
             arrContent[i] = arrPicPortrait[i];
         }
     }
+
     // photos: square
     else if (n===3) {
         for (let i = 0; i < (arrPicSquare.length); i++) {
             arrContent[i] = arrPicSquare[i];
         }
     }
+
     // photos: circle
     else if (n===4) {
         for (let i = 0; i < (arrPicSquare.length); i++) {
@@ -779,11 +801,11 @@ function doVisSubTypes(n) {
         for (let i = 0; i < (arrVidRumble.length); i++) {
             arrContent[i] = arrVidRumble[i];
         }
-    }    
+    }
 
     // Number of column blocks
     if (objCols.length === 2) {
-        for (let i = 0; i < (arrContent.length-1); i++) {
+        for (let i = 0; i < (arrContent.length-2); i++) {
             arrContentLoop[i] = arrContent[i];
         }
     }
@@ -796,18 +818,37 @@ function doVisSubTypes(n) {
 
     else if (objCols.length === 4) {
         const arrContentTemp = [];
-        for (let i = 0; i < (arrContent.length-1); i++) {
-            arrContentTemp[i] = arrContent[i];
+
+        if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
+            for (let i = 0; i < (arrContent.length-2); i++) {
+                arrContentTemp[i] = arrContent[i];
+            }
+        }
+
+        else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
+            for (let i = 0; i < (arrContent.length); i++) {
+                arrContentTemp[i] = arrContent[i];
+            }
         }
         arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
     }
 
     else if (objCols.length === 6) {
         const arrContentTemp = [];
-        for (let i = 0; i < (arrContent.length-1); i++) {
-            arrContentTemp[i] = arrContent[i];
+
+        if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
+            for (let i = 0; i < (arrContent.length-2); i++) {
+                arrContentTemp[i] = arrContent[i];
+            }
+            arrContentLoop = [].concat(...Array(3).fill(arrContentTemp));
         }
-        arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
+
+        else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
+            for (let i = 0; i < (arrContent.length-1); i++) {
+                arrContentTemp[i] = arrContent[i];
+                arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
+            }
+        }
     }
 
     else if (objCols.length === 8) {
@@ -820,7 +861,7 @@ function doVisSubTypes(n) {
 
     else if (objCols.length === 9) {
         const arrContentTemp = [];
-        for (let i = 0; i < (arrContent.length); i++) {
+        for (let i = 0; i < (arrContent.length-1); i++) {
             arrContentTemp[i] = arrContent[i];
         }
         arrContentLoop = [].concat(...Array(3).fill(arrContentTemp));
@@ -836,11 +877,89 @@ function doVisSubTypes(n) {
 
     // Loop through columns
     for (let i = 0; i < objCols.length; i++) {
-        el_col = objCols[i]; 
-        el_col.innerHTML = arrContentLoop[i] + el_col.innerHTML; 
+        el_col = objCols[i];
+        el_col.innerHTML = arrContentLoop[i] + el_col.innerHTML;
     }
 
     iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML.replaceAll("</figure>\t", "</figure>");
+}
+
+
+
+document.getElementById("cb_photos_padding").addEventListener("change", doPhotosPadding);
+
+function doPhotosPadding() {
+    const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
+    let el_fig;
+    if (document.getElementById("cb_photos_padding").checked) {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.add("cols-fig-padding");
+        }
+    }
+    else {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.remove("cols-fig-padding");
+        }
+    }
+}
+
+document.getElementById("cb_trans_padding").addEventListener("change", doTransPadding);
+
+function doTransPadding() {
+    const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
+    let el_fig;
+    if (document.getElementById("cb_trans_padding").checked) {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.add("cols-fig-padding");
+        }
+    }
+    else {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.remove("cols-fig-padding");
+        }
+    }
+}
+
+document.getElementById("cb_drawings_padding").addEventListener("change", doDrawingsPadding);
+
+function doDrawingsPadding() {
+    const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
+    let el_fig;
+    if (document.getElementById("cb_drawings_padding").checked) {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.add("cols-fig-padding");
+        }
+    }
+    else {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.remove("cols-fig-padding");
+        }
+    }
+}
+
+document.getElementById("cb_videos_padding").addEventListener("change", doVideosPadding);
+
+function doVideosPadding() {
+    const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
+    let el_fig;
+    if (document.getElementById("cb_videos_padding").checked) {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.add("cols-fig-padding");
+        }
+    }
+    else {
+        for (let i = 0; i < objFigs.length; i++) {
+            el_fig = objFigs[i];
+            el_fig.classList.remove("cols-fig-padding");
+        }
+    }
 }
 
 function doImgCircle() {
@@ -862,7 +981,7 @@ function removeVisual() {
     resetImgCircle();
     resetHyperlinks();
     const parentNode = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
-    var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0); 
+    var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0);
     for (let i = 0; i < el_img.length; i++) {
         el_img[i].parentNode.removeChild(el_img[i]);
     }
