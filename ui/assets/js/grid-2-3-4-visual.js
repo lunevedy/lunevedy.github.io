@@ -727,6 +727,11 @@ function doVisSubTypes(n) {
     let arrContent = [];
     let arrContentLoop = [];
 
+    document.getElementById("cb_photos_padding").checked=false;
+    document.getElementById("cb_trans_padding").checked=false;
+    document.getElementById("cb_drawings_padding").checked=false;
+    document.getElementById("cb_videos_padding").checked=false;
+
     // photos: landscape
     if (n===1) {
         for (let i = 0; i < (arrPic.length); i++) {
