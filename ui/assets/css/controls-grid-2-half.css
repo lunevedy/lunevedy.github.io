@@ -1,6 +1,6 @@
-#control-menu #content-1 { left: 69.8% } 
-#control-menu #content-2 { left: 70.5% } 
-#control-menu #content-3 { left: 65.7% } 
+#control-menu #content-1 { left: 69.8% }
+#control-menu #content-2 { left: 70.5% }
+#control-menu #content-3 { left: 65.7% }
 #control-menu #content-4 { left: 60.85% }
 #control-menu #content-5 { left: 63.7% }
 
@@ -11,7 +11,7 @@
 #content-1 select#dd_class_name { min-width: 168px }
 #content-1 select#dd_section_width { min-width: 132px }
 
-#content-1 .rb-switch label:first-of-type { 
+#content-1 .rb-switch label:first-of-type {
     border-radius: 4px 0 0 4px; border-width: 1px 0 1px 1px;
 }
 #content-1 .rb-switch label:last-of-type { border-radius: 0 4px 4px 0 }
@@ -84,7 +84,7 @@
 #content-4 h4 { font-size: 18px; margin-top: 12px; margin-bottom: 8px; margin-left: 8px }
 #content-4 hr { margin-top: 16px }
 #content-4 #dd_section_buttons { width: 86px }
-#content-4 button { min-width: 138px } 
+#content-4 button { min-width: 138px }
 
 #content-4 .rb-switch label { padding: 4px 10px 0px 6px }
 
@@ -107,7 +107,9 @@
 
 /* ============ 5: ILLUSTRATIONS MENU ============ */
 
-#content-5 .dialog-box .flex-two-col { 
+#form_vis_types { display: block }
+
+#content-5 .dialog-box .flex-two-col {
     display: flex; justify-content: flex-start; flex-wrap: nowrap;
 }
 
@@ -117,27 +119,29 @@
 #content-5 .flex-two-col div:nth-child(1) .input-group.controls-illustrations label {
     min-width: 92px; margin-top: -6px; margin-right: 8px;
 }
-#content-5 .flex-two-col div:nth-child(1) .input-group.controls-illustrations input { 
-    margin-top: 2px 
+#content-5 .flex-two-col div:nth-child(1) .input-group.controls-illustrations input {
+    margin-top: 2px
 }
 
 #content-5 #form_vis_types { margin-top: 12px; width: 180px }
 #content-5 #form_vis_types label { margin-top: -8px; margin-left: 14px }
-#content-5 #form_vis_types.input-group input [type="radio"] { 
+#content-5 #form_vis_types.input-group input [type="radio"] {
     margin: 5px 0 5px 0;
 }
 
 /* right column */
-#content-5 .flex-two-col div:nth-child(2) h4 { margin-top: 0; margin-bottom: 2px } 
+#content-5 .flex-two-col div:nth-child(2) h4 { margin-top: 0; margin-bottom: 2px }
 
-#content-5 #outer-properties { 
+#content-5 #outer-properties {
     border-style: solid;
     border-width: 1px;
     padding: 12px 12px 10px 16px; min-width: 240px
 }
 
+#content-5 #outer-properties label { display: inline-block;}
+
 #content-5 #outer-properties .input-group:nth-child(1) { margin-top: 14px }
-#content-5 #outer-properties .input-group { 
+#content-5 #outer-properties .input-group {
     margin-top: 14px; margin-bottom: 14px; min-width: 200px;
 }
 
@@ -150,7 +154,7 @@
 #content-5 #properties-icons .input-group { margin-top: 22px; margin-bottom: 22px }
 #content-5 #properties-icons .input-group:last-child { margin-bottom: 14px }
 
-#content-5 #btn_icon_color { padding: 0 8px 8px 8px } 
+#content-5 #btn_icon_color { padding: 0 8px 8px 8px }
 #content-5 #btn_icon_color .ui-icon-paint-svg { margin-right: 4px }
 
 #content-5 .rb-switch label:first-of-type { border-radius: 4px 0 0 4px; border-right-width: 0 }
@@ -162,25 +166,25 @@
 .slider {
     -webkit-appearance: none;
     height: 5px;
-    border-radius: 5px; 
+    border-radius: 5px;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
 }
 
-.container-slider input[type="range"] { accent-color: #03d4f4 } 
+.container-slider input[type="range"] { accent-color: #03d4f4 }
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 15px;
     height: 15px;
-    border-radius: 50%; 
+    border-radius: 50%;
     background: #00ddff;
     cursor: pointer;
 }
-  
+
 .slider::-moz-range-thumb {
     width: 15px;
     height: 15px;
