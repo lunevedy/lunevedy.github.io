@@ -624,11 +624,9 @@
                                     <div id="outer-properties">
                                         <h4>PROPERTIES</h4>
 
-                                        <div id="properties-photos">
-
-                                            <div class="input-group">
-                                                <label for="dd_photos_shape" style="width: 90px">Shape</label>
-                                                <select id="dd_photos_shape" style="letter-spacing: 1px">
+                                            <div class="input-group" id="box-shape-photo">
+                                                <label for="dd_shape_photo" style="width: 88px">Shape</label>
+                                                <select id="dd_shape_photo" style="letter-spacing: 1px">
                                                     <option value="1" selected="selected">Landscape</option>
                                                     <option value="2">Portrait</option>
                                                     <option value="3">Square</option>
@@ -637,90 +635,42 @@
 
                                             </div><!-- /input-group -->
 
-                                            <div class="input-group">
-                                                <label for="cb_photos_shadows">Shadows</label>
-                                                <input id="cb_photos_shadows" type="checkbox" class="cb-switch">
-                                            </div><!-- /input-group -->
-
-                                            <div class="input-group">
-                                                <label for="cb_photos_corners_soft">Soft Corners</label>
-                                                <input id="cb_photos_corners_soft" type="checkbox" class="cb-switch">
-                                            </div><!-- /input-group -->
-
-                                            <div class="input-group">
-                                                <label for="cb_img_textbox">Text Box</label>
-                                                <input id="cb_img_textbox" type="checkbox" class="cb-switch">
-                                            </div><!-- /input-group -->
-
-                                            <div id="show-textbox">
-
-                                                <div class="input-group" style="margin-bottom: 8px">
-                                                    <label>Colors</label>
-                                                    <button id="btn_cols_img_overlay_color_text" class="btn_style">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg>
-                                                    </button>
-
-                                                    <button id="btn_cols_img_overlay_color_bg" class="btn_style btn-ui-small-bg"><svg width="22" height="22" viewbox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" class="ui-icon-paint-svg"><path d="M12 2.25a.75.75 0 0 0-1.5 0V3.5a2.24 2.24 0 0 0-.841.53L2.78 10.91a2.25 2.25 0 0 0 0 3.182L7.66 18.97a2.25 2.25 0 0 0 3.182 0l6.879-6.879a2.25 2.25 0 0 0 0-3.182L12.84 4.03A2.24 2.24 0 0 0 12 3.5V2.25Zm-1.5 3.06v1.44a.75.75 0 0 0 1.5 0V5.31l4.659 4.66a.75.75 0 0 1 0 1.06l-.97.97H3.812l.029-.03L10.5 5.31ZM19.521 13.602a.874.874 0 0 0-1.542 0l-2.008 3.766C14.85 19.466 16.372 22 18.75 22s3.898-2.534 2.78-4.632l-2.009-3.766Z" /></svg></button>
-
-                                                </div><!-- /input-group -->
-
-                                                <div class="input-group">
-                                                    <label style="width: 124px">Shape</label>
-
-                                                    <form id="form_img_textbox_shape" class="rb-switch">
-                                                        <input type="radio" id="rb_img_textbox_square" name="switch_img_textbox_shape" value="square" checked/>
-                                                        <label for="rb_img_textbox_square" style="width: 36px" class="ui-small-shape">
-                                                            <svg width="20px" height="20px" viewbox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><path d="M10 4V2H4v20h6v-2H6V4zm4 16v2h6V2h-6v2h4v16z"/></svg>
-                                                        </label>
-
-                                                        <input type="radio" id="rb_img_textbox_soft" name="switch_img_textbox_shape" value="soft" />
-                                                        <label for="rb_img_textbox_soft" style="width: 36px" class="ui-small-shape">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewbox="0 0 22 22" version="1.1">
-                                                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.75 12 C 3.75 17.464844 7 19.523438 7.140625 19.609375 C 7.492188 19.824219 7.605469 20.285156 7.390625 20.636719 C 7.179688 20.992188 6.71875 21.105469 6.363281 20.894531 C 6.195312 20.792969 2.25 18.351562 2.25 12 C 2.25 5.648438 6.195312 3.207031 6.363281 3.105469 C 6.71875 2.894531 7.179688 3.007812 7.394531 3.363281 C 7.605469 3.71875 7.492188 4.179688 7.136719 4.390625 C 6.988281 4.484375 3.75 6.546875 3.75 12 Z M 17.636719 3.105469 C 17.28125 2.894531 16.824219 3.011719 16.609375 3.363281 C 16.394531 3.71875 16.507812 4.175781 16.859375 4.390625 C 17 4.476562 20.25 6.535156 20.25 12 C 20.25 17.464844 17 19.523438 16.863281 19.605469 C 16.507812 19.820312 16.394531 20.28125 16.605469 20.636719 C 16.820312 20.992188 17.28125 21.105469 17.636719 20.894531 C 17.804688 20.792969 21.75 18.351562 21.75 12 C 21.75 5.648438 17.804688 3.207031 17.636719 3.105469 Z M 17.636719 3.105469 "/>
-                                                            </svg>
-                                                        </label>
-                                                    </form>
-
-                                                </div><!-- /input-group -->
-                                            </div>
-
-                                        </div><!-- /properties-photos -->
-
-                                        <div id="properties-transparent">
-                                            <label for="dd_transparent_shape" style="width: 90px">Shape</label>
-                                            <select id="dd_transparent_shape" style="letter-spacing: 1px">
-                                                <option value="1" selected="selected">Landscape</option>
-                                                <option value="2">Portrait</option>
-                                                <option value="3">Square</option>
-                                            </select>
-
-
-                                            <div class="input-group">
-                                                <label for="cb_trans_shadows" style="width: 150px">Shadows</label>
-                                                <input id="cb_trans_shadows" type="checkbox" class="cb-switch">
-                                            </div><!-- /input-group -->
-
-                                        </div>
-
-                                        <div id="properties-drawings">
-
-                                            <div class="input-group">
-                                                <label for="cb_drawings_shadows" style="width: 150px">Shadows</label>
-                                                <input id="cb_drawings_shadows" type="checkbox" class="cb-switch">
-                                            </div><!-- /input-group -->
-
-                                        </div>
-
-                                        <div id="properties-videos">
-                                            <div class="input-group">
-                                                <label for="dd_videos_type" style="min-width: 60px">Type</label>
-                                                <select id="dd_videos_type" style="min-width: 120px">
-                                                    <option value="0" selected="selected">File</option>
-                                                    <option value="1">YouTube</option>
-                                                    <option value="2">Rumble</option>
+                                            <div class="input-group" id="box-shape-trans">
+                                                <label for="dd shape_trans" style="width: 88px">Shape</label>
+                                                <select id="dd_shape_trans" style="letter-spacing: 1px">
+                                                    <option value="1" selected="selected">Landscape</option>
+                                                    <option value="2">Portrait</option>
+                                                    <option value="3">Square</option>
                                                 </select>
-                                            </div>
+                                            </div><!-- /input-group -->
+
+                                            <div class="input-group" id="box-shape-drawing">
+                                                <label for="dd_shape_drawing" style="width: 88px">Shape</label>
+                                                <select id="dd_shape_drawing" style="letter-spacing: 1px">
+                                                    <option value="1" selected="selected">Landscape</option>
+                                                    <option value="2">Portrait</option>
+                                                    <option value="3">Square</option>
+                                                </select>
+                                            </div><!-- /input-group -->
+
+                                            <div class="input-group" id="box-source-video">
+                                                <label for="dd_source_video" style="min-width: 100px">Source</label>
+                                                <select id="dd_source_video">
+                                                    <option value="1" selected="selected">File</option>
+                                                    <option value="2">YouTube</option>
+                                                    <option value="3">Rumble</option>
+                                                </select>
                                         </div>
+
+                                           <div class="input-group">
+                                                <label for="cb_visual_shadows" style="width: 142px">Shadows</label>
+                                                <input id="cb_visual_shadows" type="checkbox" class="cb-switch">
+                                            </div><!-- /input-group -->
+
+                                            <div class="input-group">
+                                                <label for="cb_visual_corners_soft" style="width: 142px">Soft Corners</label>
+                                                <input id="cb_visual_corners_soft" type="checkbox" class="cb-switch">
+                                            </div><!-- /input-group -->
 
                                     </div><!-- /outer-properties -->
                                 </div><!-- /second-child -->
@@ -2507,7 +2457,7 @@
             js_3.type = "module";
             js_1.src = "../../ui/assets/js/grid-2-half.js";
             js_2.src = "../../ui/assets/js/ui-buttons-pair.js";
-            js_3.src = "../../ui/assets/js/grid-2-half-visual-new.js";
+            js_3.src = "../../ui/assets/js/grid-2-half-visual.js";
             document.body.appendChild(js_1);
             document.body.appendChild(js_2);
             document.body.appendChild(js_3);
@@ -2573,19 +2523,23 @@
             document.querySelector(".container-buttons-block").style.display="none";
 
             // Illustrations
+            document.getElementById("rb_vis_type_1").disabled=false;
+            document.getElementById("rb_vis_type_2").disabled=false;
+            document.getElementById("rb_vis_type_3").disabled=false;
+            document.getElementById("rb_vis_type_4").disabled=false;
             document.getElementById("rb_vis_type_1").checked=true;
-            document.getElementById("rb_vis_type_2").checked=false;
-            document.getElementById("rb_vis_type_3").checked=false;
-            document.getElementById("rb_vis_type_4").checked=false;
 
-            document.getElementById("properties-photos").style.display = "block";
-            document.getElementById("cb_img_textbox").checked=false;
+            document.getElementById("box-shape-photo").style.display = 'block';
+            document.getElementById("box-shape-trans").style.display = 'none';
+            document.getElementById("box-shape-drawing").style.display = 'none';
+            document.getElementById("box-source-video").style.display = 'none';
 
-            document.getElementById("show-textbox").style.display = "none";
-            document.getElementById("properties-drawings").style.display = "none";
-            document.getElementById("properties-transparent").style.display = "none";
-            document.getElementById("properties-videos").style.display = "none";
+            document.getElementById("cb_visual_shadows").checked= false;
 
+            document.getElementById("dd_shape_photo").value = '1';
+            document.getElementById("dd_shape_trans").value = '1';
+            document.getElementById("dd_shape_drawing").value = '1';
+            document.getElementById("dd_source_video").value = '1';
         });
     </script>
 
