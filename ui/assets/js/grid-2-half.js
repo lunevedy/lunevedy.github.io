@@ -60,7 +60,7 @@ function doVisualBleedDesktop() {
 
     let opt = document.querySelector("#dd_bleed_desktop").value;
     let elColVis = iframe.contentWindow.document.querySelector("section .col-2.col-visual");
-    
+
     // Regular
     if (opt==="0") {
         elColVis.classList.remove("desktop-bleed-outside");
@@ -84,7 +84,7 @@ function doVisualBleedMobile() {
 
     let opt = document.querySelector("#dd_bleed_mobile").value;
     let elColVis = iframe.contentWindow.document.querySelector("section .col-2.col-visual");
-    
+
     // Regular
     if (opt==="0") {
         elColVis.classList.remove("mobile-bleed-edges");
@@ -106,11 +106,11 @@ function doBadge() {
     if (!document.getElementById("cb_badge").checked) {
         removeBadge();
     }
-    
+
     else {
         removeBadge();
         const newUpperLabelDiv = document.createElement("div");
-        newUpperLabelDiv.classList.add("badge"); 
+        newUpperLabelDiv.classList.add("badge");
         iframe.contentWindow.document.querySelector('section .col-2.col-text').prepend(newUpperLabelDiv);
         iframe.contentWindow.document.querySelector('section .col-2.col-text .badge').innerText = content_header_label_text_col_1;
         iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replace("<div class=\"badge\">", "\n\t\t\t<div class=\"badge\">");
@@ -121,7 +121,7 @@ function doBadge() {
 document.querySelector("#form_badge_shape").addEventListener("change", doBadgeShape);
 
 function doBadgeShape() {
-    const objTextBox = iframe.contentWindow.document.querySelector("section .col-2.col-text .badge"); 
+    const objTextBox = iframe.contentWindow.document.querySelector("section .col-2.col-text .badge");
     const rbs = document.querySelectorAll("input[name='switch_badge_shape']");
     let selectedValue;
 
@@ -135,7 +135,7 @@ function doBadgeShape() {
     if (selectedValue==="square") {
         objTextBox.classList.remove("corners-soft");
     }
-        
+
     else if (selectedValue==="soft") {
         objTextBox.classList.add("corners-soft");
     }
@@ -145,11 +145,11 @@ function removeBadge() {
     if (iframe.contentWindow.document.querySelector('section .col-2.col-text .badge')) {
         const colBadge = iframe.contentWindow.document.querySelector('section .col-2.col-text .badge');
         colBadge.remove();
-        document.getElementById("show-badge").style.display="none"; 
-        
+        document.getElementById("show-badge").style.display="none";
+
         const arg1 = sectionClassName+ " .badge { color:";
         const arg2 = sectionClassName+ " .badge { background-color:";
-        removeCSSTagPairs(arg1,arg2);  
+        removeCSSTagPairs(arg1,arg2);
     }
 }
 
@@ -166,7 +166,7 @@ function doH2Text() {
     if (!document.getElementById("cb_h2_highlight").checked) {
         elH2Content = elH2Content.replace(/<\/?span[^>]*>/g,"");
         iframe.contentWindow.document.querySelector('section .col-2.col-text h2').innerHTML = elH2Content;
-        document.getElementById("btn_h2_highlight").disabled = true;            
+        document.getElementById("btn_h2_highlight").disabled = true;
         document.getElementById("btn_h2_highlight").checked = false;
         const arg1 = sectionClassName+ " h2 span.highlight {";
         removeCSSTagPairs(arg1);
@@ -175,10 +175,10 @@ function doH2Text() {
         const i = elH2Content.indexOf(" ",1);
         const j = elH2Content.lastIndexOf(" ");
         elH2Content = elH2Content.replace(elH2Content.substring(i+1,j), "<span class=\"highlight\">"+elH2Content.substring(i+1,j)+"</span>");
-        iframe.contentWindow.document.querySelector('section .col-2.col-text h2').innerHTML = elH2Content;  
-        document.getElementById("btn_h2_highlight").disabled = false;            
+        iframe.contentWindow.document.querySelector('section .col-2.col-text h2').innerHTML = elH2Content;
+        document.getElementById("btn_h2_highlight").disabled = false;
         document.getElementById("btn_h2_highlight").checked = false;
-        document.getElementById("btn_h2_border").disabled = false;            
+        document.getElementById("btn_h2_border").disabled = false;
         document.getElementById("btn_h2_border").checked = false;
     }
 }
@@ -195,7 +195,7 @@ function doH2Border() {
 
     if (!document.getElementById("cb_h2_border").checked) {
         objH2.classList.remove("heading-underline");
-        document.getElementById("btn_h2_border").disabled = true;            
+        document.getElementById("btn_h2_border").disabled = true;
         document.getElementById("btn_h2_border").checked = false;
         const arg1 = sectionClassName+ " .col-2.col-text h2.heading-underline::after { background-color: {";
         removeCSSTagPairs(arg1);
@@ -331,7 +331,7 @@ function chooseListMarker() {
     const rbs = document.querySelectorAll("input[name='switch_fa_icons']");
     let objIcons = iframe.contentWindow.document.querySelectorAll("section ul li span");
 
-    let node;   
+    let node;
     let selectedValue;
 
     for (const rb of rbs) {
