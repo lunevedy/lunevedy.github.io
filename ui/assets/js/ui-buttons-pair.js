@@ -6,7 +6,7 @@ import {content_buttons_one_icon, content_buttons_one_text, content_buttons_pair
 
 const tabs = document.querySelector(".buttonWrapper");
 const tabButton = document.querySelectorAll(".tab-button");
-      
+
 tabs.onclick = e => {
 const id = e.target.id;
 
@@ -44,7 +44,7 @@ function loadBtnInitial() {
     // Enable 1/2 button switch
     document.getElementById("rb_btn_one").disabled=false;
     document.getElementById("rb_btn_two").disabled=false;
-    
+
     // Get outer column/section/column container
     let objContainer = getBtnContainer();
 
@@ -52,7 +52,7 @@ function loadBtnInitial() {
     const btnDiv = document.createElement('div');
     btnDiv.classList.add('container-btn');
     objContainer.append(btnDiv);
-    
+
     // Create single button in container
     if (document.getElementById("cb_btns").checked) {
         const btnNum = 1;
@@ -75,13 +75,13 @@ function loadBtnInitial() {
         // Set defaults for button size
         document.getElementById("dd_buttons_size").disabled=false;
         document.getElementById("dd_buttons_size").value="1";
-        
+
         // Set defaults for button alignment (desktop and mobile)
         document.getElementById("form_btn_align_desktop").disabled=false;
         document.getElementById("rb_btn_align_desktop_left").disabled=false;
         document.getElementById("rb_btn_align_desktop_left").checked = true;;
         document.getElementById("rb_btn_align_desktop_center").disabled=false;
-        
+
         document.getElementById("form_btn_align_mobile").disabled=false;
         document.getElementById("rb_btn_align_mobile_left").disabled=false;
         document.getElementById("rb_btn_align_mobile_left").checked = true;;
@@ -95,7 +95,7 @@ function loadBtnInitial() {
         document.getElementById("tab_content_1").classList.add("active");
         document.getElementById("button_2").style.display="none";
 
-        // Set defaults for three button of tab 1            
+        // Set defaults for three button of tab 1
         document.getElementById("dd_button_type_1").value="0";
         // document.getElementById("rd_btns_icons_left_1").disabled=false;
         document.getElementById("rd_btns_icons_left_1").checked=true;
@@ -105,9 +105,6 @@ function loadBtnInitial() {
         document.getElementById("cb_buttons_shadow_1").checked=false;
         // document.getElementById("cb_buttons_uppercase_1").disabled=false;
         document.getElementById("cb_buttons_uppercase_1").checked=false;
-
-
-
     }
 
     // remove all buttons
@@ -121,7 +118,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
     function doButtonsPair() {
         const rbs = document.querySelectorAll("input[name='buttons_pair']");
         let selectedValue;
-    
+
         for (const rb of rbs) {
             if (rb.checked) {
                 selectedValue = rb.value;
@@ -136,6 +133,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             // removeBtnsAll();
             const btnNum = 1;
             createBtn(objContainer, btnNum);
+            console.log("selected 1 button");
         }
 
         else if (selectedValue==="btn-two") {
@@ -143,50 +141,55 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             // removeBtnsAll();
             const btnNum = 2;
             createBtn(objContainer, btnNum);
+            console.log("selected 2 buttons");
         }
     }
 
     function getBtnContainer() {
         let objContainer;
-        // main section 0 cols 
-        if ( (iframe.contentWindow.document.querySelector("section")) && (!iframe.contentWindow.document.querySelector("section .col-2.col-text")) ) {
+        // main section 0 cols
+        if ( (iframe.contentWindow.document.querySelector("section > figure")) || (iframe.contentWindow.document.querySelector("section > h2")) || (iframe.contentWindow.document.querySelector("section > p")) ) {
             objContainer = iframe.contentWindow.document.querySelector("section");
         }
-    
-        // main section 2-cols 
-        else if (iframe.contentWindow.document.querySelector("section .col-2.col-text")) {
+
+        // main section 2-cols-split
+        if (iframe.contentWindow.document.querySelector("section .col-2.col-text")) {
             objContainer = iframe.contentWindow.document.querySelector("section .col-2.col-text");
         }
-    
-        // header 0 cols 
-        else if ( (iframe.contentWindow.document.querySelector("header")) && (!iframe.contentWindow.document.querySelector("header .col-2.col-text")) ) {
+
+        // header 0 cols
+        if (iframe.contentWindow.document.querySelector("header > h1")) {
             objContainer = iframe.contentWindow.document.querySelector("header");
-       }
-    
-        // header 2-cols 
-        else if (iframe.contentWindow.document.querySelector("header .col-2.col-text")) {
-            objContainer = iframe.contentWindow.document.querySelector("header .col-2.col-text");
         }
+
+        // header 2-cols-split
+        else if ( iframe.contentWindow.document.querySelector("header .col-2.col-text")) {
+            objContainer = iframe.contentWindow.document.querySelector("header .col-2.col-text");
+       }
         return objContainer;
     }
-    
+
     function createBtn(objContainer,btnNum) {
-
-        // Add button container DIV at end of column/section/header container
-        const btnDiv = document.createElement('div');
-        btnDiv.classList.add('container-btn');
-
+        // Test for button container
+        if (iframe.contentWindow.document.querySelector(".container-btn")) {
+            iframe.contentWindow.document.querySelector(".container-btn").remove();
+        }
 
         console.log("btnNum: "+btnNum);
+
         if (btnNum == "1") {
+            // Add button container DIV at end of column/section/header container
+            const btnDivBtnOne = document.createElement('div');
+            btnDivBtnOne.classList.add('container-btn');
+            const objContainer = getBtnContainer();
+            objContainer.append(btnDivBtnOne);
+
             // Create content for button DIV
-
-
             const el_btn = document.createElement('a');
             el_btn.setAttribute("href", "#");
             el_btn.setAttribute("class", "btn btn-solid");
             el_btn.innerHTML = "<span>"+content_buttons_one_text+"</span>"+ content_buttons_one_icon;
-            btnDiv.append(el_btn);
+            btnDivBtnOne.append(el_btn);
 
             // Reformat HTML
             objContainer.innerHTML = objContainer.innerHTML.replaceAll("<div class=\"container-btn\">", "\t<div class=\"container-btn\">");
@@ -198,13 +201,13 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             // Set defaults for button size
             document.getElementById("dd_buttons_size").disabled=false;
             document.getElementById("dd_buttons_size").value="1";
-            
+
             // Set defaults for button alignment (desktop and mobile)
             document.getElementById("form_btn_align_desktop").disabled=false;
             document.getElementById("rb_btn_align_desktop_left").disabled=false;
             document.getElementById("rb_btn_align_desktop_left").checked = true;;
             document.getElementById("rb_btn_align_desktop_center").disabled=false;
-            
+
             document.getElementById("form_btn_align_mobile").disabled=false;
             document.getElementById("rb_btn_align_mobile_left").disabled=false;
             document.getElementById("rb_btn_align_mobile_left").checked = true;;
@@ -218,7 +221,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("tab_content_1").classList.add("active");
             document.getElementById("button_2").style.display="none";
 
-            // Set defaults for three button of tab 1            
+            // Set defaults for three button of tab 1
             document.getElementById("dd_button_type_1").value="0";
             // document.getElementById("rd_btns_icons_left_1").disabled=false;
             document.getElementById("rd_btns_icons_left_1").checked=true;
@@ -232,11 +235,13 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
         }
 
         else if (btnNum =="2") {
-            // Add second button
-            const iconBtn1 = content_buttons_pair_icon_1;
-            const textBtn1 = content_buttons_pair_text_1;
-            const iconBtn2 = content_buttons_pair_icon_2;
-            const textBtn2 = content_buttons_pair_text_2;
+            // Add button container DIV at end of column/section/header container
+            console.log("choosen 2 buttons");
+            // Add button container DIV at end of column/section/header container
+            const btnDivBtnTwo = document.createElement('div');
+            btnDivBtnTwo.classList.add('container-btn');
+            const objContainer = getBtnContainer();
+            objContainer.append(btnDivBtnTwo);
 
             const el_btn1 = document.createElement('a');
             el_btn1.setAttribute("href", "#");
@@ -248,64 +253,28 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             el_btn2.setAttribute("class", "btn btn-outline");
             el_btn2.innerHTML = "<span>"+content_buttons_pair_text_2+"</span>"+ content_buttons_pair_icon_2;
 
-            btnDiv.append(el_btn1);
-            btnDiv.append(el_btn2);
+            btnDivBtnTwo.append(el_btn1);
+            btnDivBtnTwo.append(el_btn2);
 
-            // One button or two?
+            // Highlight 2-button switch
+            document.getElementById("rb_btn_one").checked=false;
+            document.getElementById("rb_btn_two").checked=true;
+
+            // enable dialog box options for button two
             document.getElementById("rb_btn_one").disabled=false;
             document.getElementById("rb_btn_two").disabled=false;
             document.getElementById("rb_btn_two").checked=true;
-
-            // enable top dialog box settings for 1 or 2 buttons:
-            // Button size and alignment (desktop and mobile)
-            // document.getElementById("dd_buttons_size").disabled=false;
-            // document.getElementById("dd_buttons_size").value="1";
-            
-            // document.getElementById("form_btn_align_desktop").disabled=false;
-            // document.getElementById("rb_btn_align_desktop_left").disabled=false;
-            // document.getElementById("rb_btn_align_desktop_left").checked = true;;
-            // document.getElementById("rb_btn_align_desktop_center").disabled=false;
-            
-            // document.getElementById("form_btn_align_mobile").disabled=false;
-            // document.getElementById("rb_btn_align_mobile_left").disabled=false;
-            // document.getElementById("rb_btn_align_mobile_left").checked = true;;
-            // document.getElementById("rb_btn_align_mobile_center").disabled=false;
-
-            // display containers for tabs and settings
-            // document.querySelector(".container-buttons-block").style.display="block";
-
-            // // highlight tab 1
-            // document.getElementById("tab_content_1").classList.add("active");
-            // document.getElementById("tab_content_2").classList.remove("active");
-
-            // // show tab 1 and tab 2
-            // document.getElementById("button_1").style.display="inline-block";
-            // document.getElementById("button_2").style.display="inline-block";
-
-            // Three button options for tab 1            
-            // document.getElementById("dd_button_type_1").value="0";
-            // document.getElementById("rd_btns_icons_left_1").disabled=false;
-            // document.getElementById("rd_btns_icons_left_1").checked=true;
-            // document.getElementById("dd_buttons_shape_1").disabled=false;
-            // document.getElementById("dd_buttons_shape_1").value="0";
-            // document.getElementById("cb_buttons_shadow_1").disabled=false;
-            // document.getElementById("cb_buttons_shadow_1").checked=false;
-            // document.getElementById("cb_buttons_uppercase_1").disabled=false;
-            // document.getElementById("cb_buttons_uppercase_1").checked=false;
-            // document.getElementById("btn_cols_bg_passive_1").disabled=false;
-
-             // Three button options for tab 2    
-            document.getElementById("dd_button_type_2").value="0";
-            // document.getElementById("rd_btns_icons_left_2").disabled=false;
+            document.getElementById("button_2").style.display="inline-block";
+            document.getElementById("dd_button_type_2").value="1";
+            document.getElementById("rd_btns_icons_left_2").disabled=false;
             document.getElementById("rd_btns_icons_left_2").checked=true;
-            // document.getElementById("dd_buttons_shape_2").disabled=false;
+            document.getElementById("dd_buttons_shape_2").disabled=false;
             document.getElementById("dd_buttons_shape_2").value="0";
-            // document.getElementById("cb_buttons_shadow_2").disabled=false;
+            document.getElementById("cb_buttons_shadow_2").disabled=false;
             document.getElementById("cb_buttons_shadow_2").checked=false;
-            // document.getElementById("cb_buttons_uppercase_2").disabled=false;
+            document.getElementById("cb_buttons_uppercase_2").disabled=false;
             document.getElementById("cb_buttons_uppercase_2").checked=false;
-            document.getElementById("btn_cols_bg_passive_1").disabled=false;
-        }
+            document.getElementById("btn_cols_bg_passive_2").disabled=true;        }
 
         // Reformat HTML
         objContainer.innerHTML = objContainer.innerHTML.replaceAll("<div class=\"container-btn\">", "<div class=\"container-btn\">\n\t\t\t\t");
@@ -316,12 +285,12 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
     function removeBtnsAll() {
 
         if (iframe.contentWindow.document.querySelector(".container-btn")) {
-          
-            // Disable 1/2 button switch 
+
+            // Disable 1/2 button switch
             document.getElementById("rb_btn_one").disabled=true;
             document.getElementById("rb_btn_two").disabled=true;
             const objAllBtns = iframe.contentWindow.document.querySelectorAll(".container-btn");
-            
+
             for (let i = 0; i < objAllBtns.length; i++) {
                 objAllBtns[i].remove();
             }
@@ -339,7 +308,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("form_btn_align_mobile").disabled=true;
             document.getElementById("rb_btn_align_mobile_left").disabled=true;
             document.getElementById("rb_btn_align_mobile_left").checked = false;
-            document.getElementById("rb_btn_align_mobile_center").disabled=true;       
+            document.getElementById("rb_btn_align_mobile_center").disabled=true;
             document.getElementById("dd_buttons_size").value="1";
 
             // disable, reset dialog box settings for buttons one
@@ -371,7 +340,6 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("cb_buttons_uppercase_2").checked=false;
             document.getElementById("btn_cols_bg_passive_2").disabled=false;
 
-
             const objContainer = getBtnContainer();
             objContainer.innerHTML = objContainer.innerHTML.replaceAll("    \t\n", "");
             objContainer.innerHTML = objContainer.innerHTML.replaceAll("\t\n\n<\/section>", "\t</section>");
@@ -389,7 +357,7 @@ function doButtonsAlignDesktop() {
 
     const rbs = document.querySelectorAll("input[name='rb_btn_align_desktop']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -397,8 +365,8 @@ function doButtonsAlignDesktop() {
         }
     }
 
-    // Verify button container exists 
-    if (iframe.contentWindow.document.querySelectorAll(".container-btn")) {  
+    // Verify button container exists
+    if (iframe.contentWindow.document.querySelectorAll(".container-btn")) {
 
         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
         if (selectedValue==="left") {
@@ -420,7 +388,7 @@ function doButtonsAlignMobile() {
 
     const rbs = document.querySelectorAll("input[name='rb_btn_align_mobile']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -428,8 +396,8 @@ function doButtonsAlignMobile() {
         }
     }
 
-    // Verify button container exists 
-    if (iframe.contentWindow.document.querySelector(".container-btn")) {      
+    // Verify button container exists
+    if (iframe.contentWindow.document.querySelector(".container-btn")) {
         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
         if (selectedValue==="left") {
             elBtns.classList.remove("text-center-mobile");
@@ -451,7 +419,7 @@ function doButtonsSize() {
     const objBtns = iframe.contentWindow.document.querySelectorAll('section .container-btn a.btn');
 
     // Small
-    if (opt==="0") { 
+    if (opt==="0") {
         // Loop through buttons
         objBtns.forEach(btn => {
             btn.classList.remove("btn-large");
@@ -459,22 +427,22 @@ function doButtonsSize() {
         });
     }
     // Regular
-    else if (opt==="1") { 
+    else if (opt==="1") {
         // Loop through buttons
         objBtns.forEach(btn => {
             btn.classList.remove("btn-small");
             btn.classList.remove("btn-large");
         });
     }
-    
+
     // Large
-    else if (opt==="2") { 
+    else if (opt==="2") {
         // Loop through buttons
         objBtns.forEach(btn => {
             btn.classList.remove("btn-small");
             btn.classList.add("btn-large");
         });
-    }    
+    }
 }
 
 /*
@@ -492,14 +460,14 @@ function doButtonType1() {
     if (opt==="0") {
         el_btn.classList.remove("btn-outline");
         el_btn.classList.remove("btn-plain");
-        el_btn.classList.add("btn-solid"); 
+        el_btn.classList.add("btn-solid");
         document.getElementById("cb_buttons_shadow_1").disabled=false;
         document.getElementById("dd_buttons_shape_1").disabled=false;
         document.getElementById("btn_cols_bg_passive_1").disabled=false;
         document.getElementById("btn_cols_border_passive_1").disabled=false;
         document.getElementById("btn_cols_bg_active_1").disabled=false;
-        document.getElementById("btn_cols_border_active_1").disabled=false; 
-        document.getElementById("btn_cols_bg_passive_1").disabled=false; 
+        document.getElementById("btn_cols_border_active_1").disabled=false;
+        document.getElementById("btn_cols_bg_passive_1").disabled=false;
     }
 
     // Outline
@@ -550,7 +518,7 @@ function doButtonType2() {
         document.getElementById("btn_cols_bg_passive_2").disabled=false;
         document.getElementById("btn_cols_border_passive_2").disabled=false;
         document.getElementById("btn_cols_bg_active_2").disabled=false;
-        document.getElementById("btn_cols_border_active_2").disabled=false;       
+        document.getElementById("btn_cols_border_active_2").disabled=false;
     }
 
     // Outline
@@ -590,7 +558,7 @@ function swapButtonIcons_1() {
 
     const rbs = document.querySelectorAll("input[name='btns_icons_position_1']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -609,12 +577,12 @@ function swapButtonIcons_1() {
         // Icon at left. Text at right.
         el_btn.innerHTML = icon_left;
     }
-    
+
     else if (selectedValue==="right") {
         // Text left. Icon at right.
         el_btn.innerHTML = icon_right;
     }
-    
+
     else if (selectedValue==="none") {
         // Only text, No icons.
         el_btn.innerHTML = icon_none;
@@ -631,7 +599,7 @@ function swapButtonIcons_2() {
 
     const rbs = document.querySelectorAll("input[name='btns_icons_position_2']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -644,17 +612,17 @@ function swapButtonIcons_2() {
     const icon_left  ="<i class=\"fas fa-arrow-right\"></i><span>Learn more</span>";
     const icon_right ="<span>Learn more</span><i class=\"fas fa-arrow-right\"></i>";
     const icon_none = "<span>Learn more</span>";
-    
+
     if (selectedValue==="left") {
         // Icon at left. Text at right.
         el_btn.innerHTML = icon_left;
     }
-    
+
     else if (selectedValue==="right") {
         // Text left. Icon at right.
         el_btn.innerHTML = icon_right;
     }
-    
+
     else if (selectedValue==="none") {
         // Only text, No icons.
         el_btn.innerHTML = icon_none;
