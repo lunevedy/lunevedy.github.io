@@ -10,10 +10,6 @@ const tabButton = document.querySelectorAll(".tab-button");
 tabs.onclick = e => {
 const id = e.target.id;
 
-console.log("tabs: "+tabs);
-console.log("tabButton: "+tabButton);
-console.log("Tab ID: "+id);
-
 if (id) {
     // tabs
     tabButton.forEach(btn => {
@@ -56,7 +52,7 @@ function loadBtnInitial() {
     // Create single button in container
     if (document.getElementById("cb_btns").checked) {
         const btnNum = 1;
-        console.log("Create initial new buttton")
+        // console.log("Create initial new buttton")
         // createBtn(objContainer, btnNum);
 
         const el_btn = document.createElement('a');
@@ -133,15 +129,12 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             // removeBtnsAll();
             const btnNum = 1;
             createBtn(objContainer, btnNum);
-            console.log("selected 1 button");
         }
 
         else if (selectedValue==="btn-two") {
             // test for button(s) and remove
-            // removeBtnsAll();
             const btnNum = 2;
             createBtn(objContainer, btnNum);
-            console.log("selected 2 buttons");
         }
     }
 
@@ -174,8 +167,6 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
         if (iframe.contentWindow.document.querySelector(".container-btn")) {
             iframe.contentWindow.document.querySelector(".container-btn").remove();
         }
-
-        console.log("btnNum: "+btnNum);
 
         if (btnNum == "1") {
             // Add button container DIV at end of column/section/header container
@@ -235,8 +226,6 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
         }
 
         else if (btnNum =="2") {
-            // Add button container DIV at end of column/section/header container
-            console.log("choosen 2 buttons");
             // Add button container DIV at end of column/section/header container
             const btnDivBtnTwo = document.createElement('div');
             btnDivBtnTwo.classList.add('container-btn');
