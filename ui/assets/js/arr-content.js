@@ -6,6 +6,8 @@ export const content_header_h2_text ="A sub-heading that motivates visitors to c
 /* Label in single-column layout */
 export const content_header_label_text_col_1 ="TOP SELLER";
 
+export const content_header_label_hero ="SAVE 20% THIS WEEK";
+
 /* H2 text in single-column */
 export const content_header_h2_text_col_1 ="Nice section heading";
 
@@ -31,7 +33,12 @@ export const content_ul_long_col_1 = "\n\n\t\t\t<ul>\n\t\t\t\t<li><b>Fast delive
 export const content_caption_col_1 = "<figcaption><i>Above<\/i>: Some text describing the image or video.</figcaption>";
 
 /* 2 column layouts */
+export const content_h2_col_2_header = ["\n\t\t\t<h2>A sub-heading that motivates visitors to continue reading.</h2>"];
+
 export const content_h3_col_2 = ["\n\t\t\t<h3>Lunevedy Cafe Bakery<\/h3>", "\n\t\t\t<h3>Lunevedy Fashion Store<\/h3>"];
+
+
+export const content_lists_col_2_header = ["\n\t\t\t\t<ul>\n\t\t\t\t<li>Make better decisions with in-progress insights<\/li>\n\t\t\t\t\t<li>Focus your team on what work should happen next<\/li>\n\t\t\t\t\t<li>Streamline issues, sprints, and product roadmaps.<\/li>\n\t\t\t\t<\/ul>"];
 
 export const content_lists_col_2 = ["\n\t\t\t\t<ul>\n\t\t\t\t<li><b>Fast delivery<\/b>: We ship reliably to almost everywhere using only the best and fastest delivery services.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We shine on product quality and we will not be beaten on product prices.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help our clients reinvent their brands, products, and culture for a changing world.<\/li>\n\t\t\t\t<\/ul>", "\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship reliably all over Europe using only the best and fastest delivery services.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We shine on product quality and we will not be beaten on product prices.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help our clients reinvent their brands, products, and culture for a changing world.<\/li>\n\t\t\t\t<\/ul>"];
 

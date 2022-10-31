@@ -1,4 +1,4 @@
-import {content_header_label_text_col_1, content_h3, content_list} from '../js/arr-content.js';
+import {content_header_label_hero, content_h2_col_2_header, content_lists_col_2_header} from '../js/arr-content.js';
 
 /*
 //////////////// SECTION: COLUMN ORDER ////////////////////
@@ -95,8 +95,34 @@ function doVisualBleedMobile() {
     }
 }
 
+
 /*
-//////////////// BADGE ABOVE H2 ///////////////
+//////////////// ALIGN TEXT IN TEXT COLUMN ///////////////
+*/
+
+document.querySelector("#form_align_mobile").addEventListener("change", doAlignTextMobile);
+
+function doAlignTextMobile() {
+
+    const rbs = document.querySelectorAll("input[name='align_mobile']");
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+    if (selectedValue==="left") {
+        iframe.contentWindow.document.querySelector("header").classList.remove("text-center-mobile");
+    }
+    else if (selectedValue==="center") {
+        iframe.contentWindow.document.querySelector("header").classList.add("text-center-mobile");
+    }
+}
+
+/*
+//////////////// BADGE ABOVE H1 ///////////////
 */
 
 document.querySelector("#cb_badge").addEventListener("change", doBadge);
@@ -112,7 +138,7 @@ function doBadge() {
         const newUpperLabelDiv = document.createElement("div");
         newUpperLabelDiv.classList.add("badge");
         iframe.contentWindow.document.querySelector('header .col-2.col-text').prepend(newUpperLabelDiv);
-        iframe.contentWindow.document.querySelector('header .col-2.col-text .badge').innerText = content_header_label_text_col_1;
+        iframe.contentWindow.document.querySelector('header .col-2.col-text .badge').innerText =  content_header_label_hero;
         iframe.contentWindow.document.querySelector('header').innerHTML = iframe.contentWindow.document.querySelector('header').innerHTML.replace("<div class=\"badge\">", "\n\t\t\t<div class=\"badge\">");
         document.getElementById("show-badge").style.display="flex";
     }
@@ -161,21 +187,21 @@ document.querySelector("#cb_h1_highlight").addEventListener("change", doH1Text);
 
 function doH1Text() {
 
-    let elH2Content = iframe.contentWindow.document.querySelector('header .col-2.col-text h1').innerHTML;
+    let elH1Content = iframe.contentWindow.document.querySelector('header .col-2.col-text h1').innerHTML;
 
     if (!document.getElementById("cb_h1_highlight").checked) {
-        elH2Content = elH2Content.replace(/<\/?span[^>]*>/g,"");
-        iframe.contentWindow.document.querySelector('header .col-2.col-text h1').innerHTML = elH2Content;
+        elH1Content = elH1Content.replace(/<\/?span[^>]*>/g,"");
+        iframe.contentWindow.document.querySelector('header .col-2.col-text h1').innerHTML = elH1Content;
         document.getElementById("btn_h1_highlight").disabled = true;
         document.getElementById("btn_h1_highlight").checked = false;
         const arg1 = sectionClassName+ " h1 span.highlight {";
         removeCSSTagPairs(arg1);
     }
     else {
-        const i = elH2Content.indexOf(" ",1);
-        const j = elH2Content.lastIndexOf(" ");
-        elH2Content = elH2Content.replace(elH2Content.substring(i+1,j), "<span class=\"highlight\">"+elH2Content.substring(i+1,j)+"</span>");
-        iframe.contentWindow.document.querySelector('header .col-2.col-text h1').innerHTML = elH2Content;
+        const i = elH1Content.indexOf(" ",1);
+        const j = elH1Content.lastIndexOf(" ");
+        elH1Content = elH1Content.replace(elH1Content.substring(i+1,j), "<span class=\"highlight\">"+elH1Content.substring(i+1,j)+"</span>");
+        iframe.contentWindow.document.querySelector('header .col-2.col-text h1').innerHTML = elH1Content;
         document.getElementById("btn_h1_highlight").disabled = false;
         document.getElementById("btn_h1_highlight").checked = false;
         document.getElementById("btn_h1_border").disabled = false;
@@ -208,32 +234,28 @@ function doH2Border() {
 }
 
 /*
-//////////////// H3 SUB-HEADINGS ////////////////////
+//////////////// H2 SUB-HEADINGS ////////////////////
 */
 
-document.querySelector("#cb_h3").addEventListener("change", doH3);
+document.querySelector("#cb_h2").addEventListener("change", doH2);
 
-function doH3() {
+function doH2() {
 
-    if (!document.getElementById("cb_h3").checked) {
-        removeH3();
+    if (!document.getElementById("cb_h2").checked) {
+        removeH2();
     }
 
     else {
-
-        if (!iframe.contentWindow.document.querySelector("header .col-2.col-text h3")) {
-            const el_para = iframe.contentWindow.document.querySelector("header .col-2.col-text p:nth-of-type(2)");
-            el_para.insertAdjacentHTML("beforebegin", content_h3);
-            document.getElementById("btn_h3_text").disabled=false;
-        }
+        iframe.contentWindow.document.querySelector("header .col-2.col-text h1").insertAdjacentHTML("afterend", content_h2_col_2_header);
+        document.getElementById("btn_h2_text").disabled=false;
     }
 }
 
-function removeH3() {
-    const el_h3 = iframe.contentWindow.document.querySelector("header.cols-2-half .col-2.col-text h3");
-    el_h3.remove();
-    document.getElementById("btn_h3_text").disabled=true;
-    const arg1 = sectionClassName+ " .col-2.col-text h3 { color:";
+function removeH2() {
+    const el_h2 = iframe.contentWindow.document.querySelector("header.cols-2-half .col-2.col-text h2");
+    el_h2.remove();
+    document.getElementById("btn_h2_text").disabled=true;
+    const arg1 = sectionClassName+ " .col-2.col-text h2 { color:";
     removeCSSTagPairs(arg1);
 }
 
@@ -255,7 +277,16 @@ function doList() {
         removeList();
         document.getElementById("btn_list_text").disabled = false;
         document.getElementById("list-options").style.display = "flex";
-        iframe.contentWindow.document.querySelector("header .col-2.col-text p:last-of-type").insertAdjacentHTML("afterend", content_list);
+
+        if (iframe.contentWindow.document.querySelector("header .col-2.col-text h2")) {
+            iframe.contentWindow.document.querySelector("header .col-2.col-text h2").insertAdjacentHTML("afterend", content_lists_col_2_header);
+
+        }
+
+        else {
+            iframe.contentWindow.document.querySelector("header .col-2.col-text h1").insertAdjacentHTML("afterend", content_lists_col_2_header);
+        }
+
         document.getElementById("dd_list_marker").value = "0";
     }
 }

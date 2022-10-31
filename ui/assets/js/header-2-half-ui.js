@@ -42,32 +42,31 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             sub_string = ".badge { background-color";
         }
 
-        /* h2 main heading */
+        /* h1 main heading */
         else if (btn_id === "btn_h1_text") {
             newStyle = headerTheme+" h1 { color: var("+color_code+") }\n";
-            sub_string = "h2 { color:"
+            sub_string = "h1 { color:"
         }
 
-        /* h2 main heading highlight text */
+        /* h1 main heading highlight text */
         else if (btn_id === "btn_h1_highlight") {
-            newStyle = headerTheme+" .col-2.col-text h2 span.highlight { color: var("+color_code+") }\n";
-            sub_string = "h2 span.highlight";
+            newStyle = headerTheme+" .col-2.col-text h1 span.highlight { color: var("+color_code+") }\n";
+            sub_string = "h1 span.highlight";
         }
 
-        /* h2 main heading bottom border */
+        /* h1 main heading bottom border */
         else if (btn_id === "btn_h1_border") {
             newStyle = headerTheme+" .col-2.col-text h1.heading-underline::after { background-color: var("+color_code+") }\n";
             sub_string = "h1.heading-underline";
         }
 
-
-        /* Section paragraphs text */
-        else if (btn_id === "btn_para_text") {
-            newStyle = headerTheme+" .col-2.col-text p { color: var("+color_code+") }\n";
-            sub_string = " p {";
+        /* h2 main heading */
+        else if (btn_id === "btn_h2_text") {
+            newStyle = headerTheme+" h2 { color: var("+color_code+") }\n";
+            sub_string = "h2 { color:"
         }
 
-        /* Section paragraphs text */
+        /* Header paragraphs text */
         else if (btn_id === "btn_list_text") {
             newStyle = headerTheme+" .col-2.col-text ul li { color: var("+color_code+") }\n";
             sub_string = " ul li {";
