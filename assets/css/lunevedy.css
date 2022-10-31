@@ -746,6 +746,28 @@ header .container-media * {
 }
 */
 
+/* =============  HERO BLOCK: TWO-COLUMN LAYOUT ============ */
+
+header.cols-2-half .col-2.col-text,
+header.cols-2-half .col-2.col-visual,
+header.cols-2-half .col-2.col-visual figure { margin-bottom: 0 !important }
+header.cols-2-half .col-2.col-text h1 {
+    font-size: calc(36px + (58 - 36) * ((100vw - 320px) / (1140 - 320)));
+    margin-bottom: 10px;
+}
+
+header.cols-2-half .col-2.col-text h2 {
+    font-size: calc(22px + (24 - 22) * ((100vw - 320px) / (1140 - 320)));
+    letter-spacing: 0;
+}
+
+@media (max-width: 767px) {
+    header.cols-2-half .col-2.col-text h2 { font-size: calc(20px + 0.390625vw) }
+    header.cols-2-half.text-center-mobile .container-btn {
+        justify-content: center;
+    }
+
+}
 
 /* =============  UPPER SINGLE COLUMN LAYOUT ============ */
 
@@ -1025,7 +1047,8 @@ section > h3, .col-2 > h3, .col-3 > h3, .col-4 > h3,
         margin-bottom: 42px;
     }
 
-    .col-2.col-text { margin-bottom: 0 }
+    .col-2.col-text { margin-bottom: 0  !important }
+
     .cols-padding div[class^="col-"] { padding: 18px 18px 22px 18px }
     .cols-padding div[class^="col-"] figure {
         margin-top: -18px;
@@ -1640,15 +1663,6 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
         margin-bottom: 20px; letter-spacing: -1px;
     }
 
-    header.cols-2-half .col-2.col-text h1 {
-        font-size: calc(48px + (64 - 48) * ((100vw - 320px) / (1140 - 320)));
-        margin-bottom: 10px;
-    }
-
-    header.cols-2-half .col-2.col-text h2 {
-        font-size: calc(22px + (28 - 22) * ((100vw - 320px) / (1140 - 320)));
-    }
-
     .cols-2-half .col-2 h3 {
         font-size: calc(20px + (24 - 20) * ((100vw - 320px) / (1140 - 320)));
         margin-top: 12px;
@@ -1761,14 +1775,19 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
 .w-1140px.cols-2-half.flex-row-reverse .col-2.col-text { padding-right: calc((100% - 1140px)/2) }
 
 /* Visual column */
+.w-1536px.cols-2-half.flex-row-reverse .col-2.col-visual {
+    padding-left: calc((100% - 1320px)/2); padding-right: 5% }
+.w-1320px.cols-2-half.flex-row-reverse .col-2.col-visual {
+    padding-left: calc((100% - 1320px)/2); padding-right: 5%  }
+.w-1140px.cols-2-half.flex-row-reverse .col-2.col-visual {
+    padding-left: calc((100% - 1140px)/2); padding-right: 5%  }
+}
+
 .w-1536px.cols-2-half .col-2.col-visual { padding-right: calc((100% - 1320px)/2) }
 .w-1320px.cols-2-half .col-2.col-visual { padding-right: calc((100% - 1320px)/2) }
 .w-1140px.cols-2-half .col-2.col-visual { padding-right: calc((100% - 1140px)/2) }
 
-.w-1536px.cols-2-half.flex-row-reverse .col-2.col-visual { padding-right: calc((100% - 1320px)/2) }
-.w-1320px.cols-2-half.flex-row-reverse .col-2.col-visual { padding-right: calc((100% - 1320px)/2) }
-.w-1140px.cols-2-half.flex-row-reverse .col-2.col-visual { padding-right: calc((100% - 1140px)/2) }
-}
+
 
 /* Small desktop screens */
 @media (min-width: 1200px) and (max-width: 1339px) {
