@@ -174,6 +174,26 @@
 
                     <div class="dialog-box" style="width: 400px">
 
+                        <div class="input-group" style="margin-bottom: 14px">
+                            <label>Align</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewbox="0 0 20 20" version="1.1" class="svg-icon-mobile">
+                                <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 14.003906 0 L 5.996094 0 C 4.894531 0 4 0.894531 4 1.996094 L 4 18.003906 C 4 19.105469 4.894531 20 5.996094 20 L 14.003906 20 C 15.105469 20 16 19.105469 16 18.003906 L 16 1.996094 C 16 0.894531 15.105469 0 14.003906 0 Z M 10 19 C 9.308594 19 8.75 18.554688 8.75 18 C 8.75 17.445312 9.308594 17 10 17 C 10.691406 17 11.25 17.445312 11.25 18 C 11.25 18.554688 10.691406 19 10 19 Z M 14 16 L 6 16 L 6 2 L 14 2 Z M 14 16 "/></svg>
+
+                                <form id="form_align_mobile" class="rb-switch">
+                                <input type="radio" id="rb_align_mobile_left" name="align_mobile" value="left" checked/>
+                                <label for="rb_align_mobile_left" style="width: 36px">
+                                    <svg width="16" height="16" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a1 1 0 0 1 1-1h15a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1ZM2 18a1 1 0 0 1 1-1h11a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1ZM3 11a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z" /></svg>
+                                </label>
+
+                                <input type="radio" id="rb_align_mobile_center" name="align_mobile" value="center" />
+                                <label for="rb_align_mobile_center" style="width: 36px">
+                                    <svg width="16" height="16" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 6a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1ZM6 18a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1ZM3 11a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3Z" /></svg>
+                                </label>
+                            </form>
+                        </div><!-- /.input-group -->
+                        <hr>
+
+
                         <div class="input-group">
                             <label for="cb_badge" class="cb-switch" style="width: 142px">Badge</label>
                             <input id="cb_badge" type="checkbox" class="cb-switch">
@@ -213,7 +233,7 @@
                         </div><!-- /input-group -->
 
                         <div class="input-group">
-                            <label for="cb_h1_highlight" class="cb-switch" style="width: 142px">Highlight H1 Text</label>
+                            <label for="cb_h1_highlight" class="cb-switch" style="width: 142px">H1 Highlight Text</label>
                             <input id="cb_h1_highlight" type="checkbox" class="cb-switch">
                             &nbsp; &nbsp; &nbsp;
                             <button id="btn_h1_highlight" class="btn_style btn_small"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
@@ -229,10 +249,10 @@
                         <hr>
 
                         <div class="input-group" style="margin-bottom: 12px">
-                            <label for="cb_h3">H2 Sub-heading</label>
-                            <input id="cb_h3" type="checkbox" class="cb-switch" checked style="margin-right: 36px">
+                            <label for="cb_h2">H2 Sub-heading Text</label>
+                            <input id="cb_h2" type="checkbox" class="cb-switch" checked style="margin-right: 36px">
 
-                            <button id="btn_h3_text" class="btn_style btn_small" style="margin-left: -12px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
+                            <button id="btn_h2_text" class="btn_style btn_small" style="margin-left: -12px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
                         </div>
 
                         <hr style="margin-top: 16px; margin-bottom:20px">
@@ -2355,27 +2375,33 @@
 
     <div id="page-preview-options">
 
-        <span id="respDesktopLarge" class="icon_resize_respon selected">
+        <span id="respDesktopLarge" class="icon_resize_respon selected tooltip">
+            <span class="tooltiptext">&gt; 1200px</span>
             <img src="../../ui/assets/img/icons/icon-resize-desktop-large.png" alt="">
         </span>
 
-        <span id="respDesktopSmall" class="icon_resize_respon">
+        <span id="respDesktopSmall" class="icon_resize_respon tooltip">
+            <span class="tooltiptext">1200px</span>
             <img src="../../ui/assets/img/icons/icon-resize-desktop-small-selected.png" alt="">
         </span>
 
-        <span id="respTabletLandscape" class="icon_resize_respon">
+        <span id="respTabletLandscape" class="icon_resize_respon tooltip">
+            <span class="tooltiptext">1024px</span>
             <img src="../../ui/assets/img/icons/icon-resize-tablet-landscape-selected.png" alt="">
         </span>
 
-        <span id="respTabletPortrait" class="icon_resize_respon">
+        <span id="respTabletPortrait" class="icon_resize_respon tooltip">
+            <span class="tooltiptext">768px</span>
             <img src="../../ui/assets/img/icons/icon-resize-tablet-portrait-selected.png" alt="">
         </span>
 
-        <span id="respMobileLarge" class="icon_resize_respon">
+        <span id="respMobileLarge" class="icon_resize_respon tooltip">
+            <span class="tooltiptext">390px</span>
             <img src="../../ui/assets/img/icons/icon-resize-mobile-large-selected.png" alt="">
         </span>
 
-        <span id="respMobileSmall" class="icon_resize_respon">
+        <span id="respMobileSmall" class="icon_resize_respon tooltip">
+            <span class="tooltiptext">320px</span>
             <img src="../../ui/assets/img/icons/icon-resize-mobile-small-selected.png" alt="">
         </span>
 
@@ -2445,11 +2471,10 @@
             document.getElementById("btn-copy-css").disabled=true;
             document.getElementById("color-transparent").style.display="none";
 
-            // Sections
+            // Layout
             document.getElementById("dd_header_width").value = "1";
             document.getElementById("rb_theme_light").checked = true;
-
-            // Upper content
+            document.getElementById("rb_align_mobile_center").checked = true;
             document.getElementById("cb_badge").checked = false;
             document.getElementById("show-badge").style.display="none";
             document.getElementById("cb_h1_highlight").disabled = false;
@@ -2461,8 +2486,8 @@
 
             // Lower content
             document.getElementById("cb_badge").checked = false;
-            document.getElementById("cb_h3").checked = false;
-            document.getElementById("btn_h3_text").disabled = true;
+            document.getElementById("cb_h2").checked = true;
+            document.getElementById("btn_h2_text").disabled = false;
             document.getElementById("cb_list").checked = false;
             document.getElementById("btn_list_text").disabled = true;
             document.getElementById("dd_list_marker").value = "0";
