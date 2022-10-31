@@ -34,7 +34,7 @@ function doVis() {
 
 document.querySelector("#form_vis_types").addEventListener("click", doVisType);
 
-function doVisType() { 
+function doVisType() {
     const rbs = document.querySelectorAll("#form_vis_types input[name='vis_type']");
     let selectedValue;
     for (const rb of rbs) {
@@ -51,7 +51,7 @@ function doVisType() {
     }
     else if (selectedValue==="transparent") {
         doTransparent();
-    }    
+    }
     else if (selectedValue==="drawings") {
         doDrawings();
     }
@@ -82,7 +82,7 @@ function doPhotos() {
 
     // Property resets
     resetTransProps();
-    resetDrawingsProps();    
+    resetDrawingsProps();
     resetVideoProps();
     // Set properties
     document.getElementById("dd_photos_shape").value = "1";
@@ -97,21 +97,21 @@ function doPhotosType() {
     removeVisual();
     document.getElementById("dd_switch_section_vis_width").value = "100";
     if (opt==="1") {
-        doVisSubTypes(1); 
+        doVisSubTypes(1);
         document.getElementById("cb_photos_round").checked = false;
         document.getElementById("cb_photos_round").disabled = true;
     }
     else if (opt==="2") {
-        doVisSubTypes(2);    
+        doVisSubTypes(2);
         document.getElementById("cb_photos_round").checked = false;
         document.getElementById("cb_photos_round").disabled = false;
     }
     // else if (opt==="3") {
-    //     doVisSubTypes(3);    
+    //     doVisSubTypes(3);
     // }
     // else if (opt==="4") {
-    //     doVisSubTypes(4);    
-    // }        
+    //     doVisSubTypes(4);
+    // }
 }
 
 /* photos: corners */
@@ -135,7 +135,7 @@ document.querySelector("#cb_photos_round").addEventListener("change", doPhotosRo
 
 function doPhotosRound() {
     const el_fig = iframe.contentWindow.document.querySelector("section figure img");
-    
+
     if (!document.getElementById("cb_photos_round").checked) {
         el_fig.classList.remove("img-rounded");
         document.getElementById("cb_photos_corners_soft").checked = false;
@@ -162,7 +162,7 @@ document.querySelector("#cb_photos_shadows").addEventListener("change", doPhotos
 function doPhotosShadows() {
 
     const el_fig = iframe.contentWindow.document.querySelector("section figure");
-    
+
     if (!document.getElementById("cb_photos_shadows").checked) {
         el_fig.classList.remove("fig-shadows-box");
     }
@@ -179,8 +179,8 @@ function doColH3TextBox() {
 
     const el_fig = iframe.contentWindow.document.querySelector("section figure");
     let el_TextBox;
-    let node;   
-    const arrContent = []; 
+    let node;
+    const arrContent = [];
 
     if (!document.querySelector("#cb_img_textbox").checked) {
         // Remove div as child of figure
@@ -205,7 +205,7 @@ document.querySelector("#form_img_textbox_shape").addEventListener("change", doT
 
 function doTextBoxShape() {
 
-    const el_TextBox = iframe.contentWindow.document.querySelector(".cols-img-textbox"); 
+    const el_TextBox = iframe.contentWindow.document.querySelector(".cols-img-textbox");
     const rbs = document.querySelectorAll("input[name='switch_img_textbox_shape']");
     let selectedValue;
 
@@ -219,7 +219,7 @@ function doTextBoxShape() {
     if (selectedValue==="square") {
         el_TextBox.classList.remove("corners-soft");
     }
-        
+
     else if (selectedValue==="soft") {
         el_TextBox.classList.add("corners-soft");
     }
@@ -233,7 +233,7 @@ function doColH4Overlay() {
 
     const el_fig = iframe.contentWindow.document.querySelector("section figure");
     let el_H4_overlay;
-    let node;   
+    let node;
 
     if (!document.querySelector("#cb_img_h4").checked) {
         // Remove div as child of figure
@@ -346,7 +346,7 @@ document.querySelector("#cb_drawings_shadows").addEventListener("change", doDraw
 function doDrawingsShadows() {
 
     const el_fig = iframe.contentWindow.document.querySelector("section figure");
-    
+
     if (!document.getElementById("cb_drawings_shadows").checked) {
         el_fig.classList.remove("fig-shadows-trans");
     }
@@ -382,7 +382,6 @@ function doFigWidth() {
         el_section_fig.classList.remove("figure-width-full");
         el_section_fig.classList.add("figure-width-80");
         document.getElementById("figure-animate").disabled = false;
-        // enableVisualAlign();
     }
 
     else if (opt==="50") {
@@ -390,14 +389,13 @@ function doFigWidth() {
         el_section_fig.classList.remove("figure-width-full");
         el_section_fig.classList.add("figure-width-50");
         document.getElementById("figure-animate").disabled = false;
-        // enableVisualAlign();        
     }
 
     else if (opt==="full") {
         el_section_fig.classList.remove("figure-width-50");
         el_section_fig.classList.remove("figure-width-80");
         el_section_fig.classList.add("figure-width-full");
-        // enableVisualAlign();        
+        // enableVisualAlign();
         el_section_fig_img.classList.remove("img-rounded");
         document.getElementById("cb_photos_round").checked = false;
         document.getElementById("cb_photos_round").disabled = true;
@@ -414,7 +412,7 @@ function doFigWidth() {
 function doVideos() {
 
     removeVisual();
-    
+
     // Visual types
     document.getElementById("form_vis_types").style.display = "block";
     document.getElementById("rb_vis_type_1").disabled=false;
@@ -434,7 +432,7 @@ function doVideos() {
     resetTransProps();
     // Set properties
     document.getElementById("dd_videos_type").value = "0";
-    doVisSubTypes(6);    
+    doVisSubTypes(6);
 }
 
 document.querySelector("#dd_videos_type").addEventListener("change", doVideosType);
@@ -444,14 +442,14 @@ function doVideosType() {
     let opt = document.querySelector("#dd_videos_type").value;
     removeVisual();
     if (opt==="0") {
-        doVisSubTypes(6);    
+        doVisSubTypes(6);
     }
-    
+
     else if (opt==="1") {
-        doVisSubTypes(7);    
+        doVisSubTypes(7);
     }
     else if (opt==="2") {
-        doVisSubTypes(8);    
+        doVisSubTypes(8);
     }
 }
 
@@ -507,7 +505,7 @@ function doVisSubTypes(n) {
 function removeVisual() {
     document.getElementById("dd_switch_section_vis_width").value = "100";
     const parentNode = iframe.contentWindow.document.querySelector("section");
-    var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0); 
+    var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0);
     for (let i = 0; i < el_img.length; i++) {
         el_img[i].parentNode.removeChild(el_img[i]);
     }
@@ -531,35 +529,30 @@ function doFigureAnimate() {
     else if (opt==="2") {
         removeFigureAnimate();
         iframe.contentWindow.document.querySelector("section > figure").classList.add("reveal-slide-up");
-        // doFigureReveal(2);
         addPlaceHolderContent();
     }
 
     else if (opt==="3") {
         removeFigureAnimate();
         iframe.contentWindow.document.querySelector("section > figure").classList.add("reveal-slide-from-left");
-        // doFigureReveal(3);
         addPlaceHolderContent();
     }
 
     else if (opt==="4") {
         removeFigureAnimate();
         iframe.contentWindow.document.querySelector("section > figure").classList.add("reveal-slide-from-right");
-        // doFigureReveal(4);
         addPlaceHolderContent();
     }
 
     else if (opt==="5") {
         removeFigureAnimate();
         iframe.contentWindow.document.querySelector("section > figure").classList.add("reveal-fade-in");
-        // doFigureReveal(4);
         addPlaceHolderContent();
     }
 
     else if (opt==="6") {
         removeFigureAnimate();
         iframe.contentWindow.document.querySelector("section > figure").classList.add("reveal-scale-in");
-        // doFigureReveal(4);
         addPlaceHolderContent();
     }
 }
@@ -586,9 +579,9 @@ function addPlaceHolderContent() {
     placeHolderSection.innerHTML=strContent;
     const HTMLContent = iframe.contentWindow.document.getElementById('HTML-Content');
     const currentSection = iframe.contentWindow.document.querySelector('section');
-    HTMLContent.insertBefore(placeHolderSection, currentSection);        
-    document.getElementById("HTML-Content").scrollIntoView();
-    iframe.contentWindow.document.querySelector('section').scrollIntoView();
+    HTMLContent.insertBefore(placeHolderSection, currentSection);
+    iframe.contentWindow.document.getElementById("HTML-Content").scrollIntoView();
+    // iframe.contentWindow.document.querySelector('section').scrollIntoView();
 }
 
 function removePlaceHolderContent() {

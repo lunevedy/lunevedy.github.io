@@ -2,6 +2,11 @@
 let uiMenusLength = document.querySelectorAll("#ui-menus li").length;
 let sectionClassName = ".section-selector-1";
 let sectionTheme = ".theme-light";
+let headerTheme = ".theme-light";
+sessionStorage.setItem("headerTheme", ".theme-light");
+sessionStorage.setItem("sectionTheme", ".theme-light");
+
+let headerBg;
 let btn_id; // item to be coloured
 let newStyle; // full selector and style rule
 let sub_string; // style rule excerpt for arrCSS
@@ -23,8 +28,8 @@ divs.forEach(el => el.addEventListener('click', event => {
     const menuId = strMenu.charAt(strMenu.length-1);
     const elItem_show = document.getElementById("content-"+menuId);
     // Unhide current menu
-    elItem_show.classList.remove("dropdown-hidden"); 
-    
+    elItem_show.classList.remove("dropdown-hidden");
+
     if (iframe.contentWindow.document.querySelector('.col-1') ) {
         // Work with upper block
         if (menuId==="2") {
@@ -78,10 +83,10 @@ for (let i = 1; i <= uiMenusLength; i++) {
 
 function hideDialogBox() {
     for (let i = 1; i <= uiMenusLength; i++) {
-        document.querySelector(`#content-${[i]}`).classList.add("dropdown-hidden"); 
+        document.querySelector(`#content-${[i]}`).classList.add("dropdown-hidden");
     }
     hideSidebar();
-} 
+}
 
 /* Show/hide color picker */
 function showSidebar() {
@@ -108,7 +113,7 @@ function dragElement(elmnt) {
     if (document.getElementById(elmnt.id + "header")) {
         // if present, the header is where you move the DIV from:
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-    } 
+    }
     else {
         // otherwise, move the DIV from anywhere inside the DIV:
         elmnt.onmousedown = dragMouseDown;
@@ -133,7 +138,7 @@ function dragElement(elmnt) {
 
         if((e.target == elSliderColumn) || (e.target == elSliderRow) ) {
             // Do nothing
-            elmnt.draggable = false; 
+            elmnt.draggable = false;
         }
         else {
         // e.preventDefault();
@@ -165,7 +170,7 @@ const span = document.querySelector('#myModal .close-modal')
 span.onclick = function() {
     hideSidebar();
 }
-    
+
 // When the user clicks anywhere outside the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
@@ -173,7 +178,7 @@ window.onclick = function(event) {
     }
 }
 
-// On click style button 
+// On click style button
 let all_btns = document.querySelectorAll('.btn_style');
 all_btns.forEach(el => el.addEventListener('click', event => {
     event.preventDefault();
@@ -192,7 +197,10 @@ function displayModal() {
 //////////////// SECTION: THEME  ///////////////
 */
 
-document.getElementById("form_switch_section_theme").addEventListener("change", doSectionTheme);
+if (document.getElementById("form_switch_section_theme")) {
+    document.getElementById("form_switch_section_theme").addEventListener("change", doSectionTheme);
+}
+
 
 function doSectionTheme() {
     const rbs = document.querySelectorAll("input[name='switch_section_light_dark']");
@@ -206,13 +214,31 @@ function doSectionTheme() {
     }
 
     if (selectedValue==="light") {
-        iframe.contentWindow.document.querySelector("section").classList.remove("theme-dark"); 
-        sessionStorage.setItem("sectionTheme", ".theme-light");
+        if (iframe.contentWindow.document.querySelector("header")) {
+            iframe.contentWindow.document.querySelector("header").classList.remove("theme-dark");
+            iframe.contentWindow.document.querySelector("header").classList.add("theme-light");
+            sessionStorage.setItem("headerTheme", ".theme-light");
+        }
+
+        else if (iframe.contentWindow.document.querySelector("section")) {
+            iframe.contentWindow.document.querySelector("section").classList.remove("theme-dark");
+            iframe.contentWindow.document.querySelector("section").classList.add("theme-light");
+            sessionStorage.setItem("sectionTheme", ".theme-light");
+        }
     }
-        
+
     else if (selectedValue==="dark") {
-        iframe.contentWindow.document.querySelector("section").classList.add("theme-dark"); 
-        sessionStorage.setItem("sectionTheme", ".theme-dark");
+        if (iframe.contentWindow.document.querySelector("header")) {
+            iframe.contentWindow.document.querySelector("header").classList.remove("theme-light");
+            iframe.contentWindow.document.querySelector("header").classList.add("theme-dark");
+            sessionStorage.setItem("headerTheme", ".theme-dark");
+        }
+
+        else if (iframe.contentWindow.document.querySelector("section")) {
+            iframe.contentWindow.document.querySelector("section").classList.remove("theme-light");
+            iframe.contentWindow.document.querySelector("section").classList.add("theme-dark");
+            sessionStorage.setItem("sectionTheme", ".theme-dark");
+        }
     }
     clearCSSTags();
 }
@@ -220,8 +246,9 @@ function doSectionTheme() {
 /*
 //////////////// SECTION: CLASS NAMES ///////////////
 */
-
-document.getElementById("dd_class_name").addEventListener("change", doClassName);
+if (document.getElementById("dd_class_name")) {
+    document.getElementById("dd_class_name").addEventListener("change", doClassName);
+}
 
 function doClassName() {
     removeClassNames();
@@ -242,10 +269,10 @@ function removeClassNames() {
 //////////////// ALIGN SECTION ///////////////
 */
 
-if (document.getElementById("form_align_desktop")) { 
+if (document.getElementById("form_align_desktop")) {
     document.getElementById("form_align_desktop").addEventListener("change", doAlignSectionDesktop);
 }
-    
+
 function doAlignSectionDesktop() {
     const rbs = document.querySelectorAll("input[name='align_desktop']");
     let selectedValue;
@@ -256,15 +283,43 @@ function doAlignSectionDesktop() {
             break;
         }
     }
-    if (selectedValue==="left") {
-        iframe.contentWindow.document.querySelector("section").classList.remove("text-center-desktop");
+
+    if (iframe.contentWindow.document.querySelector("header")) {
+        if (selectedValue==="left") {
+            iframe.contentWindow.document.querySelector("header").classList.remove("text-center-desktop");
+            document.getElementById("rb_btn_align_desktop_center").checked=false;
+            document.getElementById("rb_btn_align_desktop_left").checked=true;
+            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            document.getElementById("rb_btn_align_desktop_left").disabled=false;
+        }
+        else if (selectedValue==="center") {
+            iframe.contentWindow.document.querySelector("header").classList.add("text-center-desktop");
+            document.getElementById("rb_btn_align_desktop_center").checked=true;
+            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            document.getElementById("rb_btn_align_desktop_left").checked=false;
+            document.getElementById("rb_btn_align_desktop_left").disabled=true;
+        }
     }
-    else if (selectedValue==="center") {
-        iframe.contentWindow.document.querySelector("section").classList.add("text-center-desktop"); 
+
+    else if (iframe.contentWindow.document.querySelector("section")) {
+        if (selectedValue==="left") {
+            iframe.contentWindow.document.querySelector("section").classList.remove("text-center-desktop");
+            document.getElementById("rb_btn_align_desktop_center").checked=false;
+            document.getElementById("rb_btn_align_desktop_left").checked=true;
+            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            document.getElementById("rb_btn_align_desktop_left").disabled=false;
+        }
+        else if (selectedValue==="center") {
+            iframe.contentWindow.document.querySelector("section").classList.add("text-center-desktop");
+            document.getElementById("rb_btn_align_desktop_center").checked=true;
+            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            document.getElementById("rb_btn_align_desktop_left").checked=false;
+            document.getElementById("rb_btn_align_desktop_left").disabled=true;
+        }
     }
 }
 
-if (document.getElementById("form_align_mobile")) { 
+if (document.getElementById("form_align_mobile")) {
     document.getElementById("form_align_mobile").addEventListener("change", doAlignSectionMobile);
 }
 
@@ -279,11 +334,39 @@ function doAlignSectionMobile() {
             break;
         }
     }
-    if (selectedValue==="left") {
-        iframe.contentWindow.document.querySelector("section").classList.remove("text-center-mobile");
+
+    if (iframe.contentWindow.document.querySelector("header")) {
+        if (selectedValue==="left") {
+            iframe.contentWindow.document.querySelector("header").classList.remove("text-center-mobile");
+            document.getElementById("rb_btn_align_mobile_center").checked=false;
+            document.getElementById("rb_btn_align_mobile_left").checked=true;
+            document.getElementById("rb_btn_align_mobile_center").disabled=false;
+            document.getElementById("rb_btn_align_mobile_left").disabled=false;
+        }
+        else if (selectedValue==="center") {
+            iframe.contentWindow.document.querySelector("header").classList.add("text-center-mobile");
+            document.getElementById("rb_btn_align_mobile_center").checked=true;
+            document.getElementById("rb_btn_align_mobile_center").disabled=false;
+            document.getElementById("rb_btn_align_mobile_left").checked=false;
+            document.getElementById("rb_btn_align_mobile_left").disabled=true;
+        }
     }
-    else if (selectedValue==="center") {
-        iframe.contentWindow.document.querySelector("section").classList.add("text-center-mobile"); 
+
+    else if (iframe.contentWindow.document.querySelector("section")) {
+        if (selectedValue==="left") {
+            iframe.contentWindow.document.querySelector("section").classList.remove("text-center-mobile");
+            document.getElementById("rb_btn_align_mobile_center").checked=false;
+            document.getElementById("rb_btn_align_mobile_left").checked=true;
+            document.getElementById("rb_btn_align_mobile_center").disabled=false;
+            document.getElementById("rb_btn_align_mobile_left").disabled=false;
+        }
+        else if (selectedValue==="center") {
+            iframe.contentWindow.document.querySelector("section").classList.add("text-center-mobile");
+            document.getElementById("rb_btn_align_mobile_center").checked=true;
+            document.getElementById("rb_btn_align_mobile_center").disabled=false;
+            document.getElementById("rb_btn_align_mobile_left").checked=false;
+            document.getElementById("rb_btn_align_mobile_left").disabled=true;
+        }
     }
 }
 
@@ -291,7 +374,9 @@ function doAlignSectionMobile() {
 //////////////// SECTION WIDTH ///////////////
 */
 
-document.getElementById("dd_section_width").addEventListener("change", doWidthSectionDesktop);
+if (document.getElementById("dd_section_width")) {
+    document.getElementById("dd_section_width").addEventListener("change", doWidthSectionDesktop);
+}
 
 function doWidthSectionDesktop() {
     console.log("clicked section width");
@@ -326,7 +411,38 @@ function deleteWidthSectionDesktop() {
     iframe.contentWindow.document.querySelector("section").classList.remove("w-1024px");
     iframe.contentWindow.document.querySelector("section").classList.remove("w-1140px");
     iframe.contentWindow.document.querySelector("section").classList.remove("w-1320px");
-    iframe.contentWindow.document.querySelector("section").classList.remove("w-1536px");                
+    iframe.contentWindow.document.querySelector("section").classList.remove("w-1536px");
+}
+
+/*
+//////////////// SECTION WIDTH ///////////////
+*/
+
+if (document.getElementById("dd_header_width")) {
+    document.getElementById("dd_header_width").addEventListener("change", doWidthheaderDesktop);
+}
+
+function doWidthheaderDesktop() {
+    console.log("clicked header width");
+
+    let opt = document.getElementById("dd_header_width").value;
+    deleteWidthheaderDesktop();
+
+    if (opt==="1") {
+        iframe.contentWindow.document.querySelector("header").classList.add("w-1140px");
+    }
+    else if (opt==="2") {
+        iframe.contentWindow.document.querySelector("header").classList.add("w-1320px");
+    }
+    else if (opt==="3") {
+        iframe.contentWindow.document.querySelector("header").classList.add("w-1536px");
+    }
+}
+
+function deleteWidthheaderDesktop() {
+    iframe.contentWindow.document.querySelector("header").classList.remove("w-1140px");
+    iframe.contentWindow.document.querySelector("header").classList.remove("w-1320px");
+    iframe.contentWindow.document.querySelector("header").classList.remove("w-1536px");
 }
 
 function doUpdateArray(sub_string,newStyle) {
@@ -346,7 +462,7 @@ function updateCSSTagPair() {
     strCSS = strCSS.replaceAll(",.theme", ".theme");
     strCSS = strCSS.replaceAll(",.section", ".section");
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
-        var st = iframe.contentWindow.document.getElementsByTagName('style');            
+        var st = iframe.contentWindow.document.getElementsByTagName('style');
         for(let i = 0 ; i < st.length ; i++){
             st[i].parentNode.removeChild(st[i]);
         }
@@ -365,7 +481,7 @@ function updateCSSTagPair() {
 // Remove all style rules
 function clearCSSTags() {
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
-        var st = iframe.contentWindow.document.getElementsByTagName('style');            
+        var st = iframe.contentWindow.document.getElementsByTagName('style');
         for(let i = 0 ; i < st.length ; i++){
             st[i].parentNode.removeChild(st[i]);
         }
@@ -381,7 +497,7 @@ function removeCSSTagPairs(...args) {
     // remove from CSS array
     for (const arg of args) {
         console.log("An arg content: "+arg);
-        const arrPos = arrCSS.findIndex(e => e.includes(arg)); 
+        const arrPos = arrCSS.findIndex(e => e.includes(arg));
         console.log("arrPos: "+arrPos);
         if (arrPos != "-1") {
             // remove from CSS array
@@ -393,7 +509,7 @@ function removeCSSTagPairs(...args) {
     let strCSS = arrCSS.toString();
     strCSS = strCSS.replaceAll(",.theme", ".theme");
     strCSS = strCSS.replaceAll(",.section", ".section");
-    var st = iframe.contentWindow.document.getElementsByTagName('style');            
+    var st = iframe.contentWindow.document.getElementsByTagName('style');
     for(let i = 0 ; i < st.length ; i++){
         st[i].parentNode.removeChild(st[i]);
     }
@@ -442,52 +558,52 @@ function doUIThemeSelect() {
 
     if (opt==="1") {
         elControl.classList.add("theme-ui-dark-contrast");
-        elLowerLeft.classList.add("theme-ui-dark-contrast"); 
-        elLowerRight.classList.add("theme-ui-dark-contrast"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-dark-contrast'); 
+        elLowerLeft.classList.add("theme-ui-dark-contrast");
+        elLowerRight.classList.add("theme-ui-dark-contrast");
+        sessionStorage.setItem('ui-theme', 'theme-ui-dark-contrast');
     }
     else if (opt==="2") {
         elControl.classList.add("theme-ui-dark-blue");
-        elLowerLeft.classList.add("theme-ui-dark-blue"); 
-        elLowerRight.classList.add("theme-ui-dark-blue"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-dark-blue'); 
+        elLowerLeft.classList.add("theme-ui-dark-blue");
+        elLowerRight.classList.add("theme-ui-dark-blue");
+        sessionStorage.setItem('ui-theme', 'theme-ui-dark-blue');
     }
     else if (opt==="3") {
         elControl.classList.add("theme-ui-dark-green");
-        elLowerLeft.classList.add("theme-ui-dark-green"); 
-        elLowerRight.classList.add("theme-ui-dark-green"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-dark-green'); 
+        elLowerLeft.classList.add("theme-ui-dark-green");
+        elLowerRight.classList.add("theme-ui-dark-green");
+        sessionStorage.setItem('ui-theme', 'theme-ui-dark-green');
     }
     else if (opt==="4") {
         elControl.classList.add("theme-ui-dark-pink");
-        elLowerLeft.classList.add("theme-ui-dark-pink"); 
-        elLowerRight.classList.add("theme-ui-dark-pink"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-dark-pink'); 
+        elLowerLeft.classList.add("theme-ui-dark-pink");
+        elLowerRight.classList.add("theme-ui-dark-pink");
+        sessionStorage.setItem('ui-theme', 'theme-ui-dark-pink');
     }
 
     else if (opt==="5") {
         elControl.classList.add("theme-ui-light");
-        elLowerLeft.classList.add("theme-ui-light"); 
-        elLowerRight.classList.add("theme-ui-light"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-light'); 
+        elLowerLeft.classList.add("theme-ui-light");
+        elLowerRight.classList.add("theme-ui-light");
+        sessionStorage.setItem('ui-theme', 'theme-ui-light');
     }
     else if (opt==="6") {
         elControl.classList.add("theme-ui-tiffany");
-        elLowerLeft.classList.add("theme-ui-tiffany"); 
-        elLowerRight.classList.add("theme-ui-tiffany"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-tiffany'); 
+        elLowerLeft.classList.add("theme-ui-tiffany");
+        elLowerRight.classList.add("theme-ui-tiffany");
+        sessionStorage.setItem('ui-theme', 'theme-ui-tiffany');
     }
     else if (opt==="7") {
         elControl.classList.add("theme-ui-pistachio");
-        elLowerLeft.classList.add("theme-ui-pistachio"); 
-        elLowerRight.classList.add("theme-ui-pistachio"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-pistachio'); 
+        elLowerLeft.classList.add("theme-ui-pistachio");
+        elLowerRight.classList.add("theme-ui-pistachio");
+        sessionStorage.setItem('ui-theme', 'theme-ui-pistachio');
     }
     else if (opt==="8") {
         elControl.classList.add("theme-ui-girlboss");
-        elLowerLeft.classList.add("theme-ui-girlboss"); 
-        elLowerRight.classList.add("theme-ui-girlboss"); 
-        sessionStorage.setItem('ui-theme', 'theme-ui-girlboss'); 
+        elLowerLeft.classList.add("theme-ui-girlboss");
+        elLowerRight.classList.add("theme-ui-girlboss");
+        sessionStorage.setItem('ui-theme', 'theme-ui-girlboss');
     }
 }
 
@@ -497,36 +613,36 @@ function deleteUITheme() {
     const elLowerRight = document.getElementById("copy-code-btns");
 
     elControl.classList.remove("theme-ui-dark-contrast");
-    elLowerLeft.classList.remove("theme-ui-dark-contrast"); 
-    elLowerRight.classList.remove("theme-ui-dark-contrast"); 
+    elLowerLeft.classList.remove("theme-ui-dark-contrast");
+    elLowerRight.classList.remove("theme-ui-dark-contrast");
 
     elControl.classList.remove("theme-ui-dark-blue");
     elLowerLeft.classList.remove("theme-ui-dark-blue");
-    elLowerRight.classList.remove("theme-ui-dark-blue"); 
+    elLowerRight.classList.remove("theme-ui-dark-blue");
 
     elControl.classList.remove("theme-ui-dark-green");
-    elLowerLeft.classList.remove("theme-ui-dark-green"); 
-    elLowerRight.classList.remove("theme-ui-dark-green"); 
+    elLowerLeft.classList.remove("theme-ui-dark-green");
+    elLowerRight.classList.remove("theme-ui-dark-green");
 
     elControl.classList.remove("theme-ui-dark-pink");
-    elLowerLeft.classList.remove("theme-ui-dark-pink"); 
-    elLowerRight.classList.remove("theme-ui-dark-pink"); 
+    elLowerLeft.classList.remove("theme-ui-dark-pink");
+    elLowerRight.classList.remove("theme-ui-dark-pink");
 
     elControl.classList.remove("theme-ui-light");
-    elLowerLeft.classList.remove("theme-ui-light"); 
-    elLowerRight.classList.remove("theme-ui-light"); 
+    elLowerLeft.classList.remove("theme-ui-light");
+    elLowerRight.classList.remove("theme-ui-light");
 
     elControl.classList.remove("theme-ui-tiffany");
-    elLowerLeft.classList.remove("theme-ui-tiffany"); 
-    elLowerRight.classList.remove("theme-ui-tiffany"); 
+    elLowerLeft.classList.remove("theme-ui-tiffany");
+    elLowerRight.classList.remove("theme-ui-tiffany");
 
     elControl.classList.remove("theme-ui-pistachio");
-    elLowerLeft.classList.remove("theme-ui-pistachio"); 
-    elLowerRight.classList.remove("theme-ui-pistachio"); 
+    elLowerLeft.classList.remove("theme-ui-pistachio");
+    elLowerRight.classList.remove("theme-ui-pistachio");
 
     elControl.classList.remove("theme-ui-girlboss");
-    elLowerLeft.classList.remove("theme-ui-girlboss"); 
-    elLowerRight.classList.remove("theme-ui-girlboss"); 
+    elLowerLeft.classList.remove("theme-ui-girlboss");
+    elLowerRight.classList.remove("theme-ui-girlboss");
 }
 
 /*
@@ -639,17 +755,17 @@ iconsResponsive.forEach(icon => {
         else if (iconId==="respTabletPortrait") {
             document.getElementById("page-preview-body").classList.add("resp-tablet-portrait");
             document.querySelector("#respTabletPortrait img").src = "../../ui/assets/img/icons/icon-resize-tablet-portrait.png";
-        }        
-        
+        }
+
         else if (iconId==="respMobileLarge") {
             document.getElementById("page-preview-body").classList.add("resp-mobile-large");
             document.querySelector("#respMobileLarge img").src = "../../ui/assets/img/icons/icon-resize-mobile-large.png";
-        }        
+        }
 
         else if (iconId==="respMobileSmall") {
             document.getElementById("page-preview-body").classList.add("resp-mobile-small")
-            document.querySelector("#respMobileSmall img").src = "../../ui/assets/img/icons/icon-resize-mobile-small.png";           
-        }        
+            document.querySelector("#respMobileSmall img").src = "../../ui/assets/img/icons/icon-resize-mobile-small.png";
+        }
     });
 });
 
@@ -665,8 +781,8 @@ function resetResponsive() {
     document.querySelector("#respDesktopSmall img").src = "../../ui/assets/img/icons/icon-resize-desktop-small-selected.png";
     document.querySelector("#respTabletLandscape img").src = "../../ui/assets/img/icons/icon-resize-tablet-landscape-selected.png";
     document.querySelector("#respTabletPortrait img").src = "../../ui/assets/img/icons/icon-resize-tablet-portrait-selected.png";
-    document.querySelector("#respMobileLarge img").src = "../../ui/assets/img/icons/icon-resize-mobile-large-selected.png";  
-    document.querySelector("#respMobileSmall img").src = "../../ui/assets/img/icons/icon-resize-mobile-small-selected.png";  
+    document.querySelector("#respMobileLarge img").src = "../../ui/assets/img/icons/icon-resize-mobile-large-selected.png";
+    document.querySelector("#respMobileSmall img").src = "../../ui/assets/img/icons/icon-resize-mobile-small-selected.png";
 }
 
 /*
@@ -691,7 +807,7 @@ function copyHTML() {
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
-    document.body.removeChild(el); 
+    document.body.removeChild(el);
 }
 
 document.querySelector("#btn-copy-css").addEventListener("click", copyCSS);
@@ -708,6 +824,6 @@ function copyCSS() {
     document.body.appendChild(el_css);
     el_css.select();
     document.execCommand('copy');
-    document.body.removeChild(el_css);  
+    document.body.removeChild(el_css);
 }
 

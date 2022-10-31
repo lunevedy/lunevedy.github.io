@@ -125,14 +125,18 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
         // get button(s) container
         const objContainer = getBtnContainer();
 
+        // remove existing button
+
+        if (iframe.contentWindow.document.querySelector(".container-btn")) {
+            iframe.contentWindow.document.querySelector(".container-btn").remove();
+        }
+
         if (selectedValue==="btn-one") {
-            // removeBtnsAll();
             const btnNum = 1;
             createBtn(objContainer, btnNum);
         }
 
         else if (selectedValue==="btn-two") {
-            // test for button(s) and remove
             const btnNum = 2;
             createBtn(objContainer, btnNum);
         }
@@ -140,40 +144,39 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
 
     function getBtnContainer() {
         let objContainer;
-        // main section 0 cols
-        if ( (iframe.contentWindow.document.querySelector("section > figure")) || (iframe.contentWindow.document.querySelector("section > h2")) || (iframe.contentWindow.document.querySelector("section > p")) ) {
-            objContainer = iframe.contentWindow.document.querySelector("section");
+        if (iframe.contentWindow.document.querySelector("header .col-2.col-text")) {
+            objContainer = iframe.contentWindow.document.querySelector("header .col-2.col-text");
         }
-
-        // main section 2-cols-split
-        if (iframe.contentWindow.document.querySelector("section .col-2.col-text")) {
-            objContainer = iframe.contentWindow.document.querySelector("section .col-2.col-text");
-        }
-
-        // header 0 cols
-        if (iframe.contentWindow.document.querySelector(" header:not(.col-2.col-text) ") ) {
+        else {
             objContainer = iframe.contentWindow.document.querySelector("header");
         }
-
-        // header 2-cols-split
-        else if ( iframe.contentWindow.document.querySelector("header .col-2.col-text")) {
-            objContainer = iframe.contentWindow.document.querySelector("header .col-2.col-text");
-       }
         return objContainer;
     }
 
     function createBtn(objContainer,btnNum) {
-        // Test for button container
-        if (iframe.contentWindow.document.querySelector(".container-btn")) {
-            iframe.contentWindow.document.querySelector(".container-btn").remove();
-        }
-
         if (btnNum == "1") {
+            console.log("Chossen 1 button")
             // Add button container DIV at end of column/section/header container
             const btnDivBtnOne = document.createElement('div');
             btnDivBtnOne.classList.add('container-btn');
             const objContainer = getBtnContainer();
-            objContainer.append(btnDivBtnOne);
+
+            if (iframe.contentWindow.document.querySelector("header .col-2.col-text")) {
+                objContainer.append(btnDivBtnOne);
+                console.log("2 column screen");
+            }
+
+            else {
+                console.log("one column layout");
+                if (iframe.contentWindow.document.querySelector("header > figure")) {
+                    console.log("one column layout - contains a figure")
+                    iframe.contentWindow.document.querySelector("header > figure").insertAdjacentHTML("beforebegin", btnDivBtnOne.innerHTML);
+                }
+                else {
+                    console.log("one column layout - no figure")
+                    objContainer.append(btnDivBtnOne);
+                }
+            }
 
             // Create content for button DIV
             const el_btn = document.createElement('a');
@@ -222,7 +225,6 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("cb_buttons_shadow_1").checked=false;
             // document.getElementById("cb_buttons_uppercase_1").disabled=false;
             document.getElementById("cb_buttons_uppercase_1").checked=false;
-
         }
 
         else if (btnNum =="2") {
@@ -331,8 +333,8 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
 
             const objContainer = getBtnContainer();
             objContainer.innerHTML = objContainer.innerHTML.replaceAll("    \t\n", "");
-            objContainer.innerHTML = objContainer.innerHTML.replaceAll("\t\n\n<\/section>", "\t</section>");
-            objContainer.innerHTML = objContainer.innerHTML.replaceAll("<\/section>", "\t</section>");
+            objContainer.innerHTML = objContainer.innerHTML.replaceAll("\t\n\n<\/header>", "\t</header>");
+            objContainer.innerHTML = objContainer.innerHTML.replaceAll("<\/header>", "\t</header>");
         }
     }
 
@@ -355,7 +357,7 @@ function doButtonsAlignDesktop() {
     }
 
     // Verify button container exists
-    if (iframe.contentWindow.document.querySelectorAll(".container-btn")) {
+    if (iframe.contentWindow.document.querySelector(".container-btn")) {
 
         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
         if (selectedValue==="left") {
@@ -405,7 +407,7 @@ document.querySelector("#dd_buttons_size").addEventListener("change", doButtonsS
 
 function doButtonsSize() {
     let opt = document.querySelector("#dd_buttons_size").value;
-    const objBtns = iframe.contentWindow.document.querySelectorAll('section .container-btn a.btn');
+    const objBtns = iframe.contentWindow.document.querySelectorAll('header .container-btn a.btn');
 
     // Small
     if (opt==="0") {
@@ -443,7 +445,7 @@ document.querySelector("#dd_button_type_1").addEventListener("change", doButtonT
 function doButtonType1() {
     let opt = document.querySelector("#dd_button_type_1").value;
 
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(1)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(1)');
 
     // Solid
     if (opt==="0") {
@@ -495,7 +497,7 @@ document.querySelector("#dd_button_type_2").addEventListener("change", doButtonT
 function doButtonType2() {
     let opt = document.querySelector("#dd_button_type_2").value;
 
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(2)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(2)');
 
     // Solid
     if (opt==="0") {
@@ -556,7 +558,7 @@ function swapButtonIcons_1() {
     }
 
     // Set up button icon and text content
-    const el_btn = iframe.contentWindow.document.querySelector("section  .container-btn a.btn:nth-child(1)");
+    const el_btn = iframe.contentWindow.document.querySelector("header .container-btn a.btn:nth-child(1)");
 
     const icon_left  ="<i class=\"fas fa-shopping-cart\"></i><span>Order now</span>";
     const icon_right ="<span>Order Now</span><i class=\"fas fa-shopping-cart\"></i>";
@@ -597,7 +599,7 @@ function swapButtonIcons_2() {
     }
 
     // Set up button icon and text content
-    const el_btn = iframe.contentWindow.document.querySelector("section  .container-btn a.btn:nth-child(2)");
+    const el_btn = iframe.contentWindow.document.querySelector("header .container-btn a.btn:nth-child(2)");
     const icon_left  ="<i class=\"fas fa-arrow-right\"></i><span>Learn more</span>";
     const icon_right ="<span>Learn more</span><i class=\"fas fa-arrow-right\"></i>";
     const icon_none = "<span>Learn more</span>";
@@ -626,7 +628,7 @@ document.querySelector("#dd_buttons_shape_1").addEventListener("change", doButto
 
 function doButtonsShape1() {
     let opt = document.querySelector("#dd_buttons_shape_1").value;
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(1)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(1)');
     // remove
     if (opt==="0") {
         el_btn.classList.remove("btn-pill");
@@ -654,7 +656,7 @@ document.querySelector("#dd_buttons_shape_2").addEventListener("change", doButto
 
 function doButtonsShape2() {
     let opt = document.querySelector("#dd_buttons_shape_2").value;
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(2)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(2)');
 
     // remove
     if (opt==="0") {
@@ -682,7 +684,7 @@ function doButtonsShape2() {
 document.querySelector("#cb_buttons_shadow_1").addEventListener("change", doBtnShadow1);
 
 function doBtnShadow1() {
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(1)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(1)');
 
     if (!document.getElementById("cb_buttons_shadow_1").checked) {
         el_btn.classList.remove("btn-shadow");
@@ -695,7 +697,7 @@ function doBtnShadow1() {
 document.querySelector("#cb_buttons_shadow_2").addEventListener("change", doBtnShadow2);
 
 function doBtnShadow2() {
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(2)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(2)');
 
     if (!document.getElementById("cb_buttons_shadow_2").checked) {
         el_btn.classList.remove("btn-shadow");
@@ -713,7 +715,7 @@ document.querySelector("#cb_buttons_uppercase_1").addEventListener("change", doB
 
 function doBtnUCase1() {
 
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(1)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(1)');
 
     if (!document.getElementById("cb_buttons_uppercase_1").checked) {
         el_btn.classList.remove("btn-uppercase");
@@ -731,7 +733,7 @@ document.querySelector("#cb_buttons_uppercase_2").addEventListener("change", doB
 
 function doBtnUCase2() {
 
-    const el_btn = iframe.contentWindow.document.querySelector('section  .container-btn a.btn:nth-child(2)');
+    const el_btn = iframe.contentWindow.document.querySelector('header .container-btn a.btn:nth-child(2)');
 
     if (!document.getElementById("cb_buttons_uppercase_2").checked) {
         el_btn.classList.remove("btn-uppercase");

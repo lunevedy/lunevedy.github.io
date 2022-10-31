@@ -1,7 +1,7 @@
 
-#control-menu #content-1 { left: 73.5% } 
-#control-menu #content-2 { left: 70.4% } 
-#control-menu #content-3 { left: 62% }
+#control-menu #content-1 { left: 68.65% }
+#control-menu #content-2 { left: 70.4% }
+#control-menu #content-3 { left: 58.4% }
 #control-menu #content-4 { left: 62.5% }
 
 /* ============ 1: SECTION MAIN OPTIONS ============*/
@@ -10,7 +10,7 @@
 #content-1 select#dd_class_name { min-width: 168px }
 #content-1 select#dd_section_width { min-width: 132px }
 
-#content-1 .rb-switch label:first-of-type { 
+#content-1 .rb-switch label:first-of-type {
     border-radius: 4px 0 0 4px; border-width: 1px 0 1px 1px;
 }
 #content-1 .rb-switch label:last-of-type { border-radius: 0 4px 4px 0 }
@@ -59,15 +59,15 @@
 
 #content-3 .dialog-box .switch-field input,
 #content-3 .dialog-box .input-group .switch-field input {
-	position: absolute !important; overflow: hidden; 
+	position: absolute !important; overflow: hidden;
 	clip: rect(0, 0, 0, 0); height: 1px; width: 1px; border: 0;
 }
 
-#content-3 .dialog-box .switch-field label, 
+#content-3 .dialog-box .switch-field label,
 #content-3 .dialog-box .input-group .switch-field label {
-    background-color: var(--gray-400); 
+    background-color: var(--gray-400);
     color: var(--gray-700);  fill: var(--gray-700);
-    font-size: 16px; line-height: 1; text-align: center;  
+    font-size: 16px; line-height: 1; text-align: center;
     padding: 4px 10px 0 6px; margin-right: -1px; font-weight: 600;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
@@ -78,8 +78,8 @@
 #content-3 .dialog-box .input-group .switch-field label:hover { cursor: pointer }
 
 #content-3 .dialog-box .switch-field input:checked + label,
-#content-3 .dialog-box .input-group .switch-field input:checked + label {  
-    box-shadow: none; background-color: #000; 
+#content-3 .dialog-box .input-group .switch-field input:checked + label {
+    box-shadow: none; background-color: #000;
     color: var(--gray-200); fill: var(--gray-200) !important;
 }
 
@@ -124,7 +124,7 @@
 #content-3 .container-buttons-block {
     min-width: 400px;
     margin: 20px auto 0 auto;
-    background-color: #454946;
+    /* background-color: #454946; */
     color: #fff;
 }
 
@@ -132,7 +132,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     position: relative;
-    background-color: #454946;
+    /* background-color: #454946; */
     min-width: 460px
 }
 
@@ -151,47 +151,48 @@
     z-index: 9; display: inline-block;
 }
 
-#content-3 .buttonWrapper > button:hover { 
+#content-3 .buttonWrapper > button:hover {
     padding: 10px 10px 10px 9px; display: inline-block;
-    background-color: var(--slate-600); color: #fff;
+    /* background-color: var(--slate-600); */
+     color: #fff;
     border-left: solid 1px var(--slate-600);
-    border-right: solid 1px var(--slate-600);
+    /* border-right: solid 1px var(--slate-600); */
     border-bottom: solid 1px var(--slate-600);
     border-top-width: 0
 }
 
 #content-3 .contentWrapper .input-group button.btn_style {
-    min-width: 140px;
+    min-width: 148px;
 }
 
-#content-3 button.active { 
+#content-3 button.active {
     color: #fff;
-    background-color: #454946; 
+    /* background-color: #454946; */
     border-top: solid 1px var(--gray-500);
     border-left: solid 1px var(--gray-500);
     border-right: solid 1px var(--gray-500);
-    border-bottom-color: #454946; 
+    border-bottom-color: #454946;
 }
 
-#content-3 button.active:hover { 
+#content-3 button.active:hover {
     color: #fff;
-    background-color: #454946; 
+    /* background-color: #454946; */
     border-bottom-color: #454946;
     border-left: solid 1px #9fb1bd;
-    border-right: solid 1px #9fb1bd;
-    border-top: solid 1px #9fb1bd;    
+    /* border-right: solid 1px #9fb1bd; */
+    border-top: solid 1px #9fb1bd;
 }
 
-#content-3 .active { background-color: #454946 }
+/* #content-3 .active { background-color: #454946 } */
 
-#content-3 .tab-content { 
+#content-3 .tab-content {
     display: none; padding: 20px 12px 20px 10px;
     border-left: solid 1px #9fb1bd;
     border-right: solid 1px #9fb1bd;
-    border-top: solid 1px #9fb1bd;    
-    border-bottom: solid 1px #9fb1bd;    
+    border-top: solid 1px #9fb1bd;
+    border-bottom: solid 1px #9fb1bd;
     position: relative;
-    z-index: 1; 
+    z-index: 1;
 }
 
 #content-3 .tab-content.active { display: block }
@@ -200,7 +201,7 @@
 
 /* ============ 5: ILLUSTRATIONS MENU ============ */
 
-#content-4 .dialog-box .flex-two-col { 
+#content-4 .dialog-box .flex-two-col {
     display: flex; justify-content: flex-start; flex-wrap: nowrap;
 }
 
@@ -210,27 +211,27 @@
 #content-4 .flex-two-col div:nth-child(1) .input-group.controls-illustrations label {
     min-width: 92px; margin-top: -6px; margin-right: 8px;
 }
-#content-4 .flex-two-col div:nth-child(1) .input-group.controls-illustrations input { 
-    margin-top: 2px 
+#content-4 .flex-two-col div:nth-child(1) .input-group.controls-illustrations input {
+    margin-top: 2px
 }
 
 #content-4 #form_vis_types { margin-top: 12px; width: 180px }
 #content-4 #form_vis_types label { margin-top: -8px; margin-left: 14px }
-#content-4 #form_vis_types.input-group input [type="radio"] { 
+#content-4 #form_vis_types.input-group input [type="radio"] {
     margin: 5px 0 5px 0;
 }
 
 /* right column */
-#content-4 .flex-two-col div:nth-child(2) h4 { margin-top: 0; margin-bottom: 2px } 
+#content-4 .flex-two-col div:nth-child(2) h4 { margin-top: 0; margin-bottom: 2px }
 
-#content-4 #outer-properties { 
+#content-4 #outer-properties {
     border-style: solid;
     border-width: 1px;
     padding: 12px 12px 10px 16px; min-width: 240px
 }
 
 #content-4 #outer-properties .input-group:nth-child(1) { margin-top: 14px }
-#content-4 #outer-properties .input-group { 
+#content-4 #outer-properties .input-group {
     margin-top: 14px; margin-bottom: 14px; min-width: 200px;
 }
 
@@ -243,10 +244,10 @@
 #content-4 #properties-icons .input-group { margin-top: 22px; margin-bottom: 22px }
 #content-4 #properties-icons .input-group:last-child { margin-bottom: 14px }
 
-#content-4 #btn_icon_color { padding: 0 8px 8px 8px } 
+#content-4 #btn_icon_color { padding: 0 8px 8px 8px }
 #content-4 #btn_icon_color .ui-icon-paint-svg { margin-right: 4px }
 
-#content-4 .rb-switch label:first-of-type { border-radius: 4px 0 0 4px; border-right-width: 0 }
+#content-4 .rb-switch label:first-of-type { border-radius: 4px }
 #content-4 .rb-switch label:last-of-type  { border-radius: 0 4px 4px 0 }
 
 /* .slidecontainer { padding-top: 12px } */
@@ -254,26 +255,27 @@
 .container-slider #num { margin-top: -12px; display: inline-block }
 .slider {
     -webkit-appearance: none;
+    appearance: none;
     height: 5px;
-    border-radius: 5px; 
+    border-radius: 5px;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
 }
 
-.container-slider input[type="range"] { accent-color: #03d4f4 } 
+.container-slider input[type="range"] { accent-color: #03d4f4 }
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 15px;
     height: 15px;
-    border-radius: 50%; 
+    border-radius: 50%;
     background: #00ddff;
     cursor: pointer;
 }
-  
+
 .slider::-moz-range-thumb {
     width: 15px;
     height: 15px;

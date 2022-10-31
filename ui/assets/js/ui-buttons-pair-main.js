@@ -140,25 +140,12 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
 
     function getBtnContainer() {
         let objContainer;
-        // main section 0 cols
-        if ( (iframe.contentWindow.document.querySelector("section > figure")) || (iframe.contentWindow.document.querySelector("section > h2")) || (iframe.contentWindow.document.querySelector("section > p")) ) {
-            objContainer = iframe.contentWindow.document.querySelector("section");
-        }
-
-        // main section 2-cols-split
         if (iframe.contentWindow.document.querySelector("section .col-2.col-text")) {
             objContainer = iframe.contentWindow.document.querySelector("section .col-2.col-text");
         }
-
-        // header 0 cols
-        if (iframe.contentWindow.document.querySelector(" header:not(.col-2.col-text) ") ) {
-            objContainer = iframe.contentWindow.document.querySelector("header");
+        else {
+            objContainer = iframe.contentWindow.document.querySelector("section");
         }
-
-        // header 2-cols-split
-        else if ( iframe.contentWindow.document.querySelector("header .col-2.col-text")) {
-            objContainer = iframe.contentWindow.document.querySelector("header .col-2.col-text");
-       }
         return objContainer;
     }
 
@@ -355,7 +342,7 @@ function doButtonsAlignDesktop() {
     }
 
     // Verify button container exists
-    if (iframe.contentWindow.document.querySelectorAll(".container-btn")) {
+    if (iframe.contentWindow.document.querySelector(".container-btn")) {
 
         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
         if (selectedValue==="left") {

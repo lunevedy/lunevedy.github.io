@@ -1,4 +1,4 @@
-import {content_photo_landscape_section, content_photo_portrait_section, content_photo_square_section, content_photo_circle_section, content_trans_landscape_section, content_trans_portrait_section, content_trans_square_section, content_drawing_landscape_section, content_drawing_portrait_section, content_drawing_square_section, content_vid_file_section, content_vid_yt_section, content_vid_rumble_section, content_textbox_section } from '../js/arr-content.js';
+import {content_photo_landscape_hero_half, content_photo_portrait_hero_half, content_photo_square_hero_half, content_photo_circle_hero_half, content_trans_landscape_section, content_trans_portrait_section, content_trans_square_section, content_drawing_landscape_hero_half, content_drawing_portrait_hero_half, content_drawing_square_hero_half, content_vid_file_section, content_vid_yt_section, content_vid_rumble_section } from '../js/arr-content.js';
 
 /*
 ////////////////////// VISUALS: FOUR TYPES ///////////////////////
@@ -219,24 +219,24 @@ function doSourceVideo() {
 
 function doVisSubTypes(n) {
 
-    const objSection = iframe.contentWindow.document.querySelector("section .col-2.col-visual");
+    const objSection = iframe.contentWindow.document.querySelector("header .col-2.col-visual");
     let el_visual;
 
     // photos: landscape
     if (n===1) {
-        el_visual = content_photo_landscape_section;
+        el_visual = content_photo_landscape_hero_half;
     }
     // photos: portrait
     else if (n===2) {
-        el_visual = content_photo_portrait_section;
+        el_visual = content_photo_portrait_hero_half;
     }
     // photos: square
     else if (n===3) {
-        el_visual = content_photo_square_section;
+        el_visual = content_photo_square_hero_half;
     }
     // photos: circle
     else if (n===4) {
-        el_visual = content_photo_circle_section;
+        el_visual = content_photo_circle_hero_half;
     }
 
     // transparent: landscape
@@ -254,15 +254,15 @@ function doVisSubTypes(n) {
 
     // drawings: landscape
     else if (n===8) {
-        el_visual = content_drawing_landscape_section;
+        el_visual = content_drawing_landscape_hero_half;
     }
     // drawings: portrait
     else if (n===9) {
-        el_visual = content_drawing_portrait_section;
+        el_visual = content_drawing_portrait_hero_half;
     }
     // drawings: square
     else if (n===10) {
-        el_visual = content_drawing_square_section;
+        el_visual = content_drawing_square_hero_half;
     }
 
     // videos: file
@@ -281,11 +281,13 @@ function doVisSubTypes(n) {
     }
     objSection.innerHTML = el_visual + objSection.innerHTML;
 
-    if (n===4) { doImgCircle() }
+    if (n===4) {
+        doImgCircle()
+    }
 }
 
 function doImgCircle() {
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual");
+    const el_fig = iframe.contentWindow.document.querySelector("header .col-2.col-visual");
     el_fig.classList.add("img-circle");
     document.getElementById("cb_visual_corners_soft").disabled=true;
     document.getElementById("cb_visual_corners_soft").checked=false;
@@ -294,13 +296,14 @@ function doImgCircle() {
 }
 
 function resetImgCircle() {
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual");
+    const el_fig = iframe.contentWindow.document.querySelector("header .col-2.col-visual");
     el_fig.classList.remove("img-circle");
     document.getElementById("cb_visual_corners_soft").disabled=false;
     document.getElementById("cb_visual_corners_soft").checked=false;
     document.getElementById("cb_visual_shadows").disabled=false;
     document.getElementById("cb_visual_shadows").checked=false;
 }
+
 
 /* ================= VISUAL PROPERTIES ===================== */
 
@@ -310,7 +313,7 @@ document.querySelector("#cb_visual_corners_soft").addEventListener("change", doF
 
 function doFigCorners() {
 
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
+    const el_fig = iframe.contentWindow.document.querySelector("header .col-2.col-visual figure");
 
     if (!document.getElementById("cb_visual_corners_soft").checked) {
         el_fig.classList.remove("fig-corners-soft");
@@ -325,7 +328,7 @@ document.querySelector("#cb_visual_shadows").addEventListener("change", doImgSha
 
 function doImgShadows() {
 
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
+    const el_fig = iframe.contentWindow.document.querySelector("header .col-2.col-visual figure");
 
     if (!document.getElementById("cb_visual_shadows").checked) {
         el_fig.classList.remove("fig-shadows-trans");
@@ -335,17 +338,20 @@ function doImgShadows() {
     }
 }
 
+/* photos: overlay textbox */
+
+// document.querySelector("#cb_img_textbox").addEventListener("change", doColH3TextBox);
 
 function doColH3TextBox() {
 
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
+    const el_fig = iframe.contentWindow.document.querySelector("header .col-2.col-visual figure");
     let el_TextBox;
     let node;
     const arrContent = [];
 
     if (!document.querySelector("#cb_img_textbox").checked) {
         // Remove div as child of figure
-        el_TextBox = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure .cols-img-textbox");
+        el_TextBox = iframe.contentWindow.document.querySelector("header .col-2.col-visual figure .cols-img-textbox");
         el_fig.removeChild(el_TextBox);
         document.getElementById("show-textbox").style.display = "none";
     }
@@ -353,7 +359,7 @@ function doColH3TextBox() {
     else {
         // Add overlay textbox as child of figure
         node = document.createElement("div");
-        node.innerText = content_textbox_section;
+        node.innerText = content_textbox_header;
         node.classList.add("cols-img-textbox");
         el_fig.appendChild(node);
         document.getElementById("show-textbox").style.display = "block";
@@ -362,7 +368,7 @@ function doColH3TextBox() {
 
 function removeVisual() {
     resetImgCircle();
-    const parentNode = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
+    const parentNode = iframe.contentWindow.document.querySelector("header .col-2.col-visual figure");
     var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0);
     for (let i = 0; i < el_img.length; i++) {
         el_img[i].parentNode.removeChild(el_img[i]);

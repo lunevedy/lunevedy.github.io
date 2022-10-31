@@ -74,19 +74,28 @@ export const content_paras_col_4 = ["\n\t\t\t<p>Our friendly baristas are waitin
 
 export const content_list_col_4 = ["\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Best value<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>", "\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>", "\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>", "\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>"];
 
-export const content_photo_landscape_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024-x618-food.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_photo_landscape_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x618-cheesecake.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_photo_portrait_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-window.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_photo_square_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x1024-business-woman.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_photo_circle_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x1024-food-mobile.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
+export const content_photo_landscape_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x618-shopping-bag.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_photo_portrait_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-store-owner.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_photo_square_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x1024-business-woman.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_photo_circle_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x1024-food-mobile.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
 export const content_trans_landscape_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x480-trainers.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_trans_portrait_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-man-jacket-laptop.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_trans_square_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x1024-apple.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
-export const content_drawing_landscape_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x618-drawing-success-factors.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_drawing_landscape_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x618-ga-dashboard.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_drawing_portrait_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-drawing-gift.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
-export const content_drawing_square_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x800-drawing-gift-flowers.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_drawing_square_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x800-drawing-green-country.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+
+
+export const content_drawing_landscape_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x618-ga-dashboard.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_drawing_portrait_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-drawing-gift.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_drawing_square_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x800-drawing-green-country.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
 export const content_vid_file_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<div class=\"container-video-file\"><video controls=\"\"><source src=\"..\/..\/ui\/assets\/videos/1280x720-coffee-cafe.mp4\" type=\"video\/mp4\"><\/video><\/div>\n\t\t\t\t<\/figure>";
 export const content_vid_yt_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<div class=\"container-video-yt\"><iframe src=\"https://www.youtube.com/embed/qPPlBpRkeAo\" title=\"YouTube video player\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" width=\"560\" height=\"315\" frameborder=\"0\"><\/iframe><\/div>\n\t\t\t\t<\/figure>";

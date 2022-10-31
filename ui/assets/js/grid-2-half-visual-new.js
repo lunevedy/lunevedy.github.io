@@ -281,26 +281,30 @@ function doVisSubTypes(n) {
     }
     objSection.innerHTML = el_visual + objSection.innerHTML;
 
-    if (n===4) { doImgCircle() }
+    // if (n===4) { doImgCircle(); }
 }
 
 function doImgCircle() {
+    console.log("got to doImgCircle()")
     const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual");
     el_fig.classList.add("img-circle");
-    document.getElementById("cb_visual_corners_soft").disabled=true;
-    document.getElementById("cb_visual_corners_soft").checked=false;
-    document.getElementById("cb_visual_shadows").disabled=true;
-    document.getElementById("cb_visual_shadows").checked=false;
+
+    // document.getElementById("cb_photos_corners_soft").disabled=true;
+    // document.getElementById("cb_img_textbox").disabled=true;
+    // document.getElementById("cb_photos_zoom").disabled=true;
 }
 
 function resetImgCircle() {
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual");
+    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
     el_fig.classList.remove("img-circle");
-    document.getElementById("cb_visual_corners_soft").disabled=false;
-    document.getElementById("cb_visual_corners_soft").checked=false;
-    document.getElementById("cb_visual_shadows").disabled=false;
-    document.getElementById("cb_visual_shadows").checked=false;
+    // document.getElementById("cb_photos_corners_soft").disabled=false;
+    // document.getElementById("cb_photos_shadows").disabled=false;
+    // document.getElementById("cb_photos_zoom").disabled=false;
+    // document.getElementById("cb_img_textbox").disabled=false;
+    // document.getElementById("cb_img_h4").disabled=false;
+    // document.getElementById("cb_photos_zoom").disabled=false;
 }
+
 
 /* ================= VISUAL PROPERTIES ===================== */
 
@@ -335,6 +339,9 @@ function doImgShadows() {
     }
 }
 
+/* photos: overlay textbox */
+
+// document.querySelector("#cb_img_textbox").addEventListener("change", doColH3TextBox);
 
 function doColH3TextBox() {
 
@@ -361,7 +368,6 @@ function doColH3TextBox() {
 }
 
 function removeVisual() {
-    resetImgCircle();
     const parentNode = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
     var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0);
     for (let i = 0; i < el_img.length; i++) {
