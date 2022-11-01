@@ -517,6 +517,8 @@ header .container-text .badge.corners-soft { border-radius: 16px}
     header.text-center-desktop .container-text.w-50 {
         margin-left: auto; margin-right: auto; text-align: center }
     header .container-btn.w-50 { width: 50% }
+    header .container-text.text-start-50 { margin-left: 50% }
+    header .container-btn.text-start-50 { margin-left: 50% }
 }
 
 @media (max-width: 767px) {
