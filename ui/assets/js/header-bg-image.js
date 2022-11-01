@@ -51,16 +51,29 @@ function enableTextStart() {
     }
 }
 
-document.querySelector("#dd_text_start").addEventListener("change", doTextStart);
+/*
+//////////////// CONTAINER TEXT START POSITION DESKTOP ///////////////
+*/
 
-function doTextStart() {
+document.querySelector("#dd_text_start").addEventListener("change", doTextStartDesktop);
 
-    let opt = document.querySelector("#dd_text_start").value;
+
+function doTextStartDesktop() {
+
+    let opt = document.querySelector("#dd_container_text_width").value;
+    deleteWidthTextDesktop();
+
     if (opt==="0") {
-        iframe.contentWindow.document.querySelector("header").classList.remove("text-start-center");
+        iframe.contentWindow.document.querySelector("header .container-text").classList.remove("text-start-50");
+        if (iframe.contentWindow.document.querySelector("header .container-btn")) {
+            iframe.contentWindow.document.querySelector("header .container-btn").classList.remove("text-start-50");
+        }
     }
     else if (opt==="1") {
-        iframe.contentWindow.document.querySelector("header").classList.add("text-start-center");
+        iframe.contentWindow.document.querySelector("header .container-text").classList.add("text-start-50");
+        if (iframe.contentWindow.document.querySelector("header .container-btn")) {
+            iframe.contentWindow.document.querySelector("header .container-btn").classList.add("text-start-50");
+        }
     }
 }
 
