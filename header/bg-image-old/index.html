@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header Layout: Background Image | Lunevedy UI Builder | Brendan Munnelly</title>
-    <meta name="description" content="Quickly create header web page layouts. By Brendan Munnelly.">
+    <meta name="description" content="Quickly create 1-column web page layouts with this free online app. By Brendan Munnelly.">
 
     <meta name="author" content="Brendan Munnelly">
 
@@ -22,9 +22,16 @@
 	<!-- Font Awesome 6 icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script defer src="../../ui/assets/js/ui-global.js"></script>
-    <script defer src="../../ui/assets/js/header-ui.js"></script>
-    <script type="module" src="../../ui/assets/js/arr-content.js"></script>
+    <script>
+        // sessionStorage.clear();
+        sessionStorage.setItem('col-background', 'default');
+        sessionStorage.setItem('section-theme', 'section.theme-light.section-selector-1');
+
+        let sectionClassName = ".section-selector-1";
+        let sectionTheme = ".theme-light";
+        let sectionBg = "var(--white-000)";
+        let colsBg = "var(--white-000)";
+    </script>
 
     <style>
     </style>
@@ -56,6 +63,7 @@
                     </div>
 
                     <div class="dialog-box">
+
 
                         <div class="input-group">
                             <label style="width: 142px">Content Max. Width</label>
@@ -114,34 +122,19 @@
                                 <option value="1">Center</option>
                             </select>
                         </div><!-- /.input-group -->
-
-
                         <hr>
 
                         <div class="input-group">
-                            <label for="dd_text_slide"  style="width: 142px">Animation</label>
+                            <label for="dd_text_slide">Animation</label>
                             <select id="dd_text_slide" style="width: 132px">
                                 <option value="0" selected="selected">None</option>
-                                <option value="1">From bottom</option>
-                                <option value="2">From left</option>
-                                <option value="3">From right</option>
-                                <option value="4">Fade in</option>
-                                <option value="5">Scale in</option>
+                                <option value="1">From Top</option>
+                                <option value="2">From Left</option>
+                                <option value="3">From Right</option>
+                                <option value="4">From Bottom</option>
+                                <option value="5">Fade In</option>
                             </select>
                         </div><!-- /.input-group -->
-
-                        <hr>
-                        <div class="input-group">
-                            <label>Min. Height</label>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewbox="0 0 20 20" version="1.1" class="svg-icon-desktop">
-                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 18.332031 1.109375 L 1.667969 1.109375 C 0.746094 1.109375 0 1.855469 0 2.777344 L 0 13.886719 C 0 14.808594 0.746094 15.554688 1.667969 15.554688 L 8.332031 15.554688 L 7.777344 17.222656 L 5.277344 17.222656 C 4.816406 17.222656 4.445312 17.59375 4.445312 18.054688 C 4.445312 18.515625 4.816406 18.886719 5.277344 18.886719 L 14.722656 18.886719 C 15.179688 18.886719 15.554688 18.515625 15.554688 18.054688 C 15.554688 17.59375 15.179688 17.222656 14.722656 17.222656 L 12.222656 17.222656 L 11.664062 15.554688 L 18.332031 15.554688 C 19.25 15.554688 20 14.808594 20 13.890625 L 20 2.777344 C 20 1.855469 19.253906 1.109375 18.332031 1.109375 Z M 17.777344 13.332031 L 2.222656 13.332031 L 2.222656 3.332031 L 17.777344 3.332031 Z M 17.777344 13.332031 "/></svg>
-                            <select id="dd_desktop_min_height" style="min-width: 100px">
-                                <option value="0" selected="selected">None</option>
-                                <option value="1">500px</option>
-                            </select>
-
-                        </div>
-
                     </div>
                 </div><!-- /dropdown-content -->
             </li>
@@ -198,14 +191,14 @@
                             <label style="width: 142px">H1 Heading</label>
                             <button id="btn_h1_text" class="btn_style btn_small"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
                             &nbsp;&nbsp;&nbsp;
-                            <select id="dd_h1_text_length" style="min-width: 100px">
+                            <select id="dd_text_length" style="min-width: 100px">
                                 <option value="0" selected="selected">Short</option>
                                 <option value="1">Long</option>
                             </select>&nbsp; &nbsp; &nbsp;
                         </div><!-- /input-group -->
 
                         <div class="input-group" style="margin-bottom: 10px">
-                            <label for="cb_h1_highlight" class="cb-switch" style="width: 142px">H1 Highlight Text</label>
+                            <label for="cb_h1_highlight" class="cb-switch" style="width: 142px">Highlight H1 Text</label>
                             <input id="cb_h1_highlight" type="checkbox" class="cb-switch">
                             &nbsp; &nbsp; &nbsp;
                             <button id="btn_h1_highlight" class="btn_style btn_small"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
@@ -220,7 +213,7 @@
 
                         <hr>
 
-                        <div class="input-group">
+                        <div class="input-group" style="margin-bottom: 6px">
                             <label for="cb_h2" class="cb-switch" style="width: 142px">H2 Sub-heading</label>
                             <input id="cb_h2" type="checkbox" class="cb-switch">
                             &nbsp; &nbsp; &nbsp;
@@ -2237,37 +2230,29 @@
 
     </div>
 
-</main>
-
     <div id="page-preview-options">
 
-        <span id="respDesktopLarge" class="icon_resize_respon selected tooltip">
-            <span class="tooltiptext">&gt; 1200px</span>
+        <span id="respDesktopLarge" class="icon_resize_respon selected">
             <img src="../../ui/assets/img/icons/icon-resize-desktop-large.png" alt="">
         </span>
 
-        <span id="respDesktopSmall" class="icon_resize_respon tooltip">
-            <span class="tooltiptext">1200px</span>
+        <span id="respDesktopSmall" class="icon_resize_respon">
             <img src="../../ui/assets/img/icons/icon-resize-desktop-small-selected.png" alt="">
         </span>
 
-        <span id="respTabletLandscape" class="icon_resize_respon tooltip">
-            <span class="tooltiptext">1024px</span>
+        <span id="respTabletLandscape" class="icon_resize_respon">
             <img src="../../ui/assets/img/icons/icon-resize-tablet-landscape-selected.png" alt="">
         </span>
 
-        <span id="respTabletPortrait" class="icon_resize_respon tooltip">
-            <span class="tooltiptext">768px</span>
+        <span id="respTabletPortrait" class="icon_resize_respon">
             <img src="../../ui/assets/img/icons/icon-resize-tablet-portrait-selected.png" alt="">
         </span>
 
-        <span id="respMobileLarge" class="icon_resize_respon tooltip">
-            <span class="tooltiptext">390px</span>
+        <span id="respMobileLarge" class="icon_resize_respon">
             <img src="../../ui/assets/img/icons/icon-resize-mobile-large-selected.png" alt="">
         </span>
 
-        <span id="respMobileSmall" class="icon_resize_respon tooltip">
-            <span class="tooltiptext">320px</span>
+        <span id="respMobileSmall" class="icon_resize_respon">
             <img src="../../ui/assets/img/icons/icon-resize-mobile-small-selected.png" alt="">
         </span>
 
@@ -2284,7 +2269,7 @@
         </button>
     </div>
 
-    <div id="loading">
+    <div class="loading">
         <div>
             <img src="../../ui/assets/img/lunevedy-logo-small.png" alt="Lunevedy page loading image">
         </div>
@@ -2293,32 +2278,35 @@
         </div>
     </div>
 
-    <div id="page-preview-body">
-        <iframe id="livePreviewFrame" src="bg-image-embed.html" style="border:none"></iframe>
+    <div class="page-preview-body" id="page-preview-body">
+        <iframe src="bg-image-embed.html" style="border:none" id="livePreviewFrame" onload="onFrameLoaded()"></iframe>
     </div>
+
+    </main>
 
     <script>
         const iframe = document.getElementById("livePreviewFrame");
-        iframe.addEventListener("load", function() {
-            let HTML_Content="";
-            document.getElementById('loading').style.display='none';
-            document.getElementById('controls-top').style.display='block';
-            document.getElementById('lower-left').style.display='flex';
-            document.getElementById('copy-code-btns').style.display='flex';
-            document.getElementById('page-preview-body').style.display='block';
-            // require imports from arr-content.js
-            const js_1 = document.createElement("script");
-            const js_2 = document.createElement("script");
-            const js_3 = document.createElement("script");
-            js_1.type = "module";
-            js_2.type = "module";
-            js_3.type = "module";
-            js_1.src = "../../ui/assets/js/header-bg-image.js";
-            js_2.src = "../../ui/assets/js/ui-buttons-pair-header.js";
-            js_3.src = "../../ui/assets/js/header-bg-image-visual.js";
-            document.body.appendChild(js_1);
-            document.body.appendChild(js_2);
-            document.body.appendChild(js_3);
+        let HTML_Content="";
+        function onFrameLoaded() {
+            document.querySelector('.loading').style.display='none';
+            document.querySelector('#controls-top').style.display='block';
+            document.querySelector('#lower-left').style.display='flex';
+            document.querySelector('#copy-code-btns').style.display='flex';
+            document.querySelector('.page-preview-body').style.display='block';
+        }
+        // function getResolution() {
+        //  const realWidth = window.screen.width * window.devicePixelRatio;
+        //  const realHeight = window.screen.height * window.devicePixelRatio;
+        //  console.log(`Your screen resolution is: ${realWidth} x ${realHeight}`);
+        // }
+        // getResolution();
+    </script>
+
+    <script>
+        // Inital resets
+        document.addEventListener("DOMContentLoaded", resetMenuOptions);
+
+        function resetMenuOptions() {
 
             // UI
             // Check for UI theme
@@ -2338,8 +2326,6 @@
             document.getElementById("rb_align_mobile_center").checked = true;
             document.getElementById("dd_container_text_width").value = "0";
             document.getElementById("dd_text_start").disabled = true;
-            document.getElementById("dd_text_slide").value = "0";
-            document.getElementById("dd_desktop_min_height").value = "1";
 
             // Text
             document.getElementById("cb_badge").checked = false;
@@ -2352,70 +2338,38 @@
             document.getElementById("btn_h1_border").disabled = true;
             document.getElementById("cb_h2").checked = true;
             document.getElementById("btn_h2_text").disabled = false;
-            document.getElementById("dd_h1_text_length").value = "0"
 
             // Buttons
-            document.getElementById("cb_btns").checked=true;
-            document.getElementById("rb_btn_one").disabled=false;
+            document.getElementById("cb_btns").checked=false;
+            document.getElementById("rb_btn_one").disabled=true;
             document.getElementById("rb_btn_one").checked=false;
-            document.getElementById("rb_btn_two").disabled=false;
-            document.getElementById("rb_btn_two").checked=true;
+            document.getElementById("rb_btn_two").disabled=true;
+            document.getElementById("rb_btn_two").checked=false;
             document.getElementById("dd_buttons_size").disabled=true;
             document.getElementById("dd_buttons_size").value="1";
+            document.getElementById("form_btn_align_desktop").disabled=true;
+            document.getElementById("rb_btn_align_desktop_left").disabled=true;
+            document.getElementById("rb_btn_align_desktop_left").checked=false;
+            document.getElementById("rb_btn_align_desktop_center").disabled=true;
+            document.getElementById("rb_btn_align_desktop_center").checked=false;
+            document.getElementById("form_btn_align_mobile").disabled=true;
+            document.getElementById("rb_btn_align_mobile_left").disabled=true;
+            document.getElementById("rb_btn_align_mobile_left").checked=false;
+            document.getElementById("rb_btn_align_mobile_center").disabled=true;
+            document.getElementById("rb_btn_align_mobile_center").checked=false;
+            document.querySelector(".container-buttons-block").style.display="none";
 
-            // Set defaults for button size
-            document.getElementById("dd_buttons_size").disabled=false;
-            document.getElementById("dd_buttons_size").value="1";
-
-            // Set defaults for button alignment (desktop and mobile)
-            document.getElementById("form_btn_align_desktop").disabled=false;
-            document.getElementById("rb_btn_align_desktop_left").disabled=false;
-            document.getElementById("rb_btn_align_desktop_left").checked = false;
-            document.getElementById("rb_btn_align_desktop_center").disabled=false;
-            document.getElementById("rb_btn_align_desktop_center").checked=true;
-
-            document.getElementById("form_btn_align_mobile").disabled=false;
-            document.getElementById("rb_btn_align_mobile_left").disabled=false;
-            document.getElementById("rb_btn_align_mobile_left").checked = false;
-            document.getElementById("rb_btn_align_mobile_center").disabled=false;
-            document.getElementById("rb_btn_align_mobile_center").checked=true;
-
-            // Display containers for tabs and settings
-            document.querySelector(".container-buttons-block").style.display="block";
-
-            // Show and highlight button 1.
-            document.getElementById("button_1").style.display="inline-block";
-            document.getElementById("tab_content_1").classList.add("active");
-            document.getElementById("button_2").style.display="inline-block";
-
-            // Set defaults for three button of tab 1
-            document.getElementById("dd_button_type_1").value="0";
-            document.getElementById("rd_btns_icons_left_1").disabled=false;
-            document.getElementById("rd_btns_icons_left_1").checked=true;
-            document.getElementById("dd_buttons_shape_1").disabled=false;
-            document.getElementById("dd_buttons_shape_1").value="0";
-            document.getElementById("cb_buttons_shadow_1").disabled=false;
-            document.getElementById("cb_buttons_shadow_1").checked=false;
-            document.getElementById("cb_buttons_uppercase_1").disabled=false;
-            document.getElementById("cb_buttons_uppercase_1").checked=false;
-
-            // Set defaults for three button of tab 2
-            document.getElementById("dd_button_type_2").value="0";
-            document.getElementById("rd_btns_icons_left_2").disabled=false;
-            document.getElementById("rd_btns_icons_left_2").checked=true;
-            document.getElementById("dd_buttons_shape_2").disabled=false;
-            document.getElementById("dd_buttons_shape_2").value="0";
-            document.getElementById("cb_buttons_shadow_2").disabled=false;
-            document.getElementById("cb_buttons_shadow_2").checked=false;
-            document.getElementById("cb_buttons_uppercase_2").disabled=false;
-            document.getElementById("cb_buttons_uppercase_2").checked=false;
 
             // Illustrations
             document.getElementById("dd_focal_point").value="0";
             document.getElementById("dd_nudge_mobile").value="0";
-        });
+        }
+    </script>
 
-        </script>
+    <script src="../../ui/assets/js/header-bg-image-ui.js"></script>
+    <script type="module" src="../../ui/assets/js/header-bg-image.js"></script>
+    <script type="module" src="../../ui/assets/js/ui-buttons-pair.js"></script>
+    <script type="module" src="../../ui/assets/js/header-bg-image-visual.js"></script>
 
 </body>
 </html>
