@@ -818,7 +818,8 @@ function copyCSS() {
     const el_css = document.createElement('textarea');
     let strCSS  = arrCSS.join(",");
     strCSS = strCSS.replaceAll(",.theme", ".theme");
-    strCSS = strCSS.replaceAll(",.header", ".header");
+    strCSS = strCSS.replaceAll(",.header", "header");
+    strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(",.section", ".section");
     strCSS = strCSS.replaceAll(",.footer", ".footer");
     el_css.value = strCSS;

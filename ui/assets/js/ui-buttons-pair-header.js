@@ -265,7 +265,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("cb_buttons_shadow_2").checked=false;
             document.getElementById("cb_buttons_uppercase_2").disabled=false;
             document.getElementById("cb_buttons_uppercase_2").checked=false;
-            document.getElementById("btn_cols_bg_passive_2").disabled=true;        }
+            document.getElementById("btn_bg_passive_2").disabled=true;        }
 
         // Reformat HTML
         objContainer.innerHTML = objContainer.innerHTML.replaceAll("<div class=\"container-btn\">", "<div class=\"container-btn\">\n\t\t\t\t");
@@ -315,7 +315,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("dd_buttons_shape_1").value="0";
             document.getElementById("cb_buttons_shadow_1").checked=false;
             document.getElementById("cb_buttons_uppercase_1").checked=false;
-            document.getElementById("btn_cols_bg_passive_1").disabled=false;
+            document.getElementById("btn_bg_passive_1").disabled=false;
 
 
             // disable, reset dialog box settings for buttons two
@@ -329,7 +329,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("dd_buttons_shape_2").value="0";
             document.getElementById("cb_buttons_shadow_2").checked=false;
             document.getElementById("cb_buttons_uppercase_2").checked=false;
-            document.getElementById("btn_cols_bg_passive_2").disabled=false;
+            document.getElementById("btn_bg_passive_2").disabled=false;
 
             const objContainer = getBtnContainer();
             objContainer.innerHTML = objContainer.innerHTML.replaceAll("    \t\n", "");
@@ -454,11 +454,11 @@ function doButtonType1() {
         el_btn.classList.add("btn-solid");
         document.getElementById("cb_buttons_shadow_1").disabled=false;
         document.getElementById("dd_buttons_shape_1").disabled=false;
-        document.getElementById("btn_cols_bg_passive_1").disabled=false;
-        document.getElementById("btn_cols_border_passive_1").disabled=false;
-        document.getElementById("btn_cols_bg_active_1").disabled=false;
-        document.getElementById("btn_cols_border_active_1").disabled=false;
-        document.getElementById("btn_cols_bg_passive_1").disabled=false;
+        document.getElementById("btn_bg_passive_1").disabled=false;
+        document.getElementById("btn_border_passive_1").disabled=false;
+        document.getElementById("btn_bg_active_1").disabled=false;
+        document.getElementById("btn_border_active_1").disabled=false;
+        document.getElementById("btn_bg_passive_1").disabled=false;
     }
 
     // Outline
@@ -468,10 +468,10 @@ function doButtonType1() {
         el_btn.classList.add("btn-outline");
         document.getElementById("cb_buttons_shadow_1").disabled=false;
         document.getElementById("dd_buttons_shape_1").disabled=false;
-        document.getElementById("btn_cols_bg_passive_1").disabled=true;
-        document.getElementById("btn_cols_border_passive_1").disabled=false;
-        document.getElementById("btn_cols_bg_active_1").disabled=false;
-        document.getElementById("btn_cols_border_active_1").disabled=false;
+        document.getElementById("btn_bg_passive_1").disabled=true;
+        document.getElementById("btn_border_passive_1").disabled=false;
+        document.getElementById("btn_bg_active_1").disabled=false;
+        document.getElementById("btn_border_active_1").disabled=false;
     }
 
     // Link
@@ -481,10 +481,10 @@ function doButtonType1() {
         el_btn.classList.add("btn-plain");
         document.getElementById("cb_buttons_shadow_1").disabled=true;
         document.getElementById("dd_buttons_shape_1").disabled=true;
-        document.getElementById("btn_cols_bg_passive_1").disabled=true;
-        document.getElementById("btn_cols_border_passive_1").disabled=true;
-        document.getElementById("btn_cols_bg_active_1").disabled=true;
-        document.getElementById("btn_cols_border_active_1").disabled=true;
+        document.getElementById("btn_bg_passive_1").disabled=true;
+        document.getElementById("btn_border_passive_1").disabled=true;
+        document.getElementById("btn_bg_active_1").disabled=true;
+        document.getElementById("btn_border_active_1").disabled=true;
     }
 }
 
@@ -506,10 +506,10 @@ function doButtonType2() {
         el_btn.classList.add("btn-solid");
         document.getElementById("cb_buttons_shadow_2").disabled=false;
         document.getElementById("dd_buttons_shape_2").disabled=false;
-        document.getElementById("btn_cols_bg_passive_2").disabled=false;
-        document.getElementById("btn_cols_border_passive_2").disabled=false;
-        document.getElementById("btn_cols_bg_active_2").disabled=false;
-        document.getElementById("btn_cols_border_active_2").disabled=false;
+        document.getElementById("btn_bg_passive_2").disabled=false;
+        document.getElementById("btn_border_passive_2").disabled=false;
+        document.getElementById("btn_bg_active_2").disabled=false;
+        document.getElementById("btn_border_active_2").disabled=false;
     }
 
     // Outline
@@ -519,10 +519,10 @@ function doButtonType2() {
         el_btn.classList.add("btn-outline");
         document.getElementById("cb_buttons_shadow_2").disabled=false;
         document.getElementById("dd_buttons_shape_2").disabled=false;
-        document.getElementById("btn_cols_bg_passive_2").disabled=true;
-        document.getElementById("btn_cols_border_passive_2").disabled=false;
-        document.getElementById("btn_cols_bg_active_2").disabled=false;
-        document.getElementById("btn_cols_border_active_2").disabled=false;
+        document.getElementById("btn_bg_passive_2").disabled=true;
+        document.getElementById("btn_border_passive_2").disabled=false;
+        document.getElementById("btn_bg_active_2").disabled=false;
+        document.getElementById("btn_border_active_2").disabled=false;
     }
 
     // Link
@@ -532,10 +532,10 @@ function doButtonType2() {
         el_btn.classList.add("btn-plain");
         document.getElementById("cb_buttons_shadow_2").disabled=true;
         document.getElementById("dd_buttons_shape_2").disabled=true;
-        document.getElementById("btn_cols_bg_passive_2").disabled=true;
-        document.getElementById("btn_cols_border_passive_2").disabled=true;
-        document.getElementById("btn_cols_bg_active_2").disabled=true;
-        document.getElementById("btn_cols_border_active_2").disabled=true;
+        document.getElementById("btn_bg_passive_2").disabled=true;
+        document.getElementById("btn_border_passive_2").disabled=true;
+        document.getElementById("btn_bg_active_2").disabled=true;
+        document.getElementById("btn_border_active_2").disabled=true;
     }
 }
 

@@ -34,6 +34,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             headerTheme = ".theme-light";
         }
 
+        console.log("headerTheme is: "+headerTheme)
         /* header background */
         if (btn_id === "btn_header_bg") {
             newStyle = "header"+headerTheme+" { background-color: var("+color_code+") }\n";
@@ -87,7 +88,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         /* === Buttons === */
 
         /* Text colour: passive */
-        else if (btn_id === "btn_passive_text_1") {
+        else if (btn_id === "btn_text_passive_1") {
             // Get class of buttons
             newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):link,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):visited { color: var("+color_code+") }\n\n";
             sub_string = "a.btn:nth-child(1):visited { color";
@@ -95,44 +96,45 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         }
 
         /* Text colour: active */
-        else if (btn_id === "btn_active_text_1") {
+        else if (btn_id === "btn_text_active_1") {
             newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+"header"+headerTheme+".container-btn a.btn:nth-child(1):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):active { color: var("+color_code+") }\n\n";
             console.log(newStyle);
-            sub_string = "a.btn:nth-child(2):active { color";
+            sub_string = "a.btn:nth-child(1):active { color";
             doUpdateArray(sub_string,newStyle);
         }
 
         /* Background colour: passive */
-        else if (btn_id === "btn_passive_bg_1") {
+        else if (btn_id === "btn_bg_passive_1") {
             newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):link,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):visited { background-color: var("+color_code+") }\n\n";
-            sub_string = "a.btn:nth-child(2):visited { background-color";
+            console.log(newStyle)
+            sub_string = "a.btn:nth-child(1):visited { background-color";
             doUpdateArray(sub_string,newStyle);
         }
 
         /* Background colour: active */
         else if (btn_id === "btn_bg_active_1") {
-            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):active { background-color: var("+color_code+") }\n\n";
-            sub_string = "a.btn:nth-child(2):active { background-color";
+            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):active { background-color: var("+color_code+") }\n\n";
+            sub_string = "a.btn:nth-child(1):active { background-color";
             console.log(newStyle);
             doUpdateArray(sub_string,newStyle);
         }
 
         /* Border colour: passive */
         else if (btn_id === "btn_border_passive_1") {
-            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):link,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):visited { border-color: var("+color_code+") }\n\n";
-            sub_string = "a.btn:nth-child(2):visited { border-color";
+            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):link,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):visited { border-color: var("+color_code+") }\n\n";
+            sub_string = "a.btn:nth-child(1):visited { border-color";
             doUpdateArray(sub_string,newStyle);
         }
 
         /* Border colour: active */
         else if (btn_id === "btn_border_active_1") {
-            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):active { border-color: var("+color_code+") }\n\n";
-            sub_string = "a.btn:nth-child(2):active { border-color";
+            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):active { border-color: var("+color_code+") }\n\n";
+            sub_string = "a.btn:nth-child(1):active { border-color";
             doUpdateArray(sub_string,newStyle);
         }
 
         /* Text colour: passive */
-        else if (btn_id === "btn_passive_text_2") {
+        else if (btn_id === "btn_text_passive_2") {
             // Get class of buttons
             newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):link,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):visited { color: var("+color_code+") }\n\n";
             sub_string = "a.btn:nth-child(2):visited { color";
@@ -140,8 +142,8 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         }
 
         /* Text colour: active */
-        else if (btn_id === "btn_active_text_2") {
-            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):active { color: var("+color_code+") }\n\n";
+        else if (btn_id === "btn_text_active_2") {
+            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):active { color: var("+color_code+") }\n\n";
             sub_string = "a.btn:nth-child(2):active { color";
             doUpdateArray(sub_string,newStyle);
         }

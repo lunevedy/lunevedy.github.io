@@ -81,87 +81,87 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         /* === Buttons === */
 
         /* Text colour: passive */
-        else if (btn_id === "btn_cols_text_passive_1") {
+        else if (btn_id === "btn_text_passive_1") {
             // Get class of buttons
             newStyle = headerTheme+" .container-btn a.btn:nth-child(1):link,\n"+headerTheme+" .container-btn a.btn:nth-child(1):visited { color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(1):visited { color";
         }
 
         /* Text colour: active */
-        else if (btn_id === "btn_cols_text_active_1") {
+        else if (btn_id === "btn_text_active_1") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+headerTheme+" .container-btn a.btn:nth-child(1):hover,\n"+headerTheme+" .container-btn a.btn:nth-child(1):active { color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(1):active { color";
         }
 
         /* Background colour: passive */
-        else if (btn_id === "btn_cols_bg_passive_1") {
+        else if (btn_id === "btn_bg_passive_1") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(1):link,\n"+headerTheme+" .container-btn a.btn:nth-child(1):visited { background-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(1):visited { background-color";
         }
 
         /* Background colour: active */
-        else if (btn_id === "btn_cols_bg_active_1") {
+        else if (btn_id === "btn_bg_active_1") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+headerTheme+" .container-btn a.btn:nth-child(1):hover,\n"+headerTheme+" .container-btn a.btn:nth-child(1):active { background-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(1):active { background-color";
         }
 
         /* Border colour: passive */
-        else if (btn_id === "btn_cols_border_passive_1") {
+        else if (btn_id === "btn_border_passive_1") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(1):link,\n"+headerTheme+" .container-btn a.btn:nth-child(1):visited { border-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(1):visited { border-color";
         }
 
         /* Border colour: active */
-        else if (btn_id === "btn_cols_border_active_1") {
+        else if (btn_id === "btn_border_active_1") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+headerTheme+" .container-btn a.btn:nth-child(1):hover,\n"+headerTheme+" .container-btn a.btn:nth-child(1):active .container-btn { border-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(1):active { border-color";
         }
 
         /* Text colour: passive */
-        else if (btn_id === "btn_cols_text_passive_2") {
+        else if (btn_id === "btn_text_passive_2") {
             // Get class of buttons
             newStyle = headerTheme+" .container-btn a.btn:nth-child(2):link,\n"+headerTheme+" .container-btn a.btn:nth-child(2):visited { color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(2):visited { color";
         }
 
         /* Text colour: active */
-        else if (btn_id === "btn_cols_text_active_2") {
+        else if (btn_id === "btn_text_active_2") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+headerTheme+" .container-btn a.btn:nth-child(2):hover,\n"+headerTheme+" a.btn:nth-child(2):active { color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(2):active { color";
         }
 
         /* Background colour: passive */
-        else if (btn_id === "btn_cols_bg_passive_2") {
+        else if (btn_id === "btn_bg_passive_2") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(2):link,\n"+headerTheme+" .container-btn a.btn:nth-child(2):visited { background-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(2):visited { background-color";
         }
 
         /* Background colour: active */
-        else if (btn_id === "btn_cols_bg_active_2") {
+        else if (btn_id === "btn_bg_active_2") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+headerTheme+" .container-btn a.btn:nth-child(2):hover,\n"+headerTheme+" .container-btn a.btn:nth-child(2):active { background-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(2):active { background-color";
         }
 
         /* Border colour: passive */
-        else if (btn_id === "btn_cols_border_passive_2") {
+        else if (btn_id === "btn_border_passive_2") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(2):link,\n"+headerTheme+" .container-btn a.btn:nth-child(2):visited { border-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(2):visited { border-color";
         }
 
         /* Border colour: active */
-        else if (btn_id === "btn_cols_border_active_2") {
+        else if (btn_id === "btn_border_active_2") {
             newStyle = headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+headerTheme+" .container-btn a.btn:nth-child(2):hover,\n"+headerTheme+" a.btn:nth-child(2):active .container-btn { border-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(2):active { border-color";
         }
 
         /* Photos overlay textbox color */
-        else if (btn_id === "btn_cols_img_overlay_color_text") {
+        else if (btn_id === "btn_img_overlay_color_text") {
             newStyle =  headerTheme+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { color: var("+color_code+") }\n";
             sub_string = "figure.icon";
         }
 
         /* Photos overlay textbox background color */
-        else if (btn_id === "btn_cols_img_overlay_color_bg") {
+        else if (btn_id === "btn_img_overlay_color_bg") {
             newStyle =  headerTheme+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { background-color: var("+color_code+") }\n";
             sub_string = "figure.icon";
         }
