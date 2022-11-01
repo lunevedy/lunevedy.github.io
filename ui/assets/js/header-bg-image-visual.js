@@ -59,12 +59,12 @@ function doSliderOpacity() {
     output.innerHTML = ((this.value)/10).toFixed(1);
 
     let sub_string = "background-image";
-    let newStyle = "header.hero-block .container-overlay { background-image: linear-gradient(rgba(0,0,0,"+output.innerHTML+"),rgba(0,0,0,"+output.innerHTML+")); } \n";
+    let newStyle = "header.hero-bg > .container-overlay { background-image: linear-gradient(rgba(0,0,0,"+output.innerHTML+"),rgba(0,0,0,"+output.innerHTML+")); } \n";
 
     console.log(newStyle);
 
     // doUpdateArray(sub_string,newStyle);
-  
+
     let style = document.createElement('style');
     iframe.contentWindow.document.head.appendChild(style);
     style.appendChild(document.createTextNode(newStyle));

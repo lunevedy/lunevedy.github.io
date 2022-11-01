@@ -1,6 +1,22 @@
 import { content_header_label_text_col_1, content_header_h2_text } from '../js/arr-content.js';
 
 /*
+//////////////// CONTAINER MIN HEIGHT ///////////////
+*/
+
+document.querySelector("#dd_desktop_min_height").addEventListener("change", doDesktopMinHeight);
+
+function doDesktopMinHeight() {
+    let opt = document.querySelector("#dd_desktop_min_height").value;
+    if (opt==="0") {
+        iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-500px");
+    }
+    else if (opt==="1") {
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-500px");
+    }
+}
+
+/*
 //////////////// CONTAINER TEXT WIDTH ///////////////
 */
 

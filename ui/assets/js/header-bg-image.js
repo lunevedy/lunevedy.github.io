@@ -1,6 +1,22 @@
 import { content_header_label_text_col_1, content_header_h2_text } from '../js/arr-content.js';
 
 /*
+//////////////// CONTAINER MIN HEIGHT ///////////////
+*/
+
+document.querySelector("#dd_desktop_min_height").addEventListener("change", doDesktopMinHeight);
+
+function doDesktopMinHeight() {
+    let opt = document.querySelector("#dd_desktop_min_height").value;
+    if (opt==="0") {
+        iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-500px");
+    }
+    else if (opt==="1") {
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-500px");
+    }
+}
+
+/*
 //////////////// CONTAINER TEXT WIDTH ///////////////
 */
 
@@ -14,7 +30,7 @@ function doWidthTextDesktop() {
     if (opt==="0") {
         iframe.contentWindow.document.querySelector("header .container-text").classList.remove("w-50");
         iframe.contentWindow.document.querySelector("header .container-btn").classList.remove("w-50");
-        iframe.contentWindow.document.getElementById("dd_text_start").disabled=true;
+        // iframe.contentWindow.document.getElementById("dd_text_start").disabled=true;
     }
     else if (opt==="1") {
         iframe.contentWindow.document.querySelector("header .container-text").classList.add("w-50");
@@ -36,15 +52,15 @@ function enableTextStart() {
 }
 
 document.querySelector("#dd_text_start").addEventListener("change", doTextStart);
-    
+
 function doTextStart() {
 
     let opt = document.querySelector("#dd_text_start").value;
     if (opt==="0") {
-        iframe.contentWindow.document.querySelector(".hero-block").classList.remove("text-start-center");
+        iframe.contentWindow.document.querySelector("header").classList.remove("text-start-center");
     }
     else if (opt==="1") {
-        iframe.contentWindow.document.querySelector(".hero-block").classList.add("text-start-center");
+        iframe.contentWindow.document.querySelector("header").classList.add("text-start-center");
     }
 }
 
@@ -52,7 +68,7 @@ function doTextStart() {
 /*
 //////////////// ALIGN TEXT IN HEADER ///////////////
 */
-      
+
 document.querySelector("#form_align_desktop").addEventListener("change", doAlignTextDesktop);
 
 function doAlignTextDesktop() {
@@ -72,7 +88,7 @@ function doAlignTextDesktop() {
 
     }
     else if (selectedValue==="center") {
-        iframe.contentWindow.document.querySelector("#HTML-Content header").classList.add("text-center-desktop"); 
+        iframe.contentWindow.document.querySelector("#HTML-Content header").classList.add("text-center-desktop");
         // document.getElementById("dd_align_desktop_btns").value="1";
         // document.getElementById("dd_align_desktop_btns").disabled=true;
     }
@@ -98,7 +114,7 @@ function doAlignTextMobile() {
 
     }
     else if (selectedValue==="center") {
-        iframe.contentWindow.document.querySelector("header").classList.add("text-center-mobile"); 
+        iframe.contentWindow.document.querySelector("header").classList.add("text-center-mobile");
         // document.getElementById("dd_align_desktop_btns").value="1";
         // document.getElementById("dd_align_desktop_btns").disabled=true;
     }
@@ -115,11 +131,11 @@ function doBadge() {
     if (!document.getElementById("cb_badge").checked) {
         removeBadge();
     }
-    
+
     else {
         removeBadge();
         const newUpperLabelDiv = document.createElement("div");
-        newUpperLabelDiv.classList.add("badge"); 
+        newUpperLabelDiv.classList.add("badge");
         iframe.contentWindow.document.querySelector('.container-text').prepend(newUpperLabelDiv);
         iframe.contentWindow.document.querySelector('.container-text .badge').innerText = content_header_label_text_col_1;
         iframe.contentWindow.document.querySelector('.container-text').innerHTML = iframe.contentWindow.document.querySelector('.container-text').innerHTML.replace("<div class=\"badge\">", "\n\t\t\t<div class=\"badge\">");
@@ -130,7 +146,7 @@ function doBadge() {
 document.querySelector("#form_badge_shape").addEventListener("change", doBadgeShape);
 
 function doBadgeShape() {
-    const objTextBox = iframe.contentWindow.document.querySelector(".container-text > .badge"); 
+    const objTextBox = iframe.contentWindow.document.querySelector(".container-text > .badge");
     const rbs = document.querySelectorAll("input[name='switch_badge_shape']");
     let selectedValue;
 
@@ -144,7 +160,7 @@ function doBadgeShape() {
     if (selectedValue==="square") {
         objTextBox.classList.remove("corners-soft");
     }
-        
+
     else if (selectedValue==="soft") {
         objTextBox.classList.add("corners-soft");
     }
@@ -154,9 +170,31 @@ function removeBadge() {
     if (iframe.contentWindow.document.querySelector('.badge')) {
         const upperLabel = iframe.contentWindow.document.querySelector('.badge');
         upperLabel.remove();
-        document.getElementById("show-badge").style.display="none";        
+        document.getElementById("show-badge").style.display="none";
     }
 }
+
+/*
+//////////////// MAIN HEADING H1 TEXT LENGTH ///////////////
+*/
+
+document.querySelector("#dd_h1_text_length").addEventListener("change", doH1TextLength);
+
+function doH1TextLength() {
+    let opt = document.querySelector("#dd_h1_text_length").value;
+    let elH1Content = iframe.contentWindow.document.querySelector('.container-text h1').innerHTML;
+
+    if (opt==="0") {
+        iframe.contentWindow.document.querySelector('.container-text h1').classList.remove("h1-text-long");
+        iframe.contentWindow.document.querySelector('.container-text h1').innerHTML = "Our new product";
+    }
+
+    if (opt==="1") {
+        iframe.contentWindow.document.querySelector('.container-text h1').classList.add("h1-text-long");
+        iframe.contentWindow.document.querySelector('.container-text h1').innerHTML = "We design and build successful digital products that people love to use.";
+    }
+}
+
 
 /*
 //////////////// MAIN HEADING H1 HIGHLIGHT TEXT ///////////////
@@ -171,19 +209,19 @@ function doH1Text() {
     if (!document.getElementById("cb_h1_highlight").checked) {
         elH2Content = elH2Content.replace(/<\/?span[^>]*>/g,"");
         iframe.contentWindow.document.querySelector('.container-text > h1').innerHTML = elH2Content;
-        document.getElementById("btn_h1_highlight").disabled = true;            
+        document.getElementById("btn_h1_highlight").disabled = true;
         document.getElementById("btn_h1_highlight").checked = false;
-        document.getElementById("btn_col_1_border").disabled = true;            
+        document.getElementById("btn_col_1_border").disabled = true;
         document.getElementById("btn_col_1_border").checked = false;
     }
     else {
         const i = elH2Content.indexOf(" ",1);
         const j = elH2Content.lastIndexOf(" ");
         elH2Content = elH2Content.replace(elH2Content.substring(i+1,j), "<span class=\"highlight\">"+elH2Content.substring(i+1,j)+"</span>");
-        iframe.contentWindow.document.querySelector('.container-text > h1').innerHTML = elH2Content;  
-        document.getElementById("btn_h1_highlight").disabled = false;            
+        iframe.contentWindow.document.querySelector('.container-text > h1').innerHTML = elH2Content;
+        document.getElementById("btn_h1_highlight").disabled = false;
         document.getElementById("btn_h1_highlight").checked = false;
-        document.getElementById("btn_h1_border").disabled = false;            
+        document.getElementById("btn_h1_border").disabled = false;
         document.getElementById("btn_h1_border").checked = false;
     }
 }
@@ -200,11 +238,11 @@ function doH1Border() {
 
     if (!document.getElementById("cb_h1_border").checked) {
         objH1.classList.remove("heading-underline");
-        document.getElementById("btn_h1_border").disabled = true;    
+        document.getElementById("btn_h1_border").disabled = true;
     }
     else {
         objH1.classList.add("heading-underline");
-        document.getElementById("btn_h1_border").disabled = false;    
+        document.getElementById("btn_h1_border").disabled = false;
     }
 }
 
@@ -219,14 +257,14 @@ function doH2() {
     if (!document.getElementById("cb_h2").checked) {
         removeH2();
     }
-    
+
     else {
         removeH2();
         const newH2 = document.createElement("h2");
         iframe.contentWindow.document.querySelector('.container-text').append(newH2);
         iframe.contentWindow.document.querySelector('.container-text h2').innerText = content_header_h2_text;
-        document.getElementById("cb_h2").checked = true;    
-        document.getElementById("btn_h2_text").disabled = false;    
+        document.getElementById("cb_h2").checked = true;
+        document.getElementById("btn_h2_text").disabled = false;
     }
 }
 
@@ -234,118 +272,69 @@ function removeH2() {
     if (iframe.contentWindow.document.querySelector('.container-text h2')) {
         const elH2 = iframe.contentWindow.document.querySelector('.container-text h2');
         elH2.remove();
-        document.getElementById("cb_h2").checked = false;    
-        document.getElementById("btn_h2_text").disabled = true;    
+        document.getElementById("cb_h2").checked = false;
+        document.getElementById("btn_h2_text").disabled = true;
     }
 }
 
 /*
-//////////////// SECTION TEXT: ANIMATION ///////////////
+//////////////// ANIMATE TEXT AND BUTTONS ///////////////
 */
 
-document.querySelector("#dd_text_slide").addEventListener("change", doTextAnimation);
-    
-function doTextAnimation() {
-    let opt = document.querySelector("#dd_text_slide").value;
+document.querySelector("#dd_text_slide").addEventListener("change", doTextAnimate);
+
+function doTextAnimate() {
+
+    let opt = document.getElementById("dd_text_slide").value;
+
     if (opt==="0") {
-        removeTextAnimation();
-    }
-    let animationType;
-
-    if (opt==="1") { 
-        removeTextAnimation();
-        animationType = "slide-in-top"; 
-        applyAnimation(animationType);
+        removeTextAnimate();
     }
 
-    if (opt==="2") {
-        removeTextAnimation();
-        animationType = "slide-in-left"; 
-        applyAnimation(animationType);
+    else if (opt==="1") {
+        removeTextAnimate();
+        iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-slide-up-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-up-header");
     }
 
-    if (opt==="3") {
-        removeTextAnimation();
-        animationType = "slide-in-right"; 
-        applyAnimation(animationType);
+    else if (opt==="2") {
+        removeTextAnimate();
+        iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-slide-from-left-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-from-left-header");
     }
 
-    if (opt==="4") {
-        removeTextAnimation();
-        animationType = "slide-in-bottom"; 
-        applyAnimation(animationType);
+    else if (opt==="3") {
+        removeTextAnimate();
+        iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-slide-from-right-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-from-right-header");
     }
 
-    if (opt==="5") {
-        removeTextAnimation();
-        animationType = "fade-in"; 
-        applyAnimation(animationType);
+    else if (opt==="4") {
+        removeTextAnimate();
+        iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-fade-in-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-fade-in-header");
+    }
+
+    else if (opt==="5") {
+        removeTextAnimate();
+        iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-scale-in-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-scale-in-header");
     }
 }
 
-function applyAnimation(animationType) {
-    document.querySelector("label[for='dd_text_slide']").style.color = "#fff";
-    if (iframe.contentWindow.document.querySelector("section .container-upper-label")) {
-        iframe.contentWindow.document.querySelector("section .container-upper-label").classList.add(animationType);
-    }
+function removeTextAnimate() {
+    iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-slide-up-header");
+    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-up-header");
 
-    iframe.contentWindow.document.querySelector("section h2").classList.add(animationType);
+    iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-slide-from-left-header");
+    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-from-left-header");
 
-    if (iframe.contentWindow.document.querySelector("section h3")) {
-        iframe.contentWindow.document.querySelector("section h3").classList.add(animationType);
-    }
+    iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-slide-from-right-header");
+    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-from-right-header");
 
-    let paras = iframe.contentWindow.document.querySelectorAll("section p");
-    for (i = 0; i < paras.length; ++i) {
-        paras[i].classList.add(animationType)
-    }
+    iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-fade-in-header");
+    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-fade-in-header");
 
-    if (iframe.contentWindow.document.querySelector("section ul")) {
-        iframe.contentWindow.document.querySelector("section ul").classList.add(animationType);
-    }
-    
-    if (iframe.contentWindow.document.querySelector("section figure")) {
-        iframe.contentWindow.document.querySelector("section figure").classList.add(animationType);
-    }
-    
-    if (iframe.contentWindow.document.querySelector("section .container-btn")) {
-        iframe.contentWindow.document.querySelector("section .container-btn").classList.add(animationType);
-    }
+    iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-scale-in-header");
+    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-scale-in-header");
 }
-
-function removeTextAnimation() {
-    document.querySelector("label[for='dd_text_slide']").style.color = "var(--gray-500)";
-    // Has .container-upper-label
-    if (iframe.contentWindow.document.querySelector("section .container-upper-label")) {
-        iframe.contentWindow.document.querySelector("section .container-upper-label").removeAttribute("class");
-    }
-
-    iframe.contentWindow.document.querySelector("section h2").removeAttribute("class");
-    
-    // Has h3 sub-heading
-    if (iframe.contentWindow.document.querySelector("section h3")) {
-        iframe.contentWindow.document.querySelector("section h3").removeAttribute("class");
-    }
-
-    let paras = iframe.contentWindow.document.querySelectorAll("section p");
-    for (i = 0; i < paras.length; ++i) {
-        paras[i].removeAttribute("class");
-    }
-    // Has ul list
-    if (iframe.contentWindow.document.querySelector("section ul")) {
-        iframe.contentWindow.document.querySelector("section ul").removeAttribute("class");
-    }
-    // Has figure
-    if (iframe.contentWindow.document.querySelector("section figure")) {
-        iframe.contentWindow.document.querySelector("section figure").removeAttribute("class");
-    }
-    // Has .container-btn
-    if (iframe.contentWindow.document.querySelector("section .container-btn")) {
-        iframe.contentWindow.document.querySelector("section .container-btn").classList.remove("slide-in-top");
-        iframe.contentWindow.document.querySelector("section .container-btn").classList.remove("slide-in-bottom");
-        iframe.contentWindow.document.querySelector("section .container-btn").classList.remove("slide-in-left");
-        iframe.contentWindow.document.querySelector("section .container-btn").classList.remove("slide-in-right");
-        iframe.contentWindow.document.querySelector("section .container-btn").classList.remove("fade-in");
-    }
-}
-

@@ -22,7 +22,18 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             }
         }
         console.log("color_code: "+color_code)
-        headerTheme = sessionStorage.getItem("headerTheme");
+
+        if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
+            console.log("set theme dark")
+            sessionStorage.setItem("headerTheme", ".theme-dark");
+            headerTheme = ".theme-dark";
+        }
+        else {
+            sessionStorage.setItem("headerTheme", ".theme-light");
+            console.log("set theme light");
+            headerTheme = ".theme-light";
+        }
+
         /* header background */
         if (btn_id === "btn_header_bg") {
             newStyle = "header"+headerTheme+" { background-color: var("+color_code+") }\n";

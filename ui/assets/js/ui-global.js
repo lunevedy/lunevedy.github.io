@@ -3,7 +3,7 @@ let uiMenusLength = document.querySelectorAll("#ui-menus li").length;
 let sectionClassName = ".section-selector-1";
 let sectionTheme = ".theme-light";
 let headerTheme = ".theme-light";
-sessionStorage.setItem("headerTheme", ".theme-light");
+
 sessionStorage.setItem("sectionTheme", ".theme-light");
 
 let headerBg;
@@ -135,8 +135,9 @@ function dragElement(elmnt) {
 
         const elSliderColumn = document.getElementById("slider-gap-column");
         const elSliderRow = document.getElementById("slider-gap-row");
+        const elOverlaySlider = document.getElementById("slider-thumb");
 
-        if((e.target == elSliderColumn) || (e.target == elSliderRow) ) {
+        if((e.target == elSliderColumn) || (e.target == elSliderRow) || (e.target == elOverlaySlider) ) {
             // Do nothing
             elmnt.draggable = false;
         }
