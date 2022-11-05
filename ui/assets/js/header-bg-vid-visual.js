@@ -56,7 +56,7 @@ function doSliderOpacity() {
     output.innerHTML = ((this.value)/10).toFixed(1);
 
     let sub_string = "background-image";
-    let newStyle = "header .container-overlay { background-image: linear-gradient(rgba(0,0,0,"+output.innerHTML+"),rgba(0,0,0,"+output.innerHTML+")); } \n";
+    let newStyle = "header.hero-bg > .container-overlay { background-image: linear-gradient(rgba(0,0,0,"+output.innerHTML+"),rgba(0,0,0,"+output.innerHTML+")); } \n";
 
     console.log(newStyle);
 
@@ -66,19 +66,4 @@ function doSliderOpacity() {
     iframe.contentWindow.document.head.appendChild(style);
     style.appendChild(document.createTextNode(newStyle));
     enableCSS();
-
-        // let el_head = iframe.contentWindow.document.head;
-        // let el_style = document.createElement('style');
-
-        // // let el_style = document.createElement('style');
-        // // el_head.appendChild(el_style);
-        // // el_style.type = 'text/css';
-        // // el_style.appendChild(document.createTextNode(newStyle));
-
-        // el_head.appendChild(el_style);
-        // el_style.type = 'text/css';
-        // el_style.appendChild(document.createTextNode(newStyle));
-        // enableCSS();
-    // }
-
 }

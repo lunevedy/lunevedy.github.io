@@ -1,17 +1,27 @@
 // Number of dropdown menus on Lunevery navbar
 let uiMenusLength = document.querySelectorAll("#ui-menus li").length;
-let sectionClassName = ".section-selector-1";
-let sectionTheme = ".theme-light";
-let headerTheme = ".theme-light";
 
-sessionStorage.setItem("sectionTheme", ".theme-light");
+if (iframe.contentWindow.document.querySelector('header')) {
+    if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
+        sessionStorage.setItem("headerTheme", ".theme-dark");
+        headerTheme = ".theme-dark";
+        console.log("set headerTheme to dark")
 
-let headerBg;
+    }
+    else {
+        sessionStorage.setItem("headerTheme", ".theme-light");
+        headerTheme = ".theme-light";
+        console.log("set headerTheme to light")
+    }
+}
+
 let btn_id; // item to be coloured
 let newStyle; // full selector and style rule
 let sub_string; // style rule excerpt for arrCSS
 let color_code;
 const arrCSS = []; // array for style rules to copy
+
+let sectionClassName = '.section-selector-1';
 
 /*
 //////////////// MENUS AND DROPDOWNS ///////////////
@@ -179,7 +189,7 @@ window.onclick = function(event) {
     }
 }
 
-// On click style button
+// On click style (color) button
 let all_btns = document.querySelectorAll('.btn_style');
 all_btns.forEach(el => el.addEventListener('click', event => {
     event.preventDefault();

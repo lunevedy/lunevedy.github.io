@@ -21,20 +21,11 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
                 break;
             }
         }
-        console.log("color_code: "+color_code)
 
-        if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
-            console.log("set theme dark")
-            sessionStorage.setItem("headerTheme", ".theme-dark");
-            headerTheme = ".theme-dark";
-        }
-        else {
-            sessionStorage.setItem("headerTheme", ".theme-light");
-            console.log("set theme light");
-            headerTheme = ".theme-light";
-        }
+        headerTheme = sessionStorage.getItem("headerTheme");
+        // console.log("headerTheme: "+headerTheme);
+        // console.log("color_code: "+color_code);
 
-        console.log("headerTheme is: "+headerTheme)
         /* header background */
         if (btn_id === "btn_header_bg") {
             newStyle = "header"+headerTheme+" { background-color: var("+color_code+") }\n";

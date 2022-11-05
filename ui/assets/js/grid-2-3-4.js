@@ -18,7 +18,7 @@ function setColumnBlocks() {
     }
 
     let objAllCols = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
-    
+
     // ==== ROW ONE =====
     if (selectedValue==="row-one") {
 
@@ -27,7 +27,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 2; i++) {
                 objAllCols[i].remove();
             }
-            disableRowsGap(); 
+            disableRowsGap();
         }
 
         // COL-2: reduce from 6 to 2 (remove 4)
@@ -35,7 +35,7 @@ function setColumnBlocks() {
             for (let i = 0; i < 4; i++) {
                 objAllCols[i].remove();
             }
-            disableRowsGap(); 
+            disableRowsGap();
         }
 
         // 3-COL: reduce from 6 to 3 (remove 3)
@@ -61,25 +61,25 @@ function setColumnBlocks() {
             }
             disableRowsGap();
         }
-        
-        // 4-COL: reduce from 12 to 4 
+
+        // 4-COL: reduce from 12 to 4
         else if (objAllCols.length === 12) {
             for (let i = 0; i < 8; i++) {
                 objAllCols[i].remove();
             }
             disableRowsGap();
-        }        
+        }
     }
 
-    // ==== ROW TWO =====    
+    // ==== ROW TWO =====
     else if (selectedValue==="row-two") {
 
         // 2-COL: increase from 2 to 4
         if (objAllCols.length === 2) {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
-            iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML; 
-            enableRowsGap(); 
+            iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
+            enableRowsGap();
         }
 
         // 2-COL: reduce from 6 to 4.
@@ -88,14 +88,14 @@ function setColumnBlocks() {
             for (let i = 0; i < 2; i++) {
                 objAllCols[i].remove();
             }
-            enableRowsGap(); 
+            enableRowsGap();
         }
 
         // 3-COL: increase 3 to 6 (double current content)
         if (objAllCols.length === 3) {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
-            iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML; 
+            iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
             enableRowsGap();
         }
 
@@ -112,7 +112,7 @@ function setColumnBlocks() {
         if ( (objAllCols.length === 4) && (iframe.contentWindow.document.querySelector('.flex-cols-4')) ) {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML;
-            iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML; 
+            iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
             enableRowsGap();
         }
 
@@ -125,7 +125,7 @@ function setColumnBlocks() {
             enableRowsGap();        }
     }
 
-    // ==== ROW THREE =====   
+    // ==== ROW THREE =====
 
     else if (selectedValue==="row-three") {
 
@@ -134,7 +134,7 @@ function setColumnBlocks() {
             let objRowOne = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']");
             objRowOne.innerHTML = objRowOne.innerHTML + objRowOne.innerHTML + objRowOne.innerHTML;
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            enableRowsGap(); 
+            enableRowsGap();
         }
 
        // 2-COL: increase from 4 to 6 (double and remove 2)
@@ -145,7 +145,7 @@ function setColumnBlocks() {
                 objRowOne.firstElementChild.remove();
             }
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            enableRowsGap(); 
+            enableRowsGap();
         }
 
         // 3-COL: increase from 3 to 9 (treble current content)
@@ -164,7 +164,7 @@ function setColumnBlocks() {
                 objRowOne.firstElementChild.remove();
             }
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            enableRowsGap();        
+            enableRowsGap();
         }
 
         // 4-COL: increase 4 to 12 (treble current content)
@@ -183,7 +183,7 @@ function setColumnBlocks() {
                 objRowOne.firstElementChild.remove();
             }
             iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = objRowOne.innerHTML;
-            enableRowsGap(); 
+            enableRowsGap();
         }
     }
 }
@@ -195,7 +195,7 @@ function setColumnBlocks() {
 document.querySelector("#form-cols-gap-width").addEventListener("change", doColsGapWidth);
 
 function doColsGapWidth() {
-    
+
     const rbs = document.querySelectorAll("input[name='cols-gap-width']");
 
     let selectedValue;
@@ -213,7 +213,7 @@ function doColsGapWidth() {
     objAllCols.classList.remove("cols-gap-2");
     objAllCols.classList.remove("cols-gap-3");
     objAllCols.classList.remove("cols-gap-4");
-    
+
     if (selectedValue==="1") {
         objAllCols.classList.add("cols-gap-1");
     }
@@ -225,7 +225,7 @@ function doColsGapWidth() {
     else if (selectedValue==="3") {
         objAllCols.classList.add("cols-gap-3");
     }
-    
+
     else if (selectedValue==="4") {
         objAllCols.classList.add("cols-gap-4");
     }
@@ -238,7 +238,7 @@ function doColsGapWidth() {
 document.querySelector("#form-rows-gap-width").addEventListener("change", doRowsGapWidth);
 
 function doRowsGapWidth() {
-  
+
     const rbs = document.querySelectorAll("input[name='rows-gap-width']");
 
     let selectedValue;
@@ -256,7 +256,7 @@ function doRowsGapWidth() {
     objAllCols.classList.remove("rows-gap-2");
     objAllCols.classList.remove("rows-gap-3");
     objAllCols.classList.remove("rows-gap-4");
-    
+
     if (selectedValue==="1") {
         objAllCols.classList.add("rows-gap-1");
     }
@@ -268,7 +268,7 @@ function doRowsGapWidth() {
     else if (selectedValue==="3") {
         objAllCols.classList.add("rows-gap-3");
     }
-    
+
     else if (selectedValue==="4") {
         objAllCols.classList.add("rows-gap-4");
     }
@@ -294,7 +294,7 @@ function disableRowsGap() {
     document.getElementById("rows-gap-width-1").checked = false;
     document.getElementById("rows-gap-width-2").checked = false;
     document.getElementById("rows-gap-width-3").checked = false;
-    document.getElementById("rows-gap-width-4").checked = false;  
+    document.getElementById("rows-gap-width-4").checked = false;
     document.querySelector("span.rows-gap-px").style.color ='gray';
 }
 
@@ -367,7 +367,7 @@ function doColsBadge() {
     else {
         // count column blocks
         const objCols = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
-    
+
         let arrColBadgeLoop = [];
 
         if (objCols.length === 2) {
@@ -405,7 +405,7 @@ function doColsBadge() {
                 arrColBadgeTemp[i] = arrColBadge[i];
             }
             arrColBadgeLoop = [].concat(...Array(2).fill(arrColBadgeTemp));
-        }        
+        }
 
         else if (objCols.length === 9) {
             const arrColBadgeTemp = [];
@@ -414,7 +414,7 @@ function doColsBadge() {
             }
             arrColBadgeLoop = [].concat(...Array(3).fill(arrColBadgeTemp));
         }
-    
+
         else if (objCols.length === 12) {
             const arrColBadgeTemp = [];
             for (let i = 0; i < (arrColBadge.length-1); i++) {
@@ -429,11 +429,11 @@ function doColsBadge() {
             let el_fig;
             // Loop through figures
             for (let i = 0; i < objFigs.length; i++) {
-                el_fig = objFigs[i]; 
+                el_fig = objFigs[i];
                 el_fig.insertAdjacentHTML("afterend", arrColBadgeLoop[i]);
             }
-            document.getElementById("show-cols-badge").style.display="flex";        
-        } 
+            document.getElementById("show-cols-badge").style.display="flex";
+        }
 
         // Test for sub-headings
         else if ( (iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] h3")) || (iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] a[class^='col-']") ))  {
@@ -447,7 +447,7 @@ function doColsBadge() {
             let el_h3;
             // Loop through h3 sub-headings
             for (let i = 0; i < objH3.length; i++) {
-                el_h3 = objH3[i]; 
+                el_h3 = objH3[i];
                 el_h3.insertAdjacentHTML("beforebegin", arrColBadgeLoop[i]);
             }
             document.getElementById("show-cols-badge").style.display="flex";
@@ -459,30 +459,30 @@ function doColsBadge() {
             let el_para;
             // Loop through paragraphs
             for (let i = 0; i < objParas.length; i++) {
-                el_para = objParas[i]; 
+                el_para = objParas[i];
                 el_para.insertAdjacentHTML("beforebegin", arrColBadgeLoop[i]);
             }
             document.getElementById("show-cols-badge").style.display="flex";
         }
-    
+
         // Test for lists
         else if (iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] ul")) {
             const objULs = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] ul")
             let el_li;
             // Loop through lists
             for (let i = 0; i < objULs.length; i++) {
-                el_li = objULs[i]; 
+                el_li = objULs[i];
                 el_li.insertAdjacentHTML("beforebegin", arrColBadgeLoop[i]);
             }
             document.getElementById("show-cols-badge").style.display="flex";
         }
-    
+
         else {
             const objCols = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
             let el_col;
             // Loop through columns
             for (let i = 0; i < objCols.length; i++) {
-                el_col = objCols[i]; 
+                el_col = objCols[i];
                 el_col.innerHTML = arrColBadgeLoop[i];
             }
         }
@@ -494,7 +494,7 @@ document.querySelector("#form_cols_badge_shape").addEventListener("change", doCo
 
 function doColsBadgeShape() {
 
-    const objBadges = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] .badge"); 
+    const objBadges = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] .badge");
     let elBadge
     const rbs = document.querySelectorAll("input[name='switch_cols_badge_shape']");
     let selectedValue;
@@ -507,13 +507,13 @@ function doColsBadgeShape() {
     }
 
     if (selectedValue==="square") {
-        for (elBadge of objBadges) { 
+        for (elBadge of objBadges) {
             elBadge.classList.remove("corners-soft");
         }
     }
-        
+
     else if (selectedValue==="soft") {
-        for (elBadge of objBadges) { 
+        for (elBadge of objBadges) {
             elBadge.classList.add("corners-soft");
         }
     }
@@ -529,7 +529,7 @@ function removeColsBadge() {
         document.getElementById("show-cols-badge").style.display="none";
         const arg1 = sectionClassName+ " .badge { color:";
         const arg2 = sectionClassName+ " .badge { background-color:";
-        removeCSSTagPairs(arg1,arg2);     
+        removeCSSTagPairs(arg1,arg2);
     }
 }
 
@@ -599,7 +599,7 @@ function doColH3() {
                     arrContentLoop[i] = arrContent[i];
                 }
             }
-    
+
             else if (objCols.length === 6) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -607,7 +607,7 @@ function doColH3() {
                 }
                 arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
             }
-    
+
             else if (objCols.length === 9) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -655,26 +655,26 @@ function doColH3() {
             let el_fig;
             // Loop through figures
             for (let i = 0; i < objFigs.length; i++) {
-                el_fig = objFigs[i]; 
+                el_fig = objFigs[i];
                 el_fig.insertAdjacentHTML("afterend", arrContentLoop[i]);
             }
-            document.getElementById("cb_cols_shadows").disabled=false; 
-            document.getElementById("cb_cols_shadows").checked=false; 
-        }       
+            document.getElementById("cb_cols_shadows").disabled=false;
+            document.getElementById("cb_cols_shadows").checked=false;
+        }
 
         // No figures. Test for column badges
         // append after badge div tag
         else if (iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] .badge")) {
-            
+
             const objBadges = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] .badge");
             let el_badge;
             // Loop through badges
             for (let i = 0; i < objBadges.length; i++) {
-                el_badge = objBadges[i]; 
+                el_badge = objBadges[i];
                 el_badge.insertAdjacentHTML("afterend", arrContentLoop[i]);
             }
-            document.getElementById("cb_cols_shadows").disabled=false; 
-            document.getElementById("cb_cols_shadows").checked=false; 
+            document.getElementById("cb_cols_shadows").disabled=false;
+            document.getElementById("cb_cols_shadows").checked=false;
         }
 
         // Test for paragraphs
@@ -685,11 +685,11 @@ function doColH3() {
             let el_para;
             // Loop through paragraphs
             for (let i = 0; i < objParas.length; i++) {
-                el_para = objParas[i]; 
+                el_para = objParas[i];
                 el_para.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
             }
-            document.getElementById("cb_cols_shadows").disabled=false; 
-            document.getElementById("cb_cols_shadows").checked=false; 
+            document.getElementById("cb_cols_shadows").disabled=false;
+            document.getElementById("cb_cols_shadows").checked=false;
         }
 
         // Test for lists
@@ -699,11 +699,11 @@ function doColH3() {
             let el_li;
             // Loop through lists
             for (let i = 0; i < objULs.length; i++) {
-                el_li = objULs[i]; 
+                el_li = objULs[i];
                 el_li.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
             }
-            document.getElementById("cb_cols_shadows").disabled=false; 
-            document.getElementById("cb_cols_shadows").checked=false; 
+            document.getElementById("cb_cols_shadows").disabled=false;
+            document.getElementById("cb_cols_shadows").checked=false;
         }
 
         // No pics, icons, paras, lists
@@ -713,12 +713,12 @@ function doColH3() {
             let el_col;
             // Loop through columns
             for (let i = 0; i < objCols.length; i++) {
-                el_col = objCols[i]; 
+                el_col = objCols[i];
                 el_col.innerHTML = arrContentLoop[i];
             }
         }
-        document.getElementById("cb_cols_shadows").disabled=false; 
-        document.getElementById("cb_cols_shadows").checked=false; 
+        document.getElementById("cb_cols_shadows").disabled=false;
+        document.getElementById("cb_cols_shadows").checked=false;
         document.getElementById("cb_cols_links_h3").disabled=false;
         document.getElementById("cb_cols_links_h3").checked=false;
     }
@@ -734,18 +734,18 @@ function removeColH3() {
         else if (iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] a[class^='col-']")) {
             objH3 = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] a[class^='col-']");
         }
-        else (objH3 = "");        
-        
+        else (objH3 = "");
+
         // Loop through H3 sub-headings in columns
         for (let i = 0; i < objH3.length; i++) {
             objH3[i].remove();
         }
-        iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML.replaceAll('</figure>\n\t\t\t', '</figure>'); 
+        iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").innerHTML.replaceAll('</figure>\n\t\t\t', '</figure>');
 
         // If no H3 and no text or lists
         if ( (!iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] h3")) && (!iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] p")) && (!iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] ul"))) {
-            document.getElementById("cb_cols_shadows").disabled=true; 
-            document.getElementById("cb_cols_shadows").checked=false; 
+            document.getElementById("cb_cols_shadows").disabled=true;
+            document.getElementById("cb_cols_shadows").checked=false;
         }
         document.getElementById("hyperlinks-h3").style.display="none";
         document.getElementById("hyperlinks-h3-underline").style.display="none";
@@ -803,7 +803,7 @@ function doColH3Hyperlink() {
         document.getElementById("hyperlinks-h3").style.display="flex";
         document.getElementById("hyperlinks-h3-underline").style.display="flex";
         document.getElementById("btn_cols_h3").disabled=true;
-       
+
         for (let i = 0; i < (objAllCols.length); i++) {
             target = objAllCols[i].innerHTML;
 
@@ -831,9 +831,9 @@ document.querySelector("#dd_cols_text").addEventListener("change", doColsText);
 function doColsText() {
 
     let opt = document.querySelector("#dd_cols_text").value;
-    const arrContent = []; 
+    const arrContent = [];
     let arrContentLoop = [];
-    
+
     // remove
     if (opt==="0") {
         document.querySelector("#btn_cols_text").disabled=true;
@@ -843,7 +843,7 @@ function doColsText() {
         document.getElementById("fa-circle-check").checked=true;
         removeText();
     }
-    
+
     // paragraphs
     else if (opt==="1") {
         document.querySelector("#btn_cols_text").disabled=false;
@@ -870,7 +870,7 @@ function doColsText() {
                     arrContentLoop[i] = arrContent[i];
                 }
             }
-    
+
             else if (objCols.length === 4) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -878,7 +878,7 @@ function doColsText() {
                 }
                 arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
             }
-    
+
             else if (objCols.length === 6) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -890,8 +890,8 @@ function doColsText() {
 
         // ======== do col-3 layouts
 
-        if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {            
-            
+        if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
+
             // populate array
             for (let i = 0; i < content_paras_col_3.length; i++) {
                 arrContent[i] = content_paras_col_3[i];
@@ -902,7 +902,7 @@ function doColsText() {
                     arrContentLoop[i] = arrContent[i];
                 }
             }
-    
+
             else if (objCols.length === 6) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -910,7 +910,7 @@ function doColsText() {
                 }
                 arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
             }
-    
+
             else if (objCols.length === 9) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -922,8 +922,8 @@ function doColsText() {
 
         // ======== do col-4 layouts
 
-        if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {  
-            
+        if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
+
             // populate array
             for (let i = 0; i < content_paras_col_4.length; i++) {
                 arrContent[i] = content_paras_col_4[i];
@@ -934,7 +934,7 @@ function doColsText() {
                     arrContentLoop[i] = arrContent[i];
                 }
             }
-    
+
             else if (objCols.length === 8) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -942,7 +942,7 @@ function doColsText() {
                 }
                 arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
             }
-    
+
             else if (objCols.length === 12) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -959,7 +959,7 @@ function doColsText() {
             let el_col;
             let el_col_temp;
             for (let i = 0; i < objCols.length; i++) {
-                el_col = objCols[i]; 
+                el_col = objCols[i];
                 el_col_temp = arrContentLoop[i];
                 el_col.innerHTML = el_col.innerHTML + el_col_temp;
             }
@@ -969,21 +969,25 @@ function doColsText() {
         // Insert before buttons
 
             if (iframe.contentWindow.document.querySelector('flex-cols-2')) {
-                let objButtons = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] a.btn");
+                let objButtons = iframe.contentWindow.document.querySelectorAll(".flex-cols-2 .col-2 .container-btn");
+                let el_button;
+                for (let i = 0; i < objButtons.length; i++) {
+                    el_button = objButtons[i];
+                    el_button.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
+                }
             }
             else {
-                let objButtons = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] .container-btn");
-            }
-
-            let el_button;
-            for (let i = 0; i < objButtons.length; i++) {
-                el_button = objButtons[i]; 
-                el_button.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
+                let objButtons = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] a.btn");
+                let el_button;
+                for (let i = 0; i < objButtons.length; i++) {
+                    el_button = objButtons[i];
+                    el_button.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
+                }
             }
         }
 
-        document.getElementById("cb_cols_shadows").disabled=false; 
-        document.getElementById("cb_cols_shadows").checked=false; 
+        document.getElementById("cb_cols_shadows").disabled=false;
+        document.getElementById("cb_cols_shadows").checked=false;
         document.getElementById("not-paragraphs").style.display ="none";
         document.getElementById("fa-icons").style.display ="none";
         document.getElementById("dd_cols_list_marker").value="0";
@@ -1006,13 +1010,13 @@ function doColsText() {
             for (let i = 0; i < content_list_col_3.length-1; i++) {
                 arrContent[i] = content_list_col_3[i];
             }
-    
+
             if (objCols.length === 2) {
                 for (let i = 0; i < (arrContent.length); i++) {
                     arrContentLoop[i] = arrContent[i];
                 }
             }
-    
+
             else if (objCols.length === 4) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -1020,7 +1024,7 @@ function doColsText() {
                 }
                 arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
             }
-    
+
             else if (objCols.length === 6) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -1043,7 +1047,7 @@ function doColsText() {
                     arrContentLoop[i] = arrContent[i];
                 }
             }
-    
+
             else if (objCols.length === 6) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -1051,7 +1055,7 @@ function doColsText() {
                 }
                 arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
             }
-    
+
             else if (objCols.length === 9) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -1076,7 +1080,7 @@ function doColsText() {
                     arrContentLoop[i] = arrContent[i];
                 }
             }
-    
+
             else if (objCols.length === 8) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -1084,7 +1088,7 @@ function doColsText() {
                 }
                 arrContentLoop = [].concat(...Array(2).fill(arrContentTemp));
             }
-    
+
             else if (objCols.length === 12) {
                 const arrContentTemp = [];
                 for (let i = 0; i < (arrContent.length); i++) {
@@ -1101,7 +1105,7 @@ function doColsText() {
             let el_col;
             let el_col_temp;
             for (let i = 0; i < objCols.length; i++) {
-                el_col = objCols[i]; 
+                el_col = objCols[i];
                 el_col_temp = arrContentLoop[i];
                 el_col.innerHTML = el_col.innerHTML + el_col_temp;
             }
@@ -1110,24 +1114,28 @@ function doColsText() {
             // Buttons
             // Insert before buttons
             if (iframe.contentWindow.document.querySelector('.flex-cols-2')) {
-                let objButtons = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] a.btn");
+                let objButtons = iframe.contentWindow.document.querySelectorAll(".flex-cols-2 .col-2 .container-btn");
+                let el_button;
+                for (let i = 0; i < objButtons.length; i++) {
+                    el_button = objButtons[i];
+                    el_button.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
+                }
             }
             else {
-                let objButtons = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] .container-btn");
-            }
-
-            let el_button;
-            for (let i = 0; i < objButtons.length; i++) {
-                el_button = objButtons[i]; 
-                el_button.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
+                let objButtons = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] a.btn");
+                let el_button;
+                for (let i = 0; i < objButtons.length; i++) {
+                    el_button = objButtons[i];
+                    el_button.insertAdjacentHTML("beforebegin", arrContentLoop[i]);
+                }
             }
         }
 
         document.getElementById("dd_cols_list_marker").disabled=false;
         document.getElementById("dd_cols_list_marker").value="0";
         document.getElementById("btn_cols_list_marker").disabled=false;
-        document.getElementById("cb_cols_shadows").disabled=false; 
-        document.getElementById("cb_cols_shadows").checked=false; 
+        document.getElementById("cb_cols_shadows").disabled=false;
+        document.getElementById("cb_cols_shadows").checked=false;
         document.getElementById("not-paragraphs").style.display ="flex";
         document.getElementById("fa-icons").style.display ="none";
         document.getElementById("fa-circle-check").checked=true;
@@ -1147,7 +1155,7 @@ function removeText() {
     for (var i = 0 ; i < el_list.length ; i++) {
         el_list[i].remove();
     }
-    
+
     if (!iframe.contentWindow.document.querySelectorAll("flex-cols-2")) {
         enableColButtons()
     }
@@ -1155,11 +1163,11 @@ function removeText() {
     document.getElementById("dd_cols_list_marker").disabled=true;
     document.getElementById("dd_cols_list_marker").value="0";
     document.getElementById("btn_cols_list_marker").disabled=true;
-    
+
     // If no H3 and no text
     if ( (!iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] h3")) && (!iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] p")) && (!iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-'] ul"))) {
-        document.getElementById("cb_cols_shadows").disabled=true; 
-        document.getElementById("cb_cols_shadows").checked=false; 
+        document.getElementById("cb_cols_shadows").disabled=true;
+        document.getElementById("cb_cols_shadows").checked=false;
     }
     const arg1 = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] p { color:";
     const arg2 = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] li { color:";
@@ -1229,7 +1237,7 @@ document.querySelector("#form_switch_fa_icons").addEventListener("change", choos
 function chooseListMarker() {
     const rbs = document.querySelectorAll("input[name='switch_fa_icons']");
     let objIcons = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] ul li span");
-    let node;   
+    let node;
     let selectedValue;
 
     for (const rb of rbs) {
@@ -1264,7 +1272,7 @@ function doColBg() {
 
         // if no shadows AND also border
         if ( (!document.getElementById("cb_cols_shadows").checked) && (!document.getElementById("cb_cols_borders").checked) ) {
-            // remove padding 
+            // remove padding
             el_cols.classList.remove("cols-padding");
             // remove and disable soft corners
             el_cols.classList.remove("cols-corners-soft");
@@ -1303,7 +1311,7 @@ function doColShadows() {
         document.getElementById("btn_cols_shadows_color").checked=false;
 
         // if no background AND also no border
-        
+
         if ( (!document.getElementById("cb_cols_bg").checked) && (!document.getElementById("cb_cols_borders").checked) ) {
             // remove padding
             el_cols.classList.remove("cols-padding");
@@ -1319,7 +1327,7 @@ function doColShadows() {
         el_cols.classList.add("cols-padding");
         el_cols.classList.add("cols-shadows");
         el_cols.classList.add("cols-corners-soft");
-        document.getElementById("cb_cols_corners_soft").disabled=false; 
+        document.getElementById("cb_cols_corners_soft").disabled=false;
         document.getElementById("cb_cols_corners_soft").checked=true;
         document.getElementById("btn_cols_shadows_color").disabled=false;
         enableFigsPadding();
@@ -1336,23 +1344,23 @@ function doColBorders() {
     const el_cols = iframe.contentWindow.document.querySelector("div[class^='flex-cols-']")
 
     if (!document.getElementById("cb_cols_borders").checked) {
-        document.getElementById("btn_cols_borders_color").disabled=true; 
+        document.getElementById("btn_cols_borders_color").disabled=true;
         el_cols.classList.remove("cols-borders-width-1");
         el_cols.classList.remove("cols-borders-width-2");
         el_cols.classList.remove("cols-borders-width-3");
         el_cols.classList.remove("cols-borders-width-4");
-        document.getElementById("cols-borders-width-1").disabled=true; 
-        document.getElementById("cols-borders-width-2").disabled=true; 
-        document.getElementById("cols-borders-width-3").disabled=true; 
-        document.getElementById("cols-borders-width-4").disabled=true; 
-        document.getElementById("cols-borders-width-1").checked=false; 
-        document.getElementById("cols-borders-width-2").checked=false; 
-        document.getElementById("cols-borders-width-3").checked=false; 
-        document.getElementById("cols-borders-width-4").checked=false; 
+        document.getElementById("cols-borders-width-1").disabled=true;
+        document.getElementById("cols-borders-width-2").disabled=true;
+        document.getElementById("cols-borders-width-3").disabled=true;
+        document.getElementById("cols-borders-width-4").disabled=true;
+        document.getElementById("cols-borders-width-1").checked=false;
+        document.getElementById("cols-borders-width-2").checked=false;
+        document.getElementById("cols-borders-width-3").checked=false;
+        document.getElementById("cols-borders-width-4").checked=false;
 
         // if no background AND also no shadows
         if ( (!document.getElementById("cb_cols_bg").checked) && (!document.getElementById("cb_cols_shadows").checked) ) {
-            // remove padding 
+            // remove padding
             el_cols.classList.remove("cols-padding");
             // remove and disable soft corners
             el_cols.classList.remove("cols-corners-soft");
@@ -1365,15 +1373,15 @@ function doColBorders() {
     else {
         el_cols.classList.add("cols-padding");
         el_cols.classList.add("cols-borders-width-1");
-        document.getElementById("cb_cols_corners_soft").disabled=false; 
+        document.getElementById("cb_cols_corners_soft").disabled=false;
         document.getElementById("cb_cols_corners_soft").checked;
         document.getElementById("cb_cols_borders").disabled=false;
-        document.getElementById("cols-borders-width-1").disabled=false; 
-        document.getElementById("cols-borders-width-1").checked=true; 
-        document.getElementById("cols-borders-width-2").disabled=false; 
-        document.getElementById("cols-borders-width-3").disabled=false; 
-        document.getElementById("cols-borders-width-4").disabled=false; 
-        document.getElementById("btn_cols_borders_color").disabled=false; 
+        document.getElementById("cols-borders-width-1").disabled=false;
+        document.getElementById("cols-borders-width-1").checked=true;
+        document.getElementById("cols-borders-width-2").disabled=false;
+        document.getElementById("cols-borders-width-3").disabled=false;
+        document.getElementById("cols-borders-width-4").disabled=false;
+        document.getElementById("btn_cols_borders_color").disabled=false;
         enableFigsPadding();
     }
 }
@@ -1384,20 +1392,20 @@ function enableFigsPadding() {
     document.getElementById("cb_trans_padding").disabled=false;
     document.getElementById("cb_trans_padding").checked=false;
     document.getElementById("cb_drawings_padding").disabled=false;
-    document.getElementById("cb_drawings_padding").checked=false;    
+    document.getElementById("cb_drawings_padding").checked=false;
     document.getElementById("cb_videos_padding").disabled=false;
-    document.getElementById("cb_videos_padding").checked=false;    
+    document.getElementById("cb_videos_padding").checked=false;
 }
 
 function disableFigsPadding() {
     document.getElementById("cb_photos_padding").disabled=true;
     document.getElementById("cb_photos_padding").checked=false;
     document.getElementById("cb_trans_padding").disabled=true;
-    document.getElementById("cb_trans_padding").checked=false;        
+    document.getElementById("cb_trans_padding").checked=false;
     document.getElementById("cb_drawings_padding").disabled=true;
     document.getElementById("cb_drawings_padding").checked=false;
     document.getElementById("cb_videos_padding").disabled=true;
-    document.getElementById("cb_videos_padding").checked=false;            
+    document.getElementById("cb_videos_padding").checked=false;
 }
 /*
 //////////////// COLUMNS BORDERS WIDTH ///////////////
@@ -1423,7 +1431,7 @@ function doColBordersWidth() {
     objAllCols.classList.remove("cols-borders-width-2");
     objAllCols.classList.remove("cols-borders-width-3");
     objAllCols.classList.remove("cols-borders-width-4");
-    
+
     if (selectedValue==="1") {
         objAllCols.classList.add("cols-borders-width-1");
     }
@@ -1435,7 +1443,7 @@ function doColBordersWidth() {
     else if (selectedValue==="3") {
         objAllCols.classList.add("cols-borders-width-3");
     }
-    
+
     else if (selectedValue==="4") {
         objAllCols.classList.add("cols-borders-width-4");
     }

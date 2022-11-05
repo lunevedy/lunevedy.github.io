@@ -58,15 +58,20 @@ function doSliderOpacity() {
     // Update display of slider value on drag
     output.innerHTML = ((this.value)/10).toFixed(1);
 
+    // only update on release
+    // ondragend listener
+
     let sub_string = "background-image";
     let newStyle = "header.hero-bg > .container-overlay { background-image: linear-gradient(rgba(0,0,0,"+output.innerHTML+"),rgba(0,0,0,"+output.innerHTML+")); } \n";
 
     console.log(newStyle);
 
-    // doUpdateArray(sub_string,newStyle);
+    doUpdateArray(sub_string,newStyle);
 
     let style = document.createElement('style');
     iframe.contentWindow.document.head.appendChild(style);
     style.appendChild(document.createTextNode(newStyle));
     enableCSS();
+
+    doUpdateArray(sub_string,newStyle);
 }

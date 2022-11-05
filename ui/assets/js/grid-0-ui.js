@@ -1,7 +1,5 @@
-
-
 document.querySelector("#picker-box").addEventListener('click', handleLabelClick);
-    
+
     function handleLabelClick(event) {
         event.stopPropagation();
         const label = event.target.closest("label");
@@ -15,7 +13,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             return;
         }
         const rbs = document.querySelectorAll("input[name='picker-radio']");
-    
+
         for (const rb of rbs) {
             if (rb.checked) {
                 color_code = rb.value;
@@ -39,7 +37,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_badge_bg") {
             newStyle = sectionClassName+ " .badge { background-color: var("+color_code+") }\n";
             sub_string = ".badge { background-color";
-        }        
+        }
 
         /* h2 main heading */
         else if (btn_id === "btn_h2_text") {
@@ -67,22 +65,22 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Section paragraphs text */
         else if (btn_id === "btn_para_text") {
-            newStyle = sectionClassName+ " p { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " p { color: var("+color_code+") }\n";
             sub_string = " p {";
         }
 
         /* Section paragraphs text */
         else if (btn_id === "btn_list_text") {
-            newStyle = sectionClassName+ " ul li { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " ul li { color: var("+color_code+") }\n";
             sub_string = " ul li {";
         }
 
         /* List marker */
         else if (btn_id === "btn_list_marker") {
-            newStyle = sectionClassName+ " li::marker, "+sectionClassName+ " ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " li::marker, "+sectionClassName+ " ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
         }
-        
+
         /* === Buttons === */
 
         /* Text colour: passive */
@@ -178,6 +176,6 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         }
         // console.log(sub_string);
         console.log(newStyle);
-        doUpdateArray(sub_string,newStyle);      
+        doUpdateArray(sub_string,newStyle);
     }
 
