@@ -463,6 +463,8 @@ section > .container-btn a.btn,
 .col-2.col-text .container-btn {
     margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0 !important
 }
+.col-3 h3 + a.btn { margin-top: 20px }
+.col-4 h3 + a.btn { margin-top: 14px }
 
 @media (min-width: 768px) {
     header > .container-btn,
@@ -935,9 +937,9 @@ Typically after h2 heading */
 }
 
 /* Sub-heading for column and within single column layout */
-section > h3, .col-2 > h3, .col-3 > h3, .col-4 > h3,
+section > h3, .col-2 h3, .col-3 > h3, .col-4 > h3,
 .col-1 > a.col-3-h3,
-.col-2 > a.col-2-h3,
+.col-2 a.col-2-h3,
 .col-3 > a.col-3-h3,
 .col-4 > a.col-4-h3 {
     font-weight: 700; line-height: 1.15; margin-bottom: 6px
@@ -1297,14 +1299,14 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
 
 /* Desktops */
 @media (min-width: 1025px) {
-    .flex-cols-2 > .col-2 > h3,
-    .flex-cols-2 > .col-2 > a.col-2-h3 { font-size: 28px }
-    .flex-cols-2 > .col-2 > p,
-    .flex-cols-2 > .col-2 > ul li { font-size: 20px }
-    .flex-cols-2 > .col-2 > ul li {  margin-left: 18px; padding-left: 12px }
-    .flex-cols-2 > .col-2 > ul.fa-ul li { margin-left: 22px; padding-left: 10px }
-    .flex-cols-2 > .col-2 > ul.fa-ul li span.fa-li { transform: translateY(2px) }
-    .flex-cols-2 > .col-2 > figure { margin-bottom: 32px }
+    .flex-cols-2 > .col-2 h3,
+    .flex-cols-2 > .col-2 a.col-2-h3 { font-size: 28px }
+    .flex-cols-2 > .col-2 p,
+    .flex-cols-2 > .col-2 ul li { font-size: 20px }
+    .flex-cols-2 > .col-2 ul li {  margin-left: 18px; padding-left: 12px }
+    .flex-cols-2 > .col-2 ul.fa-ul li { margin-left: 22px; padding-left: 10px }
+    .flex-cols-2 > .col-2 ul.fa-ul li span.fa-li { transform: translateY(2px) }
+    .flex-cols-2 > .col-2 figure { margin-bottom: 32px }
     .flex-cols-2.cols-padding > .col-2 { padding: 30px 32px 38px 32px }
     .flex-cols-2.cols-padding > .col-2 figure {
         margin-top: -30px;
@@ -1316,18 +1318,18 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     .flex-cols-2.cols-padding > .col-2 figure.cols-fig-padding {
         margin-top: 0; margin-left: 0; margin-right: 0; width: 100%;
     }
-    /* .flex-cols-2 > .col-2 > .container-btn { margin-top: 24px } */
+    /* .flex-cols-2 > .col-2 .container-btn { margin-top: 24px } */
 }
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .flex-cols-2 > .col-2 > h3,
-    .flex-cols-2 > .col-2 > a.col-2-h3 { font-size: 25px }
-    .flex-cols-2 > .col-2 > p,
-    .flex-cols-2 > .col-2 > ul li { font-size: 19px }
-    .flex-cols-2 > .col-2 > ul li { margin-left: 18px; padding-left: 8px }
-    .flex-cols-2 > .col-2 > ul.fa-ul li { margin-left: 22px }
-    .flex-cols-2 > .col-2 > figure { margin-bottom: 20px }
+    .flex-cols-2 > .col-2 h3,
+    .flex-cols-2 > .col-2 a.col-2-h3 { font-size: 25px }
+    .flex-cols-2 > .col-2 p,
+    .flex-cols-2 > .col-2 ul li { font-size: 19px }
+    .flex-cols-2 > .col-2 ul li { margin-left: 18px; padding-left: 8px }
+    .flex-cols-2 > .col-2 ul.fa-ul li { margin-left: 22px }
+    .flex-cols-2 > .col-2 figure { margin-bottom: 20px }
     .flex-cols-2.cols-padding > .col-2 { padding: 20px 22px 28px 22px }
     .flex-cols-2.cols-padding > .col-2 figure {
         margin-top: -20px;
@@ -1339,52 +1341,52 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
         margin-top: 0; margin-left: 0; margin-right: 0; width: 100%;
     }
 
-    .flex-cols-2 > .col-2 > .container-btn { margin-bottom: -20px !important}
-    .flex-cols-2 > .col-2 > .container-btn { margin-top: 24px }
+    .flex-cols-2 > .col-2 .container-btn { margin-bottom: -20px !important}
+    .flex-cols-2 > .col-2 .container-btn { margin-top: 24px }
 }
 
 /* 2-column: button pairs */
-.flex-cols-2 .col-2 > .container-btn {
+.flex-cols-2 .col-2 .container-btn {
     display: flex; flex-direction: row; flex-wrap: wrap; row-gap: 30px; justify-content: flex-start;
     margin-bottom: 1px !important
 }
 
-.flex-cols-2 .col-2 > .container-btn > a.btn {
+.flex-cols-2 .col-2 .container-btn > a.btn {
     margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0 !important
 }
 
 @media (min-width: 768px) {
-    .flex-cols-2 .col-2 > .container-btn { margin-top: 20px; column-gap: 48px }
-    .flex-cols-2 .col-2 > .container-btn.text-center-desktop {
+    .flex-cols-2 .col-2 .container-btn { margin-top: 20px; column-gap: 48px }
+    .flex-cols-2 .col-2 .container-btn.text-center-desktop {
         justify-content: center !important
     }
 }
 
 @media (max-width: 767px) {
-    .flex-cols-2 .col-2 > .container-btn { margin-top: 32px; column-gap: 30px }
-    .flex-cols-2 .col-2 > .container-btn.text-center-mobile {
+    .flex-cols-2 .col-2 .container-btn { margin-top: 32px; column-gap: 30px }
+    .flex-cols-2 .col-2 .container-btn.text-center-mobile {
         justify-content: center !important
     }
 }
 
 /* Font Awesome: Larger and smaller icons */
-.flex-cols-2 > .col-2 > figure.icon i[class^='fa'] { font-size: 116px }
-.flex-cols-2 > .col-2 > figure.icon.icon-small i[class^='fa'] { font-size: 80px; }
+.flex-cols-2 > .col-2 figure.icon i[class^='fa'] { font-size: 116px }
+.flex-cols-2 > .col-2 figure.icon.icon-small i[class^='fa'] { font-size: 80px; }
 
 /* Light Awesome: Larger and smaller icons */
-.flex-cols-2 > .col-2 > figure.icon i[class^="la"] { font-size: 150px }
-.flex-cols-2 > .col-2 > figure.icon.icon-small i[class^="la"] { font-size: 110px }
+.flex-cols-2 > .col-2 figure.icon i[class^="la"] { font-size: 150px }
+.flex-cols-2 > .col-2 figure.icon.icon-small i[class^="la"] { font-size: 110px }
 
 /* Font Awesome: Vertical spacing */
 @media (min-width: 768px) {
-    .flex-cols-2 > .col-2 > figure.icon i[class^='fa'] { margin-top: 24px; margin-bottom: 0 }
+    .flex-cols-2 > .col-2 figure.icon i[class^='fa'] { margin-top: 24px; margin-bottom: 0 }
 }
 @media (max-width: 767px) {
-    .flex-cols-2 > .col-2 > figure.icon i[class^='fa'] { margin-top: 0; margin-bottom: 18px }
+    .flex-cols-2 > .col-2 figure.icon i[class^='fa'] { margin-top: 0; margin-bottom: 18px }
 }
 
 /* Light Awesome: Vertical spacing */
-.flex-cols-2 > .col-2 > figure.icon i[class^="la"] { margin-top: 0; margin-bottom: -12px }
+.flex-cols-2 > .col-2 figure.icon i[class^="la"] { margin-top: 0; margin-bottom: -12px }
 
 
 /* ============= THREE COLUMN LAYOUT ============ */
