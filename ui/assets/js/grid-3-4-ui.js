@@ -1,5 +1,5 @@
 document.querySelector("#picker-box").addEventListener('click', handleLabelClick);
-    
+
     function handleLabelClick(event) {
         event.stopPropagation();
         const label = event.target.closest("label");
@@ -13,7 +13,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             return;
         }
         const rbs = document.querySelectorAll("input[name='picker-radio']");
-    
+
         for (const rb of rbs) {
             if (rb.checked) {
                 color_code = rb.value;
@@ -37,7 +37,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_col_1_badge_bg") {
             newStyle = sectionClassName+ " .col-1-badge { background-color: var("+color_code+") }\n";
             sub_string = "col-1-badge { background-color";
-        }        
+        }
 
         /* .col-1 h2 main heading */
         else if (btn_id === "btn_col_1_h2_text") {
@@ -68,46 +68,46 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             newStyle = sectionClassName+ " .badge { color: var("+color_code+") }\n";
             sub_string = ".badge { color: ";
         }
-        
+
         /* Columns badges: background */
         else if (btn_id === "btn_cols_badge_bg") {
             newStyle = sectionClassName+ " .badge { background-color: var("+color_code+") }\n";
             sub_string = ".badge { background-color: ";
         }
-        
+
         /* Columns subheading */
         else if (btn_id === "btn_cols_h3") {
             newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] h3 { color: var("+color_code+") }\n";
             sub_string = sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] h3";
         }
-        
+
         /* Column text */
         else if (btn_id === "btn_cols_text") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] p { color: var("+color_code+") }\n" +sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] li { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] p { color: var("+color_code+") }\n" +sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] li { color: var("+color_code+") }\n";
             sub_string = "div[class^='flex-cols-'] div[class^='col-'] p {";
         }
 
         /* List marker */
         else if (btn_id === "btn_cols_list_marker") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] li::marker,\n"+sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] li::marker,\n"+sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
         }
-        
+
         /* Column background */
         else if (btn_id === "btn_cols_bg") {
             newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] { background-color: var("+color_code+") }\n";
             sub_string = "div[class^='flex-cols-'] div[class^='col-'] { background-color";
         }
-        
+
         /* Column borders: colour */
-        else if (btn_id === "btn_cols_borders_color") { 
+        else if (btn_id === "btn_cols_borders_color") {
             newStyle = sectionTheme+sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] { border-color: var("+color_code+") }\n";
             console.log("newStyle: "+newStyle);
             sub_string = "cols-borders { border-color:"
-        }            
-        
+        }
+
         /* Column shadows: colour */
-        else if (btn_id === "btn_cols_shadows_color") { 
+        else if (btn_id === "btn_cols_shadows_color") {
             // get value of color code
             const styles = getComputedStyle(document.documentElement);
             let colorValue = styles.getPropertyValue(color_code);
@@ -192,5 +192,44 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             newStyle = sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { background-color: var("+color_code+") }\n";
             sub_string = "figure.icon";
         }
-        doUpdateArray(sub_string,newStyle);        
+
+        // col h3 hyperlinks
+        else if (btn_id === "btn_cols_links_h3_text_passive") {
+            if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
+                newStyle = sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:link,\n"+sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:visited { color: var("+color_code+") }\n";
+                console.log("newStyle: "+newStyle);
+                sub_string = "a.col-3-h3:visited { color:";
+            }
+            else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
+                newStyle = sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:link,\n"+sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:visited { color: var("+color_code+") }\n";
+                console.log("newStyle: "+newStyle);
+                sub_string = "a.col-4-h3:visited { color:";
+            }
+        }
+
+        else if (btn_id === "btn_cols_links_h3_text_active") {
+            if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
+                newStyle = sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:focus,\n"+sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:hover,\n"+sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:active { color: var("+color_code+") }\n";
+                console.log("newStyle: "+newStyle);
+                sub_string = "a.col-3-h3:focus { color:";
+            }
+
+            else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
+                newStyle = sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:focus,\n"+sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:hover,\n"+sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:active { color: var("+color_code+") }\n";
+                console.log("newStyle: "+newStyle);
+                sub_string = "a.col-4-h3:focus { color:";
+            }
+        }
+
+        else if (btn_id === "btn_cols_links_h3_underlines_passive") {
+            newStyle = sectionClassName+" div[class^='col-'] a[class^='col-']:link, "+sectionClassName+" div[class^='col-'] a[class^='col-']:visited { text-decoration-color: var("+color_code+") }\n";
+            sub_string = "sectionClassName+\ div[class^='col-'] a[class^='col-']:link, \"+sectionClassName+\" div[class^='col-'] a[class^='col-']:visited { text-decoration-color: var(\"+color_code+\") }";
+        }
+
+        else if (btn_id === "btn_cols_links_h3_underlines_active") {
+            newStyle = sectionClassName+" div[class^='col-'] a[class^='col-']:focus, "+sectionClassName+" div[class^='col-'] a[class^='col-']:hover, "+sectionClassName+" div[class^='col-'] a[class^='col-']:active { text-decoration-color: var("+color_code+") }\n";
+            sub_string = "sectionClassName+\" div[class^='col-'] a[class^='col-']:focus, \"+sectionClassName+\" div[class^='col-'] a[class^='col-']:hover, \"+sectionClassName+\" div[class^='col-'] a[class^='col-']:active { text-decoration-color: var(\"+color_code+\") }";
+        }
+
+        doUpdateArray(sub_string,newStyle);
     }
