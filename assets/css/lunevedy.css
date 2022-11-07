@@ -260,7 +260,7 @@ body { font-family: var(--global-font) }
 header, figure, section, footer { position: relative; overflow: hidden }
 
 header.desktop-min-height-500px { min-height: 500px }
-header { max-width: 1600px }
+header, section, footer { max-width: 1600px }
 
 /* Padding around most content */
 @media (min-width: 1201px)  { header, section, footer { padding: 5% calc((100% - 1140px)/2) } }
