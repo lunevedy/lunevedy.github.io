@@ -11,7 +11,9 @@ body { line-height: 1.5; min-height: 100vh }
 img { width: 100%; height: auto; display: block }
 
 /* Block container elements */
-nav, header, section, footer { width: 100%; position: relative; display: block; overflow: hidden }
+/* nav */
+
+header, section, footer { width: 100%; position: relative; display: block; overflow: hidden }
 /* Last element at bottom of section or footer */
 section *:last-child, footer *:last-child { margin-bottom: 0 !important }
 div[class^='col-'] { overflow: visible }
@@ -240,6 +242,8 @@ div[class^='col-'] { overflow: visible }
     --trend-900: #0e2439;
 
     /* Spacing variables */
+    /* --max-width: 1920px; */
+    --max-content-width: 1600px;
     --spacing-xs: 2.5%;
     --spacing-s: 5%;
     --spacing-m: 10%;
@@ -260,7 +264,8 @@ body { font-family: var(--global-font) }
 header, figure, section, footer { position: relative; overflow: hidden }
 
 header.desktop-min-height-500px { min-height: 500px }
-header, section, footer { max-width: 1600px }
+header, section, footer {
+    margin-left:auto; margin-right: auto; max-width: var(--max-content-width) }
 
 /* Padding around most content */
 @media (min-width: 1201px)  { header, section, footer { padding: 5% calc((100% - 1140px)/2) } }
@@ -304,7 +309,7 @@ header, section, footer { max-width: 1600px }
 }
 @media (min-width: 1200px) and (max-width: 1366px) {
     .w-1536px,
-    .w-1320px,
+    .w-1320px { padding: 5% calc((100% - 1320px)/2) }
     .w-1140px { padding: 5% calc((100% - 1140px)/2) }
     .w-1024px { padding: 5% calc((100% - 1024px)/2) }
     .w-960px  { padding: 5% calc((100% - 960px)/2)  }
@@ -736,7 +741,6 @@ header .container-media * {
 .hero-bg .container-overlay {
     position: absolute; z-index: 2;
     top: 0; right: 0; bottom: 0; left: 0;
-    /* background-image: linear-gradient(rgba(0,0,0,var(--overlay-opacity)),rgba(0,0,0,var(--overlay-opacity))); */
     background-image: linear-gradient(rgba(0,0,0,var(--overlay-opacity)),rgba(0,0,0,var(--overlay-opacity)));
 }
 
@@ -1416,9 +1420,9 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
 
     .w-1536px .col-3 h3,
     .w-1536px .col-3 a.h3 {
-        font-size: calc(21px + (34 - 21) * ((100vw - 1025px) / (1536 - 1025))) }
+        font-size: calc(21px + (24 - 21) * ((100vw - 1025px) / (1536 - 1025))) }
     .w-1536px .col-3 p,
-    .w-1536px .col-3 li { font-size: calc(17px + (24 - 17) * ((100vw - 1025px) / (1536 - 1025))) }
+    .w-1536px .col-3 li { font-size: calc(17px + (21 - 17) * ((100vw - 1025px) / (1536 - 1025))) }
 }
 
 @media (min-width: 1025px) and (max-width: 1599px) {
@@ -1669,7 +1673,7 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
 
     .cols-2-half .col-2 h2 {
         font-size: calc(24px + (40 - 24) * ((100vw - 320px) / (1140 - 320)));
-        margin-bottom: 20px; letter-spacing: -1px;
+        margin-bottom: 20px; letter-spacing: -1px; line-height: 1.2
     }
 
     .cols-2-half .col-2 h3 {
