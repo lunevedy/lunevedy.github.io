@@ -499,7 +499,6 @@ section:not(.text-center-mobile) .container-btn:not(.text-center-mobile) .contai
 nav {
     position: relative;
     min-height: 72px; width: 100%;
-    background-color: red;
     max-width: 1600px;
 }
 
