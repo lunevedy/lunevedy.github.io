@@ -21,32 +21,33 @@ function checkViewportWidth() {
 window.onresize = checkViewportWidth;
 
 // Show/hide fly-out mobile menu -->
+if (document.querySelector('nav .nav-toggle')) {
+    document.querySelector('nav .nav-toggle').addEventListener('click', toggleMobileMenu);
+  }
 
-if (document.querySelector('.container-menu .item-icon')) {
-    document.querySelector('.container-menu .item-icon').addEventListener('click', toggleMobileMenu);
-}
-  
-function toggleMobileMenu() {
-    //toggle hamburger icon
-    const elemIcon = document.querySelector('.item-icon');
-    const elemMenu = document.querySelector('.container-menu');
-    const elemMenuList = document.querySelector('.container-menu ul');
-    elemIcon.classList.toggle("change");
-    const elemHTML = document.querySelector('html');
+  function toggleMobileMenu() {
+      const elHTML = document.querySelector('html');
+      const elNav = document.querySelector('nav');
+      const navWrapper = document.querySelector(".links-wrapper");
 
-    // If fly-out menu is currently hidden, display it.
-    if (elemIcon.classList.contains('change')) {
-        elemMenuList.classList.add('mobile-display');
-        elemMenu.classList.add('menu-on-scroll');
-        elemHTML.classList.add('no-scroll');
-    }    
-    //if fly-out menu is currently open, close it.
-    else {
-        elemMenuList.classList.remove('mobile-display');
-        elemHTML.classList.remove('no-scroll');
-        elemMenu.classList.remove('menu-on-scroll');
-    }
-}
+      if (navWrapper.classList.contains("active")) {
+          this.setAttribute("aria-expanded", "false");
+          this.setAttribute("aria-label", "menu");
+          navWrapper.classList.remove("active");
+          elHTML.classList.remove('no-scroll');
+          elNav.classList.remove('menu-on-scroll');
+      }
+      else {
+          navWrapper.classList.add("active");
+          this.setAttribute("aria-label", "close menu");
+          this.setAttribute("aria-expanded", "true");
+          elHTML.classList.add('no-scroll');
+          elNav.classList.add('menu-on-scroll');
+      }
+  }
+
+
+
 
 // On-scroll colours
 
@@ -62,7 +63,7 @@ if (document.querySelector('.container-menu')) {
 function swapMenuStyle() {
 	if ( window.pageYOffset > el_menu_onscroll) {
 		el_menu.classList.add("menu-on-scroll");
-	} 
+	}
     else {
         el_menu.classList.remove("menu-on-scroll")
 	}

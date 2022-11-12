@@ -1,11 +1,11 @@
 
-   /*  ============= WEB BROWSER RESETS ============ */
-
+/*  ============= WEB BROWSER RESETS ============ */
 * { margin: 0; padding: 0; border: none }
 *, *::before, *::after { box-sizing: border-box }
 html { height: 100%; font-size: 100%; font: inherit; vertical-align: baseline;
 scroll-behavior: smooth; scroll-padding-top: 20px }
 body { line-height: 1.5; min-height: 100vh }
+
 @media (max-width: 767px ) { body { text-rendering: optimizeSpeed } }
 @media (min-width: 768px ) { body { text-rendering: optimizeLegibility } }
 img { width: 100%; height: auto; display: block }
@@ -463,9 +463,14 @@ section > .container-btn,
     display: flex; flex-direction: row; flex-wrap: wrap; row-gap: 30px;
 }
 
+.flex-cols-3 > .col-3 > .container-btn {
+    display: flex; flex-direction: row; flex-wrap: wrap; row-gap: 20px;
+}
+
 header > .container-btn a.btn,
 section > .container-btn a.btn,
-.col-2.col-text .container-btn {
+.col-2.col-text .container-btn,
+.col-3 .container-btn {
     margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0 !important
 }
 .col-3 h3 + a.btn { margin-top: 20px }
@@ -475,17 +480,229 @@ section > .container-btn a.btn,
     header > .container-btn,
     section > .container-btn,
     .col-2.col-text .container-btn { column-gap: 48px }
+    .flex-cols-3 > .col-3 > .container-btn { column-gap: 24px }
 }
 
 @media (max-width: 767px) {
     header > .container-btn,
     section > .container-btn,
     .col-2.col-text .container-btn { column-gap: 30px }
+    .col-3 .container-btn { column-gap: 16px }
 }
 
 /* Buttons: left-aligned */
 header:not(.text-center-desktop) .container-btn:not(.text-center-desktop) .container-btn,
 section:not(.text-center-mobile) .container-btn:not(.text-center-mobile) .container-btn { justify-content: flex-start }
+
+/* ================ NAV' ================ */
+
+nav {
+    position: relative;
+    min-height: 72px; width: 100%;
+    background-color: red;
+    max-width: 1600px;
+}
+
+.site-header {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+nav .brand { margin-top: 16px }
+ul.links-wrapper { list-style-type: none }
+
+ul.links-wrapper li { list-style-type: none; margin-right: 20px }
+ul.links-wrapper li:last-child { margin-right: 0 }
+
+ul.links-wrapper li a:not(.btn) {
+    display: block;
+    margin-right: 20px;
+    font-size: calc(17px + (19 - 17) * ((100vw - 320px)/(1140 - 320)));
+    font-weight: 700;
+    background-color: transparent;
+    transition: .35s ease-in-out;
+    margin-top: 20px
+}
+
+ul.links-wrapper li a:link:not(.btn),
+ul.links-wrapper li a:visited:not(.btn) { text-decoration: none; color: #000 }
+
+ul.links-wrapper li a:focus:not(.btn),
+ul.links-wrapper li a:hover:not(.btn),
+ul.links-wrapper li a:active:not(.btn) {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 7px;
+    color: var(--gray-700);
+}
+
+/* CTA button */
+.btn-cta {
+    display: inline-block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+          appearance: none;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    margin-top: 16px !important;
+    padding: 2px 12px !important
+}
+
+.btn-cta:link,
+.btn-cta:visited {
+    border: solid 2px #000;
+    color: #fff;
+    background-color: #000;
+}
+
+.btn-cta:focus,
+.btn-cta:hover,
+.btn-cta:active  {
+    border: solid 2px var(--gray-700);
+    background-color: var(--gray-700);
+    color: #fff;
+}
+
+.btn-cta > *:nth-child(2) { margin-left: 14px; margin-right: 0 }
+
+
+/* Hamburger icon */
+.nav-toggle {
+    height: 40px;
+    background: #fff;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px
+}
+
+.nav-toggle .bar-1,
+.nav-toggle .bar-2,
+.nav-toggle .bar-3 {
+    width: 36px; height: 2px;
+    margin: 7px 0;
+    transition: 0.4s;
+    background-color: #000;
+}
+
+.change .bar1 { transform: rotate(-45deg) translate(-9px, 6px) }
+.change .bar2 { opacity: 0 }
+.change .bar3 { transform: rotate(45deg) translate(-8px, -8px) }
+
+/* =========  DESKTOP ========= */
+
+@media (min-width: 630px) {
+    .site-header { justify-content: initial }
+    .site-header-links { margin-left: auto }
+    .links-wrapper { display: flex; }
+    .nav-toggle { display: none }
+}
+
+/* =========  MOBILE ========= */
+
+@media (max-width: 629px) {
+    .site-header {
+        justify-content: space-between;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .site-header-cta { padding-right: 64px }
+
+    .links-wrapper.active {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+        z-index: 99;
+        display: block;
+        overscroll-behavior: contain;
+        overscroll-behavior-y: contain;
+    }
+
+    .links-wrapper {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: -1;
+        background-color: #d9f0f7;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+}
+
+/* On mobiles, prevent scrolling outside menu */
+.no-scroll { overflow: hidden }
+
+/* Mobiles */
+@media (max-width: 767px) {
+
+    .container-menu ul {
+        position: fixed;
+        top: 72px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch; /* Safari on mobiles */
+        font-size: calc(17px + (18 - 17) * ((100vw - 320px)/(1920 - 320)));
+        text-align: left;
+        min-width: 100%;
+        max-height: 100%;
+        /* height: 100%; */
+        /* z-index: 999; */
+        background-color: var(--gray-300);
+        padding: 32px 0 10px 40px;
+    }
+
+    .container-menu ul {
+        right: -9000px; /* hides flyout menu */
+        display: none;
+    }
+
+
+
+
+}
+
+/* On mobiles, prevent scrolling outside menu */
+.no-scroll { overflow: hidden }
+
+.menu-drop-shadow {
+    box-shadow: 8px 8px 10px #888 !important;
+}
+
+/* Sticky menu */
+.menu-sticky { position: fixed; top: 0; left: 0; right: 0; z-index: 99999 }
+
+
+/* ======= MOBILE MENU  ======== */
+
+
+.flyout-menu.flyout-menu-is-closed {
+    right: -99999px; /* hides flyout menu */
+}
+
+.flyout-menu.flyout-menu-is-open {
+    right: 0; /* displays flyout menu */
+    overscroll-behavior: contain;
+    overscroll-behavior-y: contain
+}
+
+
 
 
 /* ================ HEADER 'HERO BLOCK' ================ */
@@ -1621,11 +1838,16 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     }
 
      /* Text column */
-    .cols-2-half .col-2.col-text { padding-left: calc((100% - 1140px)/2); padding-right: 5% }
+    .cols-2-half .col-2.col-text {
+        /* padding-left: calc((100% - 1140px)/2); */
+        padding-left: 5%;
+        padding-right: 5%
+    }
 
     .cols-2-half.flex-row-reverse .col-2.col-text {
         padding-left: 5%;
-        padding-right: calc((100% - 1140px)/2);
+        /* padding-right: calc((100% - 1140px)/2); */
+        padding-right: 5%;
         order: 2;
     }
 
@@ -1633,9 +1855,10 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     .cols-2-half .col-2.col-visual { padding-left: 0; padding-right: calc((100% - 1140px)/2) }
 
     .cols-2-half.flex-row-reverse .col-2.col-visual {
-    padding-left: calc((100% - 1140px)/2);
-    padding-right: 0;
-    order: 1;
+        /* padding-left: calc((100% - 1140px)/2); */
+        padding-left: 5%;
+        padding-right: 0;
+        order: 1;
     }
 
     /* visual bleed: outside edge */
@@ -1672,7 +1895,7 @@ section.text-center-mobile > figure { margin-left: auto; margin-right: auto }
     .cols-2-half .col-2.col-text p, .cols-2-half .col-2.col-text ul { flex-grow: 0 }
 
     .cols-2-half .col-2 h2 {
-        font-size: calc(24px + (40 - 24) * ((100vw - 320px) / (1140 - 320)));
+        font-size: calc(24px + (36 - 24) * ((100vw - 320px) / (1140 - 320)));
         margin-bottom: 20px; letter-spacing: -1px; line-height: 1.2
     }
 
