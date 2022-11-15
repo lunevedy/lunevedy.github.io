@@ -150,7 +150,9 @@ function swapButtonIconsCTA() {
 //////////////// MENU CTA BUTTON: SHAPE ////////////////////
 */
 
-document.querySelector("#dd_cta_button_shape").addEventListener("change", doNavButtonShape);
+if (document.querySelector('nav')) {
+    document.querySelector("#dd_cta_button_shape").addEventListener("change", doNavButtonShape);
+}
 
 function doNavButtonShape() {
     let opt = document.querySelector("#dd_cta_button_shape").value;
