@@ -352,3 +352,43 @@ function chooseListMarker() {
     }
 }
 
+/*
+//////////////// TEXT ANIMATION ///////////////
+*/
+
+if (document.querySelector("#dd_text_slide")) {
+    document.querySelector("#dd_text_slide").addEventListener("change", doTextAnimation);
+}
+
+function doTextAnimation() {
+    let opt = document.querySelector("#dd_text_slide").value;
+    if (opt==="0") {
+        removeTextAnimation();
+    }
+
+    else if (opt==="1") {
+        console.log("do animation");
+        removeTextAnimation();
+        // Image at right
+        if (!document.querySelector(".flex-row-reverse")) {
+            console.log("image at right");
+            document.querySelector("header col-2.col-text").classList.add("slide-in-left-desktop");
+            document.querySelector("header col-2.col-visual").classList.add("slide-in-right-desktop");
+        }
+
+        // Image at left
+        else {
+            console.log("image at left");
+
+            document.querySelector("header col-2.col-text").classList.add("slide-in-left-desktop");
+            document.querySelector("header col-2.col-visual").classList.add("slide-in-right-desktop");
+        }
+    }
+}
+
+function removeTextAnimation() {
+    document.querySelector("header col-2.col-text").classList.remove("slide-in-left-desktop");
+    document.querySelector("header col-2.col-text").classList.remove("slide-in-right-desktop");
+    document.querySelector("header col-2.col-visual").classList.add("slide-in-right-desktop");
+    document.querySelector("header col-2.col-visual").classList.add("slide-in-left-desktop");
+}
