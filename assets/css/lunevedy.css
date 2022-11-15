@@ -264,6 +264,12 @@ body { font-family: var(--global-font) }
 header, figure, section, footer { position: relative; overflow: hidden }
 
 header.desktop-min-height-500px { min-height: 500px }
+header.desktop-min-height-60vh { min-height: 60vh }
+header.desktop-min-height-70vh { min-height: 70vh }
+header.desktop-min-height-80vh { min-height: 80vh }
+header.desktop-min-height-90vh { min-height: 90vh }
+header.desktop-min-height-100vh { min-height: 100vh }
+
 header, section, footer {
     margin-left:auto; margin-right: auto; max-width: var(--max-content-width) }
 
@@ -342,6 +348,44 @@ div[class^='col-'] li:last-child { margin-bottom: 0 }
 
 
 /* ========= SECTIONS: GLOBAL SETTINGS ======== */
+
+/* menu: light theme */
+
+nav.theme-light { background-color: var(--gray-300)  }
+nav.theme-dark  { background-color: #000 }
+
+nav.theme-light ul.links-wrapper li a:link,
+nav.theme-light ul.links-wrapper li a:visited { color: #000 }
+nav.theme-light ul.links-wrapper li a:focus,
+nav.theme-light ul.links-wrapper li a:hover,
+nav.theme-light ul.links-wrapper li a:active { color: var(--gray-600) }
+
+nav.theme-light ul.links-wrapper li a.btn-solid:link,
+nav.theme-light ul.links-wrapper li a.btn-solid:visited {
+    color:#fff; border: solid 2px #000;
+    background-color: #000 }
+nav.theme-light ul.links-wrapper li a.btn-solid:focus,
+nav.theme-light ul.links-wrapper li a.btn-solid:hover,
+nav.theme-light ul.links-wrapper li a.btn-solid:active {
+    color:#fff; border: solid 2px var(--gray-700);
+    background-color: var(--gray-700) }
+
+nav.theme-dark ul.links-wrapper li a:link,
+nav.theme-dark ul.links-wrapper li a:visited { color: #fff }
+nav.theme-dark ul.links-wrapper li a:focus,
+nav.theme-dark ul.links-wrapper li a:hover,
+nav.theme-dark ul.links-wrapper li a:active { color: var(--gray-500) }
+
+nav.theme-dark ul.links-wrapper li a.btn-solid:link,
+nav.theme-dark ul.links-wrapper li a.btn-solid:visited {
+    color:#000; border: solid 2px #fff;
+    background-color: #fff }
+nav.theme-dark ul.links-wrapper li a.btn-solid:focus,
+nav.theme-dark ul.links-wrapper li a.btn-solid:hover,
+nav.theme-dark ul.links-wrapper li a.btn-solid:active {
+    color:#000; border: solid 2px var(--gray-400);
+    background-color: var(--gray-400) }
+
 
 .theme-light .cols-background div[class^="col-"] {
     background-color: var(--gray-200);
@@ -500,19 +544,19 @@ nav {
     position: relative;
     min-height: 72px; width: 100%;
     max-width: 1600px;
+    overflow: visible;
+    z-index: 100;
 }
 
-.site-header {
+.container-menu {
     max-width: 1140px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     align-items: center;
-    padding-left: 16px;
-    padding-right: 16px;
 }
 
-nav .brand { margin-top: 16px }
+@media (min-width: 768px) { nav .brand { margin-top: 16px } }
 ul.links-wrapper { list-style-type: none }
 
 ul.links-wrapper li { list-style-type: none; margin-right: 20px }
@@ -522,7 +566,7 @@ ul.links-wrapper li a:not(.btn) {
     display: block;
     margin-right: 20px;
     font-size: calc(17px + (19 - 17) * ((100vw - 320px)/(1140 - 320)));
-    font-weight: 700;
+    font-weight: 400;
     background-color: transparent;
     transition: .35s ease-in-out;
     margin-top: 20px
@@ -540,8 +584,11 @@ ul.links-wrapper li a:active:not(.btn) {
     color: var(--gray-700);
 }
 
+ul.links-wrapper.active li:first-child { margin-top: -20px }
+ul.links-wrapper.active li:last-child  { margin-bottom: 20px }
+
 /* CTA button */
-.btn-cta {
+#btn-cta {
     display: inline-block;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -550,26 +597,10 @@ ul.links-wrapper li a:active:not(.btn) {
     user-select: none;
     white-space: nowrap;
     margin-top: 16px !important;
-    padding: 2px 12px !important
+    padding: 5px 20px !important
 }
 
-.btn-cta:link,
-.btn-cta:visited {
-    border: solid 2px #000;
-    color: #fff;
-    background-color: #000;
-}
-
-.btn-cta:focus,
-.btn-cta:hover,
-.btn-cta:active  {
-    border: solid 2px var(--gray-700);
-    background-color: var(--gray-700);
-    color: #fff;
-}
-
-.btn-cta > *:nth-child(2) { margin-left: 14px; margin-right: 0 }
-
+a#btn-cta > *:nth-child(2) { margin-left: 8px; margin-right: 0 }
 
 /* Hamburger icon */
 .nav-toggle {
@@ -598,109 +629,74 @@ ul.links-wrapper li a:active:not(.btn) {
 
 /* =========  DESKTOP ========= */
 
-@media (min-width: 630px) {
-    .site-header { justify-content: initial }
-    .site-header-links { margin-left: auto }
-    .links-wrapper { display: flex; }
+@media (min-width: 768px) {
+    .container-menu { justify-content: initial }
+    .container-menu-links { margin-left: auto }
+    nav ul.links-wrapper { display: flex; }
     .nav-toggle { display: none }
+    nav ul.links-wrapper .btn-shadow {
+        box-shadow: 3.6px 3.6px 5.3px hsl(0deg 0% 0% / 0.42);
+    }
 }
 
 /* =========  MOBILE ========= */
 
-@media (max-width: 629px) {
-    .site-header {
+@media (max-width: 767px) {
+    .container-menu {
         justify-content: space-between;
         padding-top: 16px;
         padding-bottom: 16px;
     }
+    .nav-toggle { display: block }
+    .container-menu-cta { padding-right: 64px }
 
-    .site-header-cta { padding-right: 64px }
-
-    .links-wrapper.active {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0);
-        z-index: 99;
-        display: block;
-        overscroll-behavior: contain;
-        overscroll-behavior-y: contain;
-    }
-
-    .links-wrapper {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        z-index: -1;
-        background-color: #d9f0f7;
-        visibility: hidden;
-        opacity: 0;
-        transform: translateY(-100%);
+    ul.links-wrapper {
+        visibility: hidden; opacity: 0; z-index: -1; transform: translateY(-100%);
         transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    }
-
-    .nav-toggle {
-        display: block;
-    }
-}
-
-/* On mobiles, prevent scrolling outside menu */
-.no-scroll { overflow: hidden }
-
-/* Mobiles */
-@media (max-width: 767px) {
-
-    .container-menu ul {
+        /* position: absolute; */
         position: fixed;
-        top: 72px;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch; /* Safari on mobiles */
-        font-size: calc(17px + (18 - 17) * ((100vw - 320px)/(1920 - 320)));
+        top: 72px; right: 0; left: 0;
+        /* min-width: 100%; */
+        /* max-height: 100%; */
         text-align: left;
-        min-width: 100%;
-        max-height: 100%;
-        /* height: 100%; */
-        /* z-index: 999; */
+        font-size: calc(17px + (18 - 17) * ((100vw - 320px)/(1920 - 320)));
         background-color: var(--gray-300);
         padding: 32px 0 10px 40px;
     }
 
-    .container-menu ul {
-        right: -9000px; /* hides flyout menu */
-        display: none;
+    ul.links-wrapper.active {
+        visibility: visible; opacity: 1; z-index: 99; transform: translateY(0);
+        display: block;
+        overscroll-behavior: contain;
+        overscroll-behavior-y: contain;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch; /* Safari on mobiles */
     }
 
+    .flyout-menu.flyout-menu-is-closed {
+        right: -99999px; /* hides flyout menu */
+    }
 
-
-
+    .flyout-menu.flyout-menu-is-open {
+        right: 0; /* displays flyout menu */
+        overscroll-behavior: contain;
+        overscroll-behavior-y: contain
+    }
 }
 
 /* On mobiles, prevent scrolling outside menu */
 .no-scroll { overflow: hidden }
 
 .menu-drop-shadow {
-    box-shadow: 8px 8px 10px #888 !important;
+    /* box-shadow: 8px 8px 10px #888 !important; */
+    box-shadow: 8px 8px 10px var(--gray-500)
 }
 
 /* Sticky menu */
 .menu-sticky { position: fixed; top: 0; left: 0; right: 0; z-index: 99999 }
-
-
-/* ======= MOBILE MENU  ======== */
-
-
-.flyout-menu.flyout-menu-is-closed {
-    right: -99999px; /* hides flyout menu */
-}
-
-.flyout-menu.flyout-menu-is-open {
-    right: 0; /* displays flyout menu */
-    overscroll-behavior: contain;
-    overscroll-behavior-y: contain
-}
-
+.header-after-menu-sticky { margin-top: 72px }
 
 
 
@@ -2572,10 +2568,20 @@ div[class*='col-'] .btn-shadow {
 
 #contact-form label {
 	font-size: calc(17px + (19 - 17) * ((100vw - 320px) / (1920 - 320)));
-	font-weight: bold;
+	font-weight: normal;
+	margin-bottom: 8px;
+	/* display: flex; */
+	align-items: baseline;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#contact-form label span {
+	font-weight: normal;
 	margin-bottom: 8px;
 	display: flex;
 	align-items: baseline;
+    display: none
 }
 
 #contact-form [type="text"],
@@ -2594,6 +2600,13 @@ div[class*='col-'] .btn-shadow {
 	padding: 10px 12px;
 	border: 2px solid var(--black-000);
 	border-radius: 5px;
+}
+
+#contact-form textarea {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    resize: horizontal;
+    min-height: 163px;
 }
 
 #contact-form input:focus,
