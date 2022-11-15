@@ -517,7 +517,7 @@ body {
 
 /* Controls: buttons */
 .dialog-box button {
-    font-size: 15px; padding: 2px 22px 8px 12px; font-weight: 400; border-radius: 4px;
+    font-size: 15px; padding: 2px 12px 8px 12px; font-weight: 400; border-radius: 4px;
     /* min-width: 140px; */ border-width: 1px; border-style: solid; letter-spacing: 1px;
 }
 
