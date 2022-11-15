@@ -3,7 +3,10 @@ import { content_header_label_text_col_1, content_header_h2_text } from '../js/a
 /*
 //////////////// MENUS AND DROPDOWNS ///////////////
 */
-document.querySelector("#dd_actions").addEventListener("change", displayActions);
+
+if (document.querySelector("#dd_actions")) {
+    document.querySelector("#dd_actions").addEventListener("change", displayActions);
+}
 
 function displayActions() {
     const opt = document.querySelector("#dd_actions").value;
@@ -47,7 +50,9 @@ function displayActions() {
 //////////////// MENU: BOTTOM BORDER DROP SHADOW ////////////////////
 */
 
-document.getElementById("cb_bottom_shadow").addEventListener("change", doBottomShadow);
+if ( document.getElementById("cb_bottom_shadow")) {
+    document.getElementById("cb_bottom_shadow").addEventListener("change", doBottomShadow);
+}
 
 function doBottomShadow() {
     if (!document.getElementById("cb_bottom_shadow").checked) {
@@ -85,7 +90,9 @@ function removeBottomShadow() {
 //////////////// MENU CTA BUTTON: TYPE ////////////////////
 */
 
-document.querySelector("#dd_cta_button_type").addEventListener("change", doButtonsStyle);
+if (document.getElementById("#dd_cta_button_type")) {
+    document.querySelector("#dd_cta_button_type").addEventListener("change", doButtonsStyle);
+}
 
 function doButtonsStyle() {
     const opt = document.querySelector("#dd_cta_button_type").value;
@@ -150,7 +157,7 @@ function swapButtonIconsCTA() {
 //////////////// MENU CTA BUTTON: SHAPE ////////////////////
 */
 
-if (document.querySelector('nav')) {
+if (document.getElementById("#dd_cta_button_shape")) {
     document.querySelector("#dd_cta_button_shape").addEventListener("change", doNavButtonShape);
 }
 
@@ -181,7 +188,9 @@ function doNavButtonShape() {
 //////////////// BUTTONS ONE: SHADOW ///////////////
 */
 
-document.getElementById("cb_cta_button_shadow").addEventListener("change", doCTABtnShadow);
+if (document.getElementById("cb_cta_button_shadow")) {
+    document.getElementById("cb_cta_button_shadow").addEventListener("change", doCTABtnShadow);
+}
 
 function doCTABtnShadow() {
     const el_btn = iframe.contentWindow.document.querySelector('a#btn-cta');
@@ -198,7 +207,9 @@ function doCTABtnShadow() {
 //////////////// MENU: STICKY ////////////////////
 */
 
-document.querySelector("#dd_sticky").addEventListener("change", doStickyMenu);
+if (document.getElementById("#dd_sticky")) {
+    document.getElementById("#dd_sticky").addEventListener("change", doStickyMenu);
+}
 
 function doStickyMenu() {
     let opt = document.querySelector("#dd_sticky").value;
@@ -253,13 +264,6 @@ function disableSticky() {
     document.getElementById("btn_a_cta_onscroll_active_border").disabled=true;
     document.getElementById("btn_hamburger_sticky").disabled=true;
 }
-
-
-
-
-
-
-
 
 /*
 //////////////// CONTAINER MIN HEIGHT ///////////////
