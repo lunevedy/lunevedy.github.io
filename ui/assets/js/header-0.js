@@ -1,6 +1,265 @@
 import { content_header_label_text_col_1, content_header_h2_text } from '../js/arr-content.js';
 
 /*
+//////////////// MENUS AND DROPDOWNS ///////////////
+*/
+document.querySelector("#dd_actions").addEventListener("change", displayActions);
+
+function displayActions() {
+    const opt = document.querySelector("#dd_actions").value;
+    document.querySelector("#content-1").classList.add("dropdown-hidden");
+    document.querySelector("#content-2").classList.add("dropdown-hidden");
+    document.querySelector("#content-3").classList.add("dropdown-hidden");
+    document.querySelector("#content-4").classList.add("dropdown-hidden");
+    document.querySelector("#content-5").classList.add("dropdown-hidden");
+    document.querySelector("#content-6").classList.add("dropdown-hidden");
+    document.querySelector("#content-7").classList.add("dropdown-hidden");
+    const modal = document.getElementById("myModal");
+
+    // modal.style.display = "none";
+    hideSidebar();
+
+    // show Hero Block options
+    if (opt==="0") {
+        document.getElementById("menu-1").style.display="inline-block";
+        document.getElementById("menu-2").style.display="inline-block";
+        document.getElementById("menu-3").style.display="inline-block";
+        document.getElementById("menu-4").style.display="inline-block";
+        document.getElementById("menu-5").style.display="none";
+        document.getElementById("menu-6").style.display="none";
+        document.getElementById("menu-7").style.display="none";
+    }
+
+    // show Menu options
+    else if (opt==="1") {
+        document.getElementById("menu-1").style.display="none";
+        document.getElementById("menu-2").style.display="none";
+        document.getElementById("menu-3").style.display="none";
+        document.getElementById("menu-4").style.display="none";
+        document.getElementById("menu-5").style.display="inline-block";
+        document.getElementById("menu-6").style.display="inline-block";
+        document.getElementById("menu-7").style.display="inline-block";
+    }
+}
+
+
+/*
+//////////////// MENU: BOTTOM BORDER DROP SHADOW ////////////////////
+*/
+
+document.getElementById("cb_bottom_shadow").addEventListener("change", doBottomShadow);
+
+function doBottomShadow() {
+    if (!document.getElementById("cb_bottom_shadow").checked) {
+        removeBottomShadow();
+    }
+
+    // Always
+    else {
+        removeBottomShadow();
+        if (document.querySelector("nav")) {
+            const el_menu = iframe.contentWindow.document.querySelector("nav");
+            el_menu.classList.add("menu-drop-shadow");
+        }
+    }
+
+    // Only on-scroll
+    // else if (opt==="2") {
+    //     console.log("On scroll only");
+    //     removeBottomShadow();
+    //     if (document.querySelector(".container-menu")) {
+    //         const el_menu = document.querySelector(".container-menu");
+    //         el_menu.classList.add("menu-drop-shadow");
+    //     }
+    // }
+}
+
+function removeBottomShadow() {
+    if (document.querySelector("nav")) {
+        const el_btn_primary = iframe.contentWindow.document.querySelector("nav");
+        el_btn_primary.classList.remove("menu-drop-shadow");
+    }
+}
+
+/*
+//////////////// MENU CTA BUTTON: TYPE ////////////////////
+*/
+
+document.querySelector("#dd_cta_button_type").addEventListener("change", doButtonsStyle);
+
+function doButtonsStyle() {
+    const opt = document.querySelector("#dd_cta_button_type").value;
+    const el_btn = iframe.contentWindow.document.getElementById("btn-cta")
+
+    // Solid
+    if (opt==="0") {
+        el_btn.classList.remove("btn-outline");
+        el_btn.classList.add("btn-solid");
+    }
+
+    // Outline
+    else if (opt==="1") {
+        el_btn.classList.remove("btn-solid");
+        el_btn.classList.add("btn-outline");
+    }
+}
+
+/*
+//////////////// MENU CTA BUTTON: ICON POSITION ////////////////////
+*/
+
+if (document.getElementById("form_nav_btns_icons_position")) {
+    document.getElementById("form_nav_btns_icons_position").addEventListener("change", swapButtonIconsCTA);
+}
+
+function swapButtonIconsCTA() {
+
+    const rbs = document.querySelectorAll("input[name='btns_nav_icons_position']");
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+
+    // Set up button icon and text content
+    const el_btn = iframe.contentWindow.document.querySelector("a#btn-cta");
+    const icon_left  ="<i class=\"fa-solid fa-user\"><\/i> <span>Sign in</span>";
+    const icon_right ="<span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"><\/i>";
+    const icon_none = "<span>Sign in</span>";
+
+    if (selectedValue==="left") {
+        // Icon at left. Text at right.
+        el_btn.innerHTML = icon_left;
+    }
+
+    else if (selectedValue==="right") {
+        // Text left. Icon at right.
+        el_btn.innerHTML = icon_right;
+    }
+
+    else if (selectedValue==="none") {
+        // Only text, No icons.
+        el_btn.innerHTML = icon_none;
+    }
+}
+
+/*
+//////////////// MENU CTA BUTTON: SHAPE ////////////////////
+*/
+
+document.querySelector("#dd_cta_button_shape").addEventListener("change", doNavButtonShape);
+
+function doNavButtonShape() {
+    let opt = document.querySelector("#dd_cta_button_shape").value;
+    const el_btn = iframe.contentWindow.document.querySelector("a#btn-cta");
+    // corner - remove
+    if (opt==="0") {
+        el_btn.classList.remove("btn-pill");
+        el_btn.classList.remove("btn-soft");
+    }
+
+    // soft
+    else if (opt==="1") {
+        el_btn.classList.remove("btn-pill");
+        el_btn.classList.add("btn-soft");
+    }
+
+    // pill
+    else if (opt==="2") {
+        el_btn.classList.remove("btn-soft");
+        el_btn.classList.add("btn-pill");
+    }
+}
+
+
+/*
+//////////////// BUTTONS ONE: SHADOW ///////////////
+*/
+
+document.getElementById("cb_cta_button_shadow").addEventListener("change", doCTABtnShadow);
+
+function doCTABtnShadow() {
+    const el_btn = iframe.contentWindow.document.querySelector('a#btn-cta');
+
+    if (!document.getElementById("cb_cta_button_shadow").checked) {
+        el_btn.classList.remove("btn-shadow");
+    }
+    else {
+        el_btn.classList.add("btn-shadow");
+    }
+}
+
+/*
+//////////////// MENU: STICKY ////////////////////
+*/
+
+document.querySelector("#dd_sticky").addEventListener("change", doStickyMenu);
+
+function doStickyMenu() {
+    let opt = document.querySelector("#dd_sticky").value;
+    // remove
+    if (opt==="0") {
+        removeStickyMenu();
+    }
+
+    else if (opt==="1") {
+        removeStickyMenu();
+        // enableCSS();
+        enableSticky();
+        const el_menu = iframe.contentWindow.document.querySelector("nav");
+        el_menu.classList.add("menu-sticky");
+        const el_header = iframe.contentWindow.document.querySelector("header");
+        el_header.classList.add("header-after-menu-sticky");
+    }
+}
+
+function removeStickyMenu() {
+    disableSticky();
+    const el_menu = iframe.contentWindow.document.querySelector("nav");
+    el_menu.classList.remove("menu-sticky");
+    const el_header = iframe.contentWindow.document.querySelector("header");
+    el_header.classList.remove("header-after-menu-sticky");
+    // const el_menu = document.querySelector(".hero-block");
+    // el_menu.classList.remove("header-under-menu-sticky");
+}
+
+function enableSticky() {
+    document.getElementById("btn_bg_onscroll_menu").disabled=false;
+    document.getElementById("btn_link_onscroll_passive").disabled=false;
+    document.getElementById("btn_link_onscroll_active").disabled=false;
+    document.getElementById("btn_a_cta_onscroll_passive_text").disabled=false;
+    document.getElementById("btn_a_cta_onscroll_active_text").disabled=false;
+    document.getElementById("btn_a_cta_onscroll_passive_bg").disabled=false;
+    document.getElementById("btn_a_cta_onscroll_active_bg").disabled=false;
+    document.getElementById("btn_a_cta_onscroll_passive_border").disabled=false;
+    document.getElementById("btn_a_cta_onscroll_active_border").disabled=false;
+    document.getElementById("btn_hamburger_sticky").disabled=false;
+}
+
+function disableSticky() {
+    document.getElementById("btn_bg_onscroll_menu").disabled=true;
+    document.getElementById("btn_link_onscroll_passive").disabled=true;
+    document.getElementById("btn_link_onscroll_active").disabled=true;
+    document.getElementById("btn_a_cta_onscroll_passive_text").disabled=true;
+    document.getElementById("btn_a_cta_onscroll_active_text").disabled=true;
+    document.getElementById("btn_a_cta_onscroll_passive_bg").disabled=true;
+    document.getElementById("btn_a_cta_onscroll_active_bg").disabled=true;
+    document.getElementById("btn_a_cta_onscroll_passive_border").disabled=true;
+    document.getElementById("btn_a_cta_onscroll_active_border").disabled=true;
+    document.getElementById("btn_hamburger_sticky").disabled=true;
+}
+
+
+
+
+
+
+
+
+/*
 //////////////// CONTAINER MIN HEIGHT ///////////////
 */
 
@@ -9,12 +268,38 @@ document.querySelector("#dd_desktop_min_height").addEventListener("change", doDe
 function doDesktopMinHeight() {
     let opt = document.querySelector("#dd_desktop_min_height").value;
     if (opt==="0") {
-        iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-500px");
+        removeDesktopMinHeight();
     }
     else if (opt==="1") {
-        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-500px");
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-60vh");
+    }
+    else if (opt==="2") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-70vh");
+    }
+    else if (opt==="3") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-80vh");
+    }
+    else if (opt==="4") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-90vh");
+    }
+    else if (opt==="5") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-100vh");
     }
 }
+
+function removeDesktopMinHeight() {
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-60vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-70vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-80vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-90vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-100vh");
+}
+
 
 /*
 //////////////// CONTAINER TEXT WIDTH ///////////////

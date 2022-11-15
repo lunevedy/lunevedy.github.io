@@ -1,20 +1,42 @@
 import { content_header_label_text_col_1, content_header_h2_text } from '../js/arr-content.js';
 
-/*
-//////////////// CONTAINER MIN HEIGHT ///////////////
-*/
-
 document.querySelector("#dd_desktop_min_height").addEventListener("change", doDesktopMinHeight);
 
 function doDesktopMinHeight() {
     let opt = document.querySelector("#dd_desktop_min_height").value;
     if (opt==="0") {
-        iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-500px");
+        removeDesktopMinHeight();
     }
     else if (opt==="1") {
-        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-500px");
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-60vh");
+    }
+    else if (opt==="2") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-70vh");
+    }
+    else if (opt==="3") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-80vh");
+    }
+    else if (opt==="4") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-90vh");
+    }
+    else if (opt==="5") {
+        removeDesktopMinHeight();
+        iframe.contentWindow.document.querySelector("header").classList.add("desktop-min-height-100vh");
     }
 }
+
+function removeDesktopMinHeight() {
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-60vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-70vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-80vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-90vh");
+    iframe.contentWindow.document.querySelector("header").classList.remove("desktop-min-height-100vh");
+}
+
 
 /*
 //////////////// CONTAINER TEXT WIDTH ///////////////

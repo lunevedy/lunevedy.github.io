@@ -1,6 +1,12 @@
 // Number of dropdown menus on Lunevery navbar
 let uiMenusLength = document.querySelectorAll("#ui-menus li").length;
 
+if (iframe.contentWindow.document.querySelector('nav')) {
+    sessionStorage.setItem("navTheme", ".theme-light");
+    navTheme = ".theme-light";
+    console.log("set navTheme to light")
+}
+
 if (iframe.contentWindow.document.querySelector('header')) {
     if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
         sessionStorage.setItem("headerTheme", ".theme-dark");
@@ -205,13 +211,12 @@ function displayModal() {
 }
 
 /*
-//////////////// SECTION: THEME  ///////////////
+//////////////// HEADER OR SECTION: THEME  ///////////////
 */
 
 if (document.getElementById("form_switch_section_theme")) {
     document.getElementById("form_switch_section_theme").addEventListener("change", doSectionTheme);
 }
-
 
 function doSectionTheme() {
     const rbs = document.querySelectorAll("input[name='switch_section_light_dark']");
@@ -252,6 +257,38 @@ function doSectionTheme() {
         }
     }
     clearCSSTags();
+}
+
+/*
+//////////////// MENU: THEME  ///////////////
+*/
+
+if (document.getElementById("form_switch_nav_theme")) {
+    document.getElementById("form_switch_nav_theme").addEventListener("change", doNavTheme);
+}
+
+function doNavTheme() {
+    const rbs = document.querySelectorAll("input[name='switch_nav_light_dark']");
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+
+    if (selectedValue==="light") {
+        iframe.contentWindow.document.querySelector("nav").classList.remove("theme-dark");
+        iframe.contentWindow.document.querySelector("nav").classList.add("theme-light");
+        sessionStorage.setItem("navTheme", ".theme-light");
+    }
+
+    else if (selectedValue==="dark") {
+        iframe.contentWindow.document.querySelector("nav").classList.remove("theme-light");
+        iframe.contentWindow.document.querySelector("nav").classList.add("theme-dark");
+        sessionStorage.setItem("navTheme", ".theme-dark");
+    }
 }
 
 /*
@@ -828,6 +865,9 @@ function copyCSS() {
     const el_css = document.createElement('textarea');
     let strCSS  = arrCSS.join(",");
     strCSS = strCSS.replaceAll(",.theme", ".theme");
+    strCSS = strCSS.replaceAll(",.nav", "nav");
+    strCSS = strCSS.replaceAll(",nav", "nav");
+    strCSS = strCSS.replaceAll(".nav", "nav");
     strCSS = strCSS.replaceAll(",.header", "header");
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(",.section", ".section");
