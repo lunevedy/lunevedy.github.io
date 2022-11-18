@@ -450,8 +450,10 @@ nav.theme-dark ul.links-wrapper li a.btn-solid:active {
 .theme-dark { background-color: var(--black-000) }
 .theme-dark .col-1-badge { color: #000; background-color: #fff }
 
+/* .theme-dark h1, .theme-dark h2, .theme-dark h3,
+.theme-dark p, .theme-dark li { color: var(--slate-050) } */
 .theme-dark h1, .theme-dark h2, .theme-dark h3,
-.theme-dark p, .theme-dark li { color: var(--slate-050) }
+.theme-dark p, .theme-dark li { color: var(--white-000) }
 .theme-dark .col-1 h3.in-col-1,
 .theme-dark .col-1 h3 { color: var(--slate-100); }
 
@@ -714,8 +716,8 @@ header .container-text .badge {
     font-size: calc(14px + (16 - 14) * ((100vw - 320px)/(1920 - 320)));
 }
 
-header.theme-light .container-text .badge { color: #fff; background-color: #000 }
-header.theme-dark  .container-text .badge { color: #000; background-color: #fff }
+.theme-light .container-text .badge { color: #fff; background-color: #000 }
+.theme-dark  .container-text .badge { color: #000; background-color: #fff }
 
 header .container-text .badge.corners-soft { border-radius: 16px}
 @media (min-width: 768px) { header .container-text .badge { margin-bottom: 32px } }
@@ -947,7 +949,7 @@ header .container-media * {
 }
 
 /* Headings */
-.hero-bg h1, .hero-bg h2 { color: #fff }
+/* .hero-bg h1, .hero-bg h2 { color: #fff } */
 
 /* Overlay BEHIND text and IN FRONT of full-width image */
 .hero-bg .container-overlay {
