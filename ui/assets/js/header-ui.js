@@ -23,7 +23,15 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         }
 
         navTheme = sessionStorage.getItem("navTheme");
-        headerTheme = sessionStorage.getItem("headerTheme");
+
+        if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
+            sessionStorage.setItem("headerTheme", ".theme-dark");
+        }
+        else {
+            sessionStorage.setItem("headerTheme", ".theme-dark");
+        }
+
+        let headerTheme = sessionStorage.getItem("headerTheme");
 
         /* MENUS */
 
@@ -275,7 +283,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Text colour: active */
         else if (btn_id === "btn_text_active_1") {
-            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+"header"+headerTheme+".container-btn a.btn:nth-child(1):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):active { color: var("+color_code+") }\n\n";
+            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(1):focus,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(1):active { color: var("+color_code+") }\n\n";
             console.log(newStyle);
             sub_string = "a.btn:nth-child(1):active { color";
             doUpdateArray(sub_string,newStyle);
@@ -335,7 +343,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Background colour: active */
         else if (btn_id === "btn_bg_active_2") {
-            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):active { background-color: var("+color_code+") }\n\n";
+            newStyle = "header"+headerTheme+" .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .container-btn a.btn:nth-child(2):active { background-color: var("+color_code+") }\n\n";
             sub_string = "a.btn:nth-child(2):active { background-color";
             doUpdateArray(sub_string,newStyle);
         }
