@@ -32,49 +32,49 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* badge text */
         else if (btn_id === "btn_badge_text") {
-            newStyle = "header"+headerTheme+" .col-2.col-text .badge { color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .col-2 .badge { color: var("+color_code+") }\n";
             sub_string = ".badge { color";
         }
 
         /* badge background */
         else if (btn_id === "btn_badge_bg") {
-            newStyle = "header"+headerTheme+" .col-2.col-text .badge { background-color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .col-2 .badge { background-color: var("+color_code+") }\n";
             sub_string = ".badge { background-color";
         }
 
         /* h1 main heading */
         else if (btn_id === "btn_h1_text") {
-            newStyle = "header"+headerTheme+" .col-2.col-text h1 { color: var("+color_code+") }\n";
+            newStyle = headerTheme+" h1 { color: var("+color_code+") }\n";
             sub_string = "h1 { color:"
         }
 
         /* h1 main heading highlight text */
         else if (btn_id === "btn_h1_highlight") {
-            newStyle = "header"+headerTheme+" .col-2.col-text h1 span.highlight { color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .col-2 h1 span.highlight { color: var("+color_code+") }\n";
             sub_string = "h1 span.highlight";
         }
 
         /* h1 main heading bottom border */
         else if (btn_id === "btn_h1_border") {
-            newStyle = "header"+headerTheme+" .col-2.col-text h1.heading-underline::after { background-color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .col-2 h1.heading-underline::after { background-color: var("+color_code+") }\n";
             sub_string = "h1.heading-underline";
         }
 
         /* h2 main heading */
         else if (btn_id === "btn_h2_text") {
-            newStyle = "header"+headerTheme+" .col-2.col-text h2 { color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .col-2 h2 { color: var("+color_code+") }\n";
             sub_string = "h2 { color:"
         }
 
         /* Header paragraphs text */
         else if (btn_id === "btn_list_text") {
-            newStyle = "header"+headerTheme+" .col-2.col-text ul li { color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .col-2 ul li { color: var("+color_code+") }\n";
             sub_string = " ul li {";
         }
 
         /* List marker */
         else if (btn_id === "btn_list_marker") {
-            newStyle = "header"+headerTheme+" .col-2.col-text li::marker, "+"header"+headerTheme+" ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .col-2 li::marker, "+"header"+headerTheme+" ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
         }
 
@@ -150,7 +150,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Border colour: active */
         else if (btn_id === "btn_border_active_2") {
-            newStyle = "header"+headerTheme+" .col-2.col-text .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" .col-2.col-text .container-btn a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .col-2.col-text container-btn a.btn:nth-child(2):active { border-color: var("+color_code+") }\n\n";
+            newStyle = "header"+headerTheme+" .col-2.col-text .container-btn a.btn:nth-child(2):focus,\n"+"header"+headerTheme+" .col-2.col-text .container-btn a.btn:nth-child(2):hover,\n"+"header"+headerTheme+" .col-2.col-text .container-btn a.btn:nth-child(2):active { border-color: var("+color_code+") }\n\n";
             sub_string = ".container-btn a.btn:nth-child(2):active { border-color";
         }
 
