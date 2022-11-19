@@ -557,6 +557,8 @@ function removeCSSTagPairs(...args) {
     let strCSS = arrCSS.toString();
     strCSS = strCSS.replaceAll(",.theme", ".theme");
     strCSS = strCSS.replaceAll(",.section", ".section");
+    strCSS = strCSS.replaceAll(",.header", ".header");
+    strCSS = strCSS.replaceAll(",.nav", ".nav");
     var st = iframe.contentWindow.document.getElementsByTagName('style');
     for(let i = 0 ; i < st.length ; i++){
         st[i].parentNode.removeChild(st[i]);
@@ -870,6 +872,8 @@ function copyCSS() {
     strCSS = strCSS.replaceAll(".nav", "nav");
     strCSS = strCSS.replaceAll(",.header", "header");
     strCSS = strCSS.replaceAll(",header", "header");
+    strCSS = strCSS.replaceAll(" ,header", "header");
+
     strCSS = strCSS.replaceAll(",.section", ".section");
     strCSS = strCSS.replaceAll(",.footer", ".footer");
     el_css.value = strCSS;
