@@ -67,7 +67,6 @@ divs.forEach(el => el.addEventListener('click', event => {
 // Hide all menus and color picker when user clicks on frame container.
 window.onload=function(){
     iframe.contentWindow.document.getElementById('HTML-Content').addEventListener('click',hideMenus,false);
-    iframe.contentWindow.document.getElementById('placeholder').addEventListener('click',hideMenus,false);
 }
 
 function hideMenus() {
