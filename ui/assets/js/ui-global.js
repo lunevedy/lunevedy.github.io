@@ -509,6 +509,8 @@ function updateCSSTagPair() {
     let strCSS = arrCSS.toString();
     strCSS = strCSS.replaceAll(",.theme", ".theme");
     strCSS = strCSS.replaceAll(",.section", ".section");
+    strCSS = strCSS.replaceAll(",header", "header");
+    strCSS = strCSS.replaceAll(",nav", "nav");
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
         var st = iframe.contentWindow.document.getElementsByTagName('style');
         for(let i = 0 ; i < st.length ; i++){
