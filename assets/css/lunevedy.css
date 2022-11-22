@@ -13,7 +13,7 @@ img { width: 100%; height: auto; display: block }
 /* Block container elements */
 /* nav */
 
-header, section, footer { width: 100%; position: relative; display: block; overflow: hidden }
+header, section, footer { width: 100%; max-width: 1600px; position: relative; display: block; overflow: hidden }
 /* Last element at bottom of section or footer */
 section *:last-child, footer *:last-child { margin-bottom: 0 !important }
 div[class^='col-'] { overflow: visible }
@@ -370,6 +370,7 @@ nav.theme-light ul.links-wrapper li a.btn-solid:active {
     color:#fff; border: solid 2px var(--gray-700);
     background-color: var(--gray-700) }
 
+/* menu: dark theme */
 nav.theme-dark ul.links-wrapper li a:link,
 nav.theme-dark ul.links-wrapper li a:visited { color: #fff }
 nav.theme-dark ul.links-wrapper li a:focus,
@@ -544,8 +545,7 @@ section:not(.text-center-mobile) .container-btn:not(.text-center-mobile) .contai
 
 nav {
     position: relative;
-    min-height: 72px; width: 100%;
-    max-width: 1600px;
+    min-height: 72px;
     overflow: visible;
     z-index: 100;
 }
@@ -558,11 +558,12 @@ nav {
     align-items: center;
 }
 
+@media (max-width: 767px) { .container-menu { padding-left: 16px; padding-right: 16px } }
+
 @media (min-width: 768px) { nav .brand { margin-top: 16px } }
+
 ul.links-wrapper { list-style-type: none }
 
-ul.links-wrapper li { list-style-type: none; margin-right: 20px }
-ul.links-wrapper li:last-child { margin-right: 0 }
 
 ul.links-wrapper li a:not(.btn) {
     display: block;
@@ -586,15 +587,19 @@ ul.links-wrapper li a:active:not(.btn) {
     color: var(--gray-700);
 }
 
-ul.links-wrapper.active li:first-child { margin-top: -20px }
-ul.links-wrapper.active li:last-child  { margin-bottom: 20px }
+@media (min-width: 768px) {
+    ul.links-wrapper li { margin-right: 20px }
+    ul.links-wrapper li:last-child { margin-right: 0 }
+}
+
+@media (max-width: 767px) {
+    ul.links-wrapper.active li:first-child { margin-top: -30px }
+    ul.links-wrapper.active li:last-child  { margin-bottom: 20px }
+}
 
 /* CTA button */
 #btn-cta {
     display: inline-block;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-          appearance: none;
     cursor: pointer;
     user-select: none;
     white-space: nowrap;
@@ -628,6 +633,7 @@ a#btn-cta > *:nth-child(2) { margin-left: 8px; margin-right: 0 }
 .change .bar1 { transform: rotate(-45deg) translate(-9px, 6px) }
 .change .bar2 { opacity: 0 }
 .change .bar3 { transform: rotate(45deg) translate(-8px, -8px) }
+
 
 /* =========  DESKTOP ========= */
 
