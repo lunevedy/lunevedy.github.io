@@ -624,8 +624,8 @@ a#btn-cta > *:nth-child(2) { margin-left: 8px; margin-right: 0 }
 .nav-toggle .bar-1,
 .nav-toggle .bar-2,
 .nav-toggle .bar-3 {
-    width: 36px; height: 2px;
-    margin: 7px 0;
+    width: 24px; height: 2px;
+    margin: 7px 4px;
     transition: 0.4s;
     background-color: #000;
 }
