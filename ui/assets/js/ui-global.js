@@ -3,9 +3,10 @@ let uiMenusLength = document.querySelectorAll("#ui-menus li").length;
 
 if (iframe.contentWindow.document.querySelector('nav')) {
     sessionStorage.setItem("navTheme", ".theme-light");
-    navTheme = ".theme-light";
+    let navTheme = ".theme-light";
     console.log("set navTheme to light")
 }
+
 
 if (iframe.contentWindow.document.querySelector('header')) {
     if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
@@ -872,6 +873,8 @@ function copyCSS() {
     strCSS = strCSS.replaceAll(",.nav", "nav");
     strCSS = strCSS.replaceAll(",nav", "nav");
     strCSS = strCSS.replaceAll(".nav", "nav");
+    strCSS = strCSS.replaceAll("nav-toggle", ".nav-toggle");
+    strCSS = strCSS.replaceAll(",@media", "@media");
     strCSS = strCSS.replaceAll(",.header", "header");
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(" ,header", "header");

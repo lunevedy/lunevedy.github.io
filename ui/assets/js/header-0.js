@@ -86,28 +86,49 @@ function removeBottomShadow() {
     }
 }
 
+
+/*
+//////////////// MENU: BOLD LINKS ////////////////////
+*/
+
+if ( document.getElementById("cb_bold_links")) {
+    document.getElementById("cb_bold_links").addEventListener("change", doBoldLinks);
+}
+
+function doBoldLinks() {
+    const el_menu_links = iframe.contentWindow.document.querySelector("nav ul.links-wrapper");
+    if (!document.getElementById("cb_bold_links").checked) {
+        el_menu_links.classList.remove("links-bold");
+    }
+    else {
+        el_menu_links.classList.add("links-bold");
+    }
+}
+
 /*
 //////////////// MENU CTA BUTTON: TYPE ////////////////////
 */
 
-if (document.getElementById("#dd_cta_button_type")) {
-    document.querySelector("#dd_cta_button_type").addEventListener("change", doButtonsStyle);
+if (document.getElementById("dd_cta_button_type")) {
+    document.getElementById("dd_cta_button_type").addEventListener("change", doButtonsStyle);
 }
 
 function doButtonsStyle() {
-    const opt = document.querySelector("#dd_cta_button_type").value;
+    const opt = document.getElementById("dd_cta_button_type").value;
     const el_btn = iframe.contentWindow.document.getElementById("btn-cta")
 
     // Solid
     if (opt==="0") {
         el_btn.classList.remove("btn-outline");
         el_btn.classList.add("btn-solid");
+        document.getElementById("btn_a_cta_bg_passive").disabled=false;
     }
 
     // Outline
     else if (opt==="1") {
         el_btn.classList.remove("btn-solid");
         el_btn.classList.add("btn-outline");
+        document.getElementById("btn_a_cta_bg_passive").disabled=true;
     }
 }
 
@@ -157,14 +178,15 @@ function swapButtonIconsCTA() {
 //////////////// MENU CTA BUTTON: SHAPE ////////////////////
 */
 
-if (document.getElementById("#dd_cta_button_shape")) {
-    document.querySelector("#dd_cta_button_shape").addEventListener("change", doNavButtonShape);
+if (document.getElementById("dd_cta_button_shape")) {
+    document.getElementById("dd_cta_button_shape").addEventListener("change", doNavButtonShape);
 }
 
 function doNavButtonShape() {
-    let opt = document.querySelector("#dd_cta_button_shape").value;
+    let opt = document.getElementById("dd_cta_button_shape").value;
     const el_btn = iframe.contentWindow.document.querySelector("a#btn-cta");
     // corner - remove
+
     if (opt==="0") {
         el_btn.classList.remove("btn-pill");
         el_btn.classList.remove("btn-soft");
@@ -207,18 +229,20 @@ function doCTABtnShadow() {
 //////////////// MENU: STICKY ////////////////////
 */
 
-if (document.getElementById("#dd_sticky")) {
-    document.getElementById("#dd_sticky").addEventListener("change", doStickyMenu);
+if (document.getElementById("cb_sticky")) {
+    document.getElementById("cb_sticky").addEventListener("change", doStickyMenu);
 }
 
 function doStickyMenu() {
-    let opt = document.querySelector("#dd_sticky").value;
-    // remove
-    if (opt==="0") {
+    if (!document.getElementById("cb_sticky").checked) {
         removeStickyMenu();
+        console.log("No sticky")
+
     }
 
-    else if (opt==="1") {
+    else {
+        console.log("Yes sticky")
+
         removeStickyMenu();
         // enableCSS();
         enableSticky();
@@ -249,7 +273,8 @@ function enableSticky() {
     document.getElementById("btn_a_cta_onscroll_active_bg").disabled=false;
     document.getElementById("btn_a_cta_onscroll_passive_border").disabled=false;
     document.getElementById("btn_a_cta_onscroll_active_border").disabled=false;
-    document.getElementById("btn_hamburger_sticky").disabled=false;
+    document.getElementById("btn_hamburger_sticky_stroke").disabled=false;
+    document.getElementById("btn_hamburger_sticky_fill").disabled=false;
 }
 
 function disableSticky() {
@@ -262,7 +287,8 @@ function disableSticky() {
     document.getElementById("btn_a_cta_onscroll_active_bg").disabled=true;
     document.getElementById("btn_a_cta_onscroll_passive_border").disabled=true;
     document.getElementById("btn_a_cta_onscroll_active_border").disabled=true;
-    document.getElementById("btn_hamburger_sticky").disabled=true;
+    document.getElementById("btn_hamburger_sticky_stroke").disabled=true;
+    document.getElementById("btn_hamburger_sticky_fill").disabled=true;
 }
 
 /*

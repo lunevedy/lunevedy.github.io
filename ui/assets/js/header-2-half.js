@@ -395,7 +395,6 @@ function doTextAnimation() {
     }
 
     else if (opt==="1") {
-        console.log("do animation");
         removeTextAnimation();
         // Image at right
         if (!document.querySelector(".flex-row-reverse")) {
