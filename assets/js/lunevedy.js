@@ -51,16 +51,18 @@ if (document.querySelector('nav .nav-toggle')) {
 
 // On-scroll colours
 
-if (document.querySelector('.container-menu')) {
+if (document.querySelector('nav')) {
     window.onscroll = function() {swapMenuStyle()};
 }
 
-if (document.querySelector('.container-menu')) {
-    const el_menu = document.querySelector('.container-menu');
+if (document.querySelector('nav')) {
+    const el_menu = document.querySelector('nav');
     const el_menu_onscroll = el_menu.offsetTop +300;
 }
 
 function swapMenuStyle() {
+    const el_menu = document.querySelector('nav');
+    const el_menu_onscroll = el_menu.offsetTop +300;
 	if ( window.pageYOffset > el_menu_onscroll) {
 		el_menu.classList.add("menu-on-scroll");
 	}
@@ -70,14 +72,14 @@ function swapMenuStyle() {
 }
 
 // Check initial menu scroll position
-if (document.querySelector('.container-menu')) {
+if (document.querySelector('nav')) {
     document.addEventListener("DOMContentLoaded", checkMenuScrollPosition);
 }
 
 function checkMenuScrollPosition() {
     const y = window.scrollY;
     if (y === 0) {
-        const el_menu = document.querySelector('.container-menu');
+        const el_menu = document.querySelector('nav');
         el_menu.classList.remove("menu-on-scroll")
     }
 }
