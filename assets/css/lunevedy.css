@@ -548,7 +548,7 @@ nav {
     position: relative;
     min-height: 72px;
     overflow: visible;
-    z-index: 100;
+    z-index: 100;margin-left: auto; margin-right: auto;
 }
 
 .container-menu {
@@ -732,7 +732,7 @@ nav.theme-dark .nav-toggle .bar-3 { background: #fff }
 
 /* Sticky menu */
 .menu-sticky { position: fixed; top: 0; left: 0; right: 0; z-index: 99999 }
-.header-after-menu-sticky { margin-top: 72px; padding-top: 72px }
+.header-after-menu-sticky { mar;gin-top: 72px; padding-top: 72px }
 
 .header-after-menu-sticky.bg-hero { margin-top: 0; padding-top: 72px }
 
