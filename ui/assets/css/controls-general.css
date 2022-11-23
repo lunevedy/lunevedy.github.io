@@ -518,7 +518,8 @@ body {
 /* Controls: buttons */
 .dialog-box button {
     font-size: 15px; padding: 2px 12px 8px 12px; font-weight: 400; border-radius: 4px;
-    /* min-width: 140px; */ border-width: 1px; border-style: solid; letter-spacing: 1px;
+    min-width: 140px;
+    border-width: 1px; border-style: solid; letter-spacing: 1px;
 }
 
 .dialog-box button svg { width: 22px; height: 20px; padding-top: 6px; margin-right: 8px }
@@ -1357,3 +1358,7 @@ label .trans-000  { background: #000; border: solid 1px var(--gray-300) }
 
 #btn_bg_gradient_section_discard { height: 38px }
 #btn_bg_gradient_section_discard svg { height: 24px }
+
+#menu-5 { display: none }
+#menu-6 { display: none }
+#menu-7 { display: none }
