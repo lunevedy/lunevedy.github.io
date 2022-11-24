@@ -28,7 +28,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             sessionStorage.setItem("headerTheme", ".theme-dark");
         }
         else {
-            sessionStorage.setItem("headerTheme", ".theme-dark");
+            sessionStorage.setItem("headerTheme", ".theme-light");
         }
 
         let headerTheme = sessionStorage.getItem("headerTheme");
@@ -230,6 +230,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         /* header background */
         else if (btn_id === "btn_header_bg") {
             newStyle = "header"+headerTheme+" { background-color: var("+color_code+") }\n";
+            console.log(newStyle);
             sub_string = "header"+headerTheme+" { background-color: ";
             doUpdateArray(sub_string,newStyle);
         }
