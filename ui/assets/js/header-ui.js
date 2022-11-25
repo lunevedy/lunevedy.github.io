@@ -22,23 +22,15 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             }
         }
 
-        let navTheme = sessionStorage.getItem("navTheme");
-
-        if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
-            sessionStorage.setItem("headerTheme", ".theme-dark");
-        }
-        else {
-            sessionStorage.setItem("headerTheme", ".theme-light");
-        }
-
-        let headerTheme = sessionStorage.getItem("headerTheme");
+        // Get themes
+        navTheme = sessionStorage.getItem("navTheme");
+        headerTheme = sessionStorage.getItem("headerTheme");
 
         /* MENUS */
 
         /* Background: Desktop/default mobile */
         if (btn_id === "btn_bg_navbar") {
             newStyle = "nav"+navTheme+",\nnav"+navTheme+" ul.links-wrapper.active { background-color: var("+color_code+") }\n";
-            console.log(newStyle);
             sub_string = "nav"+navTheme+" { background-color";
             doUpdateArray(sub_string,newStyle);
         }

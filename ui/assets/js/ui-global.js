@@ -1,27 +1,6 @@
 // Number of dropdown menus on Lunevery navbar
 let uiMenusLength = document.querySelectorAll("#ui-menus li").length;
 
-if (iframe.contentWindow.document.querySelector('nav')) {
-    sessionStorage.setItem("navTheme", ".theme-light");
-    let navTheme = ".theme-light";
-    console.log("set navTheme to light")
-}
-
-
-if (iframe.contentWindow.document.querySelector('header')) {
-    if (iframe.contentWindow.document.querySelector('header.hero-bg')) {
-        sessionStorage.setItem("headerTheme", ".theme-dark");
-        headerTheme = ".theme-dark";
-        console.log("set headerTheme to dark")
-
-    }
-    else {
-        sessionStorage.setItem("headerTheme", ".theme-light");
-        headerTheme = ".theme-light";
-        console.log("set headerTheme to light")
-    }
-}
-
 let btn_id; // item to be coloured
 let newStyle; // full selector and style rule
 let sub_string; // style rule excerpt for arrCSS
