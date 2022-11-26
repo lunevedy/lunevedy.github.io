@@ -5,15 +5,15 @@ document.querySelector("#dd_actions").addEventListener("change", displayActions)
 
 function displayActions() {
     const opt = document.querySelector("#dd_actions").value;
-    document.querySelector("#content-1").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-2").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-3").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-4").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-5").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-6").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-7").classList.add("dropdown-hidden"); 
+    document.querySelector("#content-1").classList.add("dropdown-hidden");
+    document.querySelector("#content-2").classList.add("dropdown-hidden");
+    document.querySelector("#content-3").classList.add("dropdown-hidden");
+    document.querySelector("#content-4").classList.add("dropdown-hidden");
+    document.querySelector("#content-5").classList.add("dropdown-hidden");
+    document.querySelector("#content-6").classList.add("dropdown-hidden");
+    document.querySelector("#content-7").classList.add("dropdown-hidden");
     const modal = document.getElementById("myModal");
-    
+
     // modal.style.display = "none";
     hideSidebar();
 
@@ -57,8 +57,7 @@ divs.forEach(el => el.addEventListener('click', event => {
     const str = event.target.id.toString();
     const id = str.charAt(str.length-1);
     const elItem_show = document.querySelector("#content-"+id);
-    elItem_show.classList.remove("dropdown-hidden"); 
-
+    elItem_show.classList.remove("dropdown-hidden");
 }));
 
 // Hide menus when click on page
@@ -72,19 +71,6 @@ function hideMenus() {
     const modal = document.getElementById("myModal");
     // modal.style.display = "none";
     hideSidebar();
-}
-
-document.onkeydown = function(evt) {
-    evt = evt || window.event;
-    var isEscape = false;
-    if ("key" in evt) {
-        isEscape = (evt.key === "Escape" || evt.key === "Esc");
-    } else {
-        isEscape = (evt.keyCode === 27);
-    }
-    if (isEscape) {
-        hideMenus()
-    }
 }
 
 document.onkeydown = function(evt) {
@@ -139,12 +125,12 @@ function doSectionTheme() {
     }
 
     if (selectedValue==="light") {
-        document.querySelector("header").classList.remove("theme-dark"); 
-        document.querySelector("header").classList.add("theme-light"); 
+        document.querySelector("header").classList.remove("theme-dark");
+        document.querySelector("header").classList.add("theme-light");
     }
     else if (selectedValue==="dark") {
-        document.querySelector("header").classList.remove("theme-light"); 
-        document.querySelector("header").classList.add("theme-dark"); 
+        document.querySelector("header").classList.remove("theme-light");
+        document.querySelector("header").classList.add("theme-dark");
     }
 
     // Check for outlines
@@ -183,7 +169,7 @@ function toggleOutlines() {
         style_unchecked.type = 'text/css';
         style_unchecked.appendChild(document.createTextNode(css_unchecked));
     }
-}    
+}
 
 /*
 //////////////// SECTION: OUTLINES  ///////////////
@@ -209,7 +195,7 @@ function toggleOutlines() {
         style_unchecked.type = 'text/css';
         style_unchecked.appendChild(document.createTextNode(css_unchecked));
     }
-}    
+}
 
 
 /*
@@ -223,7 +209,7 @@ function toggleOutlines() {
         hideSidebar();
         disableTransColCode();
     }
-    
+
     // When the user clicks anywhere outside the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
@@ -238,7 +224,7 @@ function toggleOutlines() {
     let sub_string; // style rule excerpt
     const arrCSS = []; // array for style rules to copy
 
-    // On click style button 
+    // On click style button
     let all_btns = document.querySelectorAll('.btn_style');
     all_btns.forEach(el => el.addEventListener('click', event => {
         event.preventDefault();
@@ -273,7 +259,7 @@ function toggleOutlines() {
     }
 
     document.querySelector("#picker-box").addEventListener('click', handleLabelClick);
-    
+
     function handleLabelClick(event) {
         event.stopPropagation();
         const label = event.target.closest("label");
@@ -304,7 +290,7 @@ function toggleOutlines() {
             sub_string = ".container-upper-label";
             doUpdateArray(sub_string,newStyle);
         }
-                    
+
         /* Header h1 */
         else if (btn_id === "btn_head") {
             newStyle = ".hero-block h1 { color: var("+color_code+") }\n";
@@ -320,7 +306,7 @@ function toggleOutlines() {
         }
 
         /* ======= PRIMARY BUTTONS =========*/
-        
+
         /* Text colour: passive */
         else if (btn_id === "btn_a_primary_passive_text") {
             newStyle = ".hero-block a.btn-primary:link,\n.hero-block a.btn-primary:visited { color: var("+color_code+") }\n\n";
@@ -369,42 +355,42 @@ function toggleOutlines() {
         else if (btn_id === "btn_a_secondary_passive_text") {
             newStyle = ".hero-block a.btn-secondary:link,\n.hero-block a.btn-secondary:visited { color: var("+color_code+") }\n\n";
             sub_string = "a.btn-secondary:visited { color";
-            doUpdateArray(sub_string,newStyle); 
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* Text colour: active */
         else if (btn_id === "btn_a_secondary_active_text") {
             newStyle = ".hero-block a.btn-secondary:focus,\n.hero-block a.btn-secondary:hover,\n.hero-block a.btn-secondary:active { color: var("+color_code+") }\n\n";
             sub_string = "a.btn-secondary:focus { color";
-            doUpdateArray(sub_string,newStyle); 
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* Background colour: passive */
         else if (btn_id === "btn_a_secondary_passive_bg") {
             newStyle = ".hero-block a.btn-secondary:link,\n.hero-block a.btn-secondary:visited { background-color: var("+color_code+") }\n\n";
             sub_string = "a.btn-secondary:visited { background";
-            doUpdateArray(sub_string,newStyle); 
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* Background colour: active */
         else if (btn_id === "btn_a_secondary_active_bg") {
             newStyle = ".hero-block a.btn-secondary:focus,\n.hero-block a.btn-secondary:hover,\n.hero-block a.btn-secondary:active { background-color: var("+color_code+") }\n\n";
             sub_string = "a.btn-secondary:active { background";
-            doUpdateArray(sub_string,newStyle); 
+            doUpdateArray(sub_string,newStyle);
         }
-        
+
         /* Border colour: passive */
         else if (btn_id === "btn_a_secondary_passive_border") {
             newStyle = ".hero-block a.btn-secondary:link,\n.hero-block a.btn-secondary:visited { border-color: var("+color_code+") }\n\n";
             sub_string = "a.btn-secondary:visited { border";
-            doUpdateArray(sub_string,newStyle); 
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* Border colour: active */
         else if (btn_id === "btn_a_secondary_active_border") {
             newStyle = ".hero-block a.btn-secondary:focus,\n.hero-block a.btn-secondary:hover,\n.hero-block a.btn-secondary:active { border-color: var("+color_code+") }\n\n";
             sub_string = "a.btn-secondary:active { border";
-            doUpdateArray(sub_string,newStyle); 
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* MENU BACKGROUNDS */
@@ -423,7 +409,7 @@ function toggleOutlines() {
             doUpdateArray(sub_string,newStyle);
         }
 
-        /* On-scroll only */            
+        /* On-scroll only */
         else if (btn_id === "btn_bg_onscroll_menu") {
             newStyle = ".container-menu.menu-sticky.menu-desktop.menu-on-scroll,\n.container-menu.menu-sticky.menu-mobile.menu-on-scroll,\n.container-menu.menu-sticky.menu-mobile ul.mobile-display { background-color: var("+color_code+") }\n";
             sub_string = "container-menu.menu-sticky.menu-mobile.menu-on-scroll ul.mobile-display { background-color";
@@ -436,43 +422,43 @@ function toggleOutlines() {
         else if (btn_id === "btn_link_passive_text") {
             newStyle = ".container-menu ul li a:link,\n.container-menu ul li a:visited { color: var("+color_code+") }\n";
             sub_string = "container-menu ul li a:visited { color";
-            doUpdateArray(sub_string,newStyle);            
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* Desktop/mobile default: passive */
         else if (btn_id === "btn_link_active_text") {
             newStyle = ".container-menu ul li a:focus,\n.container-menu ul li a:hover,\n.container-menu ul li a:active { color: var("+color_code+") }\n";
             sub_string = "container-menu ul li a:active { color";
-            doUpdateArray(sub_string,newStyle);            
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* Mobile-only: passive */
         else if (btn_id === "btn_link_mobile_passive_text") {
             newStyle = ".container-menu.menu-mobile ul.mobile-display li a:link,\n.container-menu.menu-mobile ul.mobile-display li a:visited { color: var("+color_code+") }\n";
             sub_string = "container-menu.menu-mobile li a:visited { color";
-            doUpdateArray(sub_string,newStyle);            
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* Mobile-only: active */
         else if (btn_id === "btn_link_mobile_active_text") {
             newStyle = ".container-menu.menu-mobile ul.mobile-display li a:focus,\n.container-menu.menu-mobile ul.mobile-display li a:hover,\n.container-menu.menu-mobile ul.mobile-display li a:active { color: var("+color_code+") }\n";
             sub_string = "container-menu.menu-mobile ul.mobile-display li a:active";
-            doUpdateArray(sub_string,newStyle); 
+            doUpdateArray(sub_string,newStyle);
         }
-        
+
         /* On-scroll: passive */
         else if (btn_id === "btn_link_onscroll_passive") {
             newStyle = ".container-menu.menu-on-scroll ul li a:link,\n.container-menu.menu-on-scroll ul li a:visited { color: var("+color_code+") }\n";
             sub_string = "container-menu.menu-on-scroll ul li a:visited { color";
-            doUpdateArray(sub_string,newStyle);            
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* On-scroll: active */
         else if (btn_id === "btn_link_onscroll_active") {
             newStyle = ".container-menu.menu-on-scroll ul li a:focus,\n.container-menu.menu-on-scroll ul li a:hover,\n.container-menu.menu-on-scroll ul li a:active { color: var("+color_code+") }\n";
             sub_string = "container-menu.menu-on-scroll ul li a:active { color";
-            doUpdateArray(sub_string,newStyle); 
-        }            
+            doUpdateArray(sub_string,newStyle);
+        }
 
         /* CTA button text colour: passive */
         else if (btn_id === "btn_a_cta_passive_text") {
@@ -580,7 +566,7 @@ slider.oninput = function() {
     document.head.appendChild(style);
     style.appendChild(document.createTextNode(newStyle));
     enableCSS();
-} 
+}
 
 
 /*
@@ -588,7 +574,7 @@ slider.oninput = function() {
 */
 
 document.querySelector("#dd_text_shadow").addEventListener("change", doTextShadow);
-    
+
 function doTextShadow() {
     let opt = document.querySelector("#dd_text_shadow").value;
     if (opt==="0") {
@@ -694,12 +680,12 @@ document.querySelector("#dd_cta_button_icon").addEventListener("change", swapBut
 
 function swapButtonIconsCTA() {
     let opt = document.querySelector("#dd_cta_button_icon").value;
-    if (document.querySelector("a#btn-cta")) {  
-        console.log("Button exists");    
+    if (document.querySelector("a#btn-cta")) {
+        console.log("Button exists");
         const icon_left_cta  ="<i class=\"fas fa-arrow-right\"><\/i><span>CTA Link<\/span>";
         const icon_right_cta ="<span>CTA Link<\/span><i class=\"fas fa-arrow-right\"><\/i>";
 
-        // Icon at left. Text at right.       
+        // Icon at left. Text at right.
         if (opt==="0") {
             const el_btn = document.querySelector("a#btn-cta");
             el_btn.innerHTML = icon_right_cta;
@@ -854,7 +840,7 @@ function removeUpperLabel() {
         upperLabel.remove();
         document.querySelector('.hero-block').innerHTML = document.querySelector('.hero-block').innerHTML.replace("\t\n\n", "");
         disableLabelColor();
-    } 
+    }
 }
 
 /*
@@ -862,7 +848,7 @@ function removeUpperLabel() {
 */
 
 document.querySelector("#dd_text_length").addEventListener("change", doTextLength);
-    
+
 function doTextLength() {
     let opt = document.querySelector("#dd_text_length").value;
     if (opt==="0") {
@@ -891,7 +877,7 @@ function doH2() {
         elH2.insertAdjacentHTML("afterend", assets_header_h2);
         document.getElementById("btn_subhead").disabled=false;
     }
-    
+
     // None
     else if (opt==="1") {
         removeH2();
@@ -911,7 +897,7 @@ function removeH2() {
 */
 
 document.querySelector("#dd_text_slide").addEventListener("change", doTextAnimation);
-    
+
 function doTextAnimation() {
     let opt = document.querySelector("#dd_text_slide").value;
     if (opt==="0") {
@@ -979,7 +965,7 @@ function removeTextAnimation() {
 
 /* Default alignment based on header type */
 function doHeaderAlignment(heroType) {
-    const el_cont = document.querySelector(".hero-block"); 
+    const el_cont = document.querySelector(".hero-block");
     el_cont.classList.add("text-center-desktop");
     el_cont.classList.add("text-center-mobile");
     document.getElementById("dd_align_desktop").value="0";
@@ -1001,7 +987,7 @@ function doAlignDesktop() {
         }
     }
     if (selectedValue==="left") {
-        document.querySelector(".hero-block").classList.remove("text-center-desktop");   
+        document.querySelector(".hero-block").classList.remove("text-center-desktop");
     }
     else if (selectedValue==="center") {
         document.querySelector(".hero-block").classList.add("text-center-desktop");
@@ -1021,7 +1007,7 @@ function doAlignMobile() {
         }
     }
     if (selectedValue==="left") {
-        document.querySelector(".hero-block").classList.remove("text-center-mobile");   
+        document.querySelector(".hero-block").classList.remove("text-center-mobile");
     }
     else if (selectedValue==="center") {
         document.querySelector(".hero-block").classList.add("text-center-mobile");
@@ -1033,7 +1019,7 @@ function doAlignMobile() {
 */
 
 document.querySelector("#dd_text_width").addEventListener("change", doTextWidth);
-    
+
 function doTextWidth() {
     let opt = document.querySelector("#dd_text_width").value;
     if (opt==="0") {
@@ -1054,7 +1040,7 @@ function enableTextStart() {
 }
 
 document.querySelector("#dd_text_start").addEventListener("change", doTextStart);
-    
+
 function doTextStart() {
 
     let opt = document.querySelector("#dd_text_start").value;
@@ -1142,7 +1128,7 @@ function enableSecondaryButtons() {
     document.getElementById("btn_a_secondary_passive_bg").disabled=false;
     document.getElementById("btn_a_secondary_active_bg").disabled=false;
     document.getElementById("btn_a_secondary_passive_border").disabled=false;
-    document.getElementById("btn_a_secondary_active_border").disabled=true;        
+    document.getElementById("btn_a_secondary_active_border").disabled=true;
 }
 
 function disableAllButtons() {
@@ -1175,7 +1161,7 @@ function disableSecondaryButtons() {
     document.getElementById("btn_a_secondary_passive_bg").disabled=true;
     document.getElementById("btn_a_secondary_active_bg").disabled=true;
     document.getElementById("btn_a_secondary_passive_border").disabled=true;
-    document.getElementById("btn_a_secondary_active_border").disabled=true;        
+    document.getElementById("btn_a_secondary_active_border").disabled=true;
 }
 
 /*
@@ -1243,7 +1229,7 @@ document.querySelector("#dd_buttons_icon").addEventListener("change", swapButton
 function swapButtonIcons() {
     let opt = document.querySelector("#dd_buttons_icon").value;
     // Verify at least primary button exists
-    if (document.querySelector("a.btn")) {      
+    if (document.querySelector("a.btn")) {
         // Set up button icon and text content;
         const icon_left_primary  ="<i class=\"fas fa-shopping-cart\"></i><span>Order now</span>";
         const icon_left_secondary  ="<i class=\"fas fa-arrow-right\"></i><span>Learn more</span>";
@@ -1277,7 +1263,7 @@ function swapButtonIcons() {
                 el_btn.innerHTML = "<span>Start free trial<\/span><i class=\"fas fa-arrow-right\"><\/i>";
             }
         }
-         
+
         // Text only. No icon.
         else if (opt==="2") {
             if (document.querySelector("a.btn-primary")) {
@@ -1285,12 +1271,12 @@ function swapButtonIcons() {
                 const btn_content = "<span>Order now</span>";
                 el_btn.innerHTML = btn_content;
             }
-    
+
             if (document.querySelector("a.btn-secondary")) {
                 const el_btn = document.querySelector("a.btn-secondary");
                 const btn_content = "<span>Learn more</span>";
                 el_btn.innerHTML = btn_content;
-            }       
+            }
         }
     }
 }
@@ -1334,12 +1320,12 @@ function dragElement(elmnt) {
     if (document.getElementById(elmnt.id + "header")) {
         // if present, the header is where you move the DIV from:
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-    } 
+    }
     else {
         // otherwise, move the DIV from anywhere inside the DIV:
         elmnt.onmousedown = dragMouseDown;
     }
-    
+
     function dragMouseDown(e) {
         e = e || window.event;
         // e.preventDefault();
@@ -1400,18 +1386,18 @@ if (document.querySelector("#content-7 .dialog-box-header")) {
 
 
 function hideDialogBox() {
-    document.querySelector("#content-1").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-2").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-3").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-4").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-5").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-6").classList.add("dropdown-hidden"); 
-    document.querySelector("#content-7").classList.add("dropdown-hidden"); 
+    document.querySelector("#content-1").classList.add("dropdown-hidden");
+    document.querySelector("#content-2").classList.add("dropdown-hidden");
+    document.querySelector("#content-3").classList.add("dropdown-hidden");
+    document.querySelector("#content-4").classList.add("dropdown-hidden");
+    document.querySelector("#content-5").classList.add("dropdown-hidden");
+    document.querySelector("#content-6").classList.add("dropdown-hidden");
+    document.querySelector("#content-7").classList.add("dropdown-hidden");
     const modal = document.getElementById("myModal");
     // modal.style.display = "none";
     hideSidebar();
     disableTransColCode();
-} 
+}
 
 
 /*
@@ -1438,7 +1424,7 @@ function copyHTML() {
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
-    document.body.removeChild(el); 
+    document.body.removeChild(el);
 }
 
 function copyCSS() {
@@ -1452,7 +1438,7 @@ function copyCSS() {
     document.body.appendChild(el_css);
     el_css.select();
     document.execCommand('copy');
-    document.body.removeChild(el_css);  
+    document.body.removeChild(el_css);
     // console.log(strCSS);
 }
 

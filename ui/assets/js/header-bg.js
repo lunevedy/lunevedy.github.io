@@ -237,6 +237,7 @@ function doStickyMenu() {
     if (!document.getElementById("cb_sticky").checked) {
         removeStickyMenu();
         console.log("No sticky")
+
     }
 
     else {
