@@ -317,7 +317,7 @@ section.w-1140px > h3,
 section.w-1140px > p,
 section.w-1140px > ul { max-width: 1140px; margin-right: auto; margin-left: auto }
 
-section.w-1024px.cols-2-half,
+section.w-1024px > .container-btn,
 section.w-1024px > .flex-cols-2,
 section.w-1024px > .flex-cols-3,
 section.w-1024px > .flex-cols-4,
@@ -329,6 +329,7 @@ section.w-1024px > p,
 section.w-1024px > ul { max-width: 1024px; margin-right: auto; margin-left: auto }
 
 section.w-960px.cols-2-half,
+section.w-960px > .container-btn,
 section.w-960px > .flex-cols-2,
 section.w-960px > .flex-cols-3,
 section.w-960px > .flex-cols-4,
@@ -339,7 +340,9 @@ section.w-960px > h3,
 section.w-960px > p,
 section.w-960px > ul { max-width: 960px; margin-right: auto; margin-left: auto }
 
+
 section.w-800px.cols-2-half,
+section.w-800px > .container-btn,
 section.w-800px > .flex-cols-2,
 section.w-800px > .flex-cols-3,
 section.w-800px > .flex-cols-4,
