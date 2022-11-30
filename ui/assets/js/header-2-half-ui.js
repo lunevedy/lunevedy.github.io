@@ -22,6 +22,8 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             }
         }
 
+
+        // Get themes
         navTheme = sessionStorage.getItem("navTheme");
         headerTheme = sessionStorage.getItem("headerTheme");
 
