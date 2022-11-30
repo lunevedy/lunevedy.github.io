@@ -30,6 +30,10 @@ function doVisualType() {
     // resets
     document.getElementById("dd_focal_point").value = "0";
     document.getElementById("dd_nudge_mobile").value = "0";
+
+    const el_media = iframe.contentWindow.document.querySelector(".container-media");
+    el_media.classList.remove("pull-to-left");
+    el_media.classList.remove("push-to-right");
 }
 
 /* focal point */

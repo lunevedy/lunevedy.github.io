@@ -26,7 +26,7 @@ function doVis() {
         document.getElementById("show-textbox").style.display = "none";
     }
     else {
-        document.getElementById("dd_switch_section_vis_width").value = "100";
+        // document.getElementById("dd_switch_section_vis_width").value = "100";
         document.getElementById("properties-photos").style.display = "block";
         doPhotos(1);
     }
@@ -44,7 +44,7 @@ function doVisType() {
         }
     }
     removeVisual();
-    document.getElementById("dd_switch_section_vis_width").value = "100";
+    // document.getElementById("dd_switch_section_vis_width").value = "100";
 
     if (selectedValue==="photos") {
         doPhotos();
@@ -95,7 +95,7 @@ function doPhotosType() {
 
     let opt = document.querySelector("#dd_photos_shape").value;
     removeVisual();
-    document.getElementById("dd_switch_section_vis_width").value = "100";
+    // document.getElementById("dd_switch_section_vis_width").value = "100";
     if (opt==="1") {
         doVisSubTypes(1);
         document.getElementById("cb_photos_round").checked = false;
@@ -151,6 +151,7 @@ function doPhotosRound() {
         document.getElementById("cb_photos_corners_soft").disabled = true;
         document.getElementById("cb_img_textbox").checked = false;
         document.getElementById("cb_img_textbox").disabled = true;
+        document.getElementById("show-textbox").style.display = "none";
         document.getElementById("cb_img_h4").checked = false;
         document.getElementById("cb_img_h4").disabled = true;
     }
@@ -363,7 +364,7 @@ function resetDrawingsProps() {
 //////////////// VISUAL ELEMENT WIDTH (600px AND ABOVE ) ///////////////
 */
 
-document.querySelector("#dd_switch_section_vis_width").addEventListener("change", doFigWidth);
+// document.querySelector("#dd_switch_section_vis_width").addEventListener("change", doFigWidth);
 
 function doFigWidth() {
     let opt = document.querySelector("#dd_switch_section_vis_width").value;
@@ -503,7 +504,7 @@ function doVisSubTypes(n) {
 }
 
 function removeVisual() {
-    document.getElementById("dd_switch_section_vis_width").value = "100";
+    // document.getElementById("dd_switch_section_vis_width").value = "100";
     const parentNode = iframe.contentWindow.document.querySelector("section");
     var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0);
     for (let i = 0; i < el_img.length; i++) {
