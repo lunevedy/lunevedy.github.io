@@ -753,7 +753,7 @@ nav.theme-dark .nav-toggle .bar-3 { background: #fff }
 .menu-sticky { position: fixed; top: 0; left: 0; right: 0; z-index: 99999 }
 .header-after-menu-sticky { margin-top: 72px; padding-top: 72px }
 
-.header-after-menu-sticky.bg-hero { margin-top: 0; padding-top: 72px }
+.header-after-menu-sticky.hero-bg { margin-top: 0; padding-top: 144px }
 
 /* ================ HEADER 'HERO BLOCK' ================ */
 
