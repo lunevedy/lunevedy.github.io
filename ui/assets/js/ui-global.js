@@ -844,6 +844,11 @@ function disableCSS() {
 
 function copyHTML() {
     let HTML_Content = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
+
+    HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
+
+    HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
+
     const el = document.createElement('textarea');
     el.value = HTML_Content;
     hideMenus();
