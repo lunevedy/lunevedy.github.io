@@ -2965,7 +2965,7 @@ section:has(.full-width) { padding-top: 0 !important }
 
 figure.photos-zoom { overflow: hidden }
 figure.photos-zoom img { transition: transform .5s ease }
-figure.photos-zoom:hover img { transform: scale(1.25) }
+figure.photos-zoom:hover img { transform: scale(1.15) }
 
 figure.photos-brightness img {
     transition: transform 2s, filter 0.75s ease-in-out;
