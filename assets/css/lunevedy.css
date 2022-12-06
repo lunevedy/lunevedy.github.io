@@ -2294,10 +2294,6 @@ a:not(.btn):link, a:not(.btn):visited {
     }
 }
 
-a:not(.btn):focus, a:not(.btn):hover, a:not(.btn):active {
-    /* text-decoration: none; text-decoration-thickness: 0; */
-}
-
 /* .theme-light a:not(.btn):link, .theme-light a:not(.btn):visited { color: var(--blue-700) }
 .theme-dark  a:not(.btn):link, .theme-dark a:not(.btn):visited  { color: var(--sky-400)  }
 
@@ -2769,10 +2765,6 @@ figure.figure-width-full {
     margin-left: -50vw;
     margin-right: -50vw;
 }
-
-/* Single-column section with full-width image */
-section:has(.full-width) { padding-top: 0 !important }
-
 
 /* =========== ANIMATIONS ============= */
 
