@@ -60,9 +60,12 @@ function loadBtnInitial() {
         el_btn.setAttribute("class", "btn btn-solid");
         el_btn.innerHTML = "<span>"+content_buttons_one_text+"</span>"+ content_buttons_one_icon;
         btnDiv.append(el_btn);
+        objContainer = getBtnContainer();
+        objContainer.innerHTML = objContainer.innerHTML.replaceAll("<div class=\"container-btn\">", "\n\t\t\t<div class=\"container-btn\">\n\t\t\t\t");
 
-        // Reformat HTML
-        objContainer.innerHTML = objContainer.innerHTML.replaceAll("<div class=\"container-btn\">", "\t<div class=\"container-btn\">");
+        objContainer.innerHTML = objContainer.innerHTML.replaceAll("<span>", "\n\t\t\t\t\t<span>");
+        objContainer.innerHTML = objContainer.innerHTML.replaceAll("<\/i>", "<\/i>\n\t\t");
+        objContainer.innerHTML = objContainer.innerHTML.replaceAll("<\/a><\/div>", "\t\t<\/a>\n\t\t\t<\/div>\n\t\t");
 
         // Highlight 1-button switch
         document.getElementById("rb_btn_one").checked=true;

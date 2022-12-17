@@ -13,14 +13,12 @@ function doColButtons() {
     else {
         const btn_class="btn-solid";
         const obj_col = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-']");
-        for (let i = 0; i < obj_col.length; i++) {        
+        for (let i = 0; i < obj_col.length; i++) {
             el_col = obj_col[i];
             addColButtons(el_col,btn_class);
+            el_col.innerHTML = el_col.innerHTML.replace("<a href=\"#\" class=\"btn", "\t<a href=\"#\" class=\"btn");
+            el_col.innerHTML = el_col.innerHTML.replace("</i></a>", "</i></a>\n\t\t\t");
         }
-
-        iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-']").innerHTML = iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-']").innerHTML.replaceAll("<a href", "\t<a href");
-
-        iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-']").innerHTML = iframe.contentWindow.document.querySelector("div[class^='flex-cols-'] div[class^='col-']").innerHTML.replaceAll("<\/a><\/div>", "<\/a>\n\t\t<\/div>");
         enableColButtons();
     }
 }
@@ -36,6 +34,7 @@ function addColButtons(el_cols,btn_class) {
     }
     el_btn.innerHTML = "<span>Learn more</span><i class=\"fas fa-arrow-right\"></i>";
     el_cols.append(el_btn);
+
 }
 
 function removeColButtons() {
@@ -43,7 +42,7 @@ function removeColButtons() {
     let el_btn;
 
     // Loop through buttons
-    for (let i = 0; i < obj_btn.length; i++) {        
+    for (let i = 0; i < obj_btn.length; i++) {
         el_btn = obj_btn[i];
         el_btn.remove();
     }
@@ -73,8 +72,8 @@ function doButtonsType() {
     let el_btn;
     // Solid
     if (opt==="0") {
-        removeButtonsType(obj_btn);        
-        for (el_btn of obj_btn) { 
+        removeButtonsType(obj_btn);
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-solid");
         }
         // Update options
@@ -89,8 +88,8 @@ function doButtonsType() {
 
     // Outline
     else if (opt==="1") {
-        removeButtonsType(obj_btn);        
-        for (el_btn of obj_btn) { 
+        removeButtonsType(obj_btn);
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-outline");
         }
         // Update options
@@ -105,8 +104,8 @@ function doButtonsType() {
 
     // Link
     else if (opt==="2") {
-        removeButtonsType(obj_btn);        
-        for (el_btn of obj_btn) { 
+        removeButtonsType(obj_btn);
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-plain");
         }
         // Update options
@@ -118,7 +117,7 @@ function doButtonsType() {
         document.getElementById("btn_cols_border_active").disabled=true;
         document.getElementById("cb_buttons_width").disabled=true;
         document.getElementById("cb_buttons_shadow").disabled=true;
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.remove("btn-shadow");
             el_btn.classList.remove("btn-block");
             el_btn.classList.remove("btn-soft");
@@ -129,7 +128,7 @@ function doButtonsType() {
 
 function removeButtonsType(obj_btn) {
     let el_btn;
-    for (el_btn of obj_btn) { 
+    for (el_btn of obj_btn) {
         el_btn.classList.remove("btn-solid");
         el_btn.classList.remove("btn-outline");
         el_btn.classList.remove("btn-plain");
@@ -154,7 +153,7 @@ function doButtonsStyle() {
     // soft
     else if (opt==="1") {
         removeButtonsStyle(obj_btn);
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-soft");
         }
     }
@@ -162,7 +161,7 @@ function doButtonsStyle() {
     // pill
     else if (opt==="2") {
         removeButtonsStyle(obj_btn);
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-pill");
         }
     }
@@ -170,7 +169,7 @@ function doButtonsStyle() {
 
 function removeButtonsStyle(obj_btn) {
     let el_btn;
-    for (el_btn of obj_btn) { 
+    for (el_btn of obj_btn) {
         el_btn.classList.remove("btn-soft");
         el_btn.classList.remove("btn-pill");
     }
@@ -189,7 +188,7 @@ function doButtonsSize() {
     // small
     if (opt==="0") {
         removeButtonsSize(obj_btn);
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-small");
         }
     }
@@ -202,7 +201,7 @@ function doButtonsSize() {
     // large
     else if (opt==="2") {
         removeButtonsSize(obj_btn);
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-large");
         }
     }
@@ -210,7 +209,7 @@ function doButtonsSize() {
 
 function removeButtonsSize(obj_btn) {
     let el_btn;
-    for (el_btn of obj_btn) { 
+    for (el_btn of obj_btn) {
         el_btn.classList.remove("btn-small");
         el_btn.classList.remove("btn-large");
     }
@@ -242,7 +241,7 @@ function swapButtonIcons() {
         const icon_right ="<span>Learn more</span><i class=\"fas fa-arrow-right\"></i>";
         if (selectedValue==="left") {
             // Move text to right, icon to left
-            for (el_btn of obj_btn) { 
+            for (el_btn of obj_btn) {
                 btn_content = el_btn.innerHTML;
                 if (( btn_content = icon_right) || (btn_content = icon_right)) {
                     btn_content = btn_content.replace(icon_right, icon_left);
@@ -252,7 +251,7 @@ function swapButtonIcons() {
         }
 
         else if (selectedValue==="right") {
-            for (el_btn of obj_btn) { 
+            for (el_btn of obj_btn) {
                 btn_content = el_btn.innerHTML;
                 if (( btn_content = icon_right) || (btn_content = icon_right)) {
                     btn_content = btn_content.replace(icon_left, icon_right);
@@ -260,10 +259,10 @@ function swapButtonIcons() {
                 }
             }
         }
-    
+
         else if (selectedValue==="none") {
             // Only text. No icons.
-            for (el_btn of obj_btn) { 
+            for (el_btn of obj_btn) {
                 if (( btn_content = icon_right) || (btn_content = icon_right)) {
                     btn_content = el_btn.innerHTML;
                     btn_content = "<span>Learn more</span>";
@@ -284,12 +283,12 @@ function doBtnWidth() {
     const obj_btn = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] > a.btn");
     let el_btn;
     if (!document.getElementById("cb_buttons_width").checked) {
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.remove("btn-block");
         }
     }
     else {
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-block");
         };
     }
@@ -305,14 +304,14 @@ function doBtnShadow() {
     const obj_btn = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] > a.btn");
     let el_btn;
     if (!document.getElementById("cb_buttons_shadow").checked) {
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.remove("btn-shadow");
         }
     }
     else {
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-shadow");
-        }        
+        }
     }
 }
 
@@ -326,12 +325,12 @@ function doBtnUCase() {
     const obj_btn = iframe.contentWindow.document.querySelectorAll("div[class^='flex-cols-'] div[class^='col-'] > a.btn");
     let el_btn;
     if (!document.getElementById("cb_buttons_uppercase").checked) {
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.remove("btn-uppercase");
         }
     }
     else {
-        for (el_btn of obj_btn) { 
+        for (el_btn of obj_btn) {
             el_btn.classList.add("btn-uppercase");
         }
     }

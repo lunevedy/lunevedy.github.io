@@ -301,7 +301,10 @@ function doPhotosHyperlinks() {
     else {
         for (let i = 0; i < objFigs.length; i++) {
             el_fig_content = objFigs[i].innerHTML;
-            el_fig_content = '<a href=\"#\">'+el_fig_content+'</a>';
+            el_fig_content = '\n\t\t\t\t<a href=\"#\">'+el_fig_content+'</a>';
+            el_fig_content = el_fig_content.replace("<a href=\"#\">\n\t\t\t\t\t", "\t<a href=\"#\">");
+            el_fig_content = el_fig_content.replace("alt=\"Placeholder image\">\n\t\t\t\t", "alt=\"Placeholder image\">");
+            el_fig_content = el_fig_content.replace("<\/a>", "<\/a>\n\t\t\t\t");
             objFigs[i].innerHTML = el_fig_content;
         }
         document.getElementById("cb_photos_zoom").disabled=false;
