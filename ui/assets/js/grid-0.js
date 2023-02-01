@@ -11,22 +11,73 @@ function doBadge() {
     if (!document.getElementById("cb_badge").checked) {
         removeBadge();
     }
-    
+
     else {
         removeBadge();
+
         const newUpperLabelDiv = document.createElement("div");
-        newUpperLabelDiv.classList.add("badge"); 
+        const newUpperLabelSpan = document.createElement("span");
+        newUpperLabelDiv.appendChild(newUpperLabelSpan);
+        newUpperLabelDiv.classList.add("badge");
         iframe.contentWindow.document.querySelector('section').prepend(newUpperLabelDiv);
-        iframe.contentWindow.document.querySelector('section .badge').innerText = content_header_label_text_col_1;
-        iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replace("<div class=\"badge\">", "\n\t\t\t<div class=\"badge\">");
-        document.getElementById("show-badge").style.display="flex";
+        iframe.contentWindow.document.querySelector('section .badge span').innerText = content_header_label_text_col_1;
+        iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replace("<div class=\"badge\">", "\n\t\t<div class=\"badge\">");
+        document.getElementById("show-badge").style.display="block";
     }
 }
+
+/*
+//////////////// BADGE TEXT SIZE ///////////////
+*/
+
+document.querySelector("#form_badge_size_desktop").addEventListener("change", doBadgeFontSizeDesktop);
+
+    function doBadgeFontSizeDesktop() {
+        const rbs = document.querySelectorAll("input[name='badge_size_desktop']");
+        let selectedValue;
+
+        for (const rb of rbs) {
+            if (rb.checked) {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+
+        if (selectedValue==="bigger") {
+            iframe.contentWindow.document.querySelector("section > .badge").classList.add("bigger-desktop");
+        }
+
+        else if (selectedValue==="smaller") {
+            iframe.contentWindow.document.querySelector("section > .badge").classList.remove("bigger-desktop");
+        }
+    }
+
+    document.querySelector("#form_badge_size_mobile").addEventListener("change", doBadgeFontSizeMobile);
+
+    function doBadgeFontSizeMobile() {
+        const rbs = document.querySelectorAll("input[name='badge_size_mobile']");
+        let selectedValue;
+
+        for (const rb of rbs) {
+            if (rb.checked) {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+
+        if (selectedValue==="bigger") {
+            iframe.contentWindow.document.querySelector("section > .badge").classList.add("bigger-mobile");
+        }
+
+        else if (selectedValue==="smaller") {
+            iframe.contentWindow.document.querySelector("section > .badge").classList.remove("bigger-mobile");
+        }
+    }
 
 document.querySelector("#form_badge_shape").addEventListener("change", doBadgeShape);
 
 function doBadgeShape() {
-    const objTextBox = iframe.contentWindow.document.querySelector("section > .badge"); 
+    const objTextBox = iframe.contentWindow.document.querySelector("section > .badge");
     const rbs = document.querySelectorAll("input[name='switch_badge_shape']");
     let selectedValue;
 
@@ -40,7 +91,7 @@ function doBadgeShape() {
     if (selectedValue==="square") {
         objTextBox.classList.remove("corners-soft");
     }
-        
+
     else if (selectedValue==="soft") {
         objTextBox.classList.add("corners-soft");
     }
@@ -50,29 +101,79 @@ function removeBadge() {
     if (iframe.contentWindow.document.querySelector('.badge')) {
         const upperLabel = iframe.contentWindow.document.querySelector('.badge');
         upperLabel.remove();
-        document.getElementById("show-badge").style.display="none";        
+        document.getElementById("show-badge").style.display="none";
     }
 
-    const arg1 = sectionClassName+ " .badge { color:";
-    const arg2 = sectionClassName+ " .badge { background-color:";
+    const arg1 = sectionClassName+ " .badge span { color:";
+    const arg2 = sectionClassName+ " .badge span { background-color:";
 
     removeCSSTagPairs(arg1, arg2);
 }
+
+
+/*
+//////////////// MAIN HEADING H2 TEXT SIZE ///////////////
+*/
+
+document.querySelector("#form_h2_size_desktop").addEventListener("change", doH2FontSizeDesktop);
+
+    function doH2FontSizeDesktop() {
+        const rbs = document.querySelectorAll("input[name='h2_size_desktop']");
+        let selectedValue;
+
+        for (const rb of rbs) {
+            if (rb.checked) {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+
+        if (selectedValue==="bigger") {
+            iframe.contentWindow.document.querySelector("section > h2").classList.add("bigger-desktop");
+        }
+
+        else if (selectedValue==="smaller") {
+            iframe.contentWindow.document.querySelector("section > h2").classList.remove("bigger-desktop");
+        }
+    }
+
+    document.querySelector("#form_h2_size_mobile").addEventListener("change", doH2FontSizeMobile);
+
+    function doH2FontSizeMobile() {
+        const rbs = document.querySelectorAll("input[name='h2_size_mobile']");
+        let selectedValue;
+
+        for (const rb of rbs) {
+            if (rb.checked) {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+
+        if (selectedValue==="bigger") {
+            iframe.contentWindow.document.querySelector("section > h2").classList.add("bigger-mobile");
+        }
+
+        else if (selectedValue==="smaller") {
+            iframe.contentWindow.document.querySelector("section > h2").classList.remove("bigger-mobile");
+        }
+    }
+
 
 /*
 //////////////// MAIN HEADING H2 HIGHLIGHT TEXT ///////////////
 */
 
-document.querySelector("#cb_h2_highlight").addEventListener("change", doH2Text);
+document.querySelector("#cb_h2_highlight").addEventListener("change", doH2TextHighlight);
 
-function doH2Text() {
+function doH2TextHighlight() {
 
     let elH2Content = iframe.contentWindow.document.querySelector('section > h2').innerHTML;
 
     if (!document.getElementById("cb_h2_highlight").checked) {
         elH2Content = elH2Content.replace(/<\/?span[^>]*>/g,"");
         iframe.contentWindow.document.querySelector('section > h2').innerHTML = elH2Content;
-        document.getElementById("btn_h2_highlight").disabled = true;            
+        document.getElementById("btn_h2_highlight").disabled = true;
         document.getElementById("btn_h2_highlight").checked = false;
         const arg1 = sectionClassName+ " > h2 span.highlight { color:";
         removeCSSTagPairs(arg1);
@@ -81,8 +182,8 @@ function doH2Text() {
         const i = elH2Content.indexOf(" ",1);
         const j = elH2Content.lastIndexOf(" ");
         elH2Content = elH2Content.replace(elH2Content.substring(i+1,j), "<span class=\"highlight\">"+elH2Content.substring(i+1,j)+"</span>");
-        iframe.contentWindow.document.querySelector('section > h2').innerHTML = elH2Content;  
-        document.getElementById("btn_h2_highlight").disabled = false;            
+        iframe.contentWindow.document.querySelector('section > h2').innerHTML = elH2Content;
+        document.getElementById("btn_h2_highlight").disabled = false;
         document.getElementById("btn_h2_highlight").checked = false;
     }
 }
@@ -99,7 +200,7 @@ function doH2Border() {
 
     if (!document.getElementById("cb_h2_border").checked) {
         objH2.classList.remove("heading-underline");
-        document.getElementById("btn_h2_border").disabled = true;    
+        document.getElementById("btn_h2_border").disabled = true;
         document.getElementById("btn_h2_border").checked = false;
         const arg1 = sectionClassName+ " > h2.heading-underline::after { background-color:";
         removeCSSTagPairs(arg1);
@@ -108,23 +209,6 @@ function doH2Border() {
         objH2.classList.add("heading-underline");
         document.getElementById("btn_h2_border").disabled = false;
         document.getElementById("btn_h2_border").checked = true;
-    }
-}
-
-/*
-//////////////// DECKHEAD ///////////////
-*/
-
-document.querySelector("#cb_deckhead").addEventListener("change", doDeckhead);
-
-function doDeckhead() {
-    if (!document.getElementById("cb_deckhead").checked) {
-        iframe.contentWindow.document.querySelector("section p").classList.remove("deckhead");
-        iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replace('<p class=\"\">', '<p>');
-    }
-    else {
-        document.querySelector("label[for='cb_deckhead']").style.color = "#fff";
-        iframe.contentWindow.document.querySelector("section p").classList.add("deckhead");
     }
 }
 
@@ -146,7 +230,7 @@ function doH3() {
             let el_para;
             // Loop through paragraphs
             for (let i = 1; i < objParas.length; i++) {
-                el_para = objParas[i]; 
+                el_para = objParas[i];
                 el_para.insertAdjacentHTML("beforebegin", content_h3);
             }
             document.getElementById("btn_h3_text").disabled=false;
@@ -163,6 +247,78 @@ function removeH3() {
     }
     document.getElementById("btn_h3_text").disabled=true;
 }
+
+
+/*
+//////////////// SECTION TEXT SIZE ///////////////
+*/
+
+document.querySelector("#form_p_size_desktop").addEventListener("change", doParaFontSizeDesktop);
+
+    function doParaFontSizeDesktop() {
+        const rbs = document.querySelectorAll("input[name='p_size_desktop']");
+        let selectedValue;
+
+        for (const rb of rbs) {
+            if (rb.checked) {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+
+        const objParas = iframe.contentWindow.document.querySelectorAll("section > p");
+        const objLists = iframe.contentWindow.document.querySelectorAll("section > ul li");
+
+        if (selectedValue==="bigger") {
+            for (let i = 0; i < objParas.length; i++) {
+                objParas[i].classList.add("bigger-desktop");
+            }
+            for (let i = 0; i < objLists.length; i++) {
+                objLists[i].classList.add("bigger-desktop");
+            }
+        }
+
+        else if (selectedValue==="smaller") {
+            for (let i = 0; i < objParas.length; i++) {
+                objParas[i].classList.remove("bigger-desktop");
+            }
+            for (let i = 0; i < objLists.length; i++) {
+                objLists[i].classList.remove("bigger-desktop");
+            }
+        }
+    }
+
+    document.querySelector("#form_p_size_mobile").addEventListener("change", doParaFontSizeMobile);
+
+    function doParaFontSizeMobile() {
+
+        const rbs = document.querySelectorAll("input[name='p_size_mobile']");
+        let selectedValue;
+
+        for (const rb of rbs) {
+            if (rb.checked) {
+                selectedValue = rb.value;
+                break;
+            }
+        }
+
+        const objParas = iframe.contentWindow.document.querySelectorAll("section > p");
+        const objLists = iframe.contentWindow.document.querySelectorAll("section > ul li");
+
+        if (selectedValue==="bigger") {
+            for (let i = 0; i < objParas.length; i++) {
+                objParas[i].classList.add("bigger-mobile");
+                objLists[i].classList.add("bigger-desktop");
+            }
+        }
+
+        else if (selectedValue==="smaller") {
+            for (let i = 0; i < objParas.length; i++) {
+                objParas[i].classList.remove("bigger-mobile");
+                objLists[i].classList.remove("bigger-desktop");
+            }
+        }
+    }
 
 
 /*
@@ -265,7 +421,7 @@ document.querySelector("#form_switch_fa_icons").addEventListener("change", choos
 function chooseListMarker() {
     const rbs = document.querySelectorAll("input[name='switch_fa_icons']");
     let objIcons = iframe.contentWindow.document.querySelectorAll("section ul li span");
-    let node;   
+    let node;
     let selectedValue;
 
     for (const rb of rbs) {
@@ -297,14 +453,14 @@ function doHyperlinks() {
         iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replaceAll('<a href=\"#\">convergence<\/a>', 'convergence');
 
         document.getElementById("hyperlinks-colors").style.display ="none";
-        document.getElementById("hyperlinks-underlines").style.display ="none";  
+        document.getElementById("hyperlinks-underlines").style.display ="none";
     }
     else {
         iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replaceAll('corporate strategy', '<a href=\"#\">corporate strategy\</a>');
         iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replaceAll('new normal', '<a href=\"#\">new normal<\/a>');
         iframe.contentWindow.document.querySelector('section').innerHTML = iframe.contentWindow.document.querySelector('section').innerHTML.replaceAll('convergence', '<a href=\"#\">convergence<\/a>');
         document.getElementById("hyperlinks-colors").style.display ="flex";
-        document.getElementById("hyperlinks-underlines").style.display ="flex";  
+        document.getElementById("hyperlinks-underlines").style.display ="flex";
     }
 }
 

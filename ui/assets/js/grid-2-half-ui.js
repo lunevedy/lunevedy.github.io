@@ -1,6 +1,6 @@
 
 document.querySelector("#picker-box").addEventListener('click', handleLabelClick);
-    
+
     function handleLabelClick(event) {
         event.stopPropagation();
         const label = event.target.closest("label");
@@ -14,7 +14,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             return;
         }
         const rbs = document.querySelectorAll("input[name='picker-radio']");
-    
+
         for (const rb of rbs) {
             if (rb.checked) {
                 color_code = rb.value;
@@ -38,7 +38,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_badge_bg") {
             newStyle = sectionClassName+ " .badge { background-color: var("+color_code+") }\n";
             sub_string = ".badge { background-color";
-        }        
+        }
 
         /* h2 main heading */
         else if (btn_id === "btn_h2_text") {
@@ -66,19 +66,19 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Section paragraphs text */
         else if (btn_id === "btn_para_text") {
-            newStyle = sectionClassName+ " .col-2.col-text p { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " .col-2.col-text p { color: var("+color_code+") }\n";
             sub_string = " p {";
         }
 
         /* Section paragraphs text */
         else if (btn_id === "btn_list_text") {
-            newStyle = sectionClassName+ " .col-2.col-text ul li { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " .col-2.col-text ul li { color: var("+color_code+") }\n";
             sub_string = " ul li {";
         }
 
         /* List marker */
         else if (btn_id === "btn_list_marker") {
-            newStyle = sectionClassName+ " .col-2.col-text li::marker, "+sectionClassName+ " ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " .col-2.col-text li::marker, "+sectionClassName+ " ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
         }
 
@@ -175,6 +175,8 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { background-color: var("+color_code+") }\n";
             sub_string = "figure.icon";
         }
-        doUpdateArray(sub_string,newStyle);        
+
+        console.log(newStyle)
+        doUpdateArray(sub_string,newStyle);
     }
 

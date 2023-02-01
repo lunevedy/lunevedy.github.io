@@ -410,42 +410,37 @@ function doWidthSectionDesktop() {
     let opt = document.getElementById("dd_section_width").value;
     deleteWidthSectionDesktop();
 
+    /* default max width is 1600px */
     if (opt==="0") {
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-1536px");
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-1320px");
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-1140px");
+        iframe.contentWindow.document.querySelector("section").classList.remove("w-820px");
         iframe.contentWindow.document.querySelector("section").classList.remove("w-1024px");
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-960px");
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-800px");
+        iframe.contentWindow.document.querySelector("section").classList.remove("w-1140px");
+        iframe.contentWindow.document.querySelector("section").classList.remove("w-1356px");
     }
 
     else if (opt==="1") {
-        iframe.contentWindow.document.querySelector("section").classList.add("w-1536px");
+        iframe.contentWindow.document.querySelector("section").classList.add("w-820px");
     }
+
     else if (opt==="2") {
-        iframe.contentWindow.document.querySelector("section").classList.add("w-1320px");
+        iframe.contentWindow.document.querySelector("section").classList.add("w-1024px");
     }
+
     else if (opt==="3") {
         iframe.contentWindow.document.querySelector("section").classList.add("w-1140px");
     }
+
     else if (opt==="4") {
-        iframe.contentWindow.document.querySelector("section").classList.add("w-800px");
+        iframe.contentWindow.document.querySelector("section").classList.add("w-1356px");
     }
-    else if (opt==="5") {
-        iframe.contentWindow.document.querySelector("section").classList.add("w-960px");
-    }
-    else if (opt==="6") {
-        iframe.contentWindow.document.querySelector("section").classList.add("w-1024px");
-    }
+
 }
 
 function deleteWidthSectionDesktop() {
-    iframe.contentWindow.document.querySelector("section").classList.remove("w-1536px");
-    iframe.contentWindow.document.querySelector("section").classList.remove("w-1320px");
-    iframe.contentWindow.document.querySelector("section").classList.remove("w-1140px");
+    iframe.contentWindow.document.querySelector("section").classList.remove("w-820px");
     iframe.contentWindow.document.querySelector("section").classList.remove("w-1024px");
-    iframe.contentWindow.document.querySelector("section").classList.remove("w-960px");
-    iframe.contentWindow.document.querySelector("section").classList.remove("w-800px");
+    iframe.contentWindow.document.querySelector("section").classList.remove("w-1140px");
+    iframe.contentWindow.document.querySelector("section").classList.remove("w-1356x");
 }
 
 /*

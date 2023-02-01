@@ -83,6 +83,8 @@ export const content_list_col_4 = ["\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delive
 
 export const content_photo_landscape_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x618-cheesecake.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_photo_portrait_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-window.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+export const content_photo_short_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/900x248-man-desk.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+
 export const content_photo_square_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x1024-business-woman.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_photo_circle_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x1024-food-mobile.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
@@ -173,6 +175,14 @@ arrIconFA[0]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-solid f
 arrIconFA[1]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-regular fa-comments\"></i>\n\t\t\t\t<\/figure>";
 arrIconFA[2]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-regular fa-lightbulb\">\n\t\t\t\t</i><\/figure>";
 arrIconFA[3]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-solid fa-plane-departure\"></i>\n\t\t\t\t<\/figure>";
+arrIconFA[4]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-solid fa-user-group\"></i>\n\t\t\t\t<\/figure>";
+arrIconFA[5]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-regular fa-comments\"></i>\n\t\t\t\t<\/figure>";
+arrIconFA[6]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-regular fa-lightbulb\">\n\t\t\t\t</i><\/figure>";
+arrIconFA[7]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-solid fa-plane-departure\"></i>\n\t\t\t\t<\/figure>";
+arrIconFA[8]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-solid fa-user-group\"></i>\n\t\t\t\t<\/figure>";
+arrIconFA[9]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-regular fa-comments\"></i>\n\t\t\t\t<\/figure>";
+arrIconFA[10]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-regular fa-lightbulb\">\n\t\t\t\t</i><\/figure>";
+arrIconFA[11]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"fa-solid fa-plane-departure\"></i>\n\t\t\t\t<\/figure>";
 
 export const arrIconLA = [];
 arrIconLA[0]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-user-friends\"><\/i>\n\t\t\t\t<\/figure>";
@@ -183,18 +193,38 @@ arrIconLA[4]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-glo
 arrIconLA[5]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-shopping-cart\"><\/i>\n\t\t\t\t<\/figure>";
 arrIconLA[6]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-briefcase\"><\/i>\n\t\t\t\t<\/figure>";
 arrIconLA[7]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-book-reader\"><\/i>\n\t\t\t\t<\/figure>";
+arrIconLA[8]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-globe\"><\/i>\n\t\t\t\t<\/figure>";
+arrIconLA[9]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-shopping-cart\"><\/i>\n\t\t\t\t<\/figure>";
+arrIconLA[10]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-briefcase\"><\/i>\n\t\t\t\t<\/figure>";
+arrIconLA[11]="\n\t\t\t\t<figure class=\"icon\">\n\t\t\t\t\t<i class=\"las la-book-reader\"><\/i>\n\t\t\t\t<\/figure>";
 
 export const arrTextBox = [];
 arrTextBox[0] = "MOST POPULAR";
 arrTextBox[1] = "NEW ARRIVALS";
 arrTextBox[2] = "BEST SELLER";
 arrTextBox[3] = "TRAVEL";
+arrTextBox[4] = "MOST POPULAR";
+arrTextBox[5] = "NEW ARRIVALS";
+arrTextBox[6] = "BEST SELLER";
+arrTextBox[7] = "TRAVEL";
+arrTextBox[8] = "MOST POPULAR";
+arrTextBox[9] = "NEW ARRIVALS";
+arrTextBox[10] = "BEST SELLER";
+arrTextBox[11] = "TRAVEL";
 
 export const arrColBadge = [];
 arrColBadge[0] = "\n\t\t\t\t<div class=\"badge\">FOOD & DRINK<\/div>\n";
 arrColBadge[1] = "\n\t\t\t\t<div class=\"badge\">FASHION<\/div>\n";
 arrColBadge[2] = "\n\t\t\t\t<div class=\"badge\">EDUCATION<\/div>\n";
 arrColBadge[3] = "\n\t\t\t\t<div class=\"badge\">HOLIDAYS<\/div>\n";
+arrColBadge[4] = "\n\t\t\t\t<div class=\"badge\">FOOD & DRINK<\/div>\n";
+arrColBadge[5] = "\n\t\t\t\t<div class=\"badge\">FASHION<\/div>\n";
+arrColBadge[6] = "\n\t\t\t\t<div class=\"badge\">EDUCATION<\/div>\n";
+arrColBadge[7] = "\n\t\t\t\t<div class=\"badge\">HOLIDAYS<\/div>\n";
+arrColBadge[8] = "\n\t\t\t\t<div class=\"badge\">FOOD & DRINK<\/div>\n";
+arrColBadge[9] = "\n\t\t\t\t<div class=\"badge\">FASHION<\/div>\n";
+arrColBadge[10] = "\n\t\t\t\t<div class=\"badge\">EDUCATION<\/div>\n";
+arrColBadge[11] = "\n\t\t\t\t<div class=\"badge\">HOLIDAYS<\/div>\n";
 
 export const arrH4Overlay = [];
 // arrH4Overlay[0] = "Tasty breads fresh from the oven. Delicious coffee."
@@ -206,4 +236,12 @@ arrH4Overlay[0] = "Tasty breads. Delicious coffee."
 arrH4Overlay[1] = "Look great. Feel fantastic"
 arrH4Overlay[2] = "Learn something new"
 arrH4Overlay[3] = "A holiday to remember"
+arrH4Overlay[4] = "Tasty breads. Delicious coffee."
+arrH4Overlay[5] = "Look great. Feel fantastic"
+arrH4Overlay[6] = "Learn something new"
+arrH4Overlay[7] = "A holiday to remember"
+arrH4Overlay[8] = "Tasty breads. Delicious coffee."
+arrH4Overlay[9] = "Look great. Feel fantastic"
+arrH4Overlay[10] = "Learn something new"
+arrH4Overlay[11] = "A holiday to remember"
 

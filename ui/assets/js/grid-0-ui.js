@@ -29,14 +29,14 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* badge text */
         else if (btn_id === "btn_badge_text") {
-            newStyle = sectionClassName+ " .badge { color: var("+color_code+") }\n";
-            sub_string = ".badge { color";
+            newStyle = sectionClassName+ " > .badge span { color: var("+color_code+") }\n";
+            sub_string = ".badge span { color";
         }
 
         /* badge background */
         else if (btn_id === "btn_badge_bg") {
-            newStyle = sectionClassName+ " .badge { background-color: var("+color_code+") }\n";
-            sub_string = ".badge { background-color";
+            newStyle = sectionClassName+ " > .badge span { background-color: var("+color_code+") }\n";
+            sub_string = ".badge span { background-color";
         }
 
         /* h2 main heading */
@@ -59,20 +59,21 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* h3 sub heading */
         else if (btn_id === "btn_h3_text") {
-            newStyle = sectionClassName+ " h3 { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " > h3 { color: var("+color_code+") }\n";
             sub_string = " h3 {";
         }
 
         /* Section paragraphs text */
         else if (btn_id === "btn_para_text") {
-            newStyle = sectionClassName+ " p { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " > p { color: var("+color_code+") }\n";
             sub_string = " p {";
         }
 
-        /* Section paragraphs text */
+        /* Section list text */
         else if (btn_id === "btn_list_text") {
-            newStyle = sectionClassName+ " ul li { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " > ul li { color: var("+color_code+") }\n";
             sub_string = " ul li {";
+            console.log(newStyle)
         }
 
         /* List marker */

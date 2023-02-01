@@ -982,7 +982,6 @@ function doImgCircle() {
     document.getElementById("cb_photos_zoom").disabled=true;
     document.getElementById("cb_img_textbox").disabled=true;
     document.getElementById("cb_img_h4").disabled=true;
-    document.getElementById("cb_photos_zoom").disabled=true;
 }
 
 function removeVisual() {

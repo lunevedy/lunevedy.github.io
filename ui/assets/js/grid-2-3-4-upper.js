@@ -9,23 +9,16 @@ document.querySelector("#dd_col_1_width").addEventListener("change", doWidthColO
 function doWidthColOne() {
     let opt = document.querySelector("#dd_col_1_width").value;
 
-    if (opt==="0") {
-        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("col-1-width-960px");
-        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("col-1-width-1140px");
-        iframe.contentWindow.document.querySelector('section .col-1').classList.add("col-1-width-800px");
-    }
-
-    else if (opt==="1") {
-        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("col-1-width-800px");
-        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("col-1-width-1140px");
-        iframe.contentWindow.document.querySelector('section .col-1').classList.add("col-1-width-960px");
+    /* Default content width: 820px */
+    if (opt==="1") {
+        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("w-820px");
+        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("w-1024px");
     }
 
     else if (opt==="2") {
-        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("col-1-width-800px");
-        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("col-1-width-960px");
-        iframe.contentWindow.document.querySelector('section .col-1').classList.add("col-1-width-1140px");
-    }    
+        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("w-820px");
+        iframe.contentWindow.document.querySelector('section .col-1').classList.add("w-1024px");
+    }
 }
 
 /*
@@ -50,7 +43,7 @@ function doColOneAlign() {
         iframe.contentWindow.document.querySelector('section .col-1').classList.remove("text-center");
     }
     else if (selectedValue==="center") {
-        iframe.contentWindow.document.querySelector('section .col-1').classList.add("text-center"); 
+        iframe.contentWindow.document.querySelector('section .col-1').classList.add("text-center");
     }
 }
 
@@ -67,11 +60,11 @@ function doColOneBadge() {
     if (!document.getElementById("cb_col_1_badge").checked) {
         removeColOneBadge();
     }
-    
+
     else {
         removeColOneBadge();
         const newupperBadgeDiv = document.createElement("div");
-        newupperBadgeDiv.classList.add("col-1-badge"); 
+        newupperBadgeDiv.classList.add("col-1-badge");
         iframe.contentWindow.document.querySelector('.col-1').prepend(newupperBadgeDiv);
         iframe.contentWindow.document.querySelector('.col-1 .col-1-badge').innerText = content_header_label_text_col_1;
         iframe.contentWindow.document.querySelector('.col-1').innerHTML = iframe.contentWindow.document.querySelector('.col-1').innerHTML.replace("<div class=\"col-1-badge\">", "\n\t\t\t<div class=\"col-1-badge\">");
@@ -83,7 +76,7 @@ document.querySelector("#form_col_1_badge_shape").addEventListener("change", doC
 
 function doCol1BadgeShape() {
 
-    const objTextBoxes = iframe.contentWindow.document.querySelectorAll(".col-1-badge"); 
+    const objTextBoxes = iframe.contentWindow.document.querySelectorAll(".col-1-badge");
     let el_TextBox
     const rbs = document.querySelectorAll("input[name='switch_col_1_badge_shape']");
     let selectedValue;
@@ -96,13 +89,13 @@ function doCol1BadgeShape() {
     }
 
     if (selectedValue==="square") {
-        for (el_TextBox of objTextBoxes) { 
+        for (el_TextBox of objTextBoxes) {
             el_TextBox.classList.remove("corners-soft");
         }
     }
-        
+
     else if (selectedValue==="soft") {
-        for (el_TextBox of objTextBoxes) { 
+        for (el_TextBox of objTextBoxes) {
             el_TextBox.classList.add("corners-soft");
         }
     }
@@ -117,7 +110,7 @@ function removeColOneBadge() {
         if ( (!iframe.contentWindow.document.querySelector('.col-1 > h2')) && (!iframe.contentWindow.document.querySelector('.col-1 > h3')) && (!iframe.contentWindow.document.querySelector('.col-1-badge')) ) {
             removeColOne();
         }
-        document.getElementById("show-col-1-badge").style.display="none"; 
+        document.getElementById("show-col-1-badge").style.display="none";
 
         const arg1 = sectionClassName+ " .col-1-badge { color:";
         const arg2 = sectionClassName+ " .col-1-badge { background-color:";
@@ -151,7 +144,7 @@ function doColOneH2() {
             currentDiv.prepend(newH2);
         }
         else {
-            iframe.contentWindow.document.querySelector('section'+' .col-1 .col-1-badge').insertAdjacentHTML('afterend', content_header_h2_col_1); 
+            iframe.contentWindow.document.querySelector('section'+' .col-1 .col-1-badge').insertAdjacentHTML('afterend', content_header_h2_col_1);
         }
         document.querySelector("#text-highlight .input-group:nth-child(1)").style.display ="flex";
         document.querySelector("#text-highlight .input-group:nth-child(2)").style.display ="flex";
@@ -196,7 +189,7 @@ function doColOneH2Text() {
     if (!document.getElementById("cb_col_1_h2_highlight").checked) {
         elH2Content = elH2Content.replace(/<\/?span[^>]*>/g,"");
         iframe.contentWindow.document.querySelector('section .col-1 h2').innerHTML = elH2Content;
-        document.getElementById("btn_col_1_h2_highlight").disabled = true;            
+        document.getElementById("btn_col_1_h2_highlight").disabled = true;
         document.getElementById("btn_col_1_h2_highlight").checked = false;
         const arg1 = sectionClassName+ " .col-1 h2 span.highlight { color:";
         removeCSSTagPairs(arg1);
@@ -205,8 +198,8 @@ function doColOneH2Text() {
         const i = elH2Content.indexOf(" ",1);
         const j = elH2Content.lastIndexOf(" ");
         elH2Content = elH2Content.replace(elH2Content.substring(i+1,j), "<span class=\"highlight\">"+elH2Content.substring(i+1,j)+"</span>");
-        iframe.contentWindow.document.querySelector('section .col-1 h2').innerHTML = elH2Content;  
-        document.getElementById("btn_col_1_h2_highlight").disabled = false;            
+        iframe.contentWindow.document.querySelector('section .col-1 h2').innerHTML = elH2Content;
+        document.getElementById("btn_col_1_h2_highlight").disabled = false;
         document.getElementById("btn_col_1_h2_highlight").checked = true;
     }
 }
@@ -276,7 +269,7 @@ function removeColOneH3() {
     if ( (!iframe.contentWindow.document.querySelector('section'+' .col-1 h2')) && (!iframe.contentWindow.document.querySelector('section'+'.col-1 h3')) && (!iframe.contentWindow.document.querySelector('section'+' .col-1-badge')) ) {
         removeColOne();
     }
-  
+
     const arg1 = sectionClassName+ " .col-1 h3 { color:";
     removeCSSTagPairs(arg1);
 }
@@ -295,8 +288,8 @@ function doColOne() {
     }
     else {
         const newUpperBlockDiv = iframe.contentWindow.document.createElement("div");
-        newUpperBlockDiv.classList.add("col-1"); 
-        newUpperBlockDiv.classList.add("text-center"); 
+        newUpperBlockDiv.classList.add("col-1");
+        newUpperBlockDiv.classList.add("text-center");
         iframe.contentWindow.document.querySelector('section').prepend(newUpperBlockDiv);
         iframe.contentWindow.document.querySelector('section .col-1').innerHTML = iframe.contentWindow.document.querySelector('section .col-1').innerHTML.replace('',  content_header_upper_block_col_2_3_4);
         iframe.contentWindow.document.querySelector('section .col-1').innerHTML = iframe.contentWindow.document.querySelector('section .col-1').innerHTML.replace('<div class="col-1 text-center">', '\n\n\t\t<div class="col-1 text-center">');
@@ -352,7 +345,7 @@ function removeColOne() {
         const arg2 = sectionClassName+ " .col-1-badge { background-color:";
         const arg3 = sectionClassName+ " .col-1 h2 { color:";
         const arg4 = sectionClassName+ " .col-1 h2 span.highlight { color:";
-        const arg5 = sectionClassName+ " .col-1 h2.heading-underline::after { background-color:";   
+        const arg5 = sectionClassName+ " .col-1 h2.heading-underline::after { background-color:";
         removeCSSTagPairs(arg1,arg2,arg3,arg4,arg5);
     }
 }
