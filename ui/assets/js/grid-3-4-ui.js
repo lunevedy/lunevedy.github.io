@@ -21,6 +21,17 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             }
         }
 
+        // Get number of columns
+        let colNumber;
+
+        if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
+            colNumber = ".col-3";
+        }
+
+        else {
+            colNumber = ".col-4";
+        }
+
         /* Section background */
         if (btn_id === "btn_section_bg") {
             newStyle = sectionClassName+ " { background-color: var("+color_code+") }\n";
@@ -63,47 +74,46 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             sub_string = "col-1 h3";
         }
 
+        /* Column background */
+        else if (btn_id === "btn_cols_bg") {
+            newStyle = sectionClassName+sectionTheme+ " .cols-background "+colNumber +" { background-color: var("+color_code+") }\n";
+            sub_string = sectionClassName+sectionTheme+ " .cols-background "+colNumber;
+        }
+
         /* Columns badges: text */
         else if (btn_id === "btn_cols_badge_text") {
-            newStyle = sectionClassName+ " .badge { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+" "+colNumber+" .badge { color: var("+color_code+") }\n";
             sub_string = ".badge { color: ";
         }
 
         /* Columns badges: background */
         else if (btn_id === "btn_cols_badge_bg") {
-            newStyle = sectionClassName+ " .badge { background-color: var("+color_code+") }\n";
+            newStyle = sectionClassName+" "+colNumber+" .badge { background-color: var("+color_code+") }\n";
             sub_string = ".badge { background-color: ";
         }
 
         /* Columns subheading */
         else if (btn_id === "btn_cols_h3") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] h3 { color: var("+color_code+") }\n";
-            sub_string = sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] h3";
+            newStyle = sectionClassName+" "+colNumber+" h3 { color: var("+color_code+") }\n";
+            sub_string = sectionClassName+" "+colNumber+" h3 { color:";
         }
 
         /* Column text */
         else if (btn_id === "btn_cols_text") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] p { color: var("+color_code+") }\n" +sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] li { color: var("+color_code+") }\n";
-            sub_string = "div[class^='flex-cols-'] div[class^='col-'] p {";
+            newStyle = sectionClassName+" "+colNumber+" p { color: var("+color_code+") }\n" +sectionClassName+" "+colNumber+" li { color: var("+color_code+") }\n";
+            sub_string = sectionClassName+" "+colNumber+" p { color: ";
         }
 
         /* List marker */
         else if (btn_id === "btn_cols_list_marker") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] li::marker,\n"+sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+" "+colNumber+" li::marker,\n"+sectionClassName+" "+colNumber+" ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
-        }
-
-        /* Column background */
-        else if (btn_id === "btn_cols_bg") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] { background-color: var("+color_code+") }\n";
-            sub_string = "div[class^='flex-cols-'] div[class^='col-'] { background-color";
         }
 
         /* Column borders: colour */
         else if (btn_id === "btn_cols_borders_color") {
-            newStyle = sectionTheme+sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] { border-color: var("+color_code+") }\n";
-            console.log("newStyle: "+newStyle);
-            sub_string = "cols-borders { border-color:"
+            newStyle = sectionClassName+sectionTheme+" "+colNumber+" { border-color: var("+color_code+") }\n";
+            sub_string = "{ border-color:"
         }
 
         /* Column shadows: colour */
@@ -113,28 +123,25 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             let colorValue = styles.getPropertyValue(color_code);
             if (colorValue==="#000") { colorValue="#000000"}
             if (colorValue==="#fff") { colorValue="#ffffff"}
-            console.log("color_code:" +color_code);
-            console.log("colorValue:" +colorValue);
+            // console.log("color_code:" +color_code);
+            // console.log("colorValue:" +colorValue);
 
             const hex2rgba = (hex, alpha = 1) => {
                 const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
                 return `rgba(${r},${g},${b},${alpha})`;
             };
 
-            const strRGB = hex2rgba(colorValue, .4);
-            console.log("strRGB:" +strRGB);
+            const strRGB = hex2rgba(colorValue, 0.9);
 
-            sectionTheme = sessionStorage.getItem("sectionTheme");
-
-            if (sectionTheme ===".theme-light") {
-                newStyle = sectionClassName+" div[class^='flex-cols-'].cols-shadows div[class^='col-'] { box-shadow: "+strRGB+" 4px 10px 16px 0 }\n";
+            if (document.getElementById("cols_shadows_type-1").checked) {
+                newStyle = sectionClassName+" .cols-shadows " +colNumber+" { box-shadow: "+strRGB+" 14px 14px 14px 0 }\n";
             }
-
-            else if (sectionTheme ===".theme-dark") {
-                newStyle = sectionClassName+" div[class^='flex-cols-'].cols-shadows div[class^='col-'] { box-shadow: "+strRGB+" 10px 10px 16px 0 }\n";
+            else if (document.getElementById("cols_shadows_type-2").checked) {
+                newStyle = sectionClassName+" .cols-shadows " +colNumber+" { box-shadow: "+strRGB+" 14px 14px 0 0 }\n";
             }
             sub_string = "cols-shadows";
         }
+
 
         /* === Buttons === */
 
@@ -183,14 +190,14 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Photos overlay textbox color */
         else if (btn_id === "btn_cols_img_overlay_color_text") {
-            newStyle = sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { color: var("+color_code+") }\n";
-            sub_string = "figure.icon";
+            newStyle = sectionClassName+" figure .cols-img-textbox { color: var("+color_code+") }\n";
+            sub_string = ".cols-img-textbox { color:";
         }
 
         /* Photos overlay textbox background color */
         else if (btn_id === "btn_cols_img_overlay_color_bg") {
-            newStyle = sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { background-color: var("+color_code+") }\n";
-            sub_string = "figure.icon";
+            newStyle = sectionClassName+" figure .cols-img-textbox { background-color: var("+color_code+") }\n";
+            sub_string = ".cols-img-textbox { background-color:";
         }
 
         // col h3 hyperlinks

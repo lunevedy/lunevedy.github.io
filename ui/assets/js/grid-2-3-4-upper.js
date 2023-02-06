@@ -1,6 +1,84 @@
 import {content_header_label_text_col_1, content_header_h2_text_col_1, content_header_h2_col_1, content_header_h3_text_col_2_3_4, content_header_upper_block_col_2_3_4} from '../js/arr-content.js';
 
 /*
+//////////////// COL-1: CREATE/REMOVE ///////////////
+*/
+
+document.querySelector("#cb_col_1").addEventListener("change", doColOne);
+
+// Node text h2 and h3 texts
+
+function doColOne() {
+    if (!document.getElementById("cb_col_1").checked) {
+        removeColOne();
+    }
+    else {
+        const newUpperBlockDiv = iframe.contentWindow.document.createElement("div");
+        newUpperBlockDiv.classList.add("col-1");
+        newUpperBlockDiv.classList.add("text-center");
+        newUpperBlockDiv.classList.add("w-820px");
+        iframe.contentWindow.document.querySelector('section').prepend(newUpperBlockDiv);
+        iframe.contentWindow.document.querySelector('section .col-1').innerHTML = iframe.contentWindow.document.querySelector('section .col-1').innerHTML.replace('',  content_header_upper_block_col_2_3_4);
+        iframe.contentWindow.document.querySelector('section .col-1').innerHTML = iframe.contentWindow.document.querySelector('section .col-1').innerHTML.replace('<div class="col-1 text-center w-820px">', '\n\n\t\t<div class="col-1 text-center w-820px">');
+        // Enable properties
+        document.getElementById("cb_col_1").checked=true;
+        document.getElementById("dd_col_1_width").disabled=false;
+        document.getElementById("rb_col_1_align_left").disabled=false;
+        document.getElementById("rb_col_1_align_left").checked=false;
+        document.getElementById("rb_col_1_align_center").disabled=false;
+        document.getElementById("rb_col_1_align_center").checked=true;
+
+        document.getElementById("cb_col_1_badge").disabled=false;
+        document.getElementById("cb_col_1_badge").checked=false;
+        document.getElementById("cb_col_1_h2").disabled=false;
+        document.getElementById("cb_col_1_h2").checked=true;
+        document.getElementById("cb_col_1_h3").disabled=false;
+        document.getElementById("cb_col_1_h3").checked=true;
+        document.getElementById("btn_col_1_h2_text").disabled=false;
+        document.getElementById("btn_col_1_h3_text").disabled=false;
+        document.querySelector("#content-2 .svg-icon-desktop").classList.remove("icon-disabled");
+        document.querySelector("#text-highlight .input-group:nth-child(1)").style.display ="flex";
+        document.querySelector("#text-highlight .input-group:nth-child(2)").style.display ="flex";
+    }
+}
+
+function removeColOne() {
+    if (iframe.contentWindow.document.querySelector('section .col-1')) {
+        const elCol1 = iframe.contentWindow.document.querySelector('section .col-1');
+        elCol1.remove();
+
+        // Disable properties
+        document.getElementById("cb_col_1").checked=false;
+        document.getElementById("rb_col_1_align_left").disabled=true;
+        document.getElementById("rb_col_1_align_left").checked=false;
+        document.getElementById("rb_col_1_align_center").disabled=true;
+        document.getElementById("rb_col_1_align_center").checked=false;
+        document.getElementById("dd_col_1_width").disabled=true;
+        document.querySelector("#content-2 .svg-icon-desktop").classList.add("icon-disabled");
+        document.getElementById("cb_col_1_badge").disabled=true;
+        document.getElementById("cb_col_1_badge").checked=false;
+        document.getElementById("cb_col_1_h2").disabled=true;
+        document.getElementById("cb_col_1_h2").checked=false;
+        document.getElementById("cb_col_1_h3").disabled=true;
+        document.getElementById("cb_col_1_h3").checked=false;
+        document.getElementById("btn_col_1_h2_text").disabled=true;
+        document.getElementById("btn_col_1_h3_text").disabled=true;
+        document.querySelector("#text-highlight .input-group:nth-child(1)").style.display ="none";
+        document.querySelector("#text-highlight .input-group:nth-child(2)").style.display ="none";
+        document.getElementById("cb_col_1_h2_highlight").checked = false;
+        document.getElementById("cb_col_1_h2_border").checked = false;
+
+        const arg1 = sectionClassName+ " .col-1-badge { color:";
+        const arg2 = sectionClassName+ " .col-1-badge { background-color:";
+        const arg3 = sectionClassName+ " .col-1 h2 { color:";
+        const arg4 = sectionClassName+ " .col-1 h2 span.highlight { color:";
+        const arg5 = sectionClassName+ " .col-1 h2.heading-underline::after { background-color:";
+        removeCSSTagPairs(arg1,arg2,arg3,arg4,arg5);
+    }
+}
+
+
+/*
 //////////////// COL-1: COLUMN WIDTH ///////////////
 */
 
@@ -9,9 +87,8 @@ document.querySelector("#dd_col_1_width").addEventListener("change", doWidthColO
 function doWidthColOne() {
     let opt = document.querySelector("#dd_col_1_width").value;
 
-    /* Default content width: 820px */
     if (opt==="1") {
-        iframe.contentWindow.document.querySelector('section .col-1').classList.remove("w-820px");
+        iframe.contentWindow.document.querySelector('section .col-1').classList.add("w-820px");
         iframe.contentWindow.document.querySelector('section .col-1').classList.remove("w-1024px");
     }
 
@@ -274,78 +351,3 @@ function removeColOneH3() {
     removeCSSTagPairs(arg1);
 }
 
-/*
-//////////////// COL-1: CREATE/REMOVE ///////////////
-*/
-
-document.querySelector("#cb_col_1").addEventListener("change", doColOne);
-
-// Node text h2 and h3 texts
-
-function doColOne() {
-    if (!document.getElementById("cb_col_1").checked) {
-        removeColOne();
-    }
-    else {
-        const newUpperBlockDiv = iframe.contentWindow.document.createElement("div");
-        newUpperBlockDiv.classList.add("col-1");
-        newUpperBlockDiv.classList.add("text-center");
-        iframe.contentWindow.document.querySelector('section').prepend(newUpperBlockDiv);
-        iframe.contentWindow.document.querySelector('section .col-1').innerHTML = iframe.contentWindow.document.querySelector('section .col-1').innerHTML.replace('',  content_header_upper_block_col_2_3_4);
-        iframe.contentWindow.document.querySelector('section .col-1').innerHTML = iframe.contentWindow.document.querySelector('section .col-1').innerHTML.replace('<div class="col-1 text-center">', '\n\n\t\t<div class="col-1 text-center">');
-        // Enable properties
-        document.getElementById("cb_col_1").checked=true;
-        document.getElementById("dd_col_1_width").disabled=false;
-        document.getElementById("rb_col_1_align_left").disabled=false;
-        document.getElementById("rb_col_1_align_left").checked=false;
-        document.getElementById("rb_col_1_align_center").disabled=false;
-        document.getElementById("rb_col_1_align_center").checked=true;
-
-        document.getElementById("cb_col_1_badge").disabled=false;
-        document.getElementById("cb_col_1_badge").checked=false;
-        document.getElementById("cb_col_1_h2").disabled=false;
-        document.getElementById("cb_col_1_h2").checked=true;
-        document.getElementById("cb_col_1_h3").disabled=false;
-        document.getElementById("cb_col_1_h3").checked=true;
-        document.getElementById("btn_col_1_h2_text").disabled=false;
-        document.getElementById("btn_col_1_h3_text").disabled=false;
-        document.querySelector("#content-2 .svg-icon-desktop").classList.remove("icon-disabled");
-        document.querySelector("#text-highlight .input-group:nth-child(1)").style.display ="flex";
-        document.querySelector("#text-highlight .input-group:nth-child(2)").style.display ="flex";
-    }
-}
-
-function removeColOne() {
-    if (iframe.contentWindow.document.querySelector('section .col-1')) {
-        const elCol1 = iframe.contentWindow.document.querySelector('section .col-1');
-        elCol1.remove();
-
-        // Disable properties
-        document.getElementById("cb_col_1").checked=false;
-        document.getElementById("rb_col_1_align_left").disabled=true;
-        document.getElementById("rb_col_1_align_left").checked=false;
-        document.getElementById("rb_col_1_align_center").disabled=true;
-        document.getElementById("rb_col_1_align_center").checked=false;
-        document.getElementById("dd_col_1_width").disabled=true;
-        document.querySelector("#content-2 .svg-icon-desktop").classList.add("icon-disabled");
-        document.getElementById("cb_col_1_badge").disabled=true;
-        document.getElementById("cb_col_1_badge").checked=false;
-        document.getElementById("cb_col_1_h2").disabled=true;
-        document.getElementById("cb_col_1_h2").checked=false;
-        document.getElementById("cb_col_1_h3").disabled=true;
-        document.getElementById("cb_col_1_h3").checked=false;
-        document.getElementById("btn_col_1_h2_text").disabled=true;
-        document.getElementById("btn_col_1_h3_text").disabled=true;
-        document.querySelector("#text-highlight .input-group:nth-child(1)").style.display ="none";
-        document.querySelector("#text-highlight .input-group:nth-child(2)").style.display ="none";
-        document.getElementById("cb_col_1_h2_highlight").checked = false;
-        document.getElementById("cb_col_1_h2_border").checked = false;
-
-        const arg1 = sectionClassName+ " .col-1-badge { color:";
-        const arg2 = sectionClassName+ " .col-1-badge { background-color:";
-        const arg3 = sectionClassName+ " .col-1 h2 { color:";
-        const arg4 = sectionClassName+ " .col-1 h2 span.highlight { color:";
-        const arg5 = sectionClassName+ " .col-1 h2.heading-underline::after { background-color:";
-        removeCSSTagPairs(arg1,arg2,arg3,arg4,arg5);
-    }
-}

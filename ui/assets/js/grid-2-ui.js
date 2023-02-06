@@ -1,5 +1,5 @@
 document.querySelector("#picker-box").addEventListener('click', handleLabelClick);
-    
+
     function handleLabelClick(event) {
         event.stopPropagation();
         const label = event.target.closest("label");
@@ -13,7 +13,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             return;
         }
         const rbs = document.querySelectorAll("input[name='picker-radio']");
-    
+
         for (const rb of rbs) {
             if (rb.checked) {
                 color_code = rb.value;
@@ -37,7 +37,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_col_1_badge_bg") {
             newStyle = sectionClassName+ " .col-1-badge { background-color: var("+color_code+") }\n";
             sub_string = "col-1-badge { background-color";
-        }        
+        }
 
         /* .col-1 h2 main heading */
         else if (btn_id === "btn_col_1_h2_text") {
@@ -63,79 +63,74 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             sub_string = "col-1 h3";
         }
 
-        /* Columns badges: text */
-        else if (btn_id === "btn_cols_badge_text") {
-            newStyle = sectionClassName+ " .badge { color: var("+color_code+") }\n";
-            sub_string = ".badge { color: ";
+        /* Column background */
+        else if (btn_id === "btn_cols_bg") {
+            newStyle = sectionClassName+sectionTheme+ " .cols-background .col-2 { background-color: var("+color_code+") }\n";
+            sub_string = ".col-2 { background-color";
+            // Enable soft corners
+            document.getElementById("cb_cols_corners_soft").disabled = false;
+            document.getElementById("cb_cols_corners_soft").checked = false;
         }
-        
+
         /* Columns badges: background */
         else if (btn_id === "btn_cols_badge_bg") {
             newStyle = sectionClassName+ " .badge { background-color: var("+color_code+") }\n";
             sub_string = ".badge { background-color: ";
         }
-        
+
+        /* Columns badges: text */
+        else if (btn_id === "btn_cols_badge_text") {
+            newStyle = sectionClassName+ " .badge { color: var("+color_code+") }\n";
+            sub_string = ".badge { color: ";
+        }
+
         /* Columns subheading */
         else if (btn_id === "btn_cols_h3") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] h3 { color: var("+color_code+") }\n";
-            sub_string = sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] h3";
+            newStyle = sectionClassName+ " .col-2 h3 { color: var("+color_code+") }\n";
+            sub_string = sectionClassName+" .col-2 h3";
         }
-        
+
         /* Column text */
         else if (btn_id === "btn_cols_text") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] p { color: var("+color_code+") }\n" +sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] li { color: var("+color_code+") }\n"; 
-            sub_string = "div[class^='flex-cols-'] div[class^='col-'] p {";
+            newStyle = sectionClassName+ " .col-2 p { color: var("+color_code+") }\n" +sectionClassName+" .col-2 li { color: var("+color_code+") }\n";
+            sub_string = ".col-2 p {";
         }
 
         /* List marker */
         else if (btn_id === "btn_cols_list_marker") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] li::marker, "+sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n"; 
+            newStyle = sectionClassName+ " .col-2 li::marker, "+sectionClassName+ " .col-2 ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
         }
-        
-        /* Column background */
-        else if (btn_id === "btn_cols_bg") {
-            newStyle = sectionClassName+ " div[class^='flex-cols-'] div[class^='col-'] { background-color: var("+color_code+") }\n";
-            sub_string = "div[class^='flex-cols-'] div[class^='col-'] { background-color";
-            // Enable soft corners
-            document.getElementById("cb_cols_corners_soft").disabled = false;
-            document.getElementById("cb_cols_corners_soft").checked = false;
-        }
-        
+
         /* Column borders: colour */
-        else if (btn_id === "btn_cols_borders_color") { 
-            newStyle = sectionTheme+sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] { border-color: var("+color_code+") }\n";
+        else if (btn_id === "btn_cols_borders_color") {
+            newStyle = sectionTheme+sectionClassName+" .col-2 { border-color: var("+color_code+") }\n";
             console.log("newStyle: "+newStyle);
-            sub_string = "cols-borders { border-color:"
-        }            
-        
+            sub_string = "{ border-color:"
+        }
+
         /* Column shadows: colour */
-        else if (btn_id === "btn_cols_shadows_color") { 
-            // get value of color code
+        else if (btn_id === "btn_cols_shadows_color") {
             // get value of color code
             const styles = getComputedStyle(document.documentElement);
             let colorValue = styles.getPropertyValue(color_code);
             if (colorValue==="#000") { colorValue="#000000"}
             if (colorValue==="#fff") { colorValue="#ffffff"}
-            console.log("color_code:" +color_code);
-            console.log("colorValue:" +colorValue);
 
             const hex2rgba = (hex, alpha = 1) => {
                 const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
                 return `rgba(${r},${g},${b},${alpha})`;
             };
 
-            const strRGB = hex2rgba(colorValue, .4);
-            console.log("strRGB:" +strRGB);
+            const strRGB = hex2rgba(colorValue, 0.9);
 
-            sectionTheme = sessionStorage.getItem("sectionTheme");
-
-            if (sectionTheme ===".theme-light") {
-                newStyle = sectionClassName+" div.flex-cols-2.cols-shadows div.col-2 { box-shadow: "+strRGB+" 12px 16px 16px 0 }\n";
+            if (document.getElementById("cols_shadows_type-1").checked) {
+                newStyle = sectionClassName+sectionTheme+" .cols-shadows .col-2 { box-shadow: "+strRGB+" 14px 14px 14px 0 }\n";
+                console.log("Gradient");
             }
-
-            else if (sectionTheme ===".theme-dark") {
-                newStyle = sectionClassName+" div.flex-cols-2.cols-shadows div.col-2 { box-shadow: "+strRGB+" 14px 16px 16px 0 }\n";
+            else if (document.getElementById("cols_shadows_type-2").checked) {
+                newStyle = sectionClassName+sectionTheme+" .cols-shadows .col-2 { box-shadow: "+strRGB+" 14px 14px 0 0 }\n";
+                console.log("Solid");
             }
             sub_string = "cols-shadows";
         }
@@ -218,21 +213,21 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Icons colour */
         else if (btn_id === "btn_icon_color") {
-            newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure.icon { color: var("+color_code+") }\n";
+            newStyle =  sectionClassName+" .col-2 figure.icon { color: var("+color_code+") }\n";
             sub_string = "figure.icon";
         }
 
         /* Photos overlay textbox color */
         else if (btn_id === "btn_cols_img_overlay_color_text") {
-            newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { color: var("+color_code+") }\n";
+            newStyle =  sectionClassName+" .col-2 figure .cols-img-textbox { color: var("+color_code+") }\n";
             sub_string = "figure.icon";
         }
 
         /* Photos overlay textbox background color */
         else if (btn_id === "btn_cols_img_overlay_color_bg") {
-            newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { background-color: var("+color_code+") }\n";
+            newStyle =  sectionClassName+" .col-2 figure .cols-img-textbox { background-color: var("+color_code+") }\n";
             sub_string = "figure.icon";
         }
-        doUpdateArray(sub_string,newStyle);        
+        doUpdateArray(sub_string,newStyle);
     }
 

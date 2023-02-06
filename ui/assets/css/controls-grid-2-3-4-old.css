@@ -1,8 +1,9 @@
-#control-menu #content-1 { left: 68.7% }
-#control-menu #content-2 { left: 68.7% }
-#control-menu #content-3 { left: 64.8% }
-#control-menu #content-4 { left: 59.7% }
-#control-menu #content-5 { left: 62.6% }
+
+#control-menu #content-1 { left: 70.05% } 
+#control-menu #content-2 { left: 71.8% } 
+#control-menu #content-3 { left: 65.9% } 
+#control-menu #content-4 { left: 63.7% }
+#control-menu #content-5 { left: 63.85% }
 
 /* ============ 1: SECTION MAIN OPTIONS ============*/
 
@@ -10,7 +11,7 @@
 #content-1 select#dd_class_name { min-width: 168px }
 #content-1 select#dd_section_width { min-width: 132px }
 
-#content-1 .rb-switch label:first-of-type {
+#content-1 .rb-switch label:first-of-type { 
     border-radius: 4px 0 0 4px; border-width: 1px 0 1px 1px;
 }
 #content-1 .rb-switch label:last-of-type { border-radius: 0 4px 4px 0 }
@@ -28,7 +29,7 @@
 
 
 
-/* ============ 2: TEXT MENU ============ */
+/* ============ 2: UPPER BLOCK MENU ============ */
 
 #content-2 .dialog-box .input-group { margin-bottom: 18px; min-width: 320px }
 #content-2 #label-align { margin-left: 20px; width: 60px; min-width: 60px }
@@ -41,12 +42,11 @@
 #content-2 .dialog-box .input-group { margin-bottom: 22px }
 #content-2 .dialog-box .input-group:last-of-type { margin-bottom: 0 }
 
-
-/* ============ 3: LOWER MENU ============ */
+/* ============ 3: COLUMNS MENU ============ */
 
 #content-3 .dialog-box .input-group > label { min-width: 120px }
 #content-3 .dialog-box .input-group select { min-width: 94px }
-/* #content-3 .dialog-box .input-group button { min-width: 132px; padding: 2px 22px 8px 12px } */
+#content-3 .dialog-box .input-group button { min-width: 132px; padding: 2px 22px 8px 12px }
 #content-3 .dialog-box .input-group:last-child { margin-bottom: 0 !important }
 #content-3 .dialog-box hr { margin-top: -4px; margin-bottom: 18px }
 #content-3 .rb-switch label:first-of-type { border-radius: 4px 0 0 4px; border-right-width: 0 }
@@ -54,11 +54,9 @@
 #content-3 .dialog-box .input-group { margin-bottom: 20px }
 #content-3 .dialog-box .input-group:last-of-type { margin-bottom: 0 }
 
-#content-3 #form_switch_fa_icons label { width: 40px; height: 36px }
-#content-3 #form_switch_fa_icons label span { padding-left: 4px }
-#content-3 #form_switch_fa_icons label span i { color: #fff }
-
-
+#form_switch_fa_icons label { width: 40px; height: 36px }
+#form_switch_fa_icons label span { padding-left: 4px }
+#form_switch_fa_icons label span i { color: #fff }
 
 /* ============ 4: BUTTONS MENU ============ */
 
@@ -66,81 +64,25 @@
 #content-4 .input-group { padding: 4px 6px 4px 8px; margin-bottom: 6px }
 #content-4 .input-group:last-child { margin-bottom: 0 }
 #content-4 input[type="radio"] { margin-right: 10px }
+#content-4 label.shape { display: inline-block; width: 72px }
 #content-4 label { display: inline-block; width: 100px }
+
 #content-4 h4 { font-size: 18px; margin-top: 12px; margin-bottom: 8px; margin-left: 8px }
 #content-4 hr { margin-top: 16px }
 #content-4 #dd_section_buttons { width: 86px }
+#content-4 button { min-width: 138px } 
 
-#content-4 .switch-field,
-#content-4 .dialog-box .input-group .switch-field { display: flex; overflow: hidden }
+#content-4 .rb-switch label { padding: 4px 10px 0px 6px }
 
-#content-4 .dialog-box .switch-field input,
-#content-4 .dialog-box .input-group .switch-field input {
-	position: absolute !important; overflow: hidden;
-	clip: rect(0, 0, 0, 0); height: 1px; width: 1px; border: 0;
-}
+#content-4 .rb-switch label:first-of-type { border-radius: 4px 0 0 4px; border-right-width: 0 }
+#content-4 .rb-switch label:last-of-type  { border-radius: 0 4px 4px 0; border-left-width: 0  }
 
-#content-4 .dialog-box .switch-field label,
-#content-4 .dialog-box .input-group .switch-field label {
-    background-color: var(--gray-400);
-    color: var(--gray-700);  fill: var(--gray-700);
-    font-size: 16px; line-height: 1; text-align: center;
-    padding: 4px 10px 0 6px; margin-right: -1px; font-weight: 600;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    transition: all 0.1s ease-in-out;
-}
+#content-4 .rb-switch input[disabled] + label:last-of-type { border-width: 1px 1px 1px 0 }
 
-#content-4 .dialog-box .switch-field label:hover,
-#content-4 .dialog-box .input-group .switch-field label:hover { cursor: pointer }
-
-#content-4 .dialog-box .switch-field input:checked + label,
-#content-4 .dialog-box .input-group .switch-field input:checked + label {
-    box-shadow: none; background-color: #000;
-    color: var(--gray-200); fill: var(--gray-200) !important;
-}
-
-#content-4 .dialog-box .switch-field label:first-of-type,
-#content-4 .dialog-box .input-group  .switch-field label:first-of-type { border-radius: 4px 0 0 4px }
-
-#content-4 .dialog-box .switch-field label:last-of-type,
-#content-4 .dialog-box .input-group  .switch-field label:last-of-type { border-radius: 0 4px 4px 0 }
-
-#content-4 #rb-horz-left-mobile:checked + label {
-    fill: var(--gray-200) !important;
-}
-#content-4 .rb-switch label:first-of-type {
-    border-radius: 4px 0 0 4px;
-    border-right-width: 1px;
-    padding-top: 0;
-    padding-bottom: 2px;
-}
-
-#content-4 .rb-switch label:last-of-type {
-    border-radius: 0 4px 4px 0;
-    padding-top: 0;
-    padding-bottom: 2px;
-}
-
-#content-4 .input-group.two-col .column.column-wider {
-    width: 47%;
-    min-width: 280px;
-    padding-right: 20px;
-}
-
-#content-4 .controls-top .content .input-group button {
-    font-size: 14px;
-    color: #000;
-    background-color: #00ddff;
-    padding: 0 8px 8px 8px;
-    font-weight: 400;
-    border-radius: 3px;
-    border: solid 1px #00ddff;
-}
 
 /* ============ 5: ILLUSTRATIONS MENU ============ */
 
-#content-5 .dialog-box .flex-two-col {
+#content-5 .dialog-box .flex-two-col { 
     display: flex; justify-content: flex-start; flex-wrap: nowrap;
 }
 
@@ -150,27 +92,27 @@
 #content-5 .flex-two-col div:nth-child(1) .input-group.controls-illustrations label {
     min-width: 92px; margin-top: -6px; margin-right: 8px;
 }
-#content-5 .flex-two-col div:nth-child(1) .input-group.controls-illustrations input {
-    margin-top: 2px
+#content-5 .flex-two-col div:nth-child(1) .input-group.controls-illustrations input { 
+    margin-top: 2px 
 }
 
 #content-5 #form_vis_types { margin-top: 12px; width: 180px }
 #content-5 #form_vis_types label { margin-top: -8px; margin-left: 14px }
-#content-5 #form_vis_types.input-group input [type="radio"] {
+#content-5 #form_vis_types.input-group input [type="radio"] { 
     margin: 5px 0 5px 0;
 }
 
 /* right column */
-#content-5 .flex-two-col div:nth-child(2) h4 { margin-top: 0; margin-bottom: 2px }
+#content-5 .flex-two-col div:nth-child(2) h4 { margin-top: 0; margin-bottom: 2px } 
 
-#content-5 #outer-properties {
+#content-5 #outer-properties { 
     border-style: solid;
     border-width: 1px;
     padding: 12px 12px 10px 16px; min-width: 240px
 }
 
 #content-5 #outer-properties .input-group:nth-child(1) { margin-top: 14px }
-#content-5 #outer-properties .input-group {
+#content-5 #outer-properties .input-group { 
     margin-top: 14px; margin-bottom: 14px; min-width: 200px;
 }
 
@@ -183,10 +125,10 @@
 #content-5 #properties-icons .input-group { margin-top: 22px; margin-bottom: 22px }
 #content-5 #properties-icons .input-group:last-child { margin-bottom: 14px }
 
-#content-5 #btn_icon_color { padding: 0 8px 8px 8px }
+#content-5 #btn_icon_color { padding: 0 8px 8px 8px } 
 #content-5 #btn_icon_color .ui-icon-paint-svg { margin-right: 4px }
 
-#content-5 .rb-switch label:first-of-type { border-radius: 4px }
+#content-5 .rb-switch label:first-of-type { border-radius: 4px 0 0 4px; border-right-width: 0 }
 #content-5 .rb-switch label:last-of-type  { border-radius: 0 4px 4px 0 }
 
 /* .slidecontainer { padding-top: 12px } */
@@ -195,25 +137,25 @@
 .slider {
     -webkit-appearance: none;
     height: 5px;
-    border-radius: 5px;
+    border-radius: 5px; 
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
 }
 
-.container-slider input[type="range"] { accent-color: #03d4f4 }
+.container-slider input[type="range"] { accent-color: #03d4f4 } 
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 15px;
     height: 15px;
-    border-radius: 50%;
+    border-radius: 50%; 
     background: #00ddff;
     cursor: pointer;
 }
-
+  
 .slider::-moz-range-thumb {
     width: 15px;
     height: 15px;

@@ -160,18 +160,39 @@ function doPhotosShadows() {
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_figs;
 
+    // Get number of columns
+    let colNumber;
+    if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
+        colNumber = ".col-2";
+    }
+
+    else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
+        colNumber = ".col-3";
+    }
+
+    else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
+        colNumber = ".col-4";
+    }
+
     if (!document.getElementById("cb_photos_shadows").checked) {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
             el_figs.classList.remove("fig-shadows-box");
         }
+        // Set col to overflow: hidden
+        newStyle = sectionClassName+ " "+colNumber+" { overflow: hidden }\n";
+        sub_string = "overflow: hidden";
     }
+
     else {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
             el_figs.classList.add("fig-shadows-box");
         }
+        newStyle = sectionClassName+ " "+colNumber+" { overflow: visible }\n";
+        sub_string = "overflow: visible";
     }
+    doUpdateArray(sub_string,newStyle);
 }
 
 /* photos: overlay textbox */

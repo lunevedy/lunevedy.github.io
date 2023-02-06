@@ -949,8 +949,8 @@
     border-bottom-color: #9fb1bd;
 }
 
-.theme-ui-dark-blue #content-3 .buttonWrapper button.tab-button.active,
-.theme-ui-dark-blue #content-4 .buttonWrapper button.tab-button.active {
+.theme-ui-dark-blue .buttonWrapper button.tab-button.active,
+.theme-ui-dark-blue .buttonWrapper button.tab-button.active {
     color: #fff;
     border-top-color: #9fb1bd;
     border-left-color: #9fb1bd;
@@ -958,8 +958,8 @@
     border-bottom-color: #0e2439;
 }
 
-.theme-ui-dark-blue #content-3 .contentWrapper .tab-content,
-.theme-ui-dark-blue #content-4 .contentWrapper .tab-content {
+.theme-ui-dark-blue .contentWrapper .tab-content,
+.theme-ui-dark-blue .contentWrapper .tab-content {
     border-left-color: #9fb1bd;
     border-right-color: #9fb1bd;
     border-top-color: #9fb1bd;

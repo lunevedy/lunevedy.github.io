@@ -25,22 +25,6 @@ divs.forEach(el => el.addEventListener('click', event => {
     const elItem_show = document.getElementById("content-"+menuId);
     // Unhide current menu
     elItem_show.classList.remove("dropdown-hidden");
-
-    // if (iframe.contentWindow.document.querySelector('.col-1') ) {
-        // Work with upper block
-        // if (menuId==="2") {
-        //     window.scrollTo(0,0);
-        // }
-        // Work with columns
-        // else if (menuId==="3") {
-        //     iframe.contentWindow.document.querySelector("div[class^='flex-cols-']").scrollIntoView(true);
-        // }
-        // Work with buttons
-        // else if (menuId==="4") {
-        //     window.scrollTo(0,document.body.scrollHeight);
-        // }
-    // }
-    // Hide color picker
     hideSidebar();
 }));
 
