@@ -270,6 +270,8 @@ section > *:last-child, footer > *:last-child { margin-bottom: 0 !important }
 /* Padding around content: mobiles */
 @media (max-width: 767px) { section { padding: 42px 9% 42px 9% } }
 
+/* Maximum width of any section */
+section { max-width: 1920px }
 /* Maximum width for contents of any section */
 section > * { max-width: 1600px }
 
@@ -1322,68 +1324,331 @@ section.cols-2-half > .col-2 { flex-basis: 50% }
 
 
 
+/* ================ HEADER 'HERO BLOCK' ================ */
+
+/* ------------ All headers ---------- */
+
+header {
+    display: flex; flex-direction: column; justify-content: space-around;
+    max-width: 1920px
+}
+
+/* All headers: minimum height */
+@media (min-width: 768px)  {
+    header.desktop-min-height-500px { min-height: 500px }
+    header.desktop-min-height-60vh { min-height: 60vh }
+    header.desktop-min-height-70vh { min-height: 70vh }
+    header.desktop-min-height-80vh { min-height: 80vh }
+    header.desktop-min-height-90vh { min-height: 90vh }
+    header.desktop-min-height-100vh { min-height: 100vh }
+}
+
+/* All headers: container-text */
+header .container-text { position: relative }
+
+@media (min-width: 768px) {
+    header.text-center-desktop .container-text { margin-left: auto; margin-right: auto }
+    header:not(.text-center-desktop) .container-text { margin-left: 0; margin-right: 0 }
+    header.text-center-desktop .container-text.w-50 { width: 50% }
+    header:not(.text-center-desktop) .container-text.text-start-50 { margin-left: 50% }
+}
+
+@media (max-width: 767px) {
+    header.text-center-mobile .container-text { margin-left: auto; margin-right: auto }
+    header:not(.text-center-mobile) .container-text { margin-left: 0; margin-right: 0 }
+}
+
+/* All headers: badge */
+header .badge {
+    font-weight: 700; display: block; padding: 4px 20px;
+    font-size: 100%; letter-spacing: 2px; width: fit-content;
+    margin-left: auto; margin-right: auto;
+    font-size: var(--font-size-sm);
+    margin-left: auto; margin-right: auto
+}
+
+header .badge.corners-soft { border-radius: 16px }
+
+@media (min-width: 768px) {
+    header .badge { margin-bottom: 32px }
+    header:not(.text-center-desktop) .badge { margin-left: 0; margin-right: 0 }
+    header.text-start-center .badge { margin-left: 49.25% }
+}
+
+@media (max-width: 767px) {
+    header .badge { margin-bottom: 24px }
+    header:not(.text-center-mobile) .badge { margin-left: 0; margin-right: 0 }
+}
+
+/* All headers: H1 and H2 text */
+header h1 { font-size: var(--font-size-xxl); line-height: 1.2 }
+
+header h2 { font-size: var(--font-size-lg);
+    font-weight: 500; line-height: 1.3; margin-top: 24px
+}
+
+header h1.text-shadow { text-shadow: 2px 2px 2px var(--gray-800) }
+header h2.text-shadow { text-shadow: 1px 1px 1px var(--gray-800) }
+
+@media (min-width: 1025px) {
+    header h1 { letter-spacing: -2px; line-height: 1.1 }
+    header h2 { letter-spacing: -1px; }
+}
+
+@media (max-width: 1024px) {
+    header h1 { letter-spacing: -1px; }
+    header h2 { letter-spacing: 0; line-height: 1.4 }
+}
+
+@media (min-width: 768px) {
+    header .container-text.w-50 h1 { letter-spacing: -1px }
+    header .container-text.w-50 h2 { letter-spacing: 0 }
+}
+
+/* Bigger screens */
+@media (min-width: 1921px) and (max-width: 2560px) {
+    header h1 { margin-bottom: 1.25% }
+    header .container-text.w-50 h1 { margin-bottom: 4% }
+}
+
+/* Modern desktops/laptops */
+@media (min-width: 1441px) and (max-width: 1920px) {
+    header h1 { margin-bottom: 1.25% }
+    header .container-text.w-50 h1 { margin-bottom: 3% }
+}
+
+/* Regular desktops/laptops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    header h1 { margin-bottom: 1.25% }
+    header .container-text.w-50 h1 { margin-bottom: 5% }
+}
+
+/* Tablets: Landscape */
+@media (min-width: 811px) and (max-width: 1024px) {
+    header h1 { margin-bottom: 1.25% }
+    header .container-text.w-50 h1 { margin-bottom: 8% }
+}
+
+/* Smaller Tablets: Portrait */
+@media (min-width: 600px) and (max-width: 810px) {
+    header h1 { margin-bottom: 1.25% }
+}
+
+/* Mobiles wide */
+@media (min-width: 413px) and (max-width: 599px) {
+    header h1 { margin-bottom: 5% }
+}
+
+/* H2 heading underlines */
+header h1.heading-underline { position: relative }
+
+header h1.heading-underline:after {
+    content:''; position: absolute; top: 100%;
+    width: 6ch; height: 6px; background-color: var(--gray-600);
+}
+
+@media (min-width: 768px) {
+    header h1.heading-underline { margin-bottom: 72px }
+    header h1.heading-underline:after { margin-top: 24px; margin-bottom: 24px }
+}
+
+@media (max-width: 767px) {
+    header h1.heading-underline { margin-bottom: 52px }
+    header h1.heading-underline:after { margin-top: 18px; margin-bottom: 24px }
+}
+
+h1.heading-underline { margin-bottom: 64px }
+h1.heading-underline:after { height: 10px; margin-top: 22px }
+
+@media (min-width: 768px) {
+    header.text-center-desktop h1.heading-underline:after,
+    header.text-center h1.heading-underline:after {
+        margin-left: auto; margin-right: auto;
+    }
+    header:not(.text-center-desktop) h1.heading-underline:after,
+    header:not(.text-center) h1.heading-underline:after {
+        left: 0%;
+        right: 0%;
+    }
+}
+
+@media (max-width: 767px) {
+    header.text-center-mobile h1.heading-underline:after,
+    header.text-center h1.heading-underline:after {
+        margin-left: auto; margin-right: auto;
+    }
+    header:not(.text-center-mobile) h1.heading-underline:after { left: 0; right: 0 }
+    header:not(.text-center) h1.heading-underline:after {
+        left: 0; right: 0
+    }
+}
+
+/* All headers: container-btn */
+
+@media (min-width: 768px) {
+    header .container-btn { margin-top: 48px }
+    header .container-btn.w-50 { width: 50% }
+    header.text-center-desktop .container-btn.w-50 {
+        width: 50%; justify-content: center;
+        margin-left: auto; margin-right: auto
+    }
+    header .container-btn.text-start-50 { margin-left: 50% }
+    header.text-start-center > .container-btn { margin-left: 50% }
+    header:not(.text-center-desktop) > .container-btn.text-center-desktop,
+    header.text-center-desktop > .container-btn.text-center-desktop,
+    header.text-center-desktop > .container-btn { justify-content: center }
+    header:not(.text-center-desktop) .container-btn:not(.text-center-desktop) .container-btn,
+    header:not(.text-center-desktop) .container-btn { justify-content: flex-start }
+}
+
+@media (max-width: 767px) {
+    header .container-btn { margin-top: 48px; /* margin-bottom: 32px */ }
+    header:not(.text-center-mobile) > .container-btn.text-center-mobile,
+    header.text-center-mobile > .container-btn.text-center-mobile,
+    header.text-center-mobile > .container-btn { justify-content: center }
+    header:not(.text-center-mobile) > .container-btn { justify-content: flex-start }
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ============== HEADER BLOCKS ================ */
-
-header.desktop-min-height-500px { min-height: 500px }
-header.desktop-min-height-60vh { min-height: 60vh }
-header.desktop-min-height-70vh { min-height: 70vh }
-header.desktop-min-height-80vh { min-height: 80vh }
-header.desktop-min-height-90vh { min-height: 90vh }
-header.desktop-min-height-100vh { min-height: 100vh }
+/* ============== Header: Single column ============== */
 
 @media (min-width: 768px)  {
     header:not(.hero-bg), header:not(.cols-2-half) { padding: 5% 5% }
+}
+@media (max-width: 767px) {
+    header:not(.hero-bg), header:not(.cols-2-half) { padding: 32px 9% 48px 9% }
+}
+
+/* Height and horizontal/vertical padding */
+@media (min-width: 768px) { header > figure { margin-top: 56px; overflow: visible } }
+@media (max-width: 767px) { header > figure { margin-top: 20px; overflow: visible } }
+
+/* Video widths on desktops/laptops only */
+@media (max-width: 1920px) {
+    /* left-aligned */
+    header.figure-width-100 > figure { width: 130% }
+    /* center-aligned */
+    header.text-center-desktop.figure-width-100 > figure {
+        width: 130%; margin-left: -15%; margin-right: -15%
+    }
+}
+
+@media (min-width: 768px) {
+    header:not(.text-center-desktop) figure { margin-left: 0; margin-right: 0 }
+    header.text-center-desktop figure { margin-left: auto; margin-right: auto }
+}
+
+@media (max-width: 767px) {
+    header figure { margin-top: 32px }
+    header:not(.text-center-mobile) figure { margin-left: 0; margin-right: 0 }
+    header.text-center-mobile figure { margin-left: auto; margin-right: auto }
+}
+
+header figure.w-80 { width: 80% }
+header figure.w-50 { width: 60% }
+header figure.w-120 { width: 120%; margin-left: -10%; margin-right: -10% }
+
+@media (min-width: 768px) { header figure.w-120 { margin-bottom: -6% } }
+@media (max-width: 767px) { header figure.w-120 { margin-bottom: -12% } }
+
+
+/* ============== Header: Two columns ============== */
+
+@media (min-width: 768px)  {
     header.cols-2-half { padding: 0 0 0 0 }
 }
 @media (max-width: 767px) {
-    header:not(.hero-bg), header:not(.cols-2-half) { padding: 32px 5% }
-    header.cols-2-half { padding: 32px 5% 32px 5% }
+    header.cols-2-half { padding: 32px 9% 32px 9% }
 }
 
-/* Padding around header with background image or video */
-@media (min-width: 768px) { header.hero-bg { padding-left: 4%; padding-right: 4% } }
-@media (max-width: 767px) { header.hero-bg { padding-left: 6%; padding-right: 6% } }
+@media (min-width: 768px) { header.cols-2-half { padding: 0 } }
+@media (max-width: 767px) { header.cols-2-half { padding: 0 9% 0 9% } }
+
+header.cols-2-half .col-2.col-text,
+header.cols-2-half .col-2.col-visual,
+header.cols-2-half .col-2.col-visual figure { margin-bottom: 0 !important }
+header.cols-2-half .col-2.col-text h1 {
+    font-size: calc(36px + (58 - 36) * ((100vw - 320px) / (1140 - 320)));
+    margin-bottom: 10px;
+}
+
+header.cols-2-half .col-2.col-text h2 {
+    font-size: calc(22px + (24 - 22) * ((100vw - 320px) / (1140 - 320)));
+    letter-spacing: 0;
+}
+
+@media (max-width: 767px) {
+    header.cols-2-half .col-2.col-text h2 { font-size: calc(20px + 0.390625vw) }
+    header.cols-2-half.text-center-mobile .container-btn {
+        justify-content: center;
+    }
+    header.cols-2-half.text-center-mobile .col-2.col-text .badge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+/* ============== Header: Background image or video ============== */
+
+header.hero-bg { display: flex; flex-direction: column; justify-content: space-around }
+
+@media (min-width: 768px) {
+    header.hero-bg { padding-left: 4%; padding-right: 4% }
+}
+
+@media (max-width: 767px) {
+    header.hero-bg { padding-left: 9%; padding-right: 9% }
+}
+
+/* Text IN FRONT of overlay and full-width image */
+
+header .badge,
+header .container-text,
+header .container-btn { z-index: 3 }
+
+/* Full-width image/video BEHIND text and BEHIND overlay */
+header .container-media {
+    position: absolute; z-index: 1;
+    top: 0; right: 0; bottom: 0; left: 0;
+    overflow: hidden;
+}
+
+/* Image/video completely FILLS hero block */
+header .container-media {
+    display: flex; justify-content: center; align-items: center; overflow: hidden
+}
+
+header .container-media * {
+    position: absolute; height: 100%; width: 100%; object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    header.hero-bg .container-media.push-to-right * { object-position: 10% center }
+    header.hero-bg .container-media.pull-to-left * { object-position: 82% center }
+}
+
+/* On mobiles, only left side of image visible. */
+@media (max-width: 767px) {
+    header .container-media.show-left { justify-content: flex-start }
+}
+
+/* On mobiles, only right side of image visible. */
+@media (max-width: 767px) {
+    header .container-media.show-right { justify-content: flex-end }
+}
+
+/* Overlay BEHIND text and IN FRONT of full-width image */
+.hero-bg .container-overlay {
+    position: absolute; z-index: 2;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-image: linear-gradient(rgba(0,0,0,var(--overlay-opacity)),rgba(0,0,0,var(--overlay-opacity)));
+}
+
+
+
+
+
 
 
 
@@ -1558,6 +1823,21 @@ nav.theme-dark ul.links-wrapper li a.btn-solid:active {
     color: var(--red-500);
 }
 
+header.theme-light .badge { color: #fff; background-color: #000 }
+header.theme-dark .badge { color: #000; background-color: #fff }
+
+
+header .col-text h1 span.highlight,
+header .container-text h1 span.highlight { color: var(--gray-600); }
+
+
+
+
+
+
+
+
+
 
 
 /* ================== BUTTON PAIRS ================ */
@@ -1594,8 +1874,11 @@ section > .container-btn a.btn,
 }
 
 /* Buttons: left-aligned */
-header:not(.text-center-desktop) .container-btn:not(.text-center-desktop) .container-btn,
-section:not(.text-center-mobile) .container-btn:not(.text-center-mobile) .container-btn { justify-content: flex-start }
+section:not(.text-center-mobile) .container-btn:not(.text-center-mobile) .container-btn {   justify-content: flex-start
+}
+
+
+
 
 /* ================ NAV' ================ */
 
@@ -1782,307 +2065,6 @@ nav.theme-dark .nav-toggle .bar-3 { background: #fff }
 .header-after-menu-sticky { margin-top: 72px; padding-top: 72px }
 
 .header-after-menu-sticky.hero-bg { margin-top: 0; padding-top: 144px }
-
-/* ================ HEADER 'HERO BLOCK' ================ */
-
-header.w-1536px { max-width: 1536px; margin-right: auto !important; margin-left: auto }
-
-header.w-1320px { max-width: 1320px; margin-right: auto !important; margin-left: auto }
-
-header.w-1140px { max-width: 1140px; margin-right: auto !important; margin-left: auto }
-
-header { display: flex; flex-direction: column; justify-content: space-around }
-
-@media (min-width: 768px) { header > .container-btn { margin-top: 48px } }
-@media (max-width: 767px) { header > .container-btn { margin-top: 48px; margin-bottom: 32px } }
-
-.container-text { position: relative }
-
-header .container-text .badge {
-    font-weight: 700; display: block; padding: 4px 20px;
-    font-size: 100%; letter-spacing: 2px; width: fit-content;
-    margin-left: auto; margin-right: auto;
-    font-size: calc(14px + (16 - 14) * ((100vw - 320px)/(1920 - 320)));
-}
-
-.theme-light .container-text .badge { color: #fff; background-color: #000 }
-.theme-dark  .container-text .badge { color: #000; background-color: #fff }
-
-header .container-text .badge.corners-soft { border-radius: 16px}
-@media (min-width: 768px) { header .container-text .badge { margin-bottom: 32px } }
-@media (max-width: 767px) { header .container-text .badge { margin-bottom: 24px } }
-
-/* ELEMENTS: Headings */
-@media (min-width: 768px) {
-    header:not(.text-center-desktop) .container-text .badge { margin-left: 0; margin-right: 0 }
-
-    header:not(.text-center-desktop) .container-text {
-        margin-left: 0; margin-right: 0;
-    }
-    header:not(.text-center-desktop) > .container-btn.text-center-desktop,
-    header.text-center-desktop > .container-btn.text-center-desktop { justify-content: center }
-    header.text-center-desktop > .container-btn { justify-content: center }
-    header:not(.text-center-desktop) > .container-btn { justify-content: flex-start }
-    header .container-text.w-50 { width: 50% }
-    header.text-center-desktop .container-text.w-50 {
-        margin-left: auto; margin-right: auto; text-align: center }
-    header .container-btn.w-50 { width: 50% }
-    header .container-text.text-start-50 { margin-left: 50% }
-    header .container-btn.text-start-50 { margin-left: 50% }
-}
-
-@media (max-width: 767px) {
-    header .container-text .badge { margin-left: auto; margin-right: auto }
-    header:not(.text-center-mobile) .container-text .badge { margin-left: 0; margin-right: 0 }
-    header:not(.text-center-mobile) .container-text { margin-left: 0; margin-right: 0 }
-    header.text-center-mobile > .container-text {
-        margin-left: auto; margin-right: auto; text-align: center;
-    }
-    header:not(.text-center-mobile) > .container-btn.text-center-mobile,
-    header.text-center-mobile > .container-btn.text-center-mobile { justify-content: center }
-    header:not(.text-center-mobile) > .container-btn { justify-content: flex-start }
-    header.text-center-mobile > .container-btn { justify-content: center }
-}
-
-header h1 { font-size: calc(44px + (90 - 44) * (100vw - 320px) / (1920 - 320)); line-height: 1.2 }
-header h1.h1-text-long {
-    font-size: calc(32px + (72 - 32) * (100vw - 320px) / (1920 - 320)); line-height: 1.2;
-    letter-spacing: -1px;
-}
-
-header h2 { font-size: calc(22px + (34 - 22) * (100vw - 320px) / (1920 - 320));
-    font-weight: 500; line-height: 1.3; margin-top: 24px
-}
-
-header h1.text-shadow { text-shadow: 2px 2px 2px var(--gray-800) }
-header h2.text-shadow { text-shadow: 1px 1px 1px var(--gray-800) }
-
-@media (min-width: 1025px) {
-    header h1 { letter-spacing: -2px; line-height: 1.1 }
-    header h2 { letter-spacing: -1px; }
-}
-
-@media (max-width: 1024px) {
-    header h1 { letter-spacing: -1px; }
-    header h2 { letter-spacing: 0; line-height: 1.4 }
-}
-
-
-/* == 50% text width desktop == */
-@media (min-width: 768px) {
-    header .container-text.w-50,
-    header .container-btn.w-50  { width: 50% }
-
-    header.text-center-desktop .container-text.w-50,
-    header.text-center-desktop .container-btn.w-50 {
-        width: 50%; justify-content: center;
-        margin-left: auto; margin-right: auto
-    }
-    header .container-text.w-50 h1 { letter-spacing: -1px }
-    header .container-text.w-50 h2 { letter-spacing: 0 }
-}
-
-/* ===== Vertical spacing between heading and sub-heading ==== */
-
-/* Biggest screens */
-@media (min-width: 2561px) {
-    header h1 { margin-bottom: 1.25% }
-    header .text-long h1 { margin-bottom: 2.5% }
-    header .container-text.w-50 h1,
-    header .container-text.w-50 .text-long h1 { margin-bottom: 4% }
-}
-
-/* Bigger screens */
-@media (min-width: 1921px) and (max-width: 2560px) {
-    header h1 { margin-bottom: 1.25% }
-    header .text-long h1 { margin-bottom: 2.5% }
-    header .container-text.w-50 h1,
-    header .container-text.w-50 .text-long h1 { margin-bottom: 4% }
-}
-
-/* Modern desktops/laptops */
-@media (min-width: 1441px) and (max-width: 1920px) {
-    header h1 { margin-bottom: 1.25% }
-    header .text-long h1 { margin-bottom: 2.5% }
-    header .container-text.w-50 h1,
-    header .container-text.w-50 .text-long h1 { margin-bottom: 3% }
-}
-
-/* Regular desktops/laptops */
-@media (min-width: 1025px) and (max-width: 1440px) {
-    header h1 { margin-bottom: 1.25% }
-    header .text-long h1 { margin-bottom: 2.5% }
-    header .container-text.w-50 h1 { margin-bottom: 5% }
-}
-
-/* Tablets: Landscape */
-@media (min-width: 811px) and (max-width: 1024px) {
-    header h1 { margin-bottom: 1.25% }
-    header .text-long h1 { margin-bottom: 2.5% }
-    header .container-text.w-50 h1,
-    header .container-text.w-50 .text-long h1 { margin-bottom: 8% }
-    header .badge + .text-long { margin-top: 7% }
-}
-
-/* Smaller Tablets: Portrait */
-@media (min-width: 600px) and (max-width: 810px) {
-    header h1 { margin-bottom: 1.25% }
-    header .text-long h1 { margin-bottom: 2.5% }
-    header .badge + .text-long { margin-top: 9% }
-}
-
-/* Mobiles wide */
-@media (min-width: 413px) and (max-width: 599px) {
-    header h1 { margin-bottom: 5% }
-    header .text-long h1 { margin-bottom: 6%; line-height: 1.2 }
-    header .badge + .text-long { margin-top: 11% }
-}
-
-/* Mobiles narrow */
-@media (max-width: 412px) {
-    /* header:not)_ h1 { margin-top: 32px; margin-bottom: 5% } */
-    header .text-long h1 { margin-bottom: 6%; line-height: 1.2 }
-    header .badge + .text-long { margin-top: 14% }
-}
-
-/* Start text 50% horizontally */
-@media (min-width: 811px) {
-    header.text-start-center .badge { margin-left: 49.25% }
-    header.text-start-center .container-text,
-    header.text-start-center > .container-btn { margin-left: 50% }
-}
-
-header .col-text h1 span.highlight,
-header .container-text h1 span.highlight { color: var(--gray-600); }
-
-
-/* =========== 'HERO BLOCK': SINGLE-COLUMN VISUAL ========== */
-
-/* Height and horizontal/vertical padding */
-@media (min-width: 768px) { header > figure { margin-top: 56px; overflow: visible } }
-@media (max-width: 767px) { header > figure { margin-top: 42px; overflow: visible } }
-
-
-/* Video widths on desktops/laptops only */
-@media (max-width: 1920px) {
-    /* left-aligned */
-    header.figure-width-100 > figure { width: 130% }
-    /* center-aligned */
-    header.text-center-desktop.figure-width-100 > figure {
-        width: 130%; margin-left: -15%; margin-right: -15%
-    }
-}
-
-@media (min-width: 768px) {
-    header:not(.text-center-desktop) figure { margin-left: 0; margin-right: 0 }
-    header.text-center-desktop figure { margin-left: auto; margin-right: auto }
-}
-
-@media (max-width: 767px) {
-    header:not(.text-center-mobile) figure { margin-left: 0; margin-right: 0 }
-    header.text-center-mobile figure { margin-left: auto; margin-right: auto }
-}
-
-header figure.w-80 { width: 80% }
-header figure.w-50 { width: 60% }
-header figure.w-120 { width: 120%; margin-left: -10%; margin-right: -10% }
-
-@media (min-width: 768px) { header figure.w-120 { margin-bottom: -6% } }
-@media (max-width: 767px) { header figure.w-120 { margin-bottom: -12% } }
-
-/* ====== 'HERO BLOCK': FULL WIDTH IMAGE/VIDEO ====== */
-
-/* Default colours */
-.hero-bg { display: flex; flex-direction: column; justify-content: space-around }
-
-
-/* ====== Stacking order (Z-INDEX) of 'hero block' elements ====== */
-
-/* Text IN FRONT of overlay and full-width image */
-
-header .badge,
-header .container-text,
-header .container-btn { z-index: 3 }
-
-/* Full-width image/video BEHIND text and BEHIND overlay */
-header .container-media {
-    position: absolute; z-index: 1;
-    top: 0; right: 0; bottom: 0; left: 0;
-    overflow: hidden;
-}
-
-/* Full-width image BEHIND text and BEHIND overlay */
-header .container-media {
-    position: absolute; z-index: 1;
-    top: 0; right: 0; bottom: 0; left: 0;
-    overflow: hidden;
-}
-
-/* Image/video completely FILLS hero block */
-header .container-media {
-    display: flex; justify-content: center; align-items: center; overflow: hidden
-}
-
-header .container-media * {
-    position: absolute; height: 100%; width: 100%; object-fit: cover;
-}
-
-@media (max-width: 768px) {
-    header.hero-bg .container-media.push-to-right * { object-position: 10% center }
-    header.hero-bg .container-media.pull-to-left * { object-position: 82% center }
-}
-
-/* On mobiles, only left side of image visible. */
-@media (max-width: 767px) {
-    header .container-media.show-left { justify-content: flex-start }
-}
-
-/* On mobiles, only right side of image visible. */
-@media (max-width: 767px) {
-    header .container-media.show-right { justify-content: flex-end }
-}
-
-/* Headings */
-/* .hero-bg h1, .hero-bg h2 { color: #fff } */
-
-/* Overlay BEHIND text and IN FRONT of full-width image */
-.hero-bg .container-overlay {
-    position: absolute; z-index: 2;
-    top: 0; right: 0; bottom: 0; left: 0;
-    background-image: linear-gradient(rgba(0,0,0,var(--overlay-opacity)),rgba(0,0,0,var(--overlay-opacity)));
-}
-
-
-/* =============  HERO BLOCK: TWO-COLUMN LAYOUT ============ */
-@media (min-width: 768px) { header.cols-2-half { padding: 0 } }
-@media (max-width: 767px) { header.cols-2-half { padding: 0 9% 0 9% } }
-
-
-header.cols-2-half .col-2.col-text,
-header.cols-2-half .col-2.col-visual,
-header.cols-2-half .col-2.col-visual figure { margin-bottom: 0 !important }
-header.cols-2-half .col-2.col-text h1 {
-    font-size: calc(36px + (58 - 36) * ((100vw - 320px) / (1140 - 320)));
-    margin-bottom: 10px;
-}
-
-header.cols-2-half .col-2.col-text h2 {
-    font-size: calc(22px + (24 - 22) * ((100vw - 320px) / (1140 - 320)));
-    letter-spacing: 0;
-}
-
-@media (max-width: 767px) {
-    header.cols-2-half .col-2.col-text h2 { font-size: calc(20px + 0.390625vw) }
-    header.cols-2-half.text-center-mobile .container-btn {
-        justify-content: center;
-    }
-    header.cols-2-half.text-center-mobile .col-2.col-text .badge {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-}
-
 
 
 
@@ -2283,7 +2265,7 @@ div.flex-cols-3 div.col-3 .badge { font-size: 80% }
 div.flex-cols-4 div.col-4 .badge { font-size: 72% }
 
 .theme-light .badge span { color: #fff; background-color: #000 }
-.theme-dark  .badge span { color: #000; background-color: #fff }
+.theme-dark .badge span { color: #000; background-color: #fff }
 
 /* =========== COLUMN IMAGE OVERLAYS ============ */
 
@@ -3051,35 +3033,6 @@ figure.photos-brightness img {
 
 figure.photos-brightness:hover img {
     filter: brightness(105%);
-}
-
-/* H1 heading underlines */
-/* h1.heading-underline,
-h2.heading-underline { position: relative; display: inline-block } */
-
-h1.heading-underline { margin-bottom: 64px }
-h1.heading-underline:after { height: 10px; margin-top: 22px }
-
-@media (min-width: 768px) { h1.heading-underline { margin-bottom: 72px } }
-@media (max-width: 768px) { h1.heading-underline { margin-bottom: 54px } }
-
-header.text-center-desktop h1.heading-underline:after,
-header.text-center-mobile  h1.heading-underline:after {
-    margin-left: auto; margin-right: auto;
-}
-
-header:not(.text-center-desktop) h1.heading-underline:after,
-header:not(.text-center-mobile)  h1.heading-underline:after {
-    margin-left: 0; margin-right: 0;
-}
-
-/* Single column - H2 heading underlines */
-@media (min-width: 768px) {
-    h1.heading-underline { margin-bottom: 72px }
-}
-
-@media (max-width: 767px) {
-    h1.heading-underline { margin-bottom: 52px }
 }
 
 /* Column 2-half - H2 heading underlines (no centering) */
