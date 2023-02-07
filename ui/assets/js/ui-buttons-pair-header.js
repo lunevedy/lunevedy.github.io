@@ -73,15 +73,15 @@ function loadBtnInitial() {
         document.getElementById("dd_buttons_size").value="1";
 
         // Set defaults for button alignment (desktop and mobile)
-        document.getElementById("form_btn_align_desktop").disabled=false;
-        document.getElementById("rb_btn_align_desktop_left").disabled=false;
-        document.getElementById("rb_btn_align_desktop_left").checked = true;;
-        document.getElementById("rb_btn_align_desktop_center").disabled=false;
+        // document.getElementById("form_btn_align_desktop").disabled=false;
+        // document.getElementById("rb_btn_align_desktop_left").disabled=false;
+        // document.getElementById("rb_btn_align_desktop_left").checked = true;
+        // document.getElementById("rb_btn_align_desktop_center").disabled=false;
 
-        document.getElementById("form_btn_align_mobile").disabled=false;
-        document.getElementById("rb_btn_align_mobile_left").disabled=false;
-        document.getElementById("rb_btn_align_mobile_left").checked = true;;
-        document.getElementById("rb_btn_align_mobile_center").disabled=false;
+        // document.getElementById("form_btn_align_mobile").disabled=false;
+        // document.getElementById("rb_btn_align_mobile_left").disabled=false;
+        // document.getElementById("rb_btn_align_mobile_left").checked = true;;
+        // document.getElementById("rb_btn_align_mobile_center").disabled=false;
 
         // Display containers for tabs and settings
         document.querySelector(".container-buttons-block").style.display="block";
@@ -197,15 +197,15 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("dd_buttons_size").value="1";
 
             // Set defaults for button alignment (desktop and mobile)
-            document.getElementById("form_btn_align_desktop").disabled=false;
-            document.getElementById("rb_btn_align_desktop_left").disabled=false;
-            document.getElementById("rb_btn_align_desktop_left").checked = true;;
-            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            // document.getElementById("form_btn_align_desktop").disabled=false;
+            // document.getElementById("rb_btn_align_desktop_left").disabled=false;
+            // document.getElementById("rb_btn_align_desktop_left").checked = true;;
+            // document.getElementById("rb_btn_align_desktop_center").disabled=false;
 
-            document.getElementById("form_btn_align_mobile").disabled=false;
-            document.getElementById("rb_btn_align_mobile_left").disabled=false;
-            document.getElementById("rb_btn_align_mobile_left").checked = true;;
-            document.getElementById("rb_btn_align_mobile_center").disabled=false;
+            // document.getElementById("form_btn_align_mobile").disabled=false;
+            // document.getElementById("rb_btn_align_mobile_left").disabled=false;
+            // document.getElementById("rb_btn_align_mobile_left").checked = true;;
+            // document.getElementById("rb_btn_align_mobile_center").disabled=false;
 
             // Display containers for tabs and settings
             document.querySelector(".container-buttons-block").style.display="block";
@@ -292,14 +292,14 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             document.getElementById("rb_btn_two").disabled=true;
             document.getElementById("rb_btn_two").checked=false;
 
-            document.getElementById("form_btn_align_desktop").disabled=true;
-            document.getElementById("rb_btn_align_desktop_left").disabled=true;
-            document.getElementById("rb_btn_align_desktop_left").checked = false;
-            document.getElementById("rb_btn_align_desktop_center").disabled=true;
-            document.getElementById("form_btn_align_mobile").disabled=true;
-            document.getElementById("rb_btn_align_mobile_left").disabled=true;
-            document.getElementById("rb_btn_align_mobile_left").checked = false;
-            document.getElementById("rb_btn_align_mobile_center").disabled=true;
+            // document.getElementById("form_btn_align_desktop").disabled=true;
+            // document.getElementById("rb_btn_align_desktop_left").disabled=true;
+            // document.getElementById("rb_btn_align_desktop_left").checked = false;
+            // document.getElementById("rb_btn_align_desktop_center").disabled=true;
+            // document.getElementById("form_btn_align_mobile").disabled=true;
+            // document.getElementById("rb_btn_align_mobile_left").disabled=true;
+            // document.getElementById("rb_btn_align_mobile_left").checked = false;
+            // document.getElementById("rb_btn_align_mobile_center").disabled=true;
             document.getElementById("dd_buttons_size").value="1";
 
             // disable, reset dialog box settings for buttons one
@@ -342,62 +342,62 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
 //////////////// BUTTONS COMMON: ALIGN DESKTOP ////////////////////
 */
 
-document.querySelector("#form_btn_align_desktop").addEventListener("change", doButtonsAlignDesktop);
+// document.querySelector("#form_btn_align_desktop").addEventListener("change", doButtonsAlignDesktop);
 
-function doButtonsAlignDesktop() {
+// function doButtonsAlignDesktop() {
 
-    const rbs = document.querySelectorAll("input[name='rb_btn_align_desktop']");
-    let selectedValue;
+//     const rbs = document.querySelectorAll("input[name='rb_btn_align_desktop']");
+//     let selectedValue;
 
-    for (const rb of rbs) {
-        if (rb.checked) {
-            selectedValue = rb.value;
-            break;
-        }
-    }
+//     for (const rb of rbs) {
+//         if (rb.checked) {
+//             selectedValue = rb.value;
+//             break;
+//         }
+//     }
 
-    // Verify button container exists
-    if (iframe.contentWindow.document.querySelector(".container-btn")) {
+//     // Verify button container exists
+//     if (iframe.contentWindow.document.querySelector(".container-btn")) {
 
-        let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
-        if (selectedValue==="left") {
-            elBtns.classList.remove("text-center-desktop");
-        }
-        else if (selectedValue==="center") {
-            elBtns.classList.add("text-center-desktop");
-        }
-    }
-}
+//         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
+//         if (selectedValue==="left") {
+//             elBtns.classList.remove("text-center-desktop");
+//         }
+//         else if (selectedValue==="center") {
+//             elBtns.classList.add("text-center-desktop");
+//         }
+//     }
+// }
 
 /*
 //////////////// BUTTONS COMMON: ALIGN MOBILE  ////////////////////
 */
 
-document.querySelector("#form_btn_align_mobile").addEventListener("change", doButtonsAlignMobile);
+// document.querySelector("#form_btn_align_mobile").addEventListener("change", doButtonsAlignMobile);
 
-function doButtonsAlignMobile() {
+// function doButtonsAlignMobile() {
 
-    const rbs = document.querySelectorAll("input[name='rb_btn_align_mobile']");
-    let selectedValue;
+//     const rbs = document.querySelectorAll("input[name='rb_btn_align_mobile']");
+//     let selectedValue;
 
-    for (const rb of rbs) {
-        if (rb.checked) {
-            selectedValue = rb.value;
-            break;
-        }
-    }
+//     for (const rb of rbs) {
+//         if (rb.checked) {
+//             selectedValue = rb.value;
+//             break;
+//         }
+//     }
 
-    // Verify button container exists
-    if (iframe.contentWindow.document.querySelector(".container-btn")) {
-        let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
-        if (selectedValue==="left") {
-            elBtns.classList.remove("text-center-mobile");
-        }
-        else if (selectedValue==="center") {
-            elBtns.classList.add("text-center-mobile");
-        }
-    }
-}
+//     // Verify button container exists
+//     if (iframe.contentWindow.document.querySelector(".container-btn")) {
+//         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
+//         if (selectedValue==="left") {
+//             elBtns.classList.remove("text-center-mobile");
+//         }
+//         else if (selectedValue==="center") {
+//             elBtns.classList.add("text-center-mobile");
+//         }
+//     }
+// }
 
 /*
 //////////////// BUTTONS COMMON: SIZE ////////////////////

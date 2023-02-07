@@ -229,14 +229,14 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* .container-text .badge text */
         else if (btn_id === "btn_badge_text") {
-            newStyle = "header"+headerTheme+" .container-text .badge { color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .badge { color: var("+color_code+") }\n";
             sub_string = ".badge { color";
             doUpdateArray(sub_string,newStyle);
         }
 
         /* badge background */
         else if (btn_id === "btn_badge_bg") {
-            newStyle = "header"+headerTheme+" .container-text .badge { background-color: var("+color_code+") }\n";
+            newStyle = "header"+headerTheme+" .badge { background-color: var("+color_code+") }\n";
             sub_string = ".badge { background-color";
             doUpdateArray(sub_string,newStyle);
         }

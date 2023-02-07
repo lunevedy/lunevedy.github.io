@@ -299,17 +299,9 @@ function doAlignSectionDesktop() {
     if (iframe.contentWindow.document.querySelector("header")) {
         if (selectedValue==="left") {
             iframe.contentWindow.document.querySelector("header").classList.remove("text-center-desktop");
-            document.getElementById("rb_btn_align_desktop_center").checked=false;
-            document.getElementById("rb_btn_align_desktop_left").checked=true;
-            document.getElementById("rb_btn_align_desktop_center").disabled=false;
-            document.getElementById("rb_btn_align_desktop_left").disabled=false;
         }
         else if (selectedValue==="center") {
             iframe.contentWindow.document.querySelector("header").classList.add("text-center-desktop");
-            document.getElementById("rb_btn_align_desktop_center").checked=true;
-            document.getElementById("rb_btn_align_desktop_center").disabled=false;
-            document.getElementById("rb_btn_align_desktop_left").checked=false;
-            document.getElementById("rb_btn_align_desktop_left").disabled=true;
         }
     }
 
@@ -350,17 +342,9 @@ function doAlignSectionMobile() {
     if (iframe.contentWindow.document.querySelector("header")) {
         if (selectedValue==="left") {
             iframe.contentWindow.document.querySelector("header").classList.remove("text-center-mobile");
-            document.getElementById("rb_btn_align_mobile_center").checked=false;
-            document.getElementById("rb_btn_align_mobile_left").checked=true;
-            document.getElementById("rb_btn_align_mobile_center").disabled=false;
-            document.getElementById("rb_btn_align_mobile_left").disabled=false;
         }
         else if (selectedValue==="center") {
             iframe.contentWindow.document.querySelector("header").classList.add("text-center-mobile");
-            document.getElementById("rb_btn_align_mobile_center").checked=true;
-            document.getElementById("rb_btn_align_mobile_center").disabled=false;
-            document.getElementById("rb_btn_align_mobile_left").checked=false;
-            document.getElementById("rb_btn_align_mobile_left").disabled=true;
         }
     }
 

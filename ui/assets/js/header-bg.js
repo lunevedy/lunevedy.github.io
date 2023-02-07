@@ -500,27 +500,6 @@ function removeBadge() {
     }
 }
 
-/*
-//////////////// MAIN HEADING H1 TEXT LENGTH ///////////////
-*/
-
-document.querySelector("#dd_h1_text_length").addEventListener("change", doH1TextLength);
-
-function doH1TextLength() {
-    let opt = document.querySelector("#dd_h1_text_length").value;
-    let elH1Content = iframe.contentWindow.document.querySelector('.container-text h1').innerHTML;
-
-    if (opt==="0") {
-        iframe.contentWindow.document.querySelector('.container-text h1').classList.remove("h1-text-long");
-        iframe.contentWindow.document.querySelector('.container-text h1').innerHTML = "Our new product";
-    }
-
-    if (opt==="1") {
-        iframe.contentWindow.document.querySelector('.container-text h1').classList.add("h1-text-long");
-        iframe.contentWindow.document.querySelector('.container-text h1').innerHTML = "We design and build successful digital products that people love to use.";
-    }
-}
-
 
 /*
 //////////////// MAIN HEADING H1 HIGHLIGHT TEXT ///////////////
