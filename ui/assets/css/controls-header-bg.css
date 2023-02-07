@@ -178,9 +178,7 @@
     border-top: solid 1px #9fb1bd;
 }
 
-#content-3 .active { background-color: #454946 }
-
-#content-3 .tab-content {
+#content-3 .contentWrapper .tab-content {
     display: none; padding: 20px 12px 20px 10px;
     border-left: solid 1px #9fb1bd;
     border-right: solid 1px #9fb1bd;
