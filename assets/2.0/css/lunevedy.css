@@ -437,7 +437,7 @@ section > figure.img-circle img { border-radius: 50% }
     section > figure > .cols-img-h4 {
         bottom: 20px; left: 36px;
         line-height: 1.2;
-        font-size: calc(28px + (36 - 28) * ((100vw - 320px) / (1140 - 320)))
+        font-size: var(--font-size-sm);
     }
 }
 
@@ -680,7 +680,7 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
 /* .col-1: content inside */
 .col-1-badge {
     font-weight: 700; display: block; padding: 2px 10px;
-    font-size: calc(14px + (16 - 14) * ((100vw - 320px)/(1920 - 320)));
+    font-size: var(--font-size-sm);
     letter-spacing: 2px;
     width: fit-content;
 }
@@ -794,13 +794,9 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
 /* Desktops */
 @media (min-width: 1025px) {
     .flex-cols-2 > .col-2 h3,
-    .flex-cols-2 > .col-2 a.col-2-h3 {
-        font-size: calc(24px + (36 - 24) * ((100vw - 768px) / (1920 - 768)));
-    }
+    .flex-cols-2 > .col-2 a.col-2-h3 { font-size: var(--font-size-md) }
     .flex-cols-2 > .col-2 p,
-    .flex-cols-2 > .col-2 ul li {
-        font-size: calc(18px + (23 - 18) * ((100vw - 768px) / (1920 - 768)));
-    }
+    .flex-cols-2 > .col-2 ul li { font-size: var(--font-size-base) }
     .flex-cols-2 > .col-2 ul li {  margin-left: 18px; padding-left: 12px }
     .flex-cols-2 > .col-2 ul.fa-ul li { margin-left: 22px; padding-left: 10px }
     .flex-cols-2 > .col-2 ul.fa-ul li span.fa-li { transform: translateY(2px) }
@@ -1114,18 +1110,11 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
     }
 
     .mobile-col-2 .col-4 h3,
-    .mobile-col-2 .col-4 .col-4-h3 {
-        font-size: calc(18px + (26 - 18) * ((100vw - 320px) / (1140 - 320)));
-    }
-
+    .mobile-col-2 .col-4 .col-4-h3 { font-size: var(--font-size-base) }
     .mobile-col-2 .col-4 p, .mobile-col-2 .col-4 ul { flex-grow: 1 }
-
-    .mobile-col-2 .col-4 p, .mobile-col-2 .col-4 li {
-        font-size: calc(15px + (20 - 15) * ((100vw - 320px) / (1140 - 320)))
-    }
+    .mobile-col-2 .col-4 p, .mobile-col-2 .col-4 li { font-size: var(--font-size-base) }
     .mobile-col-2 .col-4 ul li span.fa-li i { font-size: 90% }
     .mobile-col-2 .col-4 li { margin-bottom: 6px }
-
     .mobile-col-2 .col-4 a.btn { padding: 8px 11px; font-size: 15px }
     .mobile-col-2 .col-4 a.btn-small { padding: 6px 10px; font-size: 14px }
 }
@@ -1179,7 +1168,7 @@ section.cols-2-half > .col-2 { flex-basis: 50% }
 .cols-2-half .col-2.col-text .badge {
     font-weight: 700; display: block; padding: 2px 10px;
     letter-spacing: 2px;
-    font-size: calc(14px + (16 - 14) * ((100vw - 320px)/(1920 - 320)));
+    font-size: var(--font-size-sm);
     width: fit-content;
 }
 
@@ -1259,22 +1248,15 @@ section.cols-2-half > .col-2 { flex-basis: 50% }
     .cols-2-half .col-2.col-text p, .cols-2-half .col-2.col-text ul { flex-grow: 0 }
 
     .cols-2-half .col-2 h2 {
-        font-size: calc(24px + (36 - 24) * ((100vw - 320px) / (1140 - 320)));
+        font-size: var(--font-size-lg);
         margin-bottom: 20px; letter-spacing: -1px; line-height: 1.2
     }
 
-    .cols-2-half .col-2 h3 {
-        font-size: calc(20px + (24 - 20) * ((100vw - 320px) / (1140 - 320)));
-        margin-top: 32px;
-    }
+    .cols-2-half .col-2 h3 { font-size: var(--font-size-md); margin-top: 32px }
 
     /* Paragraphs and lists */
-    .cols-2-half  .col-2 p, .cols-2-half .col-2 li {
-        font-size: calc(17px + (20 - 17) * ((100vw - 320px) / (1140 - 320)));
-    }
-
+    .cols-2-half  .col-2 p, .cols-2-half .col-2 li { font-size: var(--font-size-base) }
     .cols-2-half .col-2 p { margin-bottom: 16px }
-
     .cols-2-half .col-2 li {
         margin-bottom: 12px; margin-left: 20px; padding-left: 12px;
     }
@@ -1831,15 +1813,6 @@ header .col-text h1 span.highlight,
 header .container-text h1 span.highlight { color: var(--gray-600); }
 
 
-
-
-
-
-
-
-
-
-
 /* ================== BUTTON PAIRS ================ */
 .container-btn { position: relative }
 header > .container-btn,
@@ -1859,11 +1832,15 @@ section > .container-btn a.btn,
     margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0 !important
 }
 
+header.cols-2-half .col-2.col-text .container-btn { margin-top: 32px; margin-bottom: 32px !important }
+
+
 @media (min-width: 768px) {
     header > .container-btn,
     section > .container-btn,
     .col-2.col-text .container-btn { column-gap: 48px }
     .col-3 > .container-btn { column-gap: 24px }
+    .col-2.col-text .container-btn { margin-top: 32px }
 }
 
 @media (max-width: 767px) {
@@ -2025,7 +2002,7 @@ nav.theme-dark .nav-toggle .bar-3 { background: #fff }
         /* min-width: 100%; */
         /* max-height: 100%; */
         text-align: left;
-        font-size: calc(17px + (18 - 17) * ((100vw - 320px)/(1920 - 320)));
+        font-size: var(--font-size-base);
         /* background-color: var(--gray-300); */
         padding: 32px 0 10px 40px;
     }
