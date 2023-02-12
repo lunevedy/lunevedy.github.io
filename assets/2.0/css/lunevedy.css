@@ -4,9 +4,9 @@
 html { height: 100%; font-size: 100%; font: inherit; vertical-align: baseline;
 scroll-behavior: smooth; scroll-padding-top: 20px }
 body { line-height: 1.5; min-height: 100vh }
+img { max-inline-size: 100%; block-size: auto; object-fit: cover; object-position: center }
 @media (max-width: 767px ) { body { text-rendering: optimizeSpeed } }
 @media (min-width: 768px ) { body { text-rendering: optimizeLegibility } }
-img { width: 100%; height: auto; display: block }
 
 
 /* ============ CUSTOM PROPERTIES ============  */
@@ -633,6 +633,7 @@ section figure.figure-overlay::after {
         margin-bottom: 42px;
     }
     div[class^="col-"] figure { margin-bottom: 18px }
+    .cols-2-half .col-2.col-visual figure { margin-bottom: 0 }
     div[class^="col-"] figure.icon i[class^='fa'] { margin-top: 10px; margin-bottom: 18px }
     div[class^="col-"] figure.icon i[class^='la'] { margin-top: 6px; margin-bottom: 18px }
 }
@@ -790,6 +791,10 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
 .cols-gap-2 .col-2 { flex-basis: 49% }
 .cols-gap-3 .col-2 { flex-basis: 47.5% }
 .cols-gap-4 .col-2 { flex-basis: 46% }
+
+.flex-cols-2 .col-2 figure img {
+    width: 100%; height: auto; object-fit: cover;
+}
 
 /* Desktops */
 @media (min-width: 1025px) {
