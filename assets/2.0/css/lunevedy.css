@@ -1209,8 +1209,8 @@ section.cols-2-half > .col-2 { flex-basis: 50% }
 
     /* Visual column */
     .cols-2-half .col-2.col-visual {
-        padding-left: 2.5%;
-        padding-right: 7.5%
+        padding-left: 5%;
+        padding-right: 5%
     }
 
     .cols-2-half.flex-row-reverse .col-2.col-visual {
@@ -1273,7 +1273,7 @@ section.cols-2-half > .col-2 { flex-basis: 50% }
     /* Text column */
     .cols-2-half .col-2.col-text { padding-left: 4%; padding-right: 4% }
      /* Visual column */
-    .cols-2-half .col-2.col-visual { padding-left: 0; padding-right: 4% }
+    .cols-2-half .col-2.col-visual { padding-left: 4%; padding-right: 4% }
 
     /* Rows reversed */
 	.cols-2-half.flex-row-reverse .col-2.col-text {
