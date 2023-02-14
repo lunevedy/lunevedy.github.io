@@ -138,6 +138,78 @@
     border: solid 1px #00ddff;
 }
 
+#content-4 .container-buttons-block {
+    min-width: 400px;
+    margin: 20px auto 0 auto;
+    /* background-color: #454946; */
+    color: #fff;
+}
+
+#content-4 .buttonWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
+    /* background-color: #454946; */
+    min-width: 460px
+}
+
+#content-4 .buttonWrapper > button.tab-button,
+#content-4 .buttonWrapper > button.tab-button:hover,
+#content-4 .buttonWrapper > button.tab-button:focus,
+#content-4 .buttonWrapper > button.tab-button:active {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 16px; letter-spacing: 2px;
+    font-weight: 400;
+    margin-bottom: -1px;
+    z-index: 9; display: inline-block;
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+#content-4 .contentWrapper .input-group button.btn_style {
+    min-width: 148px;
+}
+
+#content-4 .tab-content {
+    display: none; padding: 20px 12px 20px 10px;
+    border-left: solid 1px #9fb1bd;
+    border-right: solid 1px #9fb1bd;
+    border-top: solid 1px #9fb1bd;
+    border-bottom: solid 1px #9fb1bd;
+    position: relative;
+    z-index: 1;
+}
+
+#content-4 .tab-content.active { display: block }
+
+.theme-ui-dark-blue #content-4 .buttonWrapper button.tab-button, .theme-ui-dark-blue #content-4 .buttonWrapper button.tab-button:hover, .theme-ui-dark-blue #content-4 .buttonWrapper button.tab-button:focus, .theme-ui-dark-blue #content-4 .buttonWrapper button.tab-button:active {
+	background-color: var(--dialog-bg);
+	border-top: solid 1ox var(--dialog-bg);
+	border-left: solid 1ox var(--dialog-bg);
+	border-right: solid 1px var(--dialog-bg);
+	border-bottom: solid 1px var(--gray-500);
+	color: var(--gray-500);
+	border-bottom-color: #9fb1bd;
+}
+
+.theme-ui-dark-blue #content-4 .buttonWrapper button.tab-button.active {
+	color: #fff;
+	border-top-color: #9fb1bd;
+	border-left-color: #9fb1bd;
+	border-right-color: #9fb1bd;
+	border-bottom-color: #0e2439;
+	color: #fff;
+	/* background-color: #454946; */
+	border-top: solid 1px var(--gray-500);
+	border-left: solid 1px var(--gray-500);
+	border-right: solid 1px var(--gray-500);
+	/* border-bottom-color: #454946; */
+	border-bottom-color: #1a2f43;
+}
+
 /* ============ 5: ILLUSTRATIONS MENU ============ */
 
 #content-5 .dialog-box .flex-two-col {
