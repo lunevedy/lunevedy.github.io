@@ -52,9 +52,6 @@ function loadBtnInitial() {
     // Create single button in container
     if (document.getElementById("cb_btns").checked) {
         const btnNum = 1;
-        // console.log("Create initial new buttton")
-        // createBtn(objContainer, btnNum);
-
         const el_btn = document.createElement('a');
         el_btn.setAttribute("href", "#");
         el_btn.setAttribute("class", "btn btn-solid");
@@ -155,7 +152,6 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
 
     function createBtn(objContainer,btnNum) {
         if (btnNum == "1") {
-            console.log("Chossen 1 button")
             // Add button container DIV at end of column/section/header container
             const btnDivBtnOne = document.createElement('div');
             btnDivBtnOne.classList.add('container-btn');
@@ -163,17 +159,13 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
 
             if (iframe.contentWindow.document.querySelector("header .col-2.col-text")) {
                 objContainer.append(btnDivBtnOne);
-                console.log("2 column screen");
             }
 
             else {
-                console.log("one column layout");
                 if (iframe.contentWindow.document.querySelector("header > figure")) {
-                    console.log("one column layout - contains a figure")
                     iframe.contentWindow.document.querySelector("header > figure").insertAdjacentHTML("beforebegin", btnDivBtnOne.innerHTML);
                 }
                 else {
-                    console.log("one column layout - no figure")
                     objContainer.append(btnDivBtnOne);
                 }
             }
