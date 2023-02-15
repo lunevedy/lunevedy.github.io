@@ -4,7 +4,7 @@
 html { height: 100%; font-size: 100%; font: inherit; vertical-align: baseline;
 scroll-behavior: smooth; scroll-padding-top: 20px }
 body { line-height: 1.5; min-height: 100vh }
-img { max-inline-size: 100%; block-size: auto; object-fit: cover; object-position: center }
+img { width: 100%; height: auto }
 @media (max-width: 767px ) { body { text-rendering: optimizeSpeed } }
 @media (min-width: 768px ) { body { text-rendering: optimizeLegibility } }
 
@@ -619,7 +619,7 @@ section figure.figure-overlay::after {
     .col-3 ul.fa-ul { margin-left: 8px }
     .col-4 ul.fa-ul { margin-left: 12px }
 
-    .col-2 figure, .col-3 figure, .col-4 figure { width: 100%;  overflow: visible }
+    .col-2 figure, .col-3 figure, .col-4 figure { overflow: visible } /* for shadows */
     .col-2 figure { margin-bottom: 18px }
     .col-3 figure, .col-4 figure { margin-bottom: 26px }
 }
@@ -791,10 +791,6 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
 .cols-gap-2 .col-2 { flex-basis: 49% }
 .cols-gap-3 .col-2 { flex-basis: 47.5% }
 .cols-gap-4 .col-2 { flex-basis: 46% }
-
-.flex-cols-2 .col-2 figure img {
-    width: 100%; height: auto; object-fit: cover;
-}
 
 /* Desktops */
 @media (min-width: 1025px) {
@@ -1688,10 +1684,12 @@ nav.theme-dark ul.links-wrapper li a.btn-solid:active {
 /* Section: Light theme */
 .theme-light { background-color: var(--white-000) }
 .theme-light .col-1-badge { color: #fff; background-color: #000 }
-.theme-light .badge { color: #fff; background-color: #000 }
+.theme-light .badge { background-color: transparent }
 .theme-light h1, .theme-light h2, .theme-light h3,
 .theme-light p, .theme-light li { color: var(--black-000) }
 .theme-light .col-1 h3 { color: var(--slate-700); }
+
+
 
 .theme-light .btn-solid:link,
 .theme-light .btn-solid:link,
@@ -1749,7 +1747,8 @@ nav.theme-dark ul.links-wrapper li a.btn-solid:active {
 /* Section: Dark theme */
 .theme-dark { background-color: var(--black-000) }
 .theme-dark .col-1-badge { color: #000; background-color: #fff }
-.theme-dark .badge { color: #000; background-color: #fff }
+.theme-dark .badge { background-color: transparent }
+
 
 /* .theme-dark h1, .theme-dark h2, .theme-dark h3,
 .theme-dark p, .theme-dark li { color: var(--slate-050) } */
@@ -3001,7 +3000,7 @@ figure.figure-width-full {
 }
 
 @media (max-width: 767px) {
-    div[class^="col-"] figure.fig-shadows-box { margin-bottom: 22px }
+    div[class^="col-"] figure.fig-shadows-box { margin-bottom: 22px; overflow: visible }
 }
 
 figure.photos-zoom { overflow: hidden }
