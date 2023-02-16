@@ -599,47 +599,60 @@ function doTextAnimate() {
     else if (opt==="1") {
         removeTextAnimate();
         iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-slide-up-header");
-        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-up-header");
+        if (iframe.contentWindow.document.querySelector("header > .container-btn")) {
+            iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-up-header");
+        }
     }
 
     else if (opt==="2") {
         removeTextAnimate();
         iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-slide-from-left-header");
-        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-from-left-header");
+        if (iframe.contentWindow.document.querySelector("header > .container-btn")) {
+            iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-from-left-header");
+        }
     }
 
     else if (opt==="3") {
         removeTextAnimate();
         iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-slide-from-right-header");
-        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-from-right-header");
+        if (iframe.contentWindow.document.querySelector("header > .container-btn")) {
+            iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-slide-from-right-header");
+        }
     }
 
     else if (opt==="4") {
         removeTextAnimate();
         iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-fade-in-header");
-        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-fade-in-header");
+        if (iframe.contentWindow.document.querySelector("header > .container-btn")) {
+            iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-fade-in-header");
+        }
     }
 
     else if (opt==="5") {
         removeTextAnimate();
         iframe.contentWindow.document.querySelector("header > .container-text").classList.add("reveal-scale-in-header");
-        iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-scale-in-header");
+        if (iframe.contentWindow.document.querySelector("header > .container-btn")) {
+            iframe.contentWindow.document.querySelector("header > .container-btn").classList.add("reveal-scale-in-header");
+        }
     }
 }
 
 function removeTextAnimate() {
     iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-slide-up-header");
-    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-up-header");
 
     iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-slide-from-left-header");
-    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-from-left-header");
 
     iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-slide-from-right-header");
-    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-from-right-header");
 
     iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-fade-in-header");
-    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-fade-in-header");
 
     iframe.contentWindow.document.querySelector("header > .container-text").classList.remove("reveal-scale-in-header");
-    iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-scale-in-header");
+
+    if (iframe.contentWindow.document.querySelector("header > .container-btn")) {
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-up-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-from-left-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-slide-from-right-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-fade-in-header");
+        iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-scale-in-header");
+    }
 }
