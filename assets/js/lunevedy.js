@@ -1,7 +1,7 @@
 // Check initial viepwort width
 document.addEventListener("DOMContentLoaded", checkViewportWidth);
 
-function checkViewportWidth() {
+ function checkViewportWidth() {
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
     if (document.querySelector('.container-menu')) {
@@ -21,43 +21,55 @@ function checkViewportWidth() {
 window.onresize = checkViewportWidth;
 
 // Show/hide fly-out mobile menu -->
-if (document.querySelector('nav .nav-toggle')) {
-    document.querySelector('nav .nav-toggle').addEventListener('click', toggleMobileMenu);
-  }
+// if (document.getElementById('nav-toggle-btn')) {
+//     document.getElementById('nav-toggle-btn').addEventListener('click', toggleMobileMenu);
+// }
 
-  function toggleMobileMenu() {
-      const elHTML = document.querySelector('html');
-      const elNav = document.querySelector('nav');
-      const navWrapper = document.querySelector(".links-wrapper");
-
-      if (navWrapper.classList.contains("active")) {
-          this.setAttribute("aria-expanded", "false");
-          this.setAttribute("aria-label", "menu");
-          navWrapper.classList.remove("active");
-          elHTML.classList.remove('no-scroll');
-          elNav.classList.remove('menu-on-scroll');
-      }
-      else {
-          navWrapper.classList.add("active");
-          this.setAttribute("aria-label", "close menu");
-          this.setAttribute("aria-expanded", "true");
-          elHTML.classList.add('no-scroll');
-          elNav.classList.add('menu-on-scroll');
-      }
-  }
+document.body.addEventListener( 'click', function ( event ) {
+    if( event.target.id == 'nav-toggle-btn' ) {
+        toggleMobileMenu(event);
+    };
+});
 
 
+function toggleMobileMenu(event) {
+    console.log("got here")
+    event.stopPropagation();
+    const elHTML = document.querySelector('html');
+    const elNav = document.querySelector('nav');
+    const navWrapper = document.querySelector(".links-wrapper");
+
+    if (navWrapper.classList.contains("active")) {
+        navWrapper.setAttribute("aria-expanded", "false");
+        navWrapper.setAttribute("aria-label", "menu");
+        navWrapper.classList.remove("active");
+        elHTML.classList.remove('no-scroll');
+        elNav.classList.remove('menu-on-scroll');
+    }
+
+    else {
+        navWrapper.classList.add("active");
+        navWrapper.setAttribute("aria-label", "close menu");
+        navWrapper.setAttribute("aria-expanded", "true");
+        elHTML.classList.add('no-scroll');
+        elNav.classList.add('menu-on-scroll');
+    }
+}
 
 
 // On-scroll colours
+window.addEventListener("scroll", scrollCheckColors);
 
-if (document.querySelector('nav')) {
-    window.onscroll = function() {swapMenuStyle()};
-}
+function scrollCheckColors() {
 
-if (document.querySelector('nav')) {
-    const el_menu = document.querySelector('nav');
-    const el_menu_onscroll = el_menu.offsetTop +300;
+    if (document.querySelector('nav')) {
+        window.onscroll = function() {swapMenuStyle()};
+    }
+
+    if (document.querySelector('nav')) {
+        const el_menu = document.querySelector('nav');
+        const el_menu_onscroll = el_menu.offsetTop +300;
+    }
 }
 
 function swapMenuStyle() {

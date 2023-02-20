@@ -305,7 +305,7 @@ section > h2 {
     section > h2.bigger-mobile { font-size: var(--font-size-xxl) }
 }
 
-section > h2 span.highlight { color: var(--gray-600); }
+section h2 span.highlight { color: var(--gray-600); }
 
 /* H2 heading underlines */
 section > h2.heading-underline { position: relative }
@@ -633,7 +633,6 @@ section figure.figure-overlay::after {
         margin-bottom: 42px;
     }
     div[class^="col-"] figure { margin-bottom: 18px }
-    .cols-2-half .col-2.col-visual figure { margin-bottom: 0 }
     div[class^="col-"] figure.icon i[class^='fa'] { margin-top: 10px; margin-bottom: 18px }
     div[class^="col-"] figure.icon i[class^='la'] { margin-top: 6px; margin-bottom: 18px }
 }
@@ -1120,146 +1119,143 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
     .mobile-col-2 .col-4 a.btn-small { padding: 6px 10px; font-size: 14px }
 }
 
-
-
-
-/* ============= TWO COLUMNS, HEADER & SECTION: HALF TEXT AND BLEEDING VISUAL ============ */
-
-@media (max-width: 767px) {
-    .col-2.col-text { margin-bottom: 0  !important }
-}
-
-@media (min-width: 768px) {
-    .col-2.col-text .container-btn { margin-top: 40px }
-}
-
-@media (max-width: 767px) {
-    .col-2.col-text .container-btn { margin-top: 32px }
-}
-
-@media (max-width: 767px) {
-    .cols-2-half .col-2 h3, .cols-2-half a.col-2-h3 {
-        font-size: calc(22px + 0.390625vw) }
-}
-
-
-@media (max-width: 767px) {
-    .col-2 h3, .cols-2-half .col-2 h3,
-    .cols-2-half a.col-2-h3 { font-size: calc(22px + 0.390625vw) }
-}
+/* ============= TWO COLUMNS SPLIT SECTION: HALF TEXT AND BLEEDING VISUAL ============ */
 
 /* All viewports */
-@media (min-width: 768px)  {
-    section.cols-2-half > * { max-width: 2560px ! important }
-    section.cols-2-half {
-        padding-top: 0 !important;
-        padding-right: 0 !important;
-        padding-bottom: 0 !important;
-        padding-left: 0 !important;
-    }
-    section.cols-2-half > .col-2.col-visual > figure { margin-bottom: 0px }
-}
-
-section.cols-2-half > .col-2 { flex-basis: 50% }
-
-.cols-2-half { position: relative }
-.cols-2-half .col-2.col-visual figure { overflow: visible }
+section.cols-2-half { position: relative }
 
 /* badge */
-.cols-2-half .col-2.col-text .badge {
+section .col-text .badge {
     font-weight: 700; display: block; padding: 2px 10px;
     letter-spacing: 2px;
     font-size: var(--font-size-sm);
     width: fit-content;
 }
 
-.cols-2-half .col-2.col-text .badge.corners-soft {
+section .col-text .badge.corners-soft {
     border-radius: 16px; padding-left: 14px; padding-right: 14px
 }
 
+/* headings */
+section .col-text h2 {
+    font-size: var(--font-size-xl); letter-spacing: -1px; line-height: 1.2
+}
+
+section .col-text h3 { font-size: var(--font-size-md) }
+
+section .col-text h2.heading-underline { position: relative;
+    margin: 0 0 52px 0
+}
+
+section .col-text h2.heading-underline:after {
+    position: absolute; left: 0; right: 0; top: 100%;
+    content: ''; width: 6ch; height: 6px;
+    background-color: var(--gray-600);
+    margin: 18px 0 12px 0;
+}
+
 /* Lists */
-.cols-2-half .col-2-text ul.fa-ul li span.fa-li { transform: translateY(2px) }
+section .col-text ul.fa-ul li span.fa-li { transform: translateY(2px) }
+
+/* buttons */
+section .col-text .container-btn {
+    margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0 !important;
+    justify-content: flex-start
+}
+
+@media (min-width: 768px) {
+    section .col-text .container-btn { margin-top: 32px }
+    section .col-text .container-btn { column-gap: 48px }
+}
+
+@media (max-width: 767px) {
+    section .col-text .container-btn { margin-top: 32px }
+    section .col-text .container-btn { column-gap: 30px }
+}
+
+/* Image and video */
+section .col-visual figure { overflow: visible }
+section .col-visual figure img,
+section .col-visual figure video { display: block }
 
 /* Desktops */
-@media (min-width: 768px) {
+@media (min-width: 768px)  {
     /* section */
-	.cols-2-half { display: flex; flex-direction: row; flex-wrap: wrap }
-    /* Both columns */
-	.cols-2-half .col-2.col-text,
-    .cols-2-half .col-2.col-visual {
+    section.cols-2-half {
+        padding-top: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    /* both columns */
+    section.cols-2-half { display: flex; flex-direction: row; flex-wrap: wrap }
+    section.cols-2-half .col-2 { flex-basis: 50% }
+    section.cols-2-half .col-text,
+    section.cols-2-half .col-visual {
         display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: center;
         max-width: 50%; padding-top: 5%; padding-bottom: 5%
     }
 
-     /* Text column */
-    .cols-2-half .col-2.col-text {
-        padding-left: 5%;
-        padding-right: 5%
-    }
+    /* text column */
+    section .col-text { padding-left: 5%; padding-right: 5% }
+    section.flex-row-reverse .col-text { order: 2 }
 
-    .cols-2-half.flex-row-reverse .col-2.col-text {
-        padding-left: 2.5%;
-        padding-right: 5%;
-        order: 2;
-    }
+    /* badge */
+    section .col-text .badge { margin-bottom: 32px }
 
-    /* Visual column */
-    .cols-2-half .col-2.col-visual {
-        padding-left: 5%;
-        padding-right: 5%
-    }
+    /* headings */
+    section .col-text h2 { margin-bottom: 20px }
+    section .col-text h3 { margin-top: 24px }
 
-    .cols-2-half.flex-row-reverse .col-2.col-visual {
-        padding-left: 5%;
-        padding-right: 5%;
-        order: 1;
-    }
+    /* Paragraphs and lists */
+    section .col-text p,
+    section .col-text ul { flex-grow: 0 }
+
+    section .col-text p, .cols-2-half .col-text li { font-size: var(--font-size-base) }
+    section .col-text p { margin-bottom: 16px }
+    section .col-text li { margin-bottom: 12px; margin-left: 20px; padding-left: 12px }
+
+    /* button */
+    section .col-text .container-btn { margin-top: 40px }
+
+    /* visual column */
+    section .col-visual { padding-left: 5%; padding-right: 5% }
+    section.flex-row-reverse .col-visual { order: 1 }
+    section .col-visual > figure { margin-bottom: 0px }
+    section .visual figure.fig-shadows-trans { margin-bottom: 0 }
+
 
     /* visual bleed: outside edge */
-    .cols-2-half .col-2.col-visual.desktop-bleed-outside {
+    section .col-visual.desktop-bleed-outside {
         padding-right: 0; min-width: 50%
     }
-    .cols-2-half.flex-row-reverse .col-2.col-visual.desktop-bleed-outside {
+    section.flex-row-reverse .col-visual.desktop-bleed-outside {
         padding-left: 0; min-width: 50%
     }
 
     /* visual bleed: all edges */
-    .cols-2-half .col-2.col-visual.desktop-bleed-all,
-    .cols-2-half.flex-row-reverse .col-2.col-visual.desktop-bleed-all {
+    section .col-visual.desktop-bleed-all,
+    section.flex-row-reverse .col-visual.desktop-bleed-all {
         padding: 0; min-width: 50%; overflow: hidden
     }
 
-    .cols-2-half .col-2.col-visual.desktop-bleed-all figure,
-    .cols-2-half.flex-row-reverse .col-2.col-visual.desktop-bleed-all figure {
+    section .col-visual.desktop-bleed-all figure,
+    section.flex-row-reverse .col-visual.desktop-bleed-all figure {
         position: absolute; top: 0; bottom: 0; overflow: hidden;
+        position: relative; width: 100%; height: 100%; display: block;
     }
 
-    .cols-2-half .col-2.col-visual.desktop-bleed-all figure { left: 0; right: 0 }
+    section .col-visual.desktop-bleed-all figure { left: 0; right: 0 }
 
-    .cols-2-half.flex-row-reverse .col-2.col-visual.desktop-bleed-all figure { left: 0; right: 50% }
+    section.flex-row-reverse .col-visual.desktop-bleed-all figure {
+        left: 0; right: 0%
+    }
 
-    .cols-2-half .col-2.col-visual.desktop-bleed-all figure *,
-    .cols-2-half.flex-row-reverse .cols-2-half .col-2.col-visual.desktop-bleed-all figure * {
+    section .col-visual.desktop-bleed-all figure *,
+    section.flex-row-reverse .col-visual.desktop-bleed-all figure * {
         width: 100%; max-width: 100%; height: 100%; display: inline-block;
         object-fit: cover; object-position: center;
-    }
-
-    /* Text column */
-    .cols-2-half .col-1-badge { margin-bottom: 32px }
-    .cols-2-half .col-2.col-text p, .cols-2-half .col-2.col-text ul { flex-grow: 0 }
-
-    .cols-2-half .col-2 h2 {
-        font-size: var(--font-size-lg);
-        margin-bottom: 20px; letter-spacing: -1px; line-height: 1.2
-    }
-
-    .cols-2-half .col-2 h3 { font-size: var(--font-size-md); margin-top: 32px }
-
-    /* Paragraphs and lists */
-    .cols-2-half  .col-2 p, .cols-2-half .col-2 li { font-size: var(--font-size-base) }
-    .cols-2-half .col-2 p { margin-bottom: 16px }
-    .cols-2-half .col-2 li {
-        margin-bottom: 12px; margin-left: 20px; padding-left: 12px;
     }
 }
 
@@ -1267,41 +1263,46 @@ section.cols-2-half > .col-2 { flex-basis: 50% }
 @media (min-width: 768px) and (max-width: 1024px) {
 
     /* Text column */
-    .cols-2-half .col-2.col-text { padding-left: 4%; padding-right: 4% }
+    section .col-text { padding-left: 4%; padding-right: 4% }
      /* Visual column */
-    .cols-2-half .col-2.col-visual { padding-left: 4%; padding-right: 4% }
+    section .col-visual { padding-left: 4%; padding-right: 4% }
 
     /* Rows reversed */
-	.cols-2-half.flex-row-reverse .col-2.col-text {
+	section.flex-row-reverse .col-text {
         padding-left: 4%; padding-right: 4%; order: 2;
     }
-    .cols-2-half.flex-row-reverse .col-2.col-visual {
+    section.flex-row-reverse .col-visual {
         padding-left: 4%; padding-right: 4%; order: 1;
     }
 }
 
 /* Mobiles */
 @media (max-width: 767px) {
-    .cols-2-half {
+    section.cols-2-half {
         display: flex; flex-direction: column; flex-wrap: nowrap;
         justify-content: flex-start; gap: 32px;
     }
+    section .col-text { margin-bottom: 0  !important }
+    section .col-text .container-btn { margin-top: 32px }
 
     /* default: visual column above text column */
-    .cols-2-half .col-2.col-text { order: 2 }
-    .cols-2-half .col-2.col-visual { order: 1 }
+    section .col-text { order: 2 }
+    section .col-visual { order: 1 }
+    section.flex-column-reverse { flex-direction: column-reverse }
+    section.flex-column-reverse .col-2.col-visual { margin-bottom: 32px !important }
 
     /* Text column */
-    .cols-2-half .col-1-badge { margin-bottom: 20px }
+    section .col-text .badge { margin-bottom: 22px }
 
-    .cols-2-half > .col-2.col-text > h2 { margin-bottom: 16px }
-    .cols-2-half > .col-2.col-text > h3 { margin-top: 14px }
+    section .col-text h2 { margin-bottom: 6px }
+    section .col-text h3 { margin-top: 26px }
 
-    /* Visual column */
-    .cols-2-half .col-2.col-visual.mobile-bleed-edges {
+    /* visual column */
+    section .col-visual.mobile-bleed-edges {
         padding-left: 0 !important; padding-right: 0 !important;
         text-align: center; width: 120%; margin-left: -10%; margin-right: -10%;
     }
+    section .col-visual figure { margin-bottom: 0 }
 }
 
 
@@ -1535,41 +1536,201 @@ header figure.w-120 { width: 120%; margin-left: -10%; margin-right: -10% }
 @media (max-width: 767px) { header figure.w-120 { margin-bottom: -12% } }
 
 
-/* ============== Header: Two columns ============== */
+/* ============== Header: Two-column split ============== */
 
+/* All viewports */
+header.cols-2-half { position: relative }
+
+/* badge */
+header .col-text .badge {
+    font-weight: 700; display: block; padding: 2px 10px;
+    letter-spacing: 2px;
+    font-size: var(--font-size-sm);
+    width: fit-content;
+}
+
+header .col-text .badge.corners-soft {
+    border-radius: 16px; padding-left: 14px; padding-right: 14px
+}
+
+/* headings */
+header .col-text h1 {
+    font-size: var(--font-size-xxl); letter-spacing: -1px; line-height: 1.2
+}
+
+header .col-text h1.heading-underline { position: relative;
+    margin: 0 0 52px 0
+}
+
+header .col-text h1.heading-underline:after {
+    position: absolute; left: 0; right: 0; top: 100%;
+    content: ''; width: 6ch; height: 6px;
+    background-color: var(--gray-600);
+    margin: 18px 0 12px 0;
+}
+
+header .col-text h2 { font-size: var(--font-size-md); letter-spacing: 0 }
+
+/* Lists */
+header .col-text ul.fa-ul li span.fa-li { transform: translateY(2px) }
+
+/* buttons */
+header .col-text .container-btn {
+    margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0 !important;
+    justify-content: flex-start
+}
+
+@media (min-width: 768px) {
+    header .col-text .container-btn { margin-top: 32px }
+    header .col-text .container-btn { column-gap: 48px }
+}
+
+@media (max-width: 767px) {
+    header .col-text .container-btn { margin-top: 32px }
+    header .col-text .container-btn { column-gap: 30px }
+}
+
+/* Image and video */
+header .col-visual figure { overflow: visible }
+header .col-visual figure img,
+header .col-visual figure video { display: block }
+
+/* Desktops */
 @media (min-width: 768px)  {
-    header.cols-2-half { padding: 0 0 0 0 }
-}
-@media (max-width: 767px) {
-    header.cols-2-half { padding: 32px 9% 32px 9% }
-}
-
-@media (min-width: 768px) { header.cols-2-half { padding: 0 } }
-@media (max-width: 767px) { header.cols-2-half { padding: 0 9% 0 9% } }
-
-header.cols-2-half .col-2.col-text,
-header.cols-2-half .col-2.col-visual,
-header.cols-2-half .col-2.col-visual figure { margin-bottom: 0 !important }
-header.cols-2-half .col-2.col-text h1 {
-    font-size: calc(36px + (58 - 36) * ((100vw - 320px) / (1140 - 320)));
-    margin-bottom: 10px;
-}
-
-header.cols-2-half .col-2.col-text h2 {
-    font-size: calc(22px + (24 - 22) * ((100vw - 320px) / (1140 - 320)));
-    letter-spacing: 0;
-}
-
-@media (max-width: 767px) {
-    header.cols-2-half .col-2.col-text h2 { font-size: calc(20px + 0.390625vw) }
-    header.cols-2-half.text-center-mobile .container-btn {
-        justify-content: center;
+    /* header */
+    header.cols-2-half {
+        padding-top: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
     }
-    header.cols-2-half.text-center-mobile .col-2.col-text .badge {
-        margin-left: auto;
-        margin-right: auto;
+
+    /* both columns */
+    header.cols-2-half { display: flex; flex-direction: row; flex-wrap: wrap }
+    header.cols-2-half .col-2 { flex-basis: 50% }
+    header.cols-2-half .col-text,
+    header.cols-2-half .col-visual {
+        display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: center;
+        max-width: 50%; padding-top: 5%; padding-bottom: 5%
+    }
+
+    /* text column */
+    header .col-text { padding-left: 5%; padding-right: 5% }
+    header.flex-row-reverse .col-text { order: 2 }
+
+    /* badge */
+    header .col-text .badge { margin-bottom: 32px }
+
+    /* headings */
+    header .col-text h2 { margin-bottom: 20px }
+    header .col-text h3 { margin-top: 24px }
+
+    /* Paragraphs and lists */
+    header .col-text p,
+    header .col-text ul { flex-grow: 0 }
+
+    header .col-text p, .cols-2-half .col-text li { font-size: var(--font-size-base) }
+    header .col-text p { margin-bottom: 16px }
+    header .col-text li { margin-bottom: 12px; margin-left: 20px; padding-left: 12px }
+
+    /* button */
+    header .col-text .container-btn { margin-top: 40px }
+
+    /* visual column */
+    header .col-visual { padding-left: 5%; padding-right: 5% }
+    header.flex-row-reverse .col-visual { order: 1 }
+    header .col-visual figure { margin-bottom: 0px }
+    header .visual figure.fig-shadows-trans { margin-bottom: 0 }
+
+    /* visual bleed: outside edge */
+    header .col-visual.desktop-bleed-outside {
+        padding-right: 0; min-width: 50%
+    }
+    header.flex-row-reverse .col-visual.desktop-bleed-outside {
+        padding-left: 0; min-width: 50%
+    }
+
+    /* visual bleed: all edges */
+    header .col-visual.desktop-bleed-all,
+    header.flex-row-reverse .col-visual.desktop-bleed-all {
+        padding: 0; min-width: 50%; overflow: hidden
+    }
+
+    header .col-visual.desktop-bleed-all figure,
+    header.flex-row-reverse .col-visual.desktop-bleed-all figure {
+        position: absolute; top: 0; bottom: 0; overflow: hidden;
+        position: relative; width: 100%; height: 100%; display: block;
+    }
+
+    header .col-visual.desktop-bleed-all figure { left: 0; right: 0 }
+
+    header.flex-row-reverse .col-visual.desktop-bleed-all figure {
+        left: 0; right: 0%
+    }
+
+    header .col-visual.desktop-bleed-all figure *,
+    header.flex-row-reverse .col-visual.desktop-bleed-all figure * {
+        width: 100%; max-width: 100%; height: 100%; display: inline-block;
+        object-fit: cover; object-position: center;
     }
 }
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* Text column */
+    header .col-text { padding-left: 4%; padding-right: 4% }
+     /* Visual column */
+    header .col-visual { padding-left: 4%; padding-right: 4% }
+
+    /* Rows reversed */
+	header.flex-row-reverse .col-text {
+        padding-left: 4%; padding-right: 4%; order: 2;
+    }
+    header.flex-row-reverse .col-visual {
+        padding-left: 4%; padding-right: 4%; order: 1;
+    }
+}
+
+/* Mobiles */
+@media (max-width: 767px) {
+    header.cols-2-half {
+        display: flex; flex-direction: column; flex-wrap: nowrap;
+        justify-content: flex-start; gap: 32px;
+        padding: 42px 9% 20px 9%;
+    }
+
+    /* default: visual column above text column */
+    header .col-text { order: 2 }
+    header .col-visual { order: 1 }
+
+    header.flex-column-reverse { flex-direction: column-reverse }
+    header.flex-column-reverse .col-2.col-visual { margin-bottom: 32px !important }
+
+    /* Text column */
+    header .col-text { margin-bottom: 0 !important }
+    header .col-text h2 { margin-bottom: 6px }
+    header .col-text h3 { margin-top: 26px }
+
+    header .col-text .badge { margin-bottom: 22px }
+    header.text-center-mobile .col-text .badge { margin-left: auto; margin-right: auto }
+    header .col-text .container-btn { margin-top: 32px }
+    header.text-center-mobile .col-text .container-btn { justify-content: center; }
+
+    /* visual column */
+    header .col-visual { margin-bottom: 0 !important }
+    header .col-visual figure { margin-top: 0 }
+    header .col-visual.mobile-bleed-edges {
+        padding-left: 0 !important; padding-right: 0 !important;
+        text-align: center; width: 120%; margin-left: -10%; margin-right: -10%;
+    }
+    header .col-visual figure { margin-bottom: 0 }
+}
+
+
+
+
+
 
 
 /* ============== Header: Background image or video ============== */
@@ -1631,7 +1792,7 @@ header .container-media * {
 
 
 
-
+/* nav { z-index: 2 } */
 
 
 
@@ -1809,9 +1970,13 @@ nav.theme-dark ul.links-wrapper li a.btn-solid:active {
     color: var(--red-500);
 }
 
+.theme-light .badge { color: #fff; background-color: #000 }
+.theme-light .badge span { color: #fff; background-color: #000 }
+.theme-dark .col-2 .badge  { color: #000; background-color: #fff }
+.theme-dark .badge span { color: #000; background-color: #fff }
+
 header.theme-light .badge { color: #fff; background-color: #000 }
 header.theme-dark .badge { color: #000; background-color: #fff }
-
 
 header .col-text h1 span.highlight,
 header .container-text h1 span.highlight { color: var(--gray-600); }
@@ -1831,7 +1996,6 @@ section > .container-btn,
 
 header > .container-btn a.btn,
 section > .container-btn a.btn,
-.col-2.col-text .container-btn,
 .col-3 .container-btn {
     margin-top: 0; margin-left: 0; margin-right: 0; margin-bottom: 0 !important
 }
@@ -1841,16 +2005,13 @@ header.cols-2-half .col-2.col-text .container-btn { margin-top: 32px; margin-bot
 
 @media (min-width: 768px) {
     header > .container-btn,
-    section > .container-btn,
-    .col-2.col-text .container-btn { column-gap: 48px }
+    section > .container-btn { column-gap: 48px }
     .col-3 > .container-btn { column-gap: 24px }
-    .col-2.col-text .container-btn { margin-top: 32px }
 }
 
 @media (max-width: 767px) {
     header > .container-btn,
     section > .container-btn,
-    .col-2.col-text .container-btn { column-gap: 30px }
     .col-3 .container-btn { column-gap: 16px }
 }
 
@@ -2226,27 +2387,27 @@ div[class^='col-'] figure.icon-left { text-align: left }
 }
 
 
-/* ========== COLUMN BADGES ============= */
-
-div[class*="flex-cols-"] div[class^='col-'] .badge,
-.col-2.col-text .badge {
-    margin-bottom: 14px;
+div.flex-cols-2 div.col-2 .badge {
     font-weight: 700;
+    display: inline-block;
+    padding: 2px 10px;
     letter-spacing: 2px;
-    padding: 4px 14px;
+    font-size: var(--font-size-sm);
     width: fit-content;
+    margin-bottom: 20px;
 }
 
-@media (min-width: 768px) { header .col-2.col-text .badge { margin-bottom: 42px } }
-@media (max-width: 767px) { header .col-2.col-text .badge { margin-bottom: 32px } }
 
-section .col-2.col-text .badge { margin-bottom: 24px }
+div.flex-cols-4 div.col-4 .badge {
+    font-weight: 700;
+    display: inline-block;
+    padding: 2px 10px;
+    letter-spacing: 2px;
+    font-size: var(--font-size-sm);
+    width: fit-content;
+    margin-bottom: 20px;
+}
 
-div.flex-cols-3 div.col-3 .badge { font-size: 80% }
-div.flex-cols-4 div.col-4 .badge { font-size: 72% }
-
-.theme-light .badge span { color: #fff; background-color: #000 }
-.theme-dark .badge span { color: #000; background-color: #fff }
 
 /* =========== COLUMN IMAGE OVERLAYS ============ */
 
@@ -2362,8 +2523,13 @@ a.col-2-h3, a.col-3-h3, a.col-4-h3 {
 .theme-light div[class^='col-'] a.col-[class^='col-']:active { color: var(--red-400) }
 
 /* H3 hyperlinks */
+
+.col-3 a.col-3-h3 { font-size: var(--font-size-md)}
+.col-4 a.col-4-h3 { font-size: var(--font-size-base)}
+
 @media (min-width: 768px) {
     .col-2 a.col-2-h3, .col-3 a.col-3-h3, .col-4 a.col-4-h3 {
+        font-weight: 700;
         margin-bottom: 16px;
         text-decoration-thickness: 2px; text-underline-offset: 9px;
     }
@@ -3016,19 +3182,6 @@ figure.photos-brightness:hover img {
     filter: brightness(105%);
 }
 
-/* Column 2-half - H2 heading underlines (no centering) */
-@media (min-width: 768px) {
-    .col-2.col-text h1.heading-underline,
-    .col-2.col-text h2.heading-underline { margin: 0 0 52px 0 }
-    .col-2.col-text h1.heading-underline:after,
-    .col-2.col-text h2.heading-underline:after { width: 32%; margin: 18px 0 12px 0 }
-}
 
-@media (max-width: 767px) {
-    .col-2.col-text h1.heading-underline,
-    .col-2.col-text h2.heading-underline { margin: 0 0 52px 0 }
-    .col-2.col-text h1.heading-underline:after,
-    .col-2.col-text h2.heading-underline:after { width: 40%; margin: 18px 0 12px 0 }
-}
 
 
