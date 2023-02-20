@@ -48,11 +48,15 @@
         <div>
             <a href="../../index.html"><img src="../../ui/assets/img/website-logo.png"></a>
             <a href="../../index.html" id="back">&lt; &nbsp;Layouts</a>
-            <!-- <span style="color:#fff">Work with: </span>&nbsp;&nbsp;
+
+            <button id="btn-nav-add-remove">Add menu</button>&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <span style="color:#fff" id="work-with">Work with: </span>&nbsp;&nbsp;
+
             <select id="dd_actions">
                 <option value="0" selected="selected">Hero Block</option>
                 <option value="1">Menu</option>
-            </select> -->
+            </select>
         </div>
 
         <ul id="ui-menus">
@@ -70,7 +74,7 @@
 
                     <div class="dialog-box">
 
-                        <div class="input-group">
+                        <!-- <div class="input-group">
                             <label>Max. Width</label>
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewbox="0 0 20 20" version="1.1" class="svg-icon-desktop">
                             <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 18.332031 1.109375 L 1.667969 1.109375 C 0.746094 1.109375 0 1.855469 0 2.777344 L 0 13.886719 C 0 14.808594 0.746094 15.554688 1.667969 15.554688 L 8.332031 15.554688 L 7.777344 17.222656 L 5.277344 17.222656 C 4.816406 17.222656 4.445312 17.59375 4.445312 18.054688 C 4.445312 18.515625 4.816406 18.886719 5.277344 18.886719 L 14.722656 18.886719 C 15.179688 18.886719 15.554688 18.515625 15.554688 18.054688 C 15.554688 17.59375 15.179688 17.222656 14.722656 17.222656 L 12.222656 17.222656 L 11.664062 15.554688 L 18.332031 15.554688 C 19.25 15.554688 20 14.808594 20 13.890625 L 20 2.777344 C 20 1.855469 19.253906 1.109375 18.332031 1.109375 Z M 17.777344 13.332031 L 2.222656 13.332031 L 2.222656 3.332031 L 17.777344 3.332031 Z M 17.777344 13.332031 "/></svg>
@@ -82,7 +86,7 @@
                             </select>
                         </div>
 
-                        <hr>
+                        <hr> -->
 
                         <div class="input-group" style="margin-bottom: 16px">
 
@@ -639,7 +643,7 @@
                                         <h4>PROPERTIES</h4>
 
                                             <div class="input-group" id="box-shape-photo">
-                                                <label for="dd_shape_photo" style="width: 88px">Shape</label>
+                                                <label for="dd_shape_photo" style="width: 76px">Shape</label>
                                                 <select id="dd_shape_photo" style="letter-spacing: 1px">
                                                     <option value="1" selected="selected">Landscape</option>
                                                     <option value="2">Portrait</option>
@@ -2751,7 +2755,10 @@
             document.getElementById("color-transparent").style.display="none";
 
             // nav or header
-            // document.getElementById("dd_actions").value="0";
+            document.getElementById("dd_actions").style.display="none";
+            document.getElementById("work-with").style.display="none";
+            document.getElementById("dd_actions").value="0";
+
             document.getElementById("rb_nav_theme_light").checked = true;
             document.getElementById("dd_cta_button_type").value = "0";
             document.getElementById("dd_cta_button_shape").value = "0";
@@ -2768,7 +2775,7 @@
 
 
             // Layout
-            document.getElementById("dd_header_width").value = "0";
+            // document.getElementById("dd_header_width").value = "0";
             document.getElementById("rb_theme_light").checked = true;
             document.getElementById("rb_align_mobile_center").checked = true;
             document.getElementById("cb_badge").checked = false;
@@ -2871,6 +2878,7 @@
             document.getElementById("dd_source_video").value = '1';
         });
     </script>
+
 
 
 </body>

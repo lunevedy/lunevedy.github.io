@@ -50,11 +50,15 @@
             <div>
                 <a href="../../index.html"><img src="../../ui/assets/img/website-logo.png"></a>
                 <a href="../../index.html" id="back">&lt; &nbsp;Layouts</a>
-                <!-- <span style="color:#fff">Work with: </span>&nbsp;&nbsp;
+
+                <button id="btn-nav-add-remove">Add menu</button>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span style="color:#fff" id="work-with">Work with: </span>&nbsp;&nbsp;
+
                 <select id="dd_actions">
                     <option value="0" selected="selected">Hero Block</option>
                     <option value="1">Menu</option>
-                </select> -->
+                </select>
             </div>
 
             <ul id="ui-menus">
@@ -2720,7 +2724,10 @@
             // document.getElementById("color-transparent").style.display="none";
 
             // nav or header
-            // document.getElementById("dd_actions").value="0";
+            document.getElementById("dd_actions").style.display="none";
+            document.getElementById("work-with").style.display="none";
+            document.getElementById("dd_actions").value="0";
+
             document.getElementById("rb_nav_theme_light").checked = true;
             document.getElementById("dd_cta_button_type").value = "0";
             document.getElementById("dd_cta_button_shape").value = "0";
