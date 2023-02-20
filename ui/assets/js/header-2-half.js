@@ -4,6 +4,32 @@ import {content_header_label_hero, content_h2_col_2_header, content_lists_col_2_
 //////////////// MENUS AND DROPDOWNS ///////////////
 */
 
+document.getElementById("btn-nav-add-remove").addEventListener("click", showHideMenu);
+
+function showHideMenu() {
+    if (document.getElementById("dd_actions").style.display == "none") {
+        document.getElementById("dd_actions").style.display= "block";
+        document.getElementById("work-with").style.display= "block";
+        document.getElementById("btn-nav-add-remove").innerText = "Remove menu";
+
+        const el_body = iframe.contentWindow.document.querySelector('#HTML-Content');
+        const el_header = iframe.contentWindow.document.querySelector('header');
+        const el_nav = document.createElement('nav');
+        el_nav.setAttribute("class", "theme-light");
+        el_nav.innerHTML = "<div class=\"container-menu\">\n\t<a href=\"#\" class=\"brand\">\n\t\t<img src=\"../../ui/assets/img/website-logo-sample.png\" alt=\"Sample website logo\">\n\t</a>\n\n\t<div class=\"container-menu-links\">\n\n\t\t<div class=\"nav-toggle\" id =\"nav-toggle-btn\">\n\t\t\t<div class=\"bar-1\"></div>\n\t\t\t<div class=\"bar-2\"></div>\n\t\t\t<div class=\"bar-3\"></div>\n\t\t</div>\n\n\t\t<ul class=\"links-wrapper\">\n\t\t\t<li><a href=\"#\">Home</a></li>\n\t\t\t<li><a href=\"#\">About</a></li>\n\t\t\t<li><a href=\"#\">Products</a></li>\n\t\t\t<li><a href=\"#\">Services</a></li>\n\t\t\t<li><a class=\"btn btn-solid\" id=\"btn-cta\" href=\"#\"><span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"></i></a></li>\n\t\t</ul>\n\t</div></div>";
+        el_body.prepend(el_nav);
+    }
+    else {
+        document.getElementById("dd_actions").style.display= "none";
+        document.getElementById("work-with").style.display= "none";
+        document.getElementById("btn-nav-add-remove").innerText = "Add menu";
+        const el_nav= iframe.contentWindow.document.querySelector('nav');
+        el_nav.remove();
+        iframe.contentWindow.document.querySelector('.header-after-menu-sticky').classList.remove("header-after-menu-sticky");
+    }
+}
+
+
 if (document.querySelector("#dd_actions")) {
     document.querySelector("#dd_actions").addEventListener("change", displayActions);
 }

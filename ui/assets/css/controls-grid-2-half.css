@@ -1,7 +1,7 @@
 #control-menu #content-1 { left: 69.8% }
 #control-menu #content-2 { left: 70.5% }
-#control-menu #content-3 { left: 60.85% }
-#control-menu #content-4 { left: 63.7% }
+#control-menu #content-3 { left: 59.6% }
+#control-menu #content-4 { left: 62.9% }
 
 
 /* ============ 1: SECTION MAIN OPTIONS ============*/
@@ -20,7 +20,7 @@
 
 #content-1 .dialog-box #btn_section_bg_solid,
 #content-1 .dialog-box #btn_section_bg_gradient {
-    padding: 6px 12px 10px 12px; min-width: 92px; width: 92px;
+    padding: 6px 12px 10px 12px; min-idth: 92px; width: 92px;
 }
 
 #form-bg-gradient-section-direction label { width: 42px }
@@ -227,6 +227,9 @@
 }
 
 /* right column */
+
+#dd_shape_photo { min-width: 110px }
+
 #content-4 .flex-two-col div:nth-child(2) h4 { margin-top: 0; margin-bottom: 2px }
 
 #content-4 #outer-properties {

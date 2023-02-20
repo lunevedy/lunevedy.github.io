@@ -6,7 +6,7 @@ import {content_buttons_one_icon, content_buttons_one_text, content_buttons_pair
 
 const tabs = document.querySelector(".buttonWrapper");
 const tabButton = document.querySelectorAll(".tab-button");
-      
+
 tabs.onclick = e => {
 const id = e.target.id;
 if (id) {
@@ -37,15 +37,15 @@ document.querySelector("#cb_col_btns").addEventListener("change", loadBtnInitial
 
 function loadBtnInitial() {
     const objSection = iframe.contentWindow.document.querySelector("section ");
-    
+
     // Create single button in all cols
     if (document.getElementById("cb_col_btns").checked) {
         const btnDiv = document.createElement('div');
         const iconBtn = content_buttons_one_icon;
         const textBtn = content_buttons_one_text;
         btnDiv.classList.add('container-btn');
-        objSection.innerHTML = objSection.innerHTML += 
-            "<div class=\"container-btn\">\n\t\t\t\t<a href=\"#\" class=\"btn btn-solid\"><span>"+textBtn+"<\/span>"+iconBtn+"</a>\n\t\t\t</div>"; 
+        objSection.innerHTML = objSection.innerHTML +=
+            "<div class=\"container-btn\">\n\t\t\t\t<a href=\"#\" class=\"btn btn-solid\"><span>"+textBtn+"<\/span>"+iconBtn+"</a>\n\t\t\t</div>";
 
         // enable dialog box settings for all buttons
         document.getElementById("rb_btn_one").disabled=false;
@@ -77,7 +77,7 @@ function loadBtnInitial() {
         document.getElementById("cb_buttons_uppercase_1").checked=false;
     }
 
-    // remove all buttons from columns 
+    // remove all buttons from columns
     else {
         const objAllBtns = iframe.contentWindow.document.querySelector("section .container-btn");
         objAllBtns.remove();
@@ -131,7 +131,7 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
     function doButtonsPair() {
         const rbs = document.querySelectorAll("input[name='buttons_pair']");
         let selectedValue;
-    
+
         for (const rb of rbs) {
             if (rb.checked) {
                 selectedValue = rb.value;
@@ -152,16 +152,16 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             const iconBtn = content_buttons_one_icon;
             const textBtn = content_buttons_one_text;
             btnDiv.classList.add('container-btn');
-            objSection.innerHTML = objSection.innerHTML += 
-                "<div class=\"container-btn\">\n\t\t\t\t<a href=\"#\" class=\"btn btn-solid\"><span>"+textBtn+"<\/span>"+iconBtn+"</a>\n\t\t\t</div>"; 
-       
+            objSection.innerHTML = objSection.innerHTML +=
+                "<div class=\"container-btn\">\n\t\t\t\t<a href=\"#\" class=\"btn btn-solid\"><span>"+textBtn+"<\/span>"+iconBtn+"</a>\n\t\t\t</div>";
+
             // enable dialog box settings for all buttons
             document.getElementById("rb_btn_one").disabled=false;
             document.getElementById("rb_btn_one").checked=true;
             document.getElementById("rb_btn_two").disabled=false;
             document.getElementById("dd_buttons_size").disabled=false;
             document.getElementById("dd_buttons_size").value="1";
-    
+
             // enable dialog box settings for buttons one
             document.querySelector(".container-buttons-block").style.display="block";
             document.getElementById("button_1").style.display="inline-block";
@@ -187,8 +187,8 @@ document.querySelector("#form_buttons_pair").addEventListener("change", doButton
             const iconBtn2 = content_buttons_pair_icon_2;
             const textBtn2 = content_buttons_pair_text_2;
             btnDiv.classList.add('container-btn');
-            objSection.innerHTML = objSection.innerHTML += 
-                "<div class=\"container-btn\">\n<a href=\"#\" class=\"btn btn-solid\"><span>"+textBtn1+"</span>"+iconBtn1+"<\/a>\n<a class=\"btn btn-outline\" href=\"#\"><span>"+textBtn2+"</span>"+iconBtn2+"</a></div>"; 
+            objSection.innerHTML = objSection.innerHTML +=
+                "<div class=\"container-btn\">\n<a href=\"#\" class=\"btn btn-solid\"><span>"+textBtn1+"</span>"+iconBtn1+"<\/a>\n<a class=\"btn btn-outline\" href=\"#\"><span>"+textBtn2+"</span>"+iconBtn2+"</a></div>";
             // enable dialog box options for button two
             document.getElementById("rb_btn_one").disabled=false;
             document.getElementById("rb_btn_two").disabled=false;
@@ -217,7 +217,7 @@ function doButtonsAlignDesktop() {
 
     const rbs = document.querySelectorAll("input[name='rb_btn_align_desktop']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -225,8 +225,8 @@ function doButtonsAlignDesktop() {
         }
     }
 
-    // Verify button container exists 
-    if (iframe.contentWindow.document.querySelectorAll(".container-btn")) {  
+    // Verify button container exists
+    if (iframe.contentWindow.document.querySelectorAll(".container-btn")) {
 
         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
         if (selectedValue==="left") {
@@ -248,7 +248,7 @@ function doButtonsAlignMobile() {
 
     const rbs = document.querySelectorAll("input[name='rb_btn_align_mobile']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -256,8 +256,8 @@ function doButtonsAlignMobile() {
         }
     }
 
-    // Verify button container exists 
-    if (iframe.contentWindow.document.querySelector(".container-btn")) {      
+    // Verify button container exists
+    if (iframe.contentWindow.document.querySelector(".container-btn")) {
         let elBtns = iframe.contentWindow.document.querySelector(".container-btn");
         if (selectedValue==="left") {
             elBtns.classList.remove("text-center-mobile");
@@ -279,7 +279,7 @@ function doButtonsSize() {
     const objBtns = iframe.contentWindow.document.querySelectorAll('section .container-btn a.btn');
 
     // Small
-    if (opt==="0") { 
+    if (opt==="0") {
         // Loop through buttons
         objBtns.forEach(btn => {
             btn.classList.remove("btn-large");
@@ -287,22 +287,22 @@ function doButtonsSize() {
         });
     }
     // Regular
-    else if (opt==="1") { 
+    else if (opt==="1") {
         // Loop through buttons
         objBtns.forEach(btn => {
             btn.classList.remove("btn-small");
             btn.classList.remove("btn-large");
         });
     }
-    
+
     // Large
-    else if (opt==="2") { 
+    else if (opt==="2") {
         // Loop through buttons
         objBtns.forEach(btn => {
             btn.classList.remove("btn-small");
             btn.classList.add("btn-large");
         });
-    }    
+    }
 }
 
 /*
@@ -320,14 +320,14 @@ function doButtonType1() {
     if (opt==="0") {
         el_btn.classList.remove("btn-outline");
         el_btn.classList.remove("btn-plain");
-        el_btn.classList.add("btn-solid"); 
+        el_btn.classList.add("btn-solid");
         document.getElementById("cb_buttons_shadow_1").disabled=false;
         document.getElementById("dd_button_type_1").disabled=false;
         document.getElementById("btn_cols_bg_passive_1").disabled=false;
         document.getElementById("btn_cols_border_passive_1").disabled=false;
         document.getElementById("btn_cols_bg_active_1").disabled=false;
-        document.getElementById("btn_cols_border_active_1").disabled=false; 
-        document.getElementById("btn_cols_bg_passive_1").disabled=false; 
+        document.getElementById("btn_cols_border_active_1").disabled=false;
+        document.getElementById("btn_cols_bg_passive_1").disabled=false;
     }
 
     // Outline
@@ -378,7 +378,7 @@ function doButtonType2() {
         document.getElementById("btn_cols_bg_passive_2").disabled=false;
         document.getElementById("btn_cols_border_passive_2").disabled=false;
         document.getElementById("btn_cols_bg_active_2").disabled=false;
-        document.getElementById("btn_cols_border_active_2").disabled=false;       
+        document.getElementById("btn_cols_border_active_2").disabled=false;
     }
 
     // Outline
@@ -418,7 +418,7 @@ function swapButtonIcons_1() {
 
     const rbs = document.querySelectorAll("input[name='btns_icons_position_1']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -437,12 +437,12 @@ function swapButtonIcons_1() {
         // Icon at left. Text at right.
         el_btn.innerHTML = icon_left;
     }
-    
+
     else if (selectedValue==="right") {
         // Text left. Icon at right.
         el_btn.innerHTML = icon_right;
     }
-    
+
     else if (selectedValue==="none") {
         // Only text, No icons.
         el_btn.innerHTML = icon_none;
@@ -459,7 +459,7 @@ function swapButtonIcons_2() {
 
     const rbs = document.querySelectorAll("input[name='btns_icons_position_2']");
     let selectedValue;
-    
+
     for (const rb of rbs) {
         if (rb.checked) {
             selectedValue = rb.value;
@@ -472,17 +472,17 @@ function swapButtonIcons_2() {
     const icon_left  ="<i class=\"fas fa-arrow-right\"></i><span>Learn more</span>";
     const icon_right ="<span>Learn more</span><i class=\"fas fa-arrow-right\"></i>";
     const icon_none = "<span>Learn more</span>";
-    
+
     if (selectedValue==="left") {
         // Icon at left. Text at right.
         el_btn.innerHTML = icon_left;
     }
-    
+
     else if (selectedValue==="right") {
         // Text left. Icon at right.
         el_btn.innerHTML = icon_right;
     }
-    
+
     else if (selectedValue==="none") {
         // Only text, No icons.
         el_btn.innerHTML = icon_none;

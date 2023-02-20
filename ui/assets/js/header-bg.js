@@ -4,6 +4,30 @@ import { content_header_label_text_col_1, content_header_h2_text } from '../js/a
 //////////////// MENUS AND DROPDOWNS ///////////////
 */
 
+document.getElementById("btn-nav-add-remove").addEventListener("click", showHideMenu);
+
+function showHideMenu() {
+    if (document.getElementById("dd_actions").style.display == "none") {
+        document.getElementById("dd_actions").style.display= "block";
+        document.getElementById("work-with").style.display= "block";
+        document.getElementById("btn-nav-add-remove").innerText = "Remove menu";
+
+        const el_header = iframe.contentWindow.document.querySelector('header');
+        const el_nav = document.createElement('nav');
+        el_nav.setAttribute("class", "theme-light");
+        el_nav.innerHTML = "<div class=\"container-menu\">\n<a href=\"#\" class=\"brand\">\n\t<img src=\"../../ui/assets/img/website-logo-sample.png\" alt=\"Sample website logo\"></a>\n\n<div class=\"container-menu-links\">\n\n<div class=\"nav-toggle\" id =\"nav-toggle-btn\"><div class=\"bar-1\"></div><div class=\"bar-2\"></div><div class=\"bar-3\"></div></div>\n\n<ul class=\"links-wrapper\">\n<li><a href=\"#\">Home</a></li>\n<li><a href=\"#\">About</a></li>\n<li><a href=\"#\">Products</a></li>\n<li><a href=\"#\">Services</a></li>\n<li><a class=\"btn btn-solid\" id=\"btn-cta\" href=\"#\"><span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"></i></a></li>\n</ul>\n</div>\n</div>";
+        el_header.parentNode.insertBefore(el_nav, el_header);
+    }
+    else {
+        document.getElementById("dd_actions").style.display= "none";
+        document.getElementById("work-with").style.display= "none";
+        document.getElementById("btn-nav-add-remove").innerText = "Add menu";
+        const el_nav= iframe.contentWindow.document.querySelector('nav');
+        el_nav.remove();
+        iframe.contentWindow.document.querySelector('.header-after-menu-sticky').classList.remove("header-after-menu-sticky");
+    }
+}
+
 if (document.querySelector("#dd_actions")) {
     document.querySelector("#dd_actions").addEventListener("change", displayActions);
 }

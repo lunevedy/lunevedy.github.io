@@ -48,37 +48,37 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* h2 main heading highlight text */
         else if (btn_id === "btn_h2_highlight") {
-            newStyle = sectionClassName+ " .col-2.col-text h2 span.highlight { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " .col-text h2 span.highlight { color: var("+color_code+") }\n";
             sub_string = "h2 span.highlight";
         }
 
         /* h2 main heading bottom border */
         else if (btn_id === "btn_h2_border") {
-            newStyle = sectionClassName+ " .col-2.col-text h2.heading-underline::after { background-color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " .col-text h2.heading-underline::after { background-color: var("+color_code+") }\n";
             sub_string = "h2.heading-underline";
         }
 
         /* h3 sub heading */
         else if (btn_id === "btn_h3_text") {
-            newStyle = sectionClassName+ " .col-2.col-text h3 { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " .col-text h3 { color: var("+color_code+") }\n";
             sub_string = " h3 {";
         }
 
         /* Section paragraphs text */
         else if (btn_id === "btn_para_text") {
-            newStyle = sectionClassName+ " .col-2.col-text p { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " .col-text p { color: var("+color_code+") }\n";
             sub_string = " p {";
         }
 
         /* Section paragraphs text */
         else if (btn_id === "btn_list_text") {
-            newStyle = sectionClassName+ " .col-2.col-text ul li { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " .col-text ul li { color: var("+color_code+") }\n";
             sub_string = " ul li {";
         }
 
         /* List marker */
         else if (btn_id === "btn_list_marker") {
-            newStyle = sectionClassName+ " .col-2.col-text li::marker, "+sectionClassName+ " ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
+            newStyle = sectionClassName+ " .col-text li::marker, "+sectionClassName+ " ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
         }
 
@@ -159,22 +159,22 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         }
 
         /* Icons colour */
-        else if (btn_id === "btn_icon_color") {
-            newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure.icon { color: var("+color_code+") }\n";
-            sub_string = "figure.icon";
-        }
+        // else if (btn_id === "btn_icon_color") {
+        //     newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure.icon { color: var("+color_code+") }\n";
+        //     sub_string = "figure.icon";
+        // }
 
         /* Photos overlay textbox color */
-        else if (btn_id === "btn_cols_img_overlay_color_text") {
-            newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { color: var("+color_code+") }\n";
-            sub_string = "figure.icon";
-        }
+        // else if (btn_id === "btn_cols_img_overlay_color_text") {
+        //     newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { color: var("+color_code+") }\n";
+        //     sub_string = "figure.icon";
+        // }
 
         /* Photos overlay textbox background color */
-        else if (btn_id === "btn_cols_img_overlay_color_bg") {
-            newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { background-color: var("+color_code+") }\n";
-            sub_string = "figure.icon";
-        }
+        // else if (btn_id === "btn_cols_img_overlay_color_bg") {
+        //     newStyle =  sectionClassName+" div[class^='flex-cols-'] div[class^='col-'] figure .cols-img-textbox { background-color: var("+color_code+") }\n";
+        //     sub_string = "figure.icon";
+        // }
 
         console.log(newStyle)
         doUpdateArray(sub_string,newStyle);
