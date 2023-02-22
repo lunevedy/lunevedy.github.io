@@ -1199,7 +1199,7 @@ section .col-visual figure video { display: block }
 
     /* text column */
     section .col-text { padding-left: 5%; padding-right: 5% }
-    section.flex-row-reverse .col-text { order: 2 }
+    section.flex-row-reverse .col-2.col-text { order: 2 }
 
     /* badge */
     section .col-text .badge { margin-bottom: 32px }
@@ -1221,7 +1221,7 @@ section .col-visual figure video { display: block }
 
     /* visual column */
     section .col-visual { padding-left: 5%; padding-right: 5% }
-    section.flex-row-reverse .col-visual { order: 1 }
+    section.flex-row-reverse .col-2.col-visual { order: 1 }
     section .col-visual > figure { margin-bottom: 0px }
     section .visual figure.fig-shadows-trans { margin-bottom: 0 }
 
@@ -2838,6 +2838,160 @@ div[class*='col-'] .btn-shadow {
 	#contact-form textarea { margin-bottom: 20px }
     #contact-form #btn-submit { margin-top: 20px }
     #contact-form .contact-form-upper { padding-bottom: 12px }
+}
+
+
+/* ================== CONTACT FORM =============== */
+
+/* == Contact form container == */
+
+/* All screens */
+#email-form {
+    background-color: var(--gray-200);
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+	#email-form {
+		margin: 0 0 0 0;
+		padding: 4% 6% 6% 6%
+	}
+}
+
+/* Smaller screens and tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+	#email-form {
+		padding: 5% 8% 5% 8%;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto
+    }
+}
+
+/* Small screens */
+@media (max-width: 767px) {
+	#email-form {
+        padding: 5% 9% 8% 9%;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+	}
+}
+
+#email-form .flex-row { display: flex; justify-content: space-between }
+
+#email-form label,
+#email-form input,
+#email-form textarea {
+	display: block;
+}
+
+@media (min-width: 768px) {
+    #email-form .form-row { margin-bottom: 24px }
+}
+
+@media (max-width: 767px) {
+    #email-form .form-row { margin-bottom: 16px }
+}
+
+#email-form label {
+	font-size: var(--font-size-base);
+	font-weight: normal;
+	margin-bottom: 8px;
+	/* display: flex;
+	align-items: baseline; */
+    display: inline-block;
+    cursor: pointer;
+}
+
+#email-form label span {
+	font-weight: normal;
+	margin-bottom: 8px;
+	display: flex;
+	align-items: baseline;
+    display: none
+}
+
+#email-form [type="text"],
+#email-form [type="email"],
+#email-form textarea {
+    font-family: var(--sans-serif);
+    width: 100%; background-color: var(--white-000);
+	font-size: var(--font-size-base);
+}
+
+#email-form ::placeholder {
+    background-color: var(--white-000)
+}
+
+#email-form input, #email-form textarea {
+	padding: 10px 12px;
+	border: 2px solid var(--black-000);
+	border-radius: 5px;
+}
+
+#email-form textarea {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    resize: horizontal;
+    min-height: 163px;
+}
+
+#email-form input:focus,
+#email-form textarea:focus {
+	border: 2px solid var(--white-000);
+}
+
+#email-form.flex-row .item-btn { width: 26% }
+
+#email-form .form-footer { display: flex; flex-direction: row; justify-content: flex-end; }
+
+#email-form #btn-submit {
+	text-align: right;
+    background-color: var(--black-000);
+    color: var(--white-000);
+	font-weight: bold;
+    padding: 4px 28px;
+    font-size: var(--font-size-base);
+    border: solid 2px var(--black-000);
+    cursor: pointer;
+    outline: none;
+}
+
+#email-form #btn-submit:hover,
+#email-form #btn-submit:active {
+    background-color: var(--gray-700);
+    color: var(--white-000);
+}
+
+#email-form #btn-submit i { font-size: 104% }
+
+/* Big screens */
+@media (min-width: 1024px) {
+	#email-form .flex-row { flex-direction: row; text-align: left; margin-bottom: 6% }
+	#email-form .flex-row .item-name,
+	#email-form .flex-row .item-email { width: 47% }
+	#email-form .flex-row .item-textarea { width: 64% }
+	#email-form .flex-row .item-btn { width: 30%; align-self: flex-end }
+    #email-form .email-form-upper { padding-bottom: 48px }
+}
+
+/* Smaller screens */
+@media (max-width: 1023px) {
+	#email-form .flex-row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .container-email-form p {
+        margin-bottom: 12px;
+    }
+
+	#email-form [type="text"],
+	#email-form [type="email"],
+	#email-form textarea { margin-bottom: 20px }
+    #email-form #btn-submit { margin-top: 20px }
+    #email-form .email-form-upper { padding-bottom: 12px }
 }
 
 
