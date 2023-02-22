@@ -8,24 +8,25 @@
     <meta name="description" content="An online app for creating web page snippets. Lunevedy from Brendan Munnelly.">
 
     <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="../../assets/css/lunevedy.css">
+    <link rel="stylesheet" href="../../assets/2.0/css/lunevedy.css">
 
 	<!-- Font Awesome 6 icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script defer src="../../assets/js/lunevedy.js"></script>
+
 
     <style>
-        .col-2.col-visual #contact-form { max-width: 90% }
-        .col-2.col-visual #contact-form .form-row { margin-bottom: 28px }
 
+        .col-2.col-text #contact-form .form-row { margin-bottom: 28px }
+        .col-2.col-text #contact-form { margin: 0 0 0 0 }
+/*
         .section-selector-1 {
             background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
             background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
             background-image: linear-gradient(to right, #00c6fb 0%, #005bea 100%);
             background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
             background-image: linear-gradient(to bottom left, #0f2e4a 0%, black 100%);
-        }
+        } */
 
     </style>
 
@@ -38,42 +39,42 @@
 
 	<!-- section starts here -->
 
-    <section class="theme-dark section-selector-1 cols-2-half">
+    <section class="theme-light section-selector-1 cols-2-half flex-row-reverse">
 
         <div class="col-2 col-text">
-            <h2>Nice section heading</h2>
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking.</p>
 
-            <p>Further the overall value proposition. Organically grow the holistic world view of disruptive innovation. Identify a ballpark value added activity to beta test.</p>
+            <h2>Get in touch</h2>
+            <p>Have a project you would like to discuss? Let's make something great together! Use the form below to let me know a little more about your objectives and I will get back to you.</p>
+
+            <form id="email-form" name="email-form" accept charset="utf-8" method="post" action="">
+
+                <div class="form-row">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" name="full_name" id="full_name" required />
+                </div>
+
+                <div class="form-row">
+                    <label for="email_address">Email</label>
+                    <input data-validate="email" aria-required="true" type="email" name="email_address" id="email_address" required />
+                </div>
+
+                <div class="form-row">
+                    <label for="form_message">How can we help you?</label>
+                    <textarea aria-required="true" rows="5" class="js-autosize" name="form_message" id="form_message" required></textarea>
+                </div>
+
+                <div class="form-footer">
+                    <button id="btn-submit" class="btn btn-solid" type="submit" data-validate="submit" aria-label="Send message">Send</button>
+                </div>
+            </form>
 
         </div>
 
+
         <div class="col-2 col-visual">
-
-                <form id="contact-form" action="" method="post">
-
-                    <div class="form-row">
-                        <label for="lead_full_name">Your Name</label>
-                        <input type="text" name="lead[full_name]" id="lead_full_name" required />
-                    </div>
-
-                    <div class="form-row">
-                        <label for="lead_email">Email</label>
-                        <input data-validate="email" aria-required="true" type="email" name="lead[email]" id="lead_email"  required />
-                    </div>
-
-                    <div class="form-row">
-                        <label for="lead_summary">How can we help you?</label>
-                        <textarea aria-required="true" rows="5" class="js-autosize" name="lead[summary]" id="lead_summary"  required></textarea>
-                    </div>
-
-                    <div class="HireUs-form-footer">
-                        <p class="HireUs-form-text f-helvetica-heavy"><span class="u-screenreader">Fields with a </span>* <span class="u-screenreader">are</span> required</p>
-
-                        <button id="btn-submit" class="btn btn-solid" type="submit" data-validate="submit" aria-label="Send message">Send</button>
-                    </div>
-                </form>
-
+            <figure>
+                <img src="../../ui/assets/img/420x250-computer-keyboard.jpg" alt="Placeholder image">
+            </figure>
         </div>
 
     </section>
@@ -83,6 +84,6 @@
 
 </div>
 
-
+<script defer src="../../assets/js/lunevedy.js"></script>
 </body>
 </html>

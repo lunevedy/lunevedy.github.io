@@ -75,6 +75,19 @@
                             </select>
                         </div>
 
+                        <div class="input-group">
+                            <label>Max. Width</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewbox="0 0 20 20" version="1.1" class="svg-icon-desktop">
+                            <path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 18.332031 1.109375 L 1.667969 1.109375 C 0.746094 1.109375 0 1.855469 0 2.777344 L 0 13.886719 C 0 14.808594 0.746094 15.554688 1.667969 15.554688 L 8.332031 15.554688 L 7.777344 17.222656 L 5.277344 17.222656 C 4.816406 17.222656 4.445312 17.59375 4.445312 18.054688 C 4.445312 18.515625 4.816406 18.886719 5.277344 18.886719 L 14.722656 18.886719 C 15.179688 18.886719 15.554688 18.515625 15.554688 18.054688 C 15.554688 17.59375 15.179688 17.222656 14.722656 17.222656 L 12.222656 17.222656 L 11.664062 15.554688 L 18.332031 15.554688 C 19.25 15.554688 20 14.808594 20 13.890625 L 20 2.777344 C 20 1.855469 19.253906 1.109375 18.332031 1.109375 Z M 17.777344 13.332031 L 2.222656 13.332031 L 2.222656 3.332031 L 17.777344 3.332031 Z M 17.777344 13.332031 "/></svg>
+                            <select id="dd_section_width">
+                                <option value="2">1024px</option>
+                                <option value="3" selected="selected">1140px</option>
+                                <option value="4">1320px</option>
+                                <option value="5">1536px</option>
+                        </select>
+                        </div>
+
+                        <hr>
 
                         <div class="input-group" style="margin-bottom: 16px">
 
@@ -117,10 +130,10 @@
 
                             <form id="form_col_visual_desktop" class="rb-switch">
 
-                                <input type="radio" id="rb_col_visual_left" name="col_visual_desktop" value="left" checked />
+                                <input type="radio" id="rb_col_visual_left" name="col_visual_desktop" value="left" />
                                 <label for="rb_col_visual_left" style="width: 36px"><svg width="16" height="16" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10.295 19.716a1 1 0 0 0 1.404-1.425l-5.37-5.29h13.67a1 1 0 1 0 0-2H6.336L11.7 5.714a1 1 0 0 0-1.404-1.424l-6.924 6.822a1.25 1.25 0 0 0 0 1.78l6.924 6.823Z" /></svg></label>
 
-                                <input type="radio" id="rb_col_visual_right" name="col_visual_desktop" value="right" />
+                                <input type="radio" id="rb_col_visual_right" name="col_visual_desktop" value="right" checked/>
                                 <label for="rb_col_visual_right" style="width: 36px"><svg width="16" height="16" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.704 4.284a1 1 0 1 0-1.403 1.424L17.67 11H4a1 1 0 1 0 0 2h13.665L12.3 18.285a1 1 0 0 0 1.403 1.424l6.925-6.822a1.25 1.25 0 0 0 0-1.78l-6.925-6.823Z" /></svg></label>
                             </form>
 
@@ -169,11 +182,11 @@
             </li>
 
             <li class="dropdown">
-                <span id="menu-2" class="dropbtn">Heading</span>
+                <span id="menu-2" class="dropbtn">Text</span>
                 <div id="content-2" class="dropdown-content dropdown-hidden">
                     <div class="dialog-box-header">
                         <span class="text">
-                            <img src="../../ui/assets/img/lunevedy-dialog-box.png" alt="Lunevedy Icon" class="lunevedy-dialog-box">HEADING OPTIONS
+                            <img src="../../ui/assets/img/lunevedy-dialog-box.png" alt="Lunevedy Icon" class="lunevedy-dialog-box">TEXT OPTIONS
                         </span>
                         <span class="close-x">&times;</span>
                     </div>
@@ -213,13 +226,10 @@
 
                         <hr>
 
-                        <div class="input-group" style="margin-bottom: 12px">
-                            <label for="cb_h2">H2 heading</label>
-                            <input id="cb_h2" type="checkbox" class="cb-switch" checked style="margin-right: 36px">
-
-                            <button id="btn_h2_text" class="btn_style btn_small" style="margin-left: -12px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
-                        </div>
-
+                        <div class="input-group" style="margin-bottom: 14px">
+                            <label style="width: 142px">H2 Heading</label>
+                            <button id="btn_h2_text" class="btn_style btn_small"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
+                        </div><!-- /input-group -->
 
                         <div class="input-group">
                             <label for="cb_h2_highlight" class="cb-switch" style="width: 142px">H2 Highlight Text</label>
@@ -235,23 +245,71 @@
                             <button id="btn_h2_border" class="btn_style btn_small"><svg width="24" height="24" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="ui-icon-paint-svg"><path d="M12.5 2v3.252a.75.75 0 0 0 1.5 0V2h1v4.251a.75.75 0 0 0 1.5 0V2h1.75a.75.75 0 0 1 .75.75V11H5V2.75A.75.75 0 0 1 5.75 2h6.75ZM5 12.5v1.752a2.25 2.25 0 0 0 2.25 2.25H10V20a2 2 0 1 0 4 0v-3.498h2.75a2.25 2.25 0 0 0 2.25-2.25V12.5H5Z" /></svg></button>
                         </div><!-- /input-group -->
 
+<hr>
+                        <div class="input-group" style="margin-bottom: 12px">
+                            <label for="cb_h3">H3 Sub-heading</label>
+                            <input id="cb_h3" type="checkbox" class="cb-switch" checked style="margin-right: 36px">
+
+                            <button id="btn_h3_text" class="btn_style btn_small" style="margin-left: -12px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
+                        </div>
+
                         <hr style="margin-top: 16px; margin-bottom:20px">
 
                         <div class="input-group">
-
-                            <label for="cb_para">Text</label>
-                            <input id="cb_para" type="checkbox" class="cb-switch" checked style="margin-right: 36px">
-
+                            <label>Text</label>
                             <button id="btn_para_text" class="btn_style btn_small"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
                         </div>
 
+                        <div class="input-group">
+                            <label for="cb_list">List</label>
+                            <input id="cb_list" type="checkbox" class="cb-switch" />
+
+                            <button id="btn_list_text" class="btn_style btn_small" style="margin-left: 22px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
+                        </div>
+
+                        <div class="input-group" id="list-options">
+                            <label>Icon</label>
+                            <select id="dd_list_marker" style="width: 144px">
+                                <option value="0" selected="selected">Regular</option>
+                                <option value="1">Font Awesome</option>
+                            </select>
+
+                            <button id="btn_list_marker" class="btn_style btn_small" style="margin-left: 22px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="22px" viewbox="0 0 22 22" version="1.1"><path style=" stroke:none;fill-rule:nonzero;fill-opacity:1;" d="M 3.5 22.167969 L 24.5 22.167969 L 24.5 25.667969 L 3.5 25.667969 Z M 18.457031 19.832031 L 22.449219 19.832031 L 16.332031 3.5 L 11.667969 3.5 L 5.550781 19.832031 L 9.542969 19.832031 L 10.789062 15.75 L 17.210938 15.75 Z M 16.179688 12.832031 L 11.828125 12.832031 L 14.007812 6.152344 Z M 16.179688 12.832031 "/></svg></button>
+                        </div>
+
+                        <div class="input-group" id="fa-icons">
+
+                            <form id="form_switch_fa_icons" class="rb-switch" style="margin-left: 120px">
+
+                                <input type="radio" id="rb-fa-check" name="switch_fa_icons" value="fa-check" />
+                                <label for="rb-fa-check"><span><i class="fa-solid fa-check"></i></span></label>
+
+                                <input type="radio" id="rb-fa-circle-check" name="switch_fa_icons" value="fa-circle-check" checked />
+                                <label for="rb-fa-circle-check"><span><i class="fa-solid fa-circle-check"></i></span></label>
+
+                                <input type="radio" id="rb-fa-square-check" name="switch_fa_icons" value="fa-square-check" />
+                                <label for="rb-fa-square-check"><span><i class="fa-solid fa-square-check"></i></span></label>
+
+                                <input type="radio" id="rb-fa-arrow-right" name="switch_fa_icons" value="fa-arrow-right" />
+                                <label for="rb-fa-arrow-right"><span><i class="fa-solid fa-arrow-right"></i></span></label>
+
+                                <input type="radio" id="rb-fa-circle-arrow-right" name="switch_fa_icons" value="fa-circle-arrow-right" />
+                                <label for="rb-fa-circle-arrow-right"><span><i class="fa-solid fa-circle-arrow-right"></i></span></label>
+
+                                <input type="radio" id="rb-fa-chevron-right" name="switch_fa_icons" value="fa-chevron-right" />
+                                <label for="rb-fa-chevron-right"><span><i class="fa-solid fa-chevron-right"></i></span></label>
+
+                                <input type="radio" id="rb-fa-circle-chevron-right" name="switch_fa_icons" value="fa-circle-chevron-right" />
+                                <label for="rb-fa-circle-chevron-right"><span><i class="fa-solid fa-circle-chevron-right"></i></span></label>
+                            </form>
+                        </div>
 
                         </div><!-- /dialog box -->
                     </div><!-- /dropdown-content -->
                 </li>
 
 
-                <li class="dropdown" style="display: none">
+                <li class="dropdown">
                     <span id="menu-3" class="dropbtn">Buttons</span>
                     <div id="content-3" class="dropdown-content dropdown-hidden">
                         <div class="dialog-box-header">
@@ -559,7 +617,7 @@
                                         <h4>PROPERTIES</h4>
 
                                             <div class="input-group" id="box-shape-photo">
-                                                <label for="dd_shape_photo" style="min-width: 76px">Shape</label>
+                                                <label for="dd_shape_photo" style="width: 88px">Shape</label>
                                                 <select id="dd_shape_photo" style="letter-spacing: 1px">
                                                     <option value="1" selected="selected">Landscape</option>
                                                     <option value="2">Portrait</option>
@@ -2389,9 +2447,9 @@
             js_1.type = "module";
             js_2.type = "module";
             js_3.type = "module";
-            js_1.src = "../../ui/assets/js/grid-2-half-form.js";
-            js_2.src = "../../ui/assets/js/ui-buttons-half-form.js";
-            js_3.src = "../../ui/assets/js/grid-2-half-form-visual.js";
+            js_1.src = "../../ui/assets/js/grid-2-half.js";
+            js_2.src = "../../ui/assets/js/ui-buttons-pair-main.js";
+            js_3.src = "../../ui/assets/js/grid-2-half-visual.js";
             document.body.appendChild(js_1);
             document.body.appendChild(js_2);
             document.body.appendChild(js_3);
@@ -2411,18 +2469,13 @@
 
             // Sections
             document.getElementById("dd_class_name").value="1";
+            document.getElementById("dd_section_width").value = "3";
             document.getElementById("rb_theme_light").checked = true;
             document.getElementById("dd_bleed_desktop").value="0";
 
-            // Headings
-            document.getElementById("cb_badge").checked = false;
+            // Upper content
             document.getElementById("cb_badge").checked = false;
             document.getElementById("show-badge").style.display="none";
-            document.getElementById("cb_h2").disabled = false;
-            document.getElementById("cb_h2").checked = true;
-            document.getElementById("btn_h2_text").disabled = false;
-            document.getElementById("btn_h2_text").checked = true;
-
             document.getElementById("cb_h2_highlight").disabled = false;
             document.getElementById("cb_h2_highlight").checked = false;
             document.getElementById("btn_h2_highlight").disabled = true;
@@ -2430,10 +2483,16 @@
             document.getElementById("btn_h2_border").disabled = true;
             document.getElementById("btn_h2_border").checked = false;
 
-            document.getElementById("cb_para").disabled = false;
-            document.getElementById("cb_para").checked = true;
-            document.getElementById("btn_para_text").disabled = false;
-            document.getElementById("btn_para_text").checked = true;
+            // Lower content
+            document.getElementById("cb_badge").checked = false;
+            document.getElementById("cb_h3").checked = false;
+            document.getElementById("btn_h3_text").disabled = true;
+            document.getElementById("cb_list").checked = false;
+            document.getElementById("btn_list_text").disabled = true;
+            document.getElementById("dd_list_marker").value = "0";
+            document.getElementById("list-options").style.display ="none";
+            document.getElementById("fa-icons").style.display ="none";
+            document.getElementById("rb-fa-circle-check").checked=true;
 
             // Buttons
             document.getElementById("cb_btns").checked=false;
