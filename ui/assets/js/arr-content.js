@@ -37,6 +37,7 @@ export const content_h2_col_2_header = ["\n\t\t\t<h2>A sub-heading that motivate
 
 export const content_h3_col_2 = ["\n\t\t\t<h3>Lunevedy Cafe Bakery<\/h3>", "\n\t\t\t<h3>Lunevedy Fashion Store<\/h3>"];
 
+export const content_form_h2 = ["Get in touch"];
 
 export const content_lists_col_2_header = ["\n\t\t\t\t<ul>\n\t\t\t\t<li>Make better decisions with in-progress insights<\/li>\n\t\t\t\t\t<li>Focus your team on what work should happen next<\/li>\n\t\t\t\t\t<li>Streamline issues, sprints, and product roadmaps.<\/li>\n\t\t\t\t<\/ul>"];
 
@@ -82,6 +83,9 @@ export const content_paras_col_4 = ["\n\t\t\t<p>Our friendly baristas are waitin
 export const content_list_col_4 = ["\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Best value<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>", "\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>", "\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>", "\n\t\t\t\t<ul>\n\t\t\t\t\t<li><b>Fast delivery<\/b>: We ship to almost everywhere.<\/li>\n\t\t\t\t\t<li><b>Lowest prices<\/b>: We will not be beaten on price.<\/li>\n\t\t\t\t\t<li><b>Our mission<\/b>: We help client reinvent their brands.<\/li>\n\t\t\t\t<\/ul>"];
 
 export const content_photo_landscape_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/1024x618-cheesecake.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+
+export const content_photo_landscape_form ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/420x250-computer-keyboard.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+
 export const content_photo_portrait_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-window.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 export const content_photo_short_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/900x248-man-desk.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
