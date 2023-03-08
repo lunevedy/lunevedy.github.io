@@ -685,6 +685,15 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
     width: fit-content;
 }
 
+.col-2 .badge, .col-3 .badge, .col-4 .badge {
+    font-weight: 700; display: inline-block; padding: 2px 10px;
+    font-size: var(--font-size-sm);
+    letter-spacing: 2px;
+    width: fit-content;
+    margin-bottom: 24px !important;
+}
+
+
 .col-1-badge.corners-soft { border-radius: 16px; padding-left: 14px; padding-right: 14px }
 
 @media (min-width: 768px) { .col-1-badge { margin-bottom: 32px } }
@@ -3304,14 +3313,11 @@ figure.figure-width-full {
     div[class^="col-"] figure.fig-shadows-trans { margin-bottom: 22px }
 }
 
-.theme-light .fig-shadows-trans img {
-    /* offset-x | offset-y | blur-radius | color */
-    filter: drop-shadow(8px 8px 8px var(--gray-500));
-}
+.theme-light .fig-shadows-trans img { filter: drop-shadow(8px 8px 8px var(--gray-500)) }
+.theme-dark  .fig-shadows-trans img { filter: drop-shadow(8px 8px 8px var(--gray-600)) }
 
-.theme-dark .fig-shadows-trans img {
-    filter: drop-shadow(8px 8px 8px var(--gray-600));
-}
+.theme-light .form-fig-shadows img { filter: drop-shadow(16px 16px 8px var(--gray-500) ) }
+.theme-dark  .form-fig-shadows img { filter: drop-shadow(16px 16px 8px var(--gray-600)) }
 
 @media (min-width: 768px) {
     header > figure.fig-shadows-box,
