@@ -1474,7 +1474,6 @@ function doColShadows() {
     }
 }
 
-
 /*
 //////////////// COLUMNS SHADOWS TYPE ///////////////
 */

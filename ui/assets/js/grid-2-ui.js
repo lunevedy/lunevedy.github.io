@@ -21,6 +21,9 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             }
         }
 
+    // Get section theme
+    sectionTheme =  sessionStorage.getItem("sectionTheme");        
+
         /* Section background */
         if (btn_id === "btn_section_bg") {
             newStyle = sectionClassName+ " { background-color: var("+color_code+") }\n";

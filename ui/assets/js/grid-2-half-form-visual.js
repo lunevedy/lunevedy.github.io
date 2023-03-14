@@ -1,4 +1,4 @@
-import {content_photo_landscape_form, content_photo_portrait_section, content_photo_square_section, content_photo_circle_section, content_trans_landscape_section, content_trans_portrait_section, content_trans_square_section, content_drawing_landscape_section, content_drawing_portrait_section, content_drawing_square_section, content_vid_file_section, content_vid_yt_section, content_vid_rumble_section, content_textbox_section } from '../js/arr-content.js';
+import {content_photo_landscape_form, content_photo_portrait_form, content_photo_square_section, content_photo_circle_section, content_trans_landscape_section, content_trans_portrait_section, content_trans_square_section, content_drawing_landscape_section, content_drawing_portrait_section, content_drawing_square_section, content_vid_file_section, content_vid_yt_section, content_vid_rumble_section, content_textbox_section } from '../js/arr-content.js';
 
 /*
 ////////////////////// VISUALS: FOUR TYPES ///////////////////////
@@ -228,7 +228,7 @@ function doVisSubTypes(n) {
     }
     // photos: portrait
     else if (n===2) {
-        el_visual = content_photo_portrait_section;
+        el_visual = content_photo_portrait_form;
     }
     // photos: square
     else if (n===3) {
@@ -328,37 +328,63 @@ function doImgShadows() {
     const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
 
     if (!document.getElementById("cb_visual_shadows").checked) {
-        el_fig.classList.remove("fig-shadows-trans");
-    }
-    else {
-        el_fig.classList.add("fig-shadows-trans");
-    }
-}
-
-
-function doColH3TextBox() {
-
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
-    let el_TextBox;
-    let node;
-    const arrContent = [];
-
-    if (!document.querySelector("#cb_img_textbox").checked) {
-        // Remove div as child of figure
-        el_TextBox = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure .cols-img-textbox");
-        el_fig.removeChild(el_TextBox);
-        document.getElementById("show-textbox").style.display = "none";
+        el_fig.classList.remove("form-fig-shadows");
+        document.getElementById("btn_form_shadows_color").disabled=true;
+        document.getElementById("btn_form_shadows_color").checked=false;
+        document.getElementById("form_shadows_type-1").disabled=true;
+        document.getElementById("form_shadows_type-1").checked=false;
+        document.getElementById("form_shadows_type-2").disabled=true;
+        document.getElementById("form_shadows_type-2").checked=false;
     }
 
     else {
-        // Add overlay textbox as child of figure
-        node = document.createElement("div");
-        node.innerText = content_textbox_section;
-        node.classList.add("cols-img-textbox");
-        el_fig.appendChild(node);
-        document.getElementById("show-textbox").style.display = "block";
+        el_fig.classList.add("form-fig-shadows");
+        document.getElementById("btn_form_shadows_color").disabled=false;
+        document.getElementById("btn_form_shadows_color").checked=false;
+        document.getElementById("form_shadows_type-1").disabled=false;
+        document.getElementById("form_shadows_type-1").checked=true;
+        document.getElementById("form_shadows_type-2").disabled=false;
+        document.getElementById("form_shadows_type-2").checked=false;
     }
 }
+
+/*
+//////////////// FORM IMAGE SHADOWS TYPE ///////////////
+*/
+
+document.querySelector("#form_contact_figure_shadows_type").addEventListener("change", doFormFigShadowsType);
+
+function doFormFigShadowsType() {
+    console.log("hello")
+    const rbs = document.querySelectorAll("input[name='form-shadows-type']");
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+
+    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure img");
+    const computedStyle = window.getComputedStyle(el_fig);
+    let dropShadowValue = computedStyle.getPropertyValue('filter');
+    // console.log("Drop shadow value: "+dropShadowValue);
+
+    if (selectedValue==="1") {
+        dropShadowValue = dropShadowValue.replace("16px 16px 0px", "16px 16px 8px");
+    }
+
+    else if (selectedValue==="2") {
+        dropShadowValue = dropShadowValue.replace("16px 16px 8px", "16px 16px 0px");
+    }
+
+    const newStyle = sectionClassName+" .col-visual .form-fig-shadows img {filter: "+dropShadowValue+"}\n";
+
+    const sub_string = "form-fig-shadows";
+    doUpdateArray(sub_string,newStyle);
+}
+
 
 function removeVisual() {
     resetImgCircle();

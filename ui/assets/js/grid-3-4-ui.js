@@ -21,6 +21,9 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             }
         }
 
+        // Get section theme
+        sectionTheme =  sessionStorage.getItem("sectionTheme");
+
         // Get number of columns
         let colNumber;
 
@@ -78,6 +81,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_cols_bg") {
             newStyle = sectionClassName+sectionTheme+ " .cols-background "+colNumber +" { background-color: var("+color_code+") }\n";
             sub_string = sectionClassName+sectionTheme+ " .cols-background "+colNumber;
+
         }
 
         /* Columns badges: text */

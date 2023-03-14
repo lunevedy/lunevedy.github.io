@@ -183,6 +183,7 @@ if (document.getElementById("form_switch_section_theme")) {
 }
 
 function doSectionTheme() {
+    console.log("Clicked")
     const rbs = document.querySelectorAll("input[name='switch_section_light_dark']");
     let selectedValue;
 
@@ -192,7 +193,7 @@ function doSectionTheme() {
             break;
         }
     }
-
+    console.log("selectedValue: "+selectedValue)
     if (selectedValue==="light") {
         if (iframe.contentWindow.document.querySelector("header")) {
             iframe.contentWindow.document.querySelector("header").classList.remove("theme-dark");
