@@ -37,8 +37,8 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* Section background */
         if (btn_id === "btn_section_bg") {
-            newStyle = sectionClassName+ " { background-color: var("+color_code+") }\n";
-            sub_string = sectionClassName+ " { background-color: ";
+            newStyle =  sectionClassName+sectionTheme+ " { background-color: var("+color_code+") }\n";
+            sub_string = sectionClassName+sectionTheme+ " { background-color: ";
         }
 
         /* .col-1 badge text */
@@ -127,8 +127,6 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             let colorValue = styles.getPropertyValue(color_code);
             if (colorValue==="#000") { colorValue="#000000"}
             if (colorValue==="#fff") { colorValue="#ffffff"}
-            // console.log("color_code:" +color_code);
-            // console.log("colorValue:" +colorValue);
 
             const hex2rgba = (hex, alpha = 1) => {
                 const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
@@ -139,6 +137,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
             if (document.getElementById("cols_shadows_type-1").checked) {
                 newStyle = sectionClassName+" .cols-shadows " +colNumber+" { box-shadow: "+strRGB+" 14px 14px 14px 0 }\n";
+
             }
             else if (document.getElementById("cols_shadows_type-2").checked) {
                 newStyle = sectionClassName+" .cols-shadows " +colNumber+" { box-shadow: "+strRGB+" 14px 14px 0 0 }\n";
@@ -146,6 +145,119 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             sub_string = "cols-shadows";
         }
 
+        /* photos: shadows color */
+        else if (btn_id === "btn_photos_shadows_color") {
+
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+            console.log("strRGB : "+strRGB);
+
+            if (document.getElementById("photos_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }\n"; 
+            }
+            else if (document.getElementById("photos_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }\n"; 
+            }
+
+            console.log("newStyle: "+newStyle);
+            sub_string = sectionClassName+ " "+colNumber+" figure.fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
+
+
+        /* trans: shadows color */
+        else if (btn_id === "btn_trans_shadows_color") {
+
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            // console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+
+            if (document.getElementById("trans_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }\n"; 
+            }
+            else if (document.getElementById("trans_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }\n"; 
+            }
+            sub_string = "fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
+
+
+        /* drawings: shadows color */
+        else if (btn_id === "btn_drawings_shadows_color") {
+
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            // console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+
+            if (document.getElementById("drawings_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }\n"; 
+            }
+            else if (document.getElementById("drawings_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }\n"; 
+            }
+            sub_string = "fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
+
+
+        /* videos: shadows color */
+        else if (btn_id === "btn_videos_shadows_color") {
+
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            // console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+
+            if (document.getElementById("videos_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }\n"; 
+            }
+            else if (document.getElementById("videos_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }\n"; 
+            }
+            sub_string = "fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
 
         /* === Buttons === */
 
@@ -208,12 +320,10 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_cols_links_h3_text_passive") {
             if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
                 newStyle = sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:link,\n"+sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:visited { color: var("+color_code+") }\n";
-                console.log("newStyle: "+newStyle);
                 sub_string = "a.col-3-h3:visited { color:";
             }
             else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
                 newStyle = sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:link,\n"+sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:visited { color: var("+color_code+") }\n";
-                console.log("newStyle: "+newStyle);
                 sub_string = "a.col-4-h3:visited { color:";
             }
         }
@@ -221,13 +331,11 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_cols_links_h3_text_active") {
             if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
                 newStyle = sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:focus,\n"+sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:hover,\n"+sectionClassName+" .flex-cols-3 .col-3 a.col-3-h3:active { color: var("+color_code+") }\n";
-                console.log("newStyle: "+newStyle);
                 sub_string = "a.col-3-h3:focus { color:";
             }
 
             else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
                 newStyle = sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:focus,\n"+sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:hover,\n"+sectionClassName+" .flex-cols-4 .col-4 a.col-4-h3:active { color: var("+color_code+") }\n";
-                console.log("newStyle: "+newStyle);
                 sub_string = "a.col-4-h3:focus { color:";
             }
         }

@@ -22,12 +22,14 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         }
 
     // Get section theme
-    sectionTheme =  sessionStorage.getItem("sectionTheme");        
+    sectionTheme =  sessionStorage.getItem("sectionTheme");    
+    
+    const colNumber = ".col-2";
 
         /* Section background */
         if (btn_id === "btn_section_bg") {
-            newStyle = sectionClassName+ " { background-color: var("+color_code+") }\n";
-            sub_string = sectionClassName+ " { background-color: ";
+            newStyle =  sectionClassName+sectionTheme+ " { background-color: var("+color_code+") }\n";
+            sub_string = sectionClassName+sectionTheme+ " { background-color: ";
         }
 
         /* .col-1 badge text */
@@ -108,7 +110,6 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         /* Column borders: colour */
         else if (btn_id === "btn_cols_borders_color") {
             newStyle = sectionTheme+sectionClassName+" .col-2 { border-color: var("+color_code+") }\n";
-            console.log("newStyle: "+newStyle);
             sub_string = "{ border-color:"
         }
 
@@ -129,14 +130,123 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
             if (document.getElementById("cols_shadows_type-1").checked) {
                 newStyle = sectionClassName+sectionTheme+" .cols-shadows .col-2 { box-shadow: "+strRGB+" 14px 14px 14px 0 }\n";
-                console.log("Gradient");
             }
             else if (document.getElementById("cols_shadows_type-2").checked) {
                 newStyle = sectionClassName+sectionTheme+" .cols-shadows .col-2 { box-shadow: "+strRGB+" 14px 14px 0 0 }\n";
-                console.log("Solid");
             }
             sub_string = "cols-shadows";
         }
+
+        /* photos: shadows color */
+        else if (btn_id === "btn_photos_shadows_color") {
+            const colNumber = ".col-2";
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            // console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+
+            if (document.getElementById("photos_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }"; 
+            }
+            else if (document.getElementById("photos_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }"; 
+            }
+            sub_string = "fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
+
+        /* trans: shadows color */
+        else if (btn_id === "btn_trans_shadows_color") {
+
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            // console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+
+            if (document.getElementById("trans_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }\n"; 
+            }
+            else if (document.getElementById("trans_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }\n"; 
+            }
+            sub_string = "fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
+
+
+        /* drawings: shadows color */
+        else if (btn_id === "btn_drawings_shadows_color") {
+
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            // console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+
+            if (document.getElementById("drawings_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }\n"; 
+            }
+            else if (document.getElementById("drawings_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }\n"; 
+            }
+            sub_string = "fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
+
+
+        /* videos: shadows color */
+        else if (btn_id === "btn_videos_shadows_color") {
+
+            // get value of color code
+            const styles = getComputedStyle(document.documentElement);
+            let colorValue = styles.getPropertyValue(color_code);
+            if (colorValue==="#000") { colorValue="#000000"}
+            if (colorValue==="#fff") { colorValue="#ffffff"}
+            // console.log("colorValue: "+colorValue);
+
+            const hex2rgba = (hex, alpha = 1) => {
+                const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+                return `rgba(${r},${g},${b},${alpha})`;
+            };
+
+            const strRGB = hex2rgba(colorValue, 0.9);
+
+            if (document.getElementById("videos_shadows_type-1").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px " +strRGB+ "); } }\n"; 
+            }
+            else if (document.getElementById("videos_shadows_type-2").checked) {
+                newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 " +strRGB+ "); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 " +strRGB+ "); } }\n"; 
+            }
+            sub_string = "fig-shadows-box";
+            // doUpdateArray(sub_string,newStyle);
+        }
+
 
         /* === Buttons === */
 

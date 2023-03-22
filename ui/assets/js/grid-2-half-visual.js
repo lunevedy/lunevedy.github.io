@@ -189,7 +189,7 @@ function doVideo() {
     document.getElementById("dd_shape_trans").value = "1";
     document.getElementById("dd_shape_drawing").value = "1";
     document.getElementById("dd_source_video").value = "1";
-    document.getElementById("cb_visual_shadows").disabled= true;
+    document.getElementById("cb_visual_shadows").disabled= false;
     document.getElementById("cb_visual_shadows").checked = false;
     document.getElementById("cb_visual_corners_soft").disabled= true;
     document.getElementById("cb_visual_corners_soft").checked = false;
@@ -320,19 +320,84 @@ function doFigCorners() {
     }
 }
 
-/* photos: shadows */
-document.querySelector("#cb_visual_shadows").addEventListener("change", doImgShadows);
+/* visual: shadows */
+document.querySelector("#cb_visual_shadows").addEventListener("change", doVisualsShadows);
 
-function doImgShadows() {
+function doVisualsShadows() {
 
-    const el_fig = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
+    // show shadow options
+    document.getElementById("box-visual-shadows").style.display = "flex";
 
+    // Get all figures
+    const el_fig = iframe.contentWindow.document.querySelector(".col-2.col-visual figure");
+
+    // no visual shadows
     if (!document.getElementById("cb_visual_shadows").checked) {
-        el_fig.classList.remove("fig-shadows-trans");
+        el_fig.classList.remove("fig-shadows-box");
+        document.getElementById("box-visual-shadows").style.display = "none";
+        document.getElementById("visual_shadows_type-1").checked=true;
+        document.getElementById("visual_shadows_type-2").checked=false;
     }
+
+    // yes to visual shadows
     else {
-        el_fig.classList.add("fig-shadows-trans");
+        el_fig.classList.add("fig-shadows-box");
     }
+}
+
+
+/* visual: shadow type */
+document.querySelector("#form_visual_shadows_type").addEventListener("click", doVisualShadowsType);
+
+function doVisualShadowsType() {
+
+    const colNumber = ".col-2";
+
+    const objFigure = iframe.contentWindow.document.getElementsByTagName('figure')[0];
+
+    const s = window.getComputedStyle(objFigure);//get the style for the filtered element
+    const theFilter = s.getPropertyValue("filter");//get the value of the filter
+    // the array of all the filters in css
+    const filters = ["blur","brightness","contrast","drop-shadow","grayscale","hue-rotate","invert","opacity","saturate","sepia","url"];
+    // an empty array 
+    const ry = [];
+    
+    filters.forEach((f,i)=>{
+      let oF = theFilter.match(f);
+      if(oF){
+        ry.push({prop:oF[0],index:oF.index})
+      }
+    })
+    
+    // ry is the array of the filters and the position in theFilter string [{prop: "brightness", index: 0},{prop: "contrast", index: 17}...
+    
+    function compareNumbers(a, b) {
+      return a.index - b.index;
+    }
+
+    // order the ry array by index
+    let sortedry = ry.sort(compareNumbers);
+
+    // the object with the filters
+    let oFilters = {}
+
+    for(let i = 0; i < sortedry.length; i++) {
+        let sbstr = (i+1 < sortedry.length) ? theFilter.substring(sortedry[i].index,sortedry[i+1].index).trim() : theFilter.substring(sortedry[i].index).trim()
+        let value = sbstr.substring(sbstr.indexOf("(")+1, sbstr.length-1);
+        oFilters[sortedry[i].prop] = value;
+    }
+
+    let strRGB = oFilters["drop-shadow"].substring(oFilters["drop-shadow"].indexOf("rgba(")+5,oFilters["drop-shadow"].indexOf(")"));  
+    
+    if (document.getElementById("visual_shadows_type-1").checked) {
+        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px rgba("+strRGB+")); } }"; 
+    }
+
+    else if (document.getElementById("visual_shadows_type-2").checked) {
+        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 rgba("+strRGB+")); } }"; 
+    }
+    sub_string = "fig-shadows-box";
+    doUpdateArray(sub_string,newStyle);
 }
 
 
@@ -363,6 +428,10 @@ function doColH3TextBox() {
 function removeVisual() {
     resetImgCircle();
     const parentNode = iframe.contentWindow.document.querySelector("section .col-2.col-visual figure");
+    document.getElementById("box-visual-shadows").style.display = "none";
+    document.getElementById("cb_visual_shadows").checked= false;
+    document.getElementById("visual_shadows_type-1").checked=true;
+    document.getElementById("visual_shadows_type-2").checked=false;
     var el_img = Array.prototype.slice.call(iframe.contentWindow.document.getElementsByTagName("figure"),0);
     for (let i = 0; i < el_img.length; i++) {
         el_img[i].parentNode.removeChild(el_img[i]);

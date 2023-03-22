@@ -381,10 +381,7 @@ function doWidthSectionDesktop() {
 
     /* default max width is 1600px */
     if (opt==="0") {
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-820px");
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-1024px");
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-1140px");
-        iframe.contentWindow.document.querySelector("section").classList.remove("w-1356px");
+        iframe.contentWindow.document.querySelector("section").classList.add("w-1600px");
     }
 
     else if (opt==="1") {
@@ -402,14 +399,14 @@ function doWidthSectionDesktop() {
     else if (opt==="4") {
         iframe.contentWindow.document.querySelector("section").classList.add("w-1356px");
     }
-
 }
 
 function deleteWidthSectionDesktop() {
     iframe.contentWindow.document.querySelector("section").classList.remove("w-820px");
     iframe.contentWindow.document.querySelector("section").classList.remove("w-1024px");
     iframe.contentWindow.document.querySelector("section").classList.remove("w-1140px");
-    iframe.contentWindow.document.querySelector("section").classList.remove("w-1356x");
+    iframe.contentWindow.document.querySelector("section").classList.remove("w-1356px");
+    iframe.contentWindow.document.querySelector("section").classList.remove("w-1600px");    
 }
 
 /*
@@ -466,6 +463,7 @@ function updateCSSTagPair() {
     strCSS = strCSS.replaceAll(",.section", ".section");
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(",nav", "nav");
+    strCSS = strCSS.replaceAll(",@media", "@media");
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
         var st = iframe.contentWindow.document.getElementsByTagName('style');
         for(let i = 0 ; i < st.length ; i++){
@@ -834,6 +832,8 @@ function copyCSS() {
     strCSS = strCSS.replaceAll(".nav", "nav");
     strCSS = strCSS.replaceAll("nav-toggle", ".nav-toggle");
     strCSS = strCSS.replaceAll(",@media", "@media");
+    strCSS = strCSS.replaceAll(",@media", "@media");
+    strCSS = strCSS.replaceAll(",@media", "@media");   
     strCSS = strCSS.replaceAll(",.header", "header");
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(" ,header", "header");

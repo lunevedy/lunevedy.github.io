@@ -252,7 +252,7 @@ function doPhotosShadowsType() {
     }
 
     let strRGB = oFilters["drop-shadow"].substring(oFilters["drop-shadow"].indexOf("rgba(")+5,oFilters["drop-shadow"].indexOf(")"));  
-    
+
     if (document.getElementById("photos_shadows_type-1").checked) {
         newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px rgba("+strRGB+")); } }"; 
     }
@@ -512,122 +512,30 @@ function doTransparent() {
     doVisSubTypes(5);
 }
 
-/* trans: shadows */
+/* transparent: shadows */
 document.querySelector("#cb_trans_shadows").addEventListener("change", doTransShadows);
 
 function doTransShadows() {
 
-    // show shadow options
-    document.getElementById("box-trans-shadows").style.display = "flex";
-
-    // Get all figures
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_figs;
 
-    // Get number of columns
-    let colNumber;
-    if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
-        colNumber = ".col-2";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
-        colNumber = ".col-3";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
-        colNumber = ".col-4";
-    }
-
-    // no trans shadows
     if (!document.getElementById("cb_trans_shadows").checked) {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
-            el_figs.classList.remove("fig-shadows-box");
-            document.getElementById("box-trans-shadows").style.display = "none";
-            document.getElementById("trans_shadows_type-1").checked=true;
-            document.getElementById("trans_shadows_type-2").checked=false;
+            el_figs.classList.remove("fig-shadows-trans");
         }
     }
-
-    // yes to trans shadows
     else {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
-            el_figs.classList.add("fig-shadows-box");
+            el_figs.classList.add("fig-shadows-trans");
         }
     }
 }
 
-/* trans: shadow type */
-document.querySelector("#form_trans_shadows_type").addEventListener("click", doTransShadowsType);
-
-function doTransShadowsType() {
-
-    // Get number of columns
-    let colNumber;
-    if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
-        colNumber = ".col-2";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
-        colNumber = ".col-3";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
-        colNumber = ".col-4";
-    }
-
-    const objFigure = iframe.contentWindow.document.getElementsByTagName('figure')[0];
-
-    const s = window.getComputedStyle(objFigure);//get the style for the filtered element
-    const theFilter = s.getPropertyValue("filter");//get the value of the filter
-    // the array of all the filters in css
-    const filters = ["blur","brightness","contrast","drop-shadow","grayscale","hue-rotate","invert","opacity","saturate","sepia","url"];
-    // an empty array 
-    const ry = [];
-    
-    filters.forEach((f,i)=>{
-      let oF = theFilter.match(f);
-      if(oF){
-        ry.push({prop:oF[0],index:oF.index})
-      }
-    })
-    
-    // ry is the array of the filters and the position in theFilter string [{prop: "brightness", index: 0},{prop: "contrast", index: 17}...
-    
-    function compareNumbers(a, b) {
-      return a.index - b.index;
-    }
-
-    // order the ry array by index
-    let sortedry = ry.sort(compareNumbers);
-
-    // the object with the filters
-    let oFilters = {}
-
-    for(let i = 0; i < sortedry.length; i++) {
-        let sbstr = (i+1 < sortedry.length) ? theFilter.substring(sortedry[i].index,sortedry[i+1].index).trim() : theFilter.substring(sortedry[i].index).trim()
-        let value = sbstr.substring(sbstr.indexOf("(")+1, sbstr.length-1);
-        oFilters[sortedry[i].prop] = value;
-    }
-
-    let strRGB = oFilters["drop-shadow"].substring(oFilters["drop-shadow"].indexOf("rgba(")+5,oFilters["drop-shadow"].indexOf(")"));  
-
-    if (document.getElementById("trans_shadows_type-1").checked) {
-        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px rgba("+strRGB+")); } }"; 
-    }
-
-    else if (document.getElementById("trans_shadows_type-2").checked) {
-        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 rgba("+strRGB+")); } }"; 
-    }
-    sub_string = "fig-shadows-box";
-    doUpdateArray(sub_string,newStyle);
-} 
-
-
 function resetTransProps() {
     document.getElementById("cb_trans_shadows").checked = false;
-    document.getElementById("box-trans-shadows").style.display = "none";
 }
 
 
@@ -685,116 +593,25 @@ document.querySelector("#cb_drawings_shadows").addEventListener("change", doDraw
 
 function doDrawingsShadows() {
 
-    // show shadow options
-    document.getElementById("box-drawings-shadows").style.display = "flex";
-
-    // Get all figures
     const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
     let el_figs;
 
-    // Get number of columns
-    let colNumber;
-    if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
-        colNumber = ".col-2";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
-        colNumber = ".col-3";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
-        colNumber = ".col-4";
-    }
-
-    // no drawings shadows
     if (!document.getElementById("cb_drawings_shadows").checked) {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
-            el_figs.classList.remove("fig-shadows-box");
-            document.getElementById("box-drawings-shadows").style.display = "none";
-            document.getElementById("drawings_shadows_type-1").checked=true;
-            document.getElementById("drawings_shadows_type-2").checked=false;
+            el_figs.classList.remove("fig-shadows-trans");
         }
     }
-
-    // yes to drawings shadows
     else {
         for (let i = 0; i < objFigs.length; i++) {
             el_figs = objFigs[i];
-            el_figs.classList.add("fig-shadows-box");
+            el_figs.classList.add("fig-shadows-trans");
         }
     }
 }
 
-/* drawings: shadow type */
-document.querySelector("#form_drawings_shadows_type").addEventListener("click", doDrawingsShadowsType);
-
-function doDrawingsShadowsType() {
-
-    // Get number of columns
-    let colNumber;
-    if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
-        colNumber = ".col-2";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
-        colNumber = ".col-3";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
-        colNumber = ".col-4";
-    }
-
-    const objFigure = iframe.contentWindow.document.getElementsByTagName('figure')[0];
-
-    const s = window.getComputedStyle(objFigure);//get the style for the filtered element
-    const theFilter = s.getPropertyValue("filter");//get the value of the filter
-    // the array of all the filters in css
-    const filters = ["blur","brightness","contrast","drop-shadow","grayscale","hue-rotate","invert","opacity","saturate","sepia","url"];
-    // an empty array 
-    const ry = [];
-    
-    filters.forEach((f,i)=>{
-      let oF = theFilter.match(f);
-      if(oF){
-        ry.push({prop:oF[0],index:oF.index})
-      }
-    })
-    
-    // ry is the array of the filters and the position in theFilter string [{prop: "brightness", index: 0},{prop: "contrast", index: 17}...
-    
-    function compareNumbers(a, b) {
-      return a.index - b.index;
-    }
-
-    // order the ry array by index
-    let sortedry = ry.sort(compareNumbers);
-
-    // the object with the filters
-    let oFilters = {}
-
-    for(let i = 0; i < sortedry.length; i++) {
-        let sbstr = (i+1 < sortedry.length) ? theFilter.substring(sortedry[i].index,sortedry[i+1].index).trim() : theFilter.substring(sortedry[i].index).trim()
-        let value = sbstr.substring(sbstr.indexOf("(")+1, sbstr.length-1);
-        oFilters[sortedry[i].prop] = value;
-    }
-
-    let strRGB = oFilters["drop-shadow"].substring(oFilters["drop-shadow"].indexOf("rgba(")+5,oFilters["drop-shadow"].indexOf(")"));  
-
-    if (document.getElementById("drawings_shadows_type-1").checked) {
-        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px rgba("+strRGB+")); } }"; 
-    }
-
-    else if (document.getElementById("drawings_shadows_type-2").checked) {
-        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 rgba("+strRGB+")); } }"; 
-    }
-    sub_string = "fig-shadows-box";
-    doUpdateArray(sub_string,newStyle);
-} 
-
 function resetDrawingsProps() {
     document.getElementById("cb_drawings_shadows").checked = false;
-    document.getElementById("box-drawings-shadows").style.display = "none";
 }
 
 /*
@@ -979,124 +796,8 @@ function doVideosType() {
     }
 }
 
-
-/* videos: shadows */
-document.querySelector("#cb_videos_shadows").addEventListener("change", doVideosShadows);
-
-function doVideosShadows() {
-
-    // show shadow options
-    document.getElementById("box-videos-shadows").style.display = "flex";
-
-    // Get all figures
-    const objFigs = iframe.contentWindow.document.querySelectorAll("div[class^='col-'] figure");
-    let el_figs;
-
-    // Get number of columns
-    let colNumber;
-    if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
-        colNumber = ".col-2";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
-        colNumber = ".col-3";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
-        colNumber = ".col-4";
-    }
-
-    // no videos shadows
-    if (!document.getElementById("cb_videos_shadows").checked) {
-        for (let i = 0; i < objFigs.length; i++) {
-            el_figs = objFigs[i];
-            el_figs.classList.remove("fig-shadows-box");
-            document.getElementById("box-videos-shadows").style.display = "none";
-            document.getElementById("videos_shadows_type-1").checked=true;
-            document.getElementById("videos_shadows_type-2").checked=false;
-        }
-    }
-
-    // yes to videos shadows
-    else {
-        for (let i = 0; i < objFigs.length; i++) {
-            el_figs = objFigs[i];
-            el_figs.classList.add("fig-shadows-box");
-        }
-    }
-}
-
-/* videos: shadow type */
-document.querySelector("#form_videos_shadows_type").addEventListener("click", doVideosShadowsType);
-
-function doVideosShadowsType() {
-
-    // Get number of columns
-    let colNumber;
-    if (iframe.contentWindow.document.querySelector(".flex-cols-2")) {
-        colNumber = ".col-2";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-3")) {
-        colNumber = ".col-3";
-    }
-
-    else if (iframe.contentWindow.document.querySelector(".flex-cols-4")) {
-        colNumber = ".col-4";
-    }
-
-    const objFigure = iframe.contentWindow.document.getElementsByTagName('figure')[0];
-
-    const s = window.getComputedStyle(objFigure);//get the style for the filtered element
-    const theFilter = s.getPropertyValue("filter");//get the value of the filter
-    // the array of all the filters in css
-    const filters = ["blur","brightness","contrast","drop-shadow","grayscale","hue-rotate","invert","opacity","saturate","sepia","url"];
-    // an empty array 
-    const ry = [];
-    
-    filters.forEach((f,i)=>{
-      let oF = theFilter.match(f);
-      if(oF){
-        ry.push({prop:oF[0],index:oF.index})
-      }
-    })
-    
-    // ry is the array of the filters and the position in theFilter string [{prop: "brightness", index: 0},{prop: "contrast", index: 17}...
-    
-    function compareNumbers(a, b) {
-      return a.index - b.index;
-    }
-
-    // order the ry array by index
-    let sortedry = ry.sort(compareNumbers);
-
-    // the object with the filters
-    let oFilters = {}
-
-    for(let i = 0; i < sortedry.length; i++) {
-        let sbstr = (i+1 < sortedry.length) ? theFilter.substring(sortedry[i].index,sortedry[i+1].index).trim() : theFilter.substring(sortedry[i].index).trim()
-        let value = sbstr.substring(sbstr.indexOf("(")+1, sbstr.length-1);
-        oFilters[sortedry[i].prop] = value;
-    }
-
-    let strRGB = oFilters["drop-shadow"].substring(oFilters["drop-shadow"].indexOf("rgba(")+5,oFilters["drop-shadow"].indexOf(")"));  
-
-    if (document.getElementById("videos_shadows_type-1").checked) {
-        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px rgba("+strRGB+")); } }"; 
-    }
-
-    else if (document.getElementById("videos_shadows_type-2").checked) {
-        newStyle = "@media (min-width: 768px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(12px 12px 0 rgba("+strRGB+")); } }\n@media (max-width: 767px) { "+sectionClassName+ " "+colNumber+" figure.fig-shadows-box { filter: drop-shadow(8px 8px 0 rgba("+strRGB+")); } }"; 
-    }
-    sub_string = "fig-shadows-box";
-    doUpdateArray(sub_string,newStyle);
-} 
-
-
 function resetVideoProps() {
     document.querySelector("#dd_videos_type").value="0";
-    document.getElementById("cb_videos_shadows").checked=false;
-    document.getElementById("box-videos-shadows").style.display = "none";
 }
 
 function resetHyperlinks() {
