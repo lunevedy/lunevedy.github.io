@@ -193,11 +193,46 @@
 #content-6 .rb-switch label:first-of-type { border-radius: 4px 0 0 4px; border-right-width: 0 }
 #content-6 .rb-switch label:last-of-type  { border-radius: 0 4px 4px 0 }
 
+/* Fancy shadows */
+
+#box-photos-shadows, 
+#box-trans-shadows, 
+#box-drawings-shadows,
+#box-videos-shadows,
+#box-visual-shadows {
+	display: flex;
+	column-gap: 24px
+}
+
+#btn_photos_shadows_color, 
+#btn_trans_shadows_color,
+#btn_drawings_shadows_color,
+#btn_videos_shadows_color,
+#btn_visual_shadows_color {
+	border-radius: 4px;
+	border-width: 1px;
+	border-style: solid;
+	width: 40px;
+	min-width: 40px;
+	height: 34px;
+	margin-right: 0;
+	padding: 0 0 0 0;
+}
+
+#form_photos_shadows_type label,
+#form_trans_shadows_type label,
+#form_drawings_shadows_type label,
+#form_videos_shadows_type label{ 
+	padding-left: 10px; padding-right: 10px;
+	font-weight: 400
+} 
+
 /* .slidecontainer { padding-top: 12px } */
 .container-slider span { color: #fff }
 .container-slider #num { margin-top: -12px; display: inline-block }
 .slider {
     -webkit-appearance: none;
+	appearance: none;
     height: 5px;
     border-radius: 5px;
     outline: none;
@@ -225,4 +260,10 @@
     background: #00ddff;
     cursor: pointer;
 }
+
+
+.section-selector-1 .col-3 { overflow: visible }
+.section-selector-1 .col-3 figure.fig-shadows-box img { filter: drop-shadow(8px 8px 0 rgba(255, 0, 0, .9)) }
+
+
 
