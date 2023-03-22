@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", checkViewportWidth);
             elemMenuList.classList.remove("menu-desktop");
         }
     }
+
+    console.log("vw: " + vw);
 }
 
 // Monitor viepwort width
