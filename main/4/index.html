@@ -774,6 +774,19 @@
                                                     <input id="cb_photos_shadows" type="checkbox" class="cb-switch">
                                                 </div><!-- /input-group -->
 
+                                                <div id="box-photos-shadows">
+
+                                                    <button id="btn_photos_shadows_color" class="btn_style"><svg width="24" height="24" viewbox="0 0 16 20" xmlns="http://www.w3.org/2000/svg" class="ui-icon-paint-svg"><path d="M12.5 2v3.252a.75.75 0 0 0 1.5 0V2h1v4.251a.75.75 0 0 0 1.5 0V2h1.75a.75.75 0 0 1 .75.75V11H5V2.75A.75.75 0 0 1 5.75 2h6.75ZM5 12.5v1.752a2.25 2.25 0 0 0 2.25 2.25H10V20a2 2 0 1 0 4 0v-3.498h2.75a2.25 2.25 0 0 0 2.25-2.25V12.5H5Z" /></svg></button>
+
+                                                    <form id="form_photos_shadows_type" name="form_photos_shadows_type" class="rb-switch">
+                                                        <input type="radio" id="photos_shadows_type-1" name="photos-shadows-type" value="1" />
+                                                        <label for="photos_shadows_type-1" checked><span>Gradient</span></label>
+                    
+                                                        <input type="radio" id="photos_shadows_type-2" name="photos-shadows-type" value="2" />
+                                                        <label for="photos_shadows_type-2"><span>Solid</span></label>
+                                                    </form>                
+                                                </div>                                                
+
                                                 <div class="input-group">
                                                     <label for="cb_photos_corners_soft">Soft Corners</label>
                                                     <input id="cb_photos_corners_soft" type="checkbox" class="cb-switch">
@@ -843,31 +856,61 @@
 
                                             <div id="properties-transparent">
 
-                                                <div class="input-group">
-                                                    <label for="cb_trans_shadows" style="width: 150px">Shadows</label>
-                                                    <input id="cb_trans_shadows" type="checkbox" class="cb-switch">
-                                                </div><!-- /input-group -->
 
                                                 <div class="input-group">
                                                     <label for="cb_trans_padding" style="width: 150px">Padding</label>
                                                     <input id="cb_trans_padding" type="checkbox" class="cb-switch">
                                                 </div><!-- /input-group -->
 
+                                                <div class="input-group">
+                                                    <label for="cb_trans_shadows" style="width: 150px">Shadows</label>
+                                                    <input id="cb_trans_shadows" type="checkbox" class="cb-switch">
+                                                </div><!-- /input-group -->
+
+                                                <div id="box-trans-shadows">
+
+                                                    <button id="btn_trans_shadows_color" class="btn_style"><svg width="24" height="24" viewbox="0 0 16 20" xmlns="http://www.w3.org/2000/svg" class="ui-icon-paint-svg"><path d="M12.5 2v3.252a.75.75 0 0 0 1.5 0V2h1v4.251a.75.75 0 0 0 1.5 0V2h1.75a.75.75 0 0 1 .75.75V11H5V2.75A.75.75 0 0 1 5.75 2h6.75ZM5 12.5v1.752a2.25 2.25 0 0 0 2.25 2.25H10V20a2 2 0 1 0 4 0v-3.498h2.75a2.25 2.25 0 0 0 2.25-2.25V12.5H5Z" /></svg></button>
+                                                
+                                                    <form id="form_trans_shadows_type" name="form_trans_shadows_type" class="rb-switch">
+                                                        <input type="radio" id="trans_shadows_type-1" name="trans-shadows-type" value="1" />
+                                                        <label for="trans_shadows_type-1" checked><span>Gradient</span></label>
+                                                
+                                                        <input type="radio" id="trans_shadows_type-2" name="trans-shadows-type" value="2" />
+                                                        <label for="trans_shadows_type-2"><span>Solid</span></label>
+                                                    </form>
+                                                
+                                                </div>
+
                                             </div>
 
                                             <div id="properties-drawings">
-
-                                                <div class="input-group">
-                                                    <label for="cb_drawings_shadows" style="width: 150px">Shadows</label>
-                                                    <input id="cb_drawings_shadows" type="checkbox" class="cb-switch">
-                                                </div><!-- /input-group -->
 
                                                 <div class="input-group">
                                                     <label for="cb_drawings_padding" style="width: 150px">Padding</label>
                                                     <input id="cb_drawings_padding" type="checkbox" class="cb-switch">
                                                 </div><!-- /input-group -->
 
-                                            </div>
+                                                <div class="input-group">
+                                                    <label for="cb_drawings_shadows" style="width: 150px">Shadows</label>
+                                                    <input id="cb_drawings_shadows" type="checkbox" class="cb-switch">
+                                                </div><!-- /input-group -->
+
+                                                <div id="box-drawings-shadows">
+
+                                                    <button id="btn_drawings_shadows_color" class="btn_style"><svg width="24" height="24" viewbox="0 0 16 20" xmlns="http://www.w3.org/2000/svg" class="ui-icon-paint-svg"><path d="M12.5 2v3.252a.75.75 0 0 0 1.5 0V2h1v4.251a.75.75 0 0 0 1.5 0V2h1.75a.75.75 0 0 1 .75.75V11H5V2.75A.75.75 0 0 1 5.75 2h6.75ZM5 12.5v1.752a2.25 2.25 0 0 0 2.25 2.25H10V20a2 2 0 1 0 4 0v-3.498h2.75a2.25 2.25 0 0 0 2.25-2.25V12.5H5Z" /></svg></button>
+                                                
+                                                    <form id="form_drawings_shadows_type" name="form_drawings_shadows_type" class="rb-switch">
+                                                        <input type="radio" id="drawings_shadows_type-1" name="drawings-shadows-type" value="1" />
+                                                        <label for="drawings_shadows_type-1" checked><span>Gradient</span></label>
+                                                
+                                                        <input type="radio" id="drawings_shadows_type-2" name="drawings-shadows-type" value="2" />
+                                                        <label for="drawings_shadows_type-2"><span>Solid</span></label>
+                                                    </form>
+                                                
+                                                </div>
+
+
+                                           </div>
 
                                             <div id="properties-icons">
 
@@ -943,6 +986,27 @@
                                                     <label for="cb_videos_padding" style="width: 132px">Padding</label>
                                                     <input id="cb_videos_padding" type="checkbox" class="cb-switch">
                                                 </div><!-- /input-group -->
+
+
+                                                <div class="input-group">
+                                                    <label for="cb_videos_shadows" style="width: 132px">Shadows</label>
+                                                    <input id="cb_videos_shadows" type="checkbox" class="cb-switch">
+                                                </div><!-- /input-group -->
+
+                                                <div id="box-videos-shadows">
+
+                                                    <button id="btn_videos_shadows_color" class="btn_style"><svg width="24" height="24" viewbox="0 0 16 20" xmlns="http://www.w3.org/2000/svg" class="ui-icon-paint-svg"><path d="M12.5 2v3.252a.75.75 0 0 0 1.5 0V2h1v4.251a.75.75 0 0 0 1.5 0V2h1.75a.75.75 0 0 1 .75.75V11H5V2.75A.75.75 0 0 1 5.75 2h6.75ZM5 12.5v1.752a2.25 2.25 0 0 0 2.25 2.25H10V20a2 2 0 1 0 4 0v-3.498h2.75a2.25 2.25 0 0 0 2.25-2.25V12.5H5Z" /></svg></button>
+                                                
+                                                    <form id="form_videos_shadows_type" name="form_videos_shadows_type" class="rb-switch">
+                                                        <input type="radio" id="videos_shadows_type-1" name="videos-shadows-type" value="1" />
+                                                        <label for="videos_shadows_type-1" checked><span>Gradient</span></label>
+                                                
+                                                        <input type="radio" id="videos_shadows_type-2" name="videos-shadows-type" value="2" />
+                                                        <label for="videos_shadows_type-2"><span>Solid</span></label>
+                                                    </form>
+                                                
+                                                </div>
+                                                
                                             </div>
 
                                     </div><!-- /outer-properties -->
@@ -2886,7 +2950,24 @@
             document.getElementById("rb_vis_type_3").checked=false;
             document.getElementById("rb_vis_type_4").checked=false;
 
+            document.getElementById("cb_photos_shadows").checked=false;
             document.getElementById("properties-photos").style.display = "block";
+            document.getElementById("box-photos-shadows").style.display = "none";
+            document.getElementById("photos_shadows_type-1").checked=true;
+            document.getElementById("photos_shadows_type-2").checked=false;
+
+            document.getElementById("box-trans-shadows").style.display = "none";
+            document.getElementById("trans_shadows_type-1").checked=true;
+            document.getElementById("trans_shadows_type-2").checked=false;
+
+            document.getElementById("box-drawings-shadows").style.display = "none";
+            document.getElementById("drawings_shadows_type-1").checked=true;
+            document.getElementById("drawings_shadows_type-2").checked=false;
+
+            document.getElementById("box-videos-shadows").style.display = "none";
+            document.getElementById("videos_shadows_type-1").checked=true;
+            document.getElementById("videos_shadows_type-2").checked=false;
+
             document.getElementById("cb_img_textbox").checked=false;
             document.getElementById("cb_img_h4").checked=false;
             document.getElementById("cb_photos_padding").disabled=true;
@@ -2898,7 +2979,6 @@
             document.getElementById("cb_videos_padding").disabled=true;
             document.getElementById("cb_videos_padding").checked=false;
 
-            document.getElementById("cb_photos_shadows").checked=false;
             document.getElementById("cb_photos_corners_soft").checked=false;
 
             document.getElementById("show-textbox").style.display = "none";

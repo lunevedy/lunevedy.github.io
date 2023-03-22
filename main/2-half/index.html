@@ -653,6 +653,20 @@
                                                 <input id="cb_visual_shadows" type="checkbox" class="cb-switch">
                                             </div><!-- /input-group -->
 
+                                            <div id="box-visual-shadows">
+
+                                                <button id="btn_visual_shadows_color" class="btn_style"><svg width="24" height="24" viewbox="0 0 16 20" xmlns="http://www.w3.org/2000/svg" class="ui-icon-paint-svg"><path d="M12.5 2v3.252a.75.75 0 0 0 1.5 0V2h1v4.251a.75.75 0 0 0 1.5 0V2h1.75a.75.75 0 0 1 .75.75V11H5V2.75A.75.75 0 0 1 5.75 2h6.75ZM5 12.5v1.752a2.25 2.25 0 0 0 2.25 2.25H10V20a2 2 0 1 0 4 0v-3.498h2.75a2.25 2.25 0 0 0 2.25-2.25V12.5H5Z" /></svg></button>
+
+                                                <form id="form_visual_shadows_type" name="form_visual_shadows_type" class="rb-switch">
+                                                    <input type="radio" id="visual_shadows_type-1" name="visual-shadows-type" value="1" />
+                                                    <label for="visual_shadows_type-1" checked><span>Gradient</span></label>
+                
+                                                    <input type="radio" id="visual_shadows_type-2" name="visual-shadows-type" value="2" />
+                                                    <label for="visual_shadows_type-2"><span>Solid</span></label>
+                                                </form>                
+                                            </div>
+
+
                                             <div class="input-group">
                                                 <label for="cb_visual_corners_soft" style="width: 142px">Soft Corners</label>
                                                 <input id="cb_visual_corners_soft" type="checkbox" class="cb-switch">
@@ -2516,13 +2530,16 @@
             document.getElementById("rb_vis_type_3").disabled=false;
             document.getElementById("rb_vis_type_4").disabled=false;
             document.getElementById("rb_vis_type_1").checked=true;
-
+            
             document.getElementById("box-shape-photo").style.display = 'block';
             document.getElementById("box-shape-trans").style.display = 'none';
             document.getElementById("box-shape-drawing").style.display = 'none';
             document.getElementById("box-source-video").style.display = 'none';
 
             document.getElementById("cb_visual_shadows").checked= false;
+            document.getElementById("box-visual-shadows").style.display = "none";
+            document.getElementById("visual_shadows_type-1").checked=true;
+            document.getElementById("visual_shadows_type-2").checked=false;
 
             document.getElementById("dd_shape_photo").value = '1';
 
