@@ -8,6 +8,8 @@ let color_code;
 const arrCSS = []; // array for style rules to copy
 
 let sectionClassName = '.section-selector-1';
+sessionStorage.setItem("sectionTheme", ".theme-light");
+let sectionTheme = '.theme-light';
 
 /*
 //////////////// MENUS AND DROPDOWNS ///////////////
@@ -183,7 +185,6 @@ if (document.getElementById("form_switch_section_theme")) {
 }
 
 function doSectionTheme() {
-    console.log("Clicked")
     const rbs = document.querySelectorAll("input[name='switch_section_light_dark']");
     let selectedValue;
 
@@ -193,7 +194,6 @@ function doSectionTheme() {
             break;
         }
     }
-    console.log("selectedValue: "+selectedValue)
     if (selectedValue==="light") {
         if (iframe.contentWindow.document.querySelector("header")) {
             iframe.contentWindow.document.querySelector("header").classList.remove("theme-dark");
@@ -205,6 +205,7 @@ function doSectionTheme() {
             iframe.contentWindow.document.querySelector("section").classList.remove("theme-dark");
             iframe.contentWindow.document.querySelector("section").classList.add("theme-light");
             sessionStorage.setItem("sectionTheme", ".theme-light");
+            sectionTheme = '.theme-light';
         }
     }
 
@@ -219,6 +220,7 @@ function doSectionTheme() {
             iframe.contentWindow.document.querySelector("section").classList.remove("theme-light");
             iframe.contentWindow.document.querySelector("section").classList.add("theme-dark");
             sessionStorage.setItem("sectionTheme", ".theme-dark");
+            sectionTheme = '.theme-dark';
         }
     }
     clearCSSTags();

@@ -10,7 +10,7 @@ document.querySelector("#form_col_visual_desktop").addEventListener("change", do
 function doColOrderDesktop() {
     const rbs = document.querySelectorAll("input[name='col_visual_desktop']");
 
-	console.log("got here")
+
     let selectedValue;
 
     for (const rb of rbs) {
@@ -187,11 +187,12 @@ function doH2() {
 
     else {
         const newH2 = document.createElement("h2");
+        // if no badge exists, position as first child of column
 		if (!iframe.contentWindow.document.querySelector("section .col-2.col-text .badge")) {
 			iframe.contentWindow.document.querySelector('section .col-2.col-text').prepend(newH2);
-			iframe.contentWindow.document.querySelector('section .col-2.col-text h2').innerText = content_form_h2;
+			iframe.contentWindow.document.querySelector('section .col-2.col-text h2').textContent = content_form_h2;
 		}
-
+        // if badge exists, position after badge with line breaks
 		else {
 			const el_badge = iframe.contentWindow.document.querySelector("section .col-2.col-text .badge");
 			const new_content_form_h2 = "\n\t\t\t<h2>"+content_form_h2+"<\/h2>\n\n";
@@ -245,8 +246,6 @@ function doH2Text() {
         iframe.contentWindow.document.querySelector('section .col-2.col-text h2').innerHTML = elH2Content;
         document.getElementById("btn_h2_highlight").disabled = false;
         document.getElementById("btn_h2_highlight").checked = false;
-        // document.getElementById("btn_h2_border").disabled = false;
-        // document.getElementById("btn_h2_border").checked = false;
     }
 }
 
@@ -288,7 +287,7 @@ function doFormPara() {
     }
 
     else {
-        const elForm = iframe.contentWindow.document.getElementById("contact-form");
+        const elForm = iframe.contentWindow.document.getElementById("email-form");
         elForm.insertAdjacentHTML("beforebegin", "<p>Have a project you would like to discuss? Let's make something great together! Use the form below to let me know a little more about your objectives and I will get back to you.</p>");
     }
 	document.getElementById("btn_para_text").disabled=false;
