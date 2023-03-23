@@ -16,18 +16,6 @@
 
 
     <style>
-
-        .col-2.col-text #contact-form .form-row { margin-bottom: 28px }
-        .col-2.col-text #contact-form { margin: 0 0 0 0 }
-/*
-        .section-selector-1 {
-            background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
-            background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
-            background-image: linear-gradient(to right, #00c6fb 0%, #005bea 100%);
-            background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);
-            background-image: linear-gradient(to bottom left, #0f2e4a 0%, black 100%);
-        } */
-
     </style>
 
 </head>
@@ -44,9 +32,9 @@
         <div class="col-2 col-text">
 
             <h2>Get in touch</h2>
-            <p>Have a project you would like to discuss? Let's make something great together! Use the form below to let me know a little more about your objectives and I will get back to you.</p>
+            <p>Have a project you would like to discuss? Let's make something great together! Use the form below to let me know a little more about your objectives and we will get back to you.</p>
 
-            <form id="email-form" name="email-form" accept charset="utf-8" method="post" action="">
+            <form id="email-form" name="email-form" charset="utf-8" method="post" action="">
 
                 <div class="form-row">
                     <label for="full_name">Full Name</label>
@@ -60,11 +48,11 @@
 
                 <div class="form-row">
                     <label for="form_message">How can we help you?</label>
-                    <textarea aria-required="true" rows="5" class="js-autosize" name="form_message" id="form_message" required></textarea>
+                    <textarea aria-required="true" rows="3" name="form_message" id="form_message" required></textarea>
                 </div>
 
                 <div class="form-footer">
-                    <button id="btn-submit" class="btn btn-solid" type="submit" data-validate="submit" aria-label="Send message">Send</button>
+                    <button id="btn-submit" class="btn-solid" type="submit" data-validate="submit" aria-label="Send message"><span>Send</span><i class="fas fa-arrow-right"></i></button>
                 </div>
             </form>
 
