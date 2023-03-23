@@ -1860,8 +1860,6 @@ nav.theme-dark ul.links-wrapper li a.btn-solid:active {
 .theme-light p, .theme-light li { color: var(--black-000) }
 .theme-light .col-1 h3 { color: var(--slate-700); }
 
-
-
 .theme-light .btn-solid:link,
 .theme-light .btn-solid:link,
 .theme-light .btn-solid:visited {
@@ -2854,9 +2852,11 @@ div[class*='col-'] .btn-shadow {
 /* == Contact form container == */
 
 /* All screens */
-#email-form {
-    background-color: var(--gray-200);
-}
+.theme-light #email-form { background-color: var(--gray-200) }
+.theme-light #email-form label { color: #000 }
+
+.theme-dark  #email-form { background-color: var(--gray-800) }
+.theme-dark  #email-form label  { color: #fff }
 
 /* Desktop */
 @media (min-width: 1024px) {
@@ -2903,13 +2903,18 @@ div[class*='col-'] .btn-shadow {
 }
 
 #email-form label {
-	font-size: var(--font-size-base);
-	font-weight: normal;
+	font-weight: 400;
 	margin-bottom: 8px;
-	/* display: flex;
-	align-items: baseline; */
     display: inline-block;
     cursor: pointer;
+}
+
+@media(min-width: 768px) {
+    #email-form label { font-size: calc(var(--font-size-base) * 0.9) }
+}
+
+@media(max-width: 767px) {
+    #email-form label { font-size: var(--font-size-base) }
 }
 
 #email-form label span {
@@ -2956,23 +2961,101 @@ div[class*='col-'] .btn-shadow {
 
 #email-form #btn-submit {
 	text-align: right;
-    background-color: var(--black-000);
-    color: var(--white-000);
-	font-weight: bold;
-    padding: 4px 28px;
-    font-size: var(--font-size-base);
-    border: solid 2px var(--black-000);
+    font-weight: 400;
+    font-size: 18px;
+    padding: 6px 24px;
+    border-style: solid;
+    border-width: 2px;
     cursor: pointer;
     outline: none;
 }
 
-#email-form #btn-submit:hover,
-#email-form #btn-submit:active {
-    background-color: var(--gray-700);
-    color: var(--white-000);
+/* Solid button */
+.theme-light #btn-submit.btn-solid {
+    color:            var(--white-000);
+    background-color: var(--black-000);
+    border-color:     var(--black-000);
 }
 
-#email-form #btn-submit i { font-size: 104% }
+.theme-light #btn-submit.btn-solid:focus,
+.theme-light #btn-submit.btn-solid:hover,
+.theme-light #btn-submit.btn-solid:active {
+    color:            var(--white-000);
+    background-color: var(--slate-700);
+    border-color:     var(--slate-700);
+}
+
+/* Outline button */
+.theme-light #btn-submit.btn-outline {
+    color:            var(--black-000);
+    background-color: transparent;
+    border-color:     var(--black-000);
+}
+
+.theme-light #btn-submit.btn-outline:focus, 
+.theme-light #btn-submit.btn-outline:hover, 
+.theme-light #btn-submit.btn-outline:active {
+    color:            var(--white-000);
+    background-color: var(--slate-700);
+    border-color:     var(--slate-700);
+}
+
+.theme-light #btn-submit.btn-plain {
+    color:            var(--black-000);
+    background-color: transparent;
+    border-color:     transparent;
+}
+
+.theme-light #btn-submit.btn-plain:focus,
+.theme-light #btn-submit.btn-plain:hover,
+.theme-light #btn-submit.btn-plain:active {
+    color:            var(--slate-400);
+    border-color:     transparent;
+}
+
+
+/* Solid button */
+.theme-dark #btn-submit.btn-solid {
+    color:            var(--black-000);
+    background-color: var(--white-000);
+    border-color:     var(--white-000);
+}
+
+.theme-dark #btn-submit.btn-solid:focus,
+.theme-dark #btn-submit.btn-solid:hover,
+.theme-dark #btn-submit.btn-solid:active {
+    color:            var(--white-000);
+    background-color: var(--slate-700);
+    border-color:     var(--slate-700);
+}
+
+/* Outline button */
+.theme-dark #btn-submit.btn-outline {
+    color:            var(--white-000);
+    background-color: transparent;
+    border-color:     var(--white-000);
+}
+
+.theme-dark #btn-submit.btn-outline:focus, 
+.theme-dark #btn-submit.btn-outline:hover, 
+.theme-dark #btn-submit.btn-outline:active {
+    color:            var(--white-000);
+    background-color: var(--slate-700);
+    border-color:     var(--slate-700);
+}
+
+.theme-dark #btn-submit.btn-plain {
+    color:            var(--white-000);
+    background-color: transparent;
+    border-color:     transparent;
+}
+
+.theme-dark #btn-submit.btn-plain:focus,
+.theme-dark #btn-submit.btn-plain:hover,
+.theme-dark #btn-submit.btn-plain:active {
+    color:            var(--slate-200);
+    border-color:     transparent;
+}
 
 /* Big screens */
 @media (min-width: 1024px) {
@@ -3111,8 +3194,6 @@ footer p.privacy a:hover, footer p.privacy a:active {
 
 /* Footer-2 */
 .footer-2 { text-align: left; margin: 0 }
-
-
 
 /* ============ UTILITY CLASSES ============== */
 
