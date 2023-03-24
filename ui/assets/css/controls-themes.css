@@ -979,14 +979,17 @@
 }
 
 #lower-left.theme-ui-dark-blue div .toggleButton {
-    background: var(--gray-400); border-color: var(--gray-700);
+    /* background: var(--gray-400); border-color: var(--gray-700); */
+    /* background-color: #09dafa; border-color: #09dafa; */
+    background-color: #00ddff; fill: #000
 }
 
 #lower-left.theme-ui-dark-blue div .toggleButton svg { fill: var(--gray-800) }
 
 #lower-left.theme-ui-dark-blue div .toggleButton:hover,
 #lower-left.theme-ui-dark-blue div .toggleButton.btn-lower-left-active {
-    background-color: #00ddff; fill: #000
+    /* background-color: #00ddff; fill: #000; */
+    background-color:rgb(138,235,255); border-color: rgb(138,235,255);
 }
 
 #lower-left.theme-ui-dark-blue div .toggleButton.btn-lower-left-active svg { fill: #000 }
@@ -1019,7 +1022,7 @@
 .theme-ui-dark-blue#copy-code-btns button:hover,
 .theme-ui-dark-blue#copy-code-btns button:active {
     font-weight: 600; color: #000;
-    background-color:rgb(138,235,255); border-color: rgb(138,235,255)
+    background-color:rgb(138,235,255); border-color: rgb(138,235,255);
 }
 
 .theme-ui-dark-blue#copy-code-btns button:focus svg,
