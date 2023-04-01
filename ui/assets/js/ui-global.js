@@ -796,7 +796,7 @@ function resetResponsive() {
 //////////////// COPY TO CLIPBOARD ///////////////
 */
 
-document.querySelector("#btn-copy").addEventListener("click", copyHTML);
+// document.querySelector("#btn-copy").addEventListener("click", copyHTML);
 
 function enableCSS() {
     document.getElementById("btn-copy-css").disabled=false;
@@ -806,21 +806,21 @@ function disableCSS() {
     document.getElementById("btn-copy-css").disabled=true;
 }
 
-function copyHTML() {
-    let HTML_Content = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
+// function copyHTML() {
+//     let HTML_Content = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
 
-    HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
+//     HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
 
-    HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
+//     HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
 
-    const el = document.createElement('textarea');
-    el.value = HTML_Content;
-    hideMenus();
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-}
+//     const el = document.createElement('textarea');
+//     el.value = HTML_Content;
+//     hideMenus();
+//     document.body.appendChild(el);
+//     el.select();
+//     document.execCommand('copy');
+//     document.body.removeChild(el);
+// }
 
 document.querySelector("#btn-copy-css").addEventListener("click", copyCSS);
 
@@ -848,4 +848,77 @@ function copyCSS() {
     document.execCommand('copy');
     document.body.removeChild(el_css);
 }
+
+    // New Copy HTML to clipboard
+    const btnHTML = document.getElementById("btn-copy");
+    const btnHTMLcontent = document.getElementById("btn-copy").innerHTML;
+    btnHTML.addEventListener("click", e => {
+        e.stopPropagation();
+        hideMenus();
+        let strHTML = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
+        strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
+        strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
+        doCopyHTML(strHTML);
+    });
+
+    async function doCopyHTML(strHTML) {
+        await navigator.clipboard.writeText(strHTML);
+        btnHTML.style.borderColor = "#48bb78";
+        btnHTML.style.backgroundColor = "#14f195";
+        btnHTML.style.fontWeight = "normal";
+        btnHTML.style.paddingTop = "6px";
+        btnHTML.style.paddingBottom = "6px";
+
+        btnHTML.innerHTML = "&#x2713; &nbsp;Copied";
+        setTimeout(function() {
+            btnHTML.style.backgroundColor = "";
+            btnHTML.style.borderColor = "";
+            btnHTML.style.paddingTop = "";
+            btnHTML.style.paddingBottom = "";
+            btnHTML.innerHTML = btnHTMLcontent;
+            btnHTML.classList.add('copy-code');	
+        }, 1500);
+    }
+
+
+    // New Copy CSS to clipboard
+    const btnCSS = document.getElementById("btn-copy-css");
+    const btnCSScontent = document.getElementById("btn-copy-css").innerHTML;
+    btnCSS.addEventListener("click", e => {
+        e.stopPropagation();
+        hideMenus();
+        let strCSS  = arrCSS.join(",");
+        strCSS = strCSS.replaceAll(",.theme", ".theme");
+        strCSS = strCSS.replaceAll(",.nav", "nav");
+        strCSS = strCSS.replaceAll(",nav", "nav");
+        strCSS = strCSS.replaceAll(".nav", "nav");
+        strCSS = strCSS.replaceAll("nav-toggle", ".nav-toggle");
+        strCSS = strCSS.replaceAll(",@media", "@media");
+        strCSS = strCSS.replaceAll(",@media", "@media");
+        strCSS = strCSS.replaceAll(",@media", "@media");   
+        strCSS = strCSS.replaceAll(",.header", "header");
+        strCSS = strCSS.replaceAll(",header", "header");
+        strCSS = strCSS.replaceAll(" ,header", "header");
+        strCSS = strCSS.replaceAll(",.section", ".section");
+        strCSS = strCSS.replaceAll(",.footer", ".footer");
+        doCopyCSS(strCSS);
+    });
+
+    async function doCopyCSS(strCSS) {
+        await navigator.clipboard.writeText(strCSS);
+        btnCSS.style.borderColor = "#48bb78";
+        btnCSS.style.backgroundColor = "#14f195";
+        btnCSS.style.fontWeight = "normal";
+        btnCSS.style.paddingTop = "6px";
+        btnCSS.style.paddingBottom = "6px";
+        btnCSS.innerHTML = "&#x2713; &nbsp;Copied";
+        setTimeout(function() {
+            btnCSS.style.backgroundColor = "";
+            btnCSS.style.borderColor = "";
+            btnCSS.style.paddingTop = "";
+            btnCSS.style.paddingBottom = "";
+            btnCSS.innerHTML = btnCSScontent;
+            btnCSS.classList.add('copy-code');	
+        }, 1500);
+    }
 

@@ -118,7 +118,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_cols_text_passive") {
             // Get class of buttons
             newStyle = sectionTheme+sectionClassName+" #btn-submit { color: var("+color_code+") }\n";
-            console.log("newStyle: "+newStyle);
+            // console.log("newStyle: "+newStyle);
             sub_string = "#btn-submit { color";
         }
 

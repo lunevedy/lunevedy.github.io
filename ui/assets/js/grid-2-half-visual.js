@@ -1,4 +1,4 @@
-import {content_photo_landscape_section, content_photo_portrait_section, content_photo_square_section, content_photo_circle_section, content_trans_landscape_section, content_trans_portrait_section, content_trans_square_section, content_drawing_landscape_section, content_drawing_portrait_section, content_drawing_square_section, content_vid_file_section, content_vid_yt_section, content_vid_rumble_section, content_textbox_section } from '../js/arr-content.js';
+import {content_photo_landscape_section, content_photo_portrait_section, content_form_photo_portrait_section,content_photo_square_section, content_photo_circle_section, content_trans_landscape_section, content_trans_portrait_section, content_trans_square_section, content_drawing_landscape_section, content_drawing_portrait_section, content_drawing_square_section, content_vid_file_section, content_vid_yt_section, content_vid_rumble_section, content_textbox_section } from '../js/arr-content.js';
 
 /*
 ////////////////////// VISUALS: FOUR TYPES ///////////////////////
@@ -228,7 +228,13 @@ function doVisSubTypes(n) {
     }
     // photos: portrait
     else if (n===2) {
-        el_visual = content_photo_portrait_section;
+        if (iframe.contentWindow.document.getElementById("email-form")) {
+            el_visual = content_form_photo_portrait_section;
+            console.log("email-form exists")
+        } else {
+            el_visual = content_photo_portrait_section;
+        }
+
     }
     // photos: square
     else if (n===3) {

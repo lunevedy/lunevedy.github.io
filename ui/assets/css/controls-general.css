@@ -1150,20 +1150,23 @@ label .trans-000  { background: #000; border: solid 1px var(--gray-300) }
     transition: all 0.4s linear;
 }
 
+#lower-left span,
 #page-preview-options span {
     padding: 0; margin: 0; background-color:#2b2a33;
     display: inline-block
 }
 
+#lower-left span img,
 #page-preview-options span img { display: inline;  }
 
-
 /* Tooltip container */
+#lower-left .tooltip,
 #page-preview-options .tooltip {
     position: relative;
     display: inline-block;
 }
 
+#lower-left .tooltip span.tooltiptext,
 #page-preview-options .tooltip span.tooltiptext {
     display: none;
     min-width: 80px;
@@ -1177,6 +1180,11 @@ label .trans-000  { background: #000; border: solid 1px var(--gray-300) }
     margin-top: -20px
 }
 
+#lower-left .tooltip span.tooltiptext {
+    margin-top: -70px; margin-left: 40px;
+}
+
+#lower-left .tooltip:hover span.tooltiptext,
 #page-preview-options .tooltip:hover span.tooltiptext {
     display: inline-block;
 }
@@ -1192,13 +1200,7 @@ label .trans-000  { background: #000; border: solid 1px var(--gray-300) }
 .page-preview-header span > * { pointer-events: none }
 
 
-
-
-
-
-
-
-
+#btn-copy, #btn-copy-css { min-width: 64px }
 
 /* menus for header or menu options */
 #control-menu #menu-0 a:link,

@@ -88,6 +88,8 @@ export const content_photo_landscape_form ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img s
 
 export const content_photo_portrait_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-window.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
+export const content_form_photo_portrait_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-typing.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
+
 export const content_photo_portrait_form ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x900-typing.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
 export const content_photo_short_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/900x248-man-desk.jpg\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
