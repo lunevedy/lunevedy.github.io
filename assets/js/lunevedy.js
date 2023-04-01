@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", checkViewportWidth);
         }
     }
 
-    console.log("vw: " + vw);
+    // console.log("vw: " + vw);
 }
 
 // Monitor viepwort width
