@@ -24,7 +24,9 @@ function showHideMenu() {
         document.getElementById("btn-nav-add-remove").innerText = "Add menu";
         const el_nav= iframe.contentWindow.document.querySelector('nav');
         el_nav.remove();
-        iframe.contentWindow.document.querySelector('.header-after-menu-sticky').classList.remove("header-after-menu-sticky");
+        if (iframe.contentWindow.document.querySelector('.header-after-menu-sticky')) {
+            iframe.contentWindow.document.querySelector('.header-after-menu-sticky').classList.remove("header-after-menu-sticky");
+        }
     }
 }
 
