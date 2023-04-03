@@ -28,7 +28,7 @@ window.onresize = checkViewportWidth;
 // }
 
 document.body.addEventListener( 'click', function ( event ) {
-    if( event.target.id == 'nav-toggle-btn' ) {
+    if ((event.target.id == 'nav-toggle-btn') || (event.target.id == 'nav-toggle')) {
         toggleMobileMenu(event);
     };
 });
