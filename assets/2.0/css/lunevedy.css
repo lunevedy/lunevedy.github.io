@@ -3451,6 +3451,9 @@ figure.photos-brightness:hover img {
     filter: brightness(105%);
 }
 
-
+/* legacy */
+@media (min-width: 768px) {
+    header .container-text.w-50, header .container-btn.w-50 { max-width: 50% }
+}
 
 
