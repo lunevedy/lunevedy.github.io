@@ -23,16 +23,13 @@ document.addEventListener("DOMContentLoaded", checkViewportWidth);
 window.onresize = checkViewportWidth;
 
 // Show/hide fly-out mobile menu -->
-// if (document.getElementById('nav-toggle-btn')) {
-//     document.getElementById('nav-toggle-btn').addEventListener('click', toggleMobileMenu);
-// }
 
-document.body.addEventListener( 'click', function ( event ) {
-    if ((event.target.id == 'nav-toggle-btn') || (event.target.id == 'nav-toggle')) {
-        toggleMobileMenu(event);
-    };
-});
-
+if (document.querySelector('.nav-toggle')) {
+    document.querySelector('.nav-toggle').addEventListener('click', toggleMobileMenu);
+}
+else if (document.querySelector('.nav-toggle-btn')) {
+    document.querySelector('.nav-toggle-btn').addEventListener('click', toggleMobileMenu);
+}
 
 function toggleMobileMenu(event) {
     console.log("got here")
