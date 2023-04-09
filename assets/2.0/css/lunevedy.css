@@ -1187,6 +1187,22 @@ section .col-visual figure { overflow: visible }
 section .col-visual figure img,
 section .col-visual figure video { display: block }
 
+.container-video-yt {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    display: block
+}
+
+.container-video-yt iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block
+}
+
 /* Desktops */
 @media (min-width: 768px)  {
     /* section */
@@ -1229,7 +1245,7 @@ section .col-visual figure video { display: block }
     section .col-text .container-btn { margin-top: 40px }
 
     /* visual column */
-    section .col-visual { padding-left: 5%; padding-right: 5% }
+    section .col-visual { display: block; padding-left: 5%; padding-right: 5% }
     section.flex-row-reverse .col-2.col-visual { order: 1 }
     section .col-visual > figure { margin-bottom: 0px }
     section .visual figure.fig-shadows-trans { margin-bottom: 0 }
@@ -1287,31 +1303,42 @@ section .col-visual figure video { display: block }
 
 /* Mobiles */
 @media (max-width: 767px) {
-    section.cols-2-half {
-        display: flex; flex-direction: column; flex-wrap: nowrap;
-        justify-content: flex-start; gap: 32px;
-    }
-    section .col-text { margin-bottom: 0  !important }
-    section .col-text .container-btn { margin-top: 32px }
-
-    /* default: visual column above text column */
-    section .col-text { order: 2 }
-    section .col-visual { order: 1 }
-    section.flex-column-reverse { flex-direction: column-reverse }
-    section.flex-column-reverse .col-2.col-visual { margin-bottom: 32px !important }
-
     /* Text column */
+    section .col-text { margin-bottom: 0  !important }
     section .col-text .badge { margin-bottom: 22px }
-
     section .col-text h2 { margin-bottom: 6px }
     section .col-text h3 { margin-top: 26px }
+    section .col-text .container-btn { margin-top: 32px } */
+    /* Text vertically centered */
+    section.cols-2-half.col-text {
+        display: flex; flex-direction: column; flex-wrap: nowrap;
+        justify-content: flex-start; gap: 32px;
+    } 
 
     /* visual column */
+    section .col-visual figure { margin-top: 22px; margin-bottom: 0 }
+
     section .col-visual.mobile-bleed-edges {
         padding-left: 0 !important; padding-right: 0 !important;
         text-align: center; width: 120%; margin-left: -10%; margin-right: -10%;
     }
-    section .col-visual figure { margin-bottom: 0 }
+
+    /* default: visual column above text column */
+    section .col-text { order: 2 }
+    section .col-visual { order: 1 }
+    /* section.flex-column-reverse { flex-direction: column-reverse }
+    section.flex-column-reverse .col-2.col-visual { margin-bottom: 32px !important } */
+
+    /* Rows reversed */
+	section.flex-column-reverse .col-text {
+        order: 1;
+    }
+    section.flex-column-reverse .col-visual {
+        order: 2;
+    }
+
+
+
 }
 
 
@@ -2389,30 +2416,15 @@ div[class^='col-'] figure.icon-left { text-align: left }
 }
 
 /* Video - files */
+
+
 .container-video-file {
     position: relative; overflow: hidden;
 }
 
 .container-video-file video { width: 100%; height: auto }
 
-/* Video - YouTube */
-.container-video-yt {
-    overflow: hidden; position: relative; width: 100%; margin-bottom: 32px;
-}
 
-.container-video-yt::after {
-    padding-top: 56.25%;
-    display: block;
-    content: '';
-}
-
-.container-video-yt iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 
 
 div.flex-cols-2 div.col-2 .badge {
@@ -3454,5 +3466,3 @@ figure.photos-brightness:hover img {
 @media (min-width: 768px) {
     header .container-text.w-50, header .container-btn.w-50 { max-width: 50% }
 }
-
-
