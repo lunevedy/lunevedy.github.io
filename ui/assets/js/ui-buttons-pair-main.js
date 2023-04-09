@@ -96,13 +96,13 @@ function loadBtnInitial() {
 
         // Set defaults for three button of tab 1
         document.getElementById("dd_button_type_1").value="0";
-        // document.getElementById("rd_btns_icons_left_1").disabled=false;
+        document.getElementById("rd_btns_icons_left_1").disabled=false;
         document.getElementById("rd_btns_icons_left_1").checked=true;
-        // document.getElementById("dd_buttons_shape_1").disabled=false;
+        document.getElementById("dd_buttons_shape_1").disabled=false;
         document.getElementById("dd_buttons_shape_1").value="0";
-        // document.getElementById("cb_buttons_shadow_1").disabled=false;
+        document.getElementById("cb_buttons_shadow_1").disabled=false;
         document.getElementById("cb_buttons_shadow_1").checked=false;
-        // document.getElementById("cb_buttons_uppercase_1").disabled=false;
+        document.getElementById("cb_buttons_uppercase_1").disabled=false;
         document.getElementById("cb_buttons_uppercase_1").checked=false;
     }
 
