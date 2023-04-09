@@ -941,10 +941,10 @@
 .theme-ui-dark-blue #content-3 .buttonWrapper button.tab-button:hover,
 .theme-ui-dark-blue #content-3 .buttonWrapper button.tab-button:focus,
 .theme-ui-dark-blue #content-3 .buttonWrapper button.tab-button:active {
-    background-color: var(--dialog-bg);
-    border-top: solid 1ox var(--dialog-bg);
-    border-left: solid 1ox var(--dialog-bg);
-    border-right: solid 1px var(--dialog-bg);
+    background-color: #182d41;
+    border-top: solid 1px #182d41;
+    border-left: solid 1px #182d41;
+    border-right: solid 1px #182d41;
     border-bottom: solid 1px var(--gray-500);
     color: var(--gray-500);
     border-bottom-color: #9fb1bd;
