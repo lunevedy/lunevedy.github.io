@@ -32,7 +32,9 @@ function doColOrderDesktop() {
 }
 
 /* Mobile: top and bottom */
-document.querySelector("#form_col_visual_mobile").addEventListener("change", doColOrderMobile);
+if (document.querySelector("#form_col_visual_mobile")) {
+    document.querySelector("#form_col_visual_mobile").addEventListener("change", doColOrderMobile);
+}
 
 function doColOrderMobile() {
     const rbs = document.querySelectorAll("input[name='col_visual_mobile']");
@@ -318,7 +320,7 @@ function doTextAnimation() {
     }
 
     else if (opt==="1") {
-        console.log("do animation");
+        // console.log("do animation");
         removeTextAnimation();
         // Image at right
         if (!document.querySelector(".flex-row-reverse")) {
