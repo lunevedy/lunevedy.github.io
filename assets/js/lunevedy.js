@@ -32,7 +32,7 @@ else if (document.querySelector('.nav-toggle-btn')) {
 }
 
 function toggleMobileMenu(event) {
-    console.log("got here")
+    event.preventDefault();
     event.stopPropagation();
     const elHTML = document.querySelector('html');
     const elNav = document.querySelector('nav');
@@ -72,14 +72,16 @@ function scrollCheckColors() {
 }
 
 function swapMenuStyle() {
-    const el_menu = document.querySelector('nav');
-    const el_menu_onscroll = el_menu.offsetTop +300;
-	if ( window.pageYOffset > el_menu_onscroll) {
-		el_menu.classList.add("menu-on-scroll");
-	}
-    else {
-        el_menu.classList.remove("menu-on-scroll")
-	}
+    if (document.querySelector('nav')) {
+        const el_menu = document.querySelector('nav');
+        const el_menu_onscroll = el_menu.offsetTop +300;
+        if ( window.pageYOffset > el_menu_onscroll) {
+            el_menu.classList.add("menu-on-scroll");
+        }
+        else {
+            el_menu.classList.remove("menu-on-scroll")
+        }
+    }
 }
 
 // Check initial menu scroll position
