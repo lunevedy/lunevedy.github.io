@@ -17,13 +17,16 @@ function showHideMenu() {
         el_nav.setAttribute("class", "theme-light");
         el_nav.innerHTML = "<div class=\"container-menu\">\n<a href=\"#\" class=\"brand\">\n\t<img src=\"../../ui/assets/img/website-logo-sample.png\" alt=\"Sample website logo\"></a>\n\n<div class=\"container-menu-links\">\n\n<div class=\"nav-toggle\" id =\"nav-toggle-btn\"><div class=\"bar-1\"></div><div class=\"bar-2\"></div><div class=\"bar-3\"></div></div>\n\n<ul class=\"links-wrapper\">\n<li><a href=\"#\">Home</a></li>\n<li><a href=\"#\">About</a></li>\n<li><a href=\"#\">Products</a></li>\n<li><a href=\"#\">Services</a></li>\n<li><a class=\"btn btn-solid\" id=\"btn-cta\" href=\"#\"><span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"></i></a></li>\n</ul>\n</div>\n</div>";
         el_header.parentNode.insertBefore(el_nav, el_header);
+        sessionStorage.setItem("navTheme", ".theme-light");
     }
     else {
         document.getElementById("dd_actions").style.display= "none";
         document.getElementById("work-with").style.display= "none";
         document.getElementById("btn-nav-add-remove").innerText = "Add menu";
-        const el_nav= iframe.contentWindow.document.querySelector('nav');
-        el_nav.remove();
+        if (iframe.contentWindow.document.querySelector('nav')) {
+            const el_nav= iframe.contentWindow.document.querySelector('nav');
+            el_nav.remove();
+        }
         if (iframe.contentWindow.document.querySelector('.header-after-menu-sticky')) {
             iframe.contentWindow.document.querySelector('.header-after-menu-sticky').classList.remove("header-after-menu-sticky");
         }
@@ -682,3 +685,70 @@ function removeTextAnimate() {
         iframe.contentWindow.document.querySelector("header > .container-btn").classList.remove("reveal-scale-in-header");
     }
 }
+
+iframe.contentWindow.document.body.addEventListener( 'click', function ( event ) {
+    if( event.target.id == 'nav-toggle-btn' ) {
+        toggleMobileMenu(event);
+    };
+});
+
+if (iframe.contentWindow.document.querySelector('.nav-toggle')) {
+    iframe.contentWindow.document.querySelector('.nav-toggle').addEventListener('click', toggleMobileMenu);
+}
+else if (iframe.contentWindow.document.getElementById('nav-toggle-btn')) {
+    iframe.contentWindow.document.getElementById('nav-toggle-btn').addEventListener('click', toggleMobileMenu);
+}
+
+function toggleMobileMenu(event) {
+    event.stopPropagation();
+    const elHTML = iframe.contentWindow.document.querySelector('html');
+    const elNav = iframe.contentWindow.document.querySelector('nav');
+    const navWrapper = iframe.contentWindow.document.querySelector(".links-wrapper");
+
+    if (navWrapper.classList.contains("active")) {
+        navWrapper.setAttribute("aria-expanded", "false");
+        navWrapper.setAttribute("aria-label", "menu");
+        navWrapper.classList.remove("active");
+        elHTML.classList.remove('no-scroll');
+        elNav.classList.remove('menu-on-scroll');
+    }
+
+    else {
+        navWrapper.classList.add("active");
+        navWrapper.setAttribute("aria-label", "close menu");
+        navWrapper.setAttribute("aria-expanded", "true");
+        elHTML.classList.add('no-scroll');
+        elNav.classList.add('menu-on-scroll');
+    }
+}
+
+
+// On-scroll colours
+window.addEventListener("scroll", scrollCheckColors);
+
+function scrollCheckColors() {
+
+    if (iframe.contentWindow.document.querySelector('nav')) {
+        window.onscroll = function() {swapMenuStyle()};
+    }
+
+    if (iframe.contentWindow.document.querySelector('nav')) {
+        const el_menu = document.querySelector('nav');
+        const el_menu_onscroll = el_menu.offsetTop +300;
+    }
+}
+
+function swapMenuStyle() {
+    const el_menu = iframe.contentWindow.document.querySelector('nav');
+    const el_menu_onscroll = el_menu.offsetTop +300;
+    if ( window.pageYOffset > el_menu_onscroll) {
+        el_menu.classList.add("menu-on-scroll");
+    }
+    else {
+        el_menu.classList.remove("menu-on-scroll")
+    }
+}
+
+
+
+
