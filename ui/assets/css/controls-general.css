@@ -1408,3 +1408,4 @@ label .trans-000  { background: #000; border: solid 1px var(--gray-300) }
 
 .nav-toggle { pointer-events: auto}
 #nav-toggle-btn  { pointer-events: auto}
+#slider-display { color: #fff; margin-left: 12px; margin-top: 2px }
