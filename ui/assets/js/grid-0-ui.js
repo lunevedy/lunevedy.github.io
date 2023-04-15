@@ -20,7 +20,7 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
                 break;
             }
         }
-        sectionTheme =  sessionStorage.getItem("sectionTheme");
+
         /* Section background */
         if (btn_id === "btn_section_bg") {
             newStyle = sectionClassName+ " { background-color: var("+color_code+") }\n";
@@ -80,6 +80,20 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         else if (btn_id === "btn_list_marker") {
             newStyle = sectionClassName+ " li::marker, "+sectionClassName+ " ul.fa-ul li span.fa-li i { color: var("+color_code+") }\n";
             sub_string = "li::marker";
+        }
+
+         /* ====== HYPERLINKS IN PARAGRAPH ====== */
+
+        /* Links: passive */
+        else if (btn_id === "btn_para_text_passive") {
+            newStyle = sectionTheme+sectionClassName+" p a:link,\n"+sectionTheme+sectionClassName+" p a:visited { color: var("+color_code+") }\n\n";
+            sub_string = "p a:link";
+        }
+
+        /* Links: active */
+        else if (btn_id === "btn_para_text_active") {
+            newStyle = sectionTheme+sectionClassName+" p a:focus,\n"+sectionTheme+sectionClassName+" p a:hover,\n"+sectionTheme+sectionClassName+" p a:active { color: var("+color_code+") }\n\n";
+            sub_string = "p a:focus";
         }
 
         /* === Buttons === */
