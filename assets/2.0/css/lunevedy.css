@@ -1240,6 +1240,10 @@ section .col-visual figure video { display: block }
     section .col-text p, .cols-2-half .col-text li { font-size: var(--font-size-base) }
     section .col-text p { margin-bottom: 16px }
     section .col-text li { margin-bottom: 12px; margin-left: 20px; padding-left: 12px }
+  
+    @media (min-width: 768px) {
+        .cols-2-half .col-2.col-text ul.fa-ul li { margin-left: 20px }
+    }
 
     /* button */
     section .col-text .container-btn { margin-top: 40px }
