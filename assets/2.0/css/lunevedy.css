@@ -2259,8 +2259,8 @@ nav.theme-dark .nav-toggle .bar-3 { background: #fff }
 .no-scroll { overflow: hidden }
 
 .menu-drop-shadow {
-    /* box-shadow: 8px 8px 10px #888 !important; */
-    box-shadow: 8px 8px 10px var(--gray-500)
+    box-shadow: 0 4px 8px var(--gray-500);
+    z-index: 1;
 }
 
 /* Sticky menu */
