@@ -2258,10 +2258,10 @@ nav.theme-dark .nav-toggle .bar-3 { background: #fff }
 /* On mobiles, prevent scrolling outside menu */
 .no-scroll { overflow: hidden }
 
-.menu-drop-shadow {
-    box-shadow: 0 4px 8px var(--gray-500);
-    z-index: 1;
-}
+/* bottom shadow on menu */
+.menu-drop-shadow { box-shadow: 0 4px 8px var(--gray-500) }
+header:not(.hero-bg), header:not(.cols-2-half) { z-index: -1 }
+
 
 /* Sticky menu */
 .menu-sticky { position: fixed; top: 0; left: 0; right: 0; z-index: 99999 }
