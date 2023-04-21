@@ -4,16 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1-Column Layout | Embedded Frame | Lunevedy UI | Brendan Munnelly</title>
+    <title>Hero background Image | Embedded Frame | Lunevedy UI | Brendan Munnelly</title>
     <meta name="description" content="A JavaScript app for creating single-column HTML5 web page snippets. By Brendan Munnelly.">
-    <link rel="stylesheet" href="../../assets/2.0/css/lunevedy.css">
+    <link rel="stylesheet" href="../../assets/css/lunevedy.css">
 
 	<!-- Font Awesome 6 icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-	<style>
+    <style>
+    /* .hero-bg .container-overlay { */
+        /* background-image: linear-gradient(
+            rgba(255, 0, 0, var(--overlay-opacity)),
+            rgba(0, 0, 255, var(--overlay-opacity))
+        ); */
 
-	</style>
+
+        /* background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);  */
+
+        /* background-image: linear-gradient(
+            90deg,
+            rgba(0, 0, 255, 0.6) 45%,
+            rgba(0, 0, 255, 0.1) 60%,
+            transparent 100%
+        ); */
+
+        /* background-image: linear-gradient(rgba(0, 0, 255, 0.3) );         */
+
+
+    /* } */
+    /* .half {
+  opacity: 0.5;
+  filter: alpha(opacity=50); /* needed to support IE, my sympathies if that's the case
+} */
+
+/* to top 0deg.
+to right 90deg.
+to bottom 180deg.
+to left 270deg */
+
+    </style>
 
 </head>
 
@@ -21,32 +50,33 @@
 <body>
 
 <div id="HTML-Content">
-<!-- header starts here -->
-<header class="theme-light text-center-desktop text-center-mobile">
 
-    <div class="container-text">
-        <h1>Nice heading here</h1>
-        <h2>A sub-heading that motivates visitors to continue reading.</h2>
-    </div>
+    <header class="theme-dark hero-bg text-center-desktop text-center-mobile desktop-min-height-60vh">
 
-    <div class="container-btn">
-        <a href="#" class="btn btn-solid"><i class="fas fa-shopping-cart"></i><span>Order now</span></a>
-        <a href="#" class="btn btn-outline"><i class="fas fa-arrow-right"></i><span>Learn more</span></a>
-    </div>
+        <div class="container-text">
+            <h1 class="text-shadow">Nice heading here</h1>
+            <h2 class="text-shadow">A sub-heading that motivates visitors to continue reading.</h2>
+        </div>
 
-    <figure>
-        <img src="../../ui/assets/img/1024x618-cheesecake.jpg" alt="Placeholder image">
-    </figure>
+        <div class="container-btn">
+            <a href="#" class="btn btn-solid"><i class="fas fa-shopping-cart"></i><span>Order now</span></a>
+            <a href="#" class="btn btn-outline"><i class="fas fa-arrow-right"></i><span>Learn more</span></a>
+        </div>
 
-</header>
-<!-- header ends here -->
+        <div class="container-media">
+            <img src="../../ui/assets/img/1920x800-center.jpg" alt="Placeholder image">
+        </div>
+
+        <div class="container-overlay"></div>
+
+    </header>
 
 </div>
 
  <!-- section starts here -->
- <section class="theme-light section-selector-1" style="background-color: var(--slate-050);filter: blur(1px)">
+ <section id="placeholder" class="theme-light section-selector-1" style="background-color: var(--slate-050);filter: blur(1px)">
 
-    <div class="col-1 text-center w-820px">
+    <div class="col-1 text-center">
         <h2>Some placeholder text</h2>
         <h3>Leverage agile frameworks to provide a robust synopsis for high level overviews to foster collaborative thinking.</h3>
     </div>
