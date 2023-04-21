@@ -7,19 +7,32 @@ import {content_header_label_hero, content_h2_col_2_header, content_lists_col_2_
 document.getElementById("btn-nav-add-remove").addEventListener("click", showHideMenu);
 
 function showHideMenu() {
+    // If navbar menu currently not displayed, add it
     if (document.getElementById("dd_actions").style.display == "none") {
+
         document.getElementById("dd_actions").style.display= "block";
         document.getElementById("work-with").style.display= "block";
         document.getElementById("btn-nav-add-remove").innerText = "Remove menu";
 
         const el_body = iframe.contentWindow.document.querySelector('#HTML-Content');
-        const el_header = iframe.contentWindow.document.querySelector('header');
         const el_nav = document.createElement('nav');
         el_nav.setAttribute("class", "theme-light");
-        el_nav.innerHTML = "<div class=\"container-menu\">\n\t<a href=\"#\" class=\"brand\">\n\t\t<img src=\"../../ui/assets/img/website-logo-sample.png\" alt=\"Sample website logo\">\n\t</a>\n\n\t<div class=\"container-menu-links\">\n\n\t\t<div class=\"nav-toggle\" id =\"nav-toggle-btn\">\n\t\t\t<div class=\"bar-1\"></div>\n\t\t\t<div class=\"bar-2\"></div>\n\t\t\t<div class=\"bar-3\"></div>\n\t\t</div>\n\n\t\t<ul class=\"links-wrapper\">\n\t\t\t<li><a href=\"#\">Home</a></li>\n\t\t\t<li><a href=\"#\">About</a></li>\n\t\t\t<li><a href=\"#\">Products</a></li>\n\t\t\t<li><a href=\"#\">Services</a></li>\n\t\t\t<li><a class=\"btn btn-solid\" id=\"btn-cta\" href=\"#\"><span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"></i></a></li>\n\t\t</ul>\n\t</div></div>";
+el_nav.innerHTML = "\n\t<div class=\"container-menu\">\n\t\t<a href=\"#\" class=\"brand\">\n\t\t\t<img src=\"../../ui/assets/img/website-logo-sample.png\" alt=\"Sample website logo\">\n\t\t</a>\n\n\t\t<div class=\"container-menu-links\">\n\n\t\t\t<!-- hamburger icon -->\n\t\t\t<div class=\"nav-toggle\" id =\"nav-toggle-btn\">\n\t\t\t\t<div class=\"bar-1\"></div>\n\t\t\t\t<div class=\"bar-2\"></div>\n\t\t\t\t<div class=\"bar-3\"></div>\n\t\t\t</div>\n\n\t\t\t<!-- List of links -->\n\t\t\t<ul class=\"links-wrapper\">\n\t\t\t\t<li><a href=\"#\">Home</a></li>\n\t\t\t\t<li><a href=\"#\">About</a></li>\n\t\t\t\t<li><a href=\"#\">Products</a></li>\n\t\t\t\t<li><a href=\"#\">Services</a></li>\n\t\t\t\t<li><a class=\"btn btn-solid\" id=\"btn-cta\" href=\"#\"><span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"></i></a></li>\n\t\t\t</ul>\n\n\t\t</div><!-- closes container-menu-links -->\n\t</div><!-- closes container-menu --></nav>\n";
         el_body.prepend(el_nav);
+        let el_comment = document.createComment('navbar menu begins here');
+        el_body.prepend(el_comment);
+
+        let text = el_body.innerHTML;
+        let result = text.replace("</nav>", "</nav>\n<!-- navbar menu ends here -->\n");
+        el_body.innerHTML = result;
+
+        text = el_body.innerHTML;
+        result = text.replace("<nav", "\n<nav");
+        el_body.innerHTML = result;
+
     }
     else {
+        // If navbar menu currently displayed, remove it 
         document.getElementById("dd_actions").style.display= "none";
         document.getElementById("work-with").style.display= "none";
         document.getElementById("btn-nav-add-remove").innerText = "Add menu";
@@ -31,7 +44,6 @@ function showHideMenu() {
         if (iframe.contentWindow.document.querySelector('.header-after-menu-sticky')) {
             iframe.contentWindow.document.querySelector('.header-after-menu-sticky').classList.remove("header-after-menu-sticky");
         }
-
     }
 }
 

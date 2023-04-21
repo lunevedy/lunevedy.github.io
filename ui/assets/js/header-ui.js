@@ -23,7 +23,13 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         }
 
         // Get themes
-        navTheme = sessionStorage.getItem("navTheme");
+
+        if (sessionStorage.getItem("navTheme")) {
+            navTheme = sessionStorage.getItem("navTheme");            
+        }
+        else {
+            sessionStorage.setItem("navTheme", ".theme-light");
+        }
         headerTheme = sessionStorage.getItem("headerTheme");
 
         /* MENUS */

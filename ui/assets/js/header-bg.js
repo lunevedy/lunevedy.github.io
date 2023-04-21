@@ -1,5 +1,16 @@
 import { content_header_label_text_col_1, content_header_h2_text } from '../js/arr-content.js';
 
+/* Show/hide color picker */
+function showSidebar() {
+    document.getElementById("myModal").classList.add("display-sidebar");
+    document.getElementById("myModal").classList.remove("hide-sidebar");
+}
+
+function hideSidebar() {
+    document.getElementById("myModal").classList.add("hide-sidebar");
+    document.getElementById("myModal").classList.remove("show-sidebar");
+    document.getElementById("myModal").scrollTo(0, 0); // scrolls to top of sidebar
+}
 /*
 //////////////// MENUS AND DROPDOWNS ///////////////
 */
@@ -7,22 +18,36 @@ import { content_header_label_text_col_1, content_header_h2_text } from '../js/a
 document.getElementById("btn-nav-add-remove").addEventListener("click", showHideMenu);
 
 function showHideMenu() {
+    // If navbar menu currently not displayed, add it
     if (document.getElementById("dd_actions").style.display == "none") {
+
         document.getElementById("dd_actions").style.display= "block";
         document.getElementById("work-with").style.display= "block";
         document.getElementById("btn-nav-add-remove").innerText = "Remove menu";
 
-        const el_header = iframe.contentWindow.document.querySelector('header');
+        const el_body = iframe.contentWindow.document.querySelector('#HTML-Content');
         const el_nav = document.createElement('nav');
         el_nav.setAttribute("class", "theme-light");
-        el_nav.innerHTML = "<div class=\"container-menu\">\n<a href=\"#\" class=\"brand\">\n\t<img src=\"../../ui/assets/img/website-logo-sample.png\" alt=\"Sample website logo\"></a>\n\n<div class=\"container-menu-links\">\n\n<div class=\"nav-toggle\" id =\"nav-toggle-btn\"><div class=\"bar-1\"></div><div class=\"bar-2\"></div><div class=\"bar-3\"></div></div>\n\n<ul class=\"links-wrapper\">\n<li><a href=\"#\">Home</a></li>\n<li><a href=\"#\">About</a></li>\n<li><a href=\"#\">Products</a></li>\n<li><a href=\"#\">Services</a></li>\n<li><a class=\"btn btn-solid\" id=\"btn-cta\" href=\"#\"><span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"></i></a></li>\n</ul>\n</div>\n</div>";
-        el_header.parentNode.insertBefore(el_nav, el_header);
-        sessionStorage.setItem("navTheme", ".theme-light");
+el_nav.innerHTML = "\n\t<div class=\"container-menu\">\n\t\t<a href=\"#\" class=\"brand\">\n\t\t\t<img src=\"../../ui/assets/img/website-logo-sample.png\" alt=\"Sample website logo\">\n\t\t</a>\n\n\t\t<div class=\"container-menu-links\">\n\n\t\t\t<!-- hamburger icon -->\n\t\t\t<div class=\"nav-toggle\" id =\"nav-toggle-btn\">\n\t\t\t\t<div class=\"bar-1\"></div>\n\t\t\t\t<div class=\"bar-2\"></div>\n\t\t\t\t<div class=\"bar-3\"></div>\n\t\t\t</div>\n\n\t\t\t<!-- List of links -->\n\t\t\t<ul class=\"links-wrapper\">\n\t\t\t\t<li><a href=\"#\">Home</a></li>\n\t\t\t\t<li><a href=\"#\">About</a></li>\n\t\t\t\t<li><a href=\"#\">Products</a></li>\n\t\t\t\t<li><a href=\"#\">Services</a></li>\n\t\t\t\t<li><a class=\"btn btn-solid\" id=\"btn-cta\" href=\"#\"><span>Sign in</span> <i class=\"fa-solid fa-chevron-right\"></i></a></li>\n\t\t\t</ul>\n\n\t\t</div><!-- closes container-menu-links -->\n\t</div><!-- closes container-menu --></nav>\n";
+        el_body.prepend(el_nav);
+        let el_comment = document.createComment('navbar menu begins here');
+        el_body.prepend(el_comment);
+
+        let text = el_body.innerHTML;
+        let result = text.replace("</nav>", "</nav>\n<!-- navbar menu ends here -->\n");
+        el_body.innerHTML = result;
+
+        text = el_body.innerHTML;
+        result = text.replace("<nav", "\n<nav");
+        el_body.innerHTML = result;
+
     }
     else {
+        // If navbar menu currently displayed, remove it 
         document.getElementById("dd_actions").style.display= "none";
         document.getElementById("work-with").style.display= "none";
         document.getElementById("btn-nav-add-remove").innerText = "Add menu";
+
         if (iframe.contentWindow.document.querySelector('nav')) {
             const el_nav= iframe.contentWindow.document.querySelector('nav');
             el_nav.remove();
@@ -32,6 +57,7 @@ function showHideMenu() {
         }
     }
 }
+
 
 if (document.querySelector("#dd_actions")) {
     document.querySelector("#dd_actions").addEventListener("change", displayActions);

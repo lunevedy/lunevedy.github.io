@@ -7,9 +7,19 @@ let sub_string; // style rule excerpt for arrCSS
 let color_code;
 const arrCSS = []; // array for style rules to copy
 
-let sectionClassName = '.section-selector-1';
-sessionStorage.setItem("sectionTheme", ".theme-light");
+/* ======= Defaults for themes ======= */
+/* nav theme */
+let navTheme = ".theme-light";
+sessionStorage.setItem("navTheme", navTheme);
+/* header theme */
+let headerTheme = ".theme-light";
+sessionStorage.setItem("headerTheme", headerTheme);
+/* section theme */
 let sectionTheme = '.theme-light';
+sessionStorage.setItem("sectionTheme", sectionTheme);
+
+/* section class */
+let sectionClassName = '.section-selector-1';
 
 /*
 //////////////// MENUS AND DROPDOWNS ///////////////
@@ -45,16 +55,16 @@ function hideMenus() {
 }
 
 // Hide menus when users presses Esc key.
-document.onkeydown = function(evt) {
-    evt = evt || window.event;
+document.onkeydown = function(e) {
+    e = e || window.event;
     var isEscape = false;
-    if ("key" in evt) {
-        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    if ("key" in e) {
+        isEscape = (e.key === "Escape" || e.key === "Esc");
     } else {
-        isEscape = (evt.keyCode === 27);
+        isEscape = (e.keyCode === 27);
     }
     if (isEscape) {
-        hideMenus()
+        hideMenus();
     }
 }
 
@@ -168,66 +178,16 @@ all_btns.forEach(el => el.addEventListener('click', event => {
     // get button id
     btn_id = event.target.id.toString();
     console.log("Button ID: "+btn_id);
-    displayModal();
+    displayModal(event);
 }));
 
-function displayModal() {
+function displayModal(event) {
     showSidebar();
     event.preventDefault();
 }
 
 /*
-//////////////// HEADER OR SECTION: THEME  ///////////////
-*/
-
-if (document.getElementById("form_switch_section_theme")) {
-    document.getElementById("form_switch_section_theme").addEventListener("change", doSectionTheme);
-}
-
-function doSectionTheme() {
-    const rbs = document.querySelectorAll("input[name='switch_section_light_dark']");
-    let selectedValue;
-
-    for (const rb of rbs) {
-        if (rb.checked) {
-            selectedValue = rb.value;
-            break;
-        }
-    }
-    if (selectedValue==="light") {
-        if (iframe.contentWindow.document.querySelector("header")) {
-            iframe.contentWindow.document.querySelector("header").classList.remove("theme-dark");
-            iframe.contentWindow.document.querySelector("header").classList.add("theme-light");
-            sessionStorage.setItem("headerTheme", ".theme-light");
-        }
-
-        else if (iframe.contentWindow.document.querySelector("section")) {
-            iframe.contentWindow.document.querySelector("section").classList.remove("theme-dark");
-            iframe.contentWindow.document.querySelector("section").classList.add("theme-light");
-            sessionStorage.setItem("sectionTheme", ".theme-light");
-            sectionTheme = '.theme-light';
-        }
-    }
-
-    else if (selectedValue==="dark") {
-        if (iframe.contentWindow.document.querySelector("header")) {
-            iframe.contentWindow.document.querySelector("header").classList.remove("theme-light");
-            iframe.contentWindow.document.querySelector("header").classList.add("theme-dark");
-            sessionStorage.setItem("headerTheme", ".theme-dark");
-        }
-
-        else if (iframe.contentWindow.document.querySelector("section")) {
-            iframe.contentWindow.document.querySelector("section").classList.remove("theme-light");
-            iframe.contentWindow.document.querySelector("section").classList.add("theme-dark");
-            sessionStorage.setItem("sectionTheme", ".theme-dark");
-            sectionTheme = '.theme-dark';
-        }
-    }
-    clearCSSTags();
-}
-
-/*
-//////////////// MENU: THEME  ///////////////
+//////////////// NAVBAR MENU: THEME  ///////////////
 */
 
 if (document.getElementById("form_switch_nav_theme")) {
@@ -249,13 +209,113 @@ function doNavTheme() {
         iframe.contentWindow.document.querySelector("nav").classList.remove("theme-dark");
         iframe.contentWindow.document.querySelector("nav").classList.add("theme-light");
         sessionStorage.setItem("navTheme", ".theme-light");
+        navTheme = ".theme-light";
+        // remove all nav.theme-dark classes
     }
 
     else if (selectedValue==="dark") {
         iframe.contentWindow.document.querySelector("nav").classList.remove("theme-light");
         iframe.contentWindow.document.querySelector("nav").classList.add("theme-dark");
         sessionStorage.setItem("navTheme", ".theme-dark");
+        navTheme = ".theme-dark";
+        // remove all nav.theme-light classes
     }
+    // clearCSSTags();
+}
+
+
+/*
+//////////////// HEADER: THEME  ///////////////
+*/
+
+if (document.getElementById("form_switch_header_theme")) {
+    document.getElementById("form_switch_header_theme").addEventListener("change", doHeaderTheme);
+}
+
+function doHeaderTheme() {
+    const rbs = document.querySelectorAll("input[name='switch_header_light_dark']");
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+    if (selectedValue==="light") {
+        iframe.contentWindow.document.querySelector("header").classList.remove("theme-dark");
+        iframe.contentWindow.document.querySelector("header").classList.add("theme-light");
+        sessionStorage.setItem("headerTheme", ".theme-light");
+        headerTheme = '.theme-light';     
+        // remove all header.theme-dark classes
+        removeHeaderClasses("theme-dark"); 
+   }
+
+    else if (selectedValue==="dark") {
+        iframe.contentWindow.document.querySelector("header").classList.remove("theme-light");
+        iframe.contentWindow.document.querySelector("header").classList.add("theme-dark");
+        sessionStorage.setItem("headerTheme", ".theme-dark");
+        headerTheme = '.theme-dark';
+        // remove all header.theme-light classes
+        removeHeaderClasses("theme-light"); 
+    }
+    // clearCSSTags
+}
+
+/*
+//////////////// HEADER CLASSES: REMOVE  ///////////////
+*/
+
+function removeHeaderClasses(headerType) {
+    // console.log("Removing header classes: "+headerType);
+    let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
+    for (let i = 0; i < objStyles.length; i++) {
+        // console.log(`${i}: ${objStyles[i].textContent}`);
+        let sheet = objStyles[i].sheet;
+        for (let j = 0; j < sheet.cssRules.length; j++) {
+            let rule = sheet.cssRules[j];
+            console.log("Rule: "+rule.cssText);
+            if (rule.cssText.includes("theme-light")) {
+                // console.log("Yes. Rule includes theme-light");
+                sheet.deleteRule(j);
+                j--;
+            }
+        }
+    }
+}
+
+/*
+//////////////// SECTION: THEME  ///////////////
+*/
+
+if (document.getElementById("form_switch_section_theme")) {
+    document.getElementById("form_switch_section_theme").addEventListener("change", doSectionTheme);
+}
+
+function doSectionTheme() {
+    const rbs = document.querySelectorAll("input[name='switch_section_light_dark']");
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+    if (selectedValue==="light") {
+        iframe.contentWindow.document.querySelector("section").classList.remove("theme-dark");
+        iframe.contentWindow.document.querySelector("section").classList.add("theme-light");
+        sessionStorage.setItem("sectionTheme", ".theme-light");
+        sectionTheme = '.theme-light';
+    }
+
+    else if (selectedValue==="dark") {
+        iframe.contentWindow.document.querySelector("section").classList.remove("theme-light");
+        iframe.contentWindow.document.querySelector("section").classList.add("theme-dark");
+        sessionStorage.setItem("sectionTheme", ".theme-dark");
+        sectionTheme = '.theme-dark';
+    }
+    clearCSSTags();
 }
 
 /*
@@ -806,27 +866,43 @@ function disableCSS() {
     document.getElementById("btn-copy-css").disabled=true;
 }
 
-// function copyHTML() {
-//     let HTML_Content = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
-
-//     HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
-
-//     HTML_Content = HTML_Content.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
-
-//     const el = document.createElement('textarea');
-//     el.value = HTML_Content;
-//     hideMenus();
-//     document.body.appendChild(el);
-//     el.select();
-//     document.execCommand('copy');
-//     document.body.removeChild(el);
-// }
-
-document.querySelector("#btn-copy-css").addEventListener("click", copyCSS);
-
-function copyCSS() {
+// Copy HTML to clipboard
+const btnHTML = document.getElementById("btn-copy");
+const btnHTMLcontent = document.getElementById("btn-copy").innerHTML;
+btnHTML.addEventListener("click", e => {
+    e.stopPropagation();
     hideMenus();
-    const el_css = document.createElement('textarea');
+    let strHTML = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
+    strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
+    strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
+    doCopyHTML(strHTML);
+});
+
+async function doCopyHTML(strHTML) {
+    await navigator.clipboard.writeText(strHTML);
+    btnHTML.style.borderColor = "#48bb78";
+    btnHTML.style.backgroundColor = "#14f195";
+    btnHTML.style.fontWeight = "normal";
+    btnHTML.style.paddingTop = "6px";
+    btnHTML.style.paddingBottom = "6px";
+
+    btnHTML.innerHTML = "&#x2713; &nbsp;Copied";
+    setTimeout( () => {
+        btnHTML.style.backgroundColor = "";
+        btnHTML.style.borderColor = "";
+        btnHTML.style.paddingTop = "";
+        btnHTML.style.paddingBottom = "";
+        btnHTML.innerHTML = btnHTMLcontent;
+        btnHTML.classList.add('copy-code');	
+    }, 1500);
+}
+
+    // Copy CSS to clipboard
+const btnCSS = document.getElementById("btn-copy-css");
+const btnCSScontent = document.getElementById("btn-copy-css").innerHTML;
+btnCSS.addEventListener("click", e => {
+    e.stopPropagation();
+    hideMenus();
     let strCSS  = arrCSS.join(",");
     strCSS = strCSS.replaceAll(",.theme", ".theme");
     strCSS = strCSS.replaceAll(",.nav", "nav");
@@ -839,86 +915,26 @@ function copyCSS() {
     strCSS = strCSS.replaceAll(",.header", "header");
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(" ,header", "header");
-
     strCSS = strCSS.replaceAll(",.section", ".section");
     strCSS = strCSS.replaceAll(",.footer", ".footer");
-    el_css.value = strCSS;
-    document.body.appendChild(el_css);
-    el_css.select();
-    document.execCommand('copy');
-    document.body.removeChild(el_css);
+    doCopyCSS(strCSS);
+});
+
+async function doCopyCSS(strCSS) {
+    await navigator.clipboard.writeText(strCSS);
+    btnCSS.style.borderColor = "#48bb78";
+    btnCSS.style.backgroundColor = "#14f195";
+    btnCSS.style.fontWeight = "normal";
+    btnCSS.style.paddingTop = "6px";
+    btnCSS.style.paddingBottom = "6px";
+    btnCSS.innerHTML = "&#x2713; &nbsp;Copied";
+    setTimeout( () => {
+        btnCSS.style.backgroundColor = "";
+        btnCSS.style.borderColor = "";
+        btnCSS.style.paddingTop = "";
+        btnCSS.style.paddingBottom = "";
+        btnCSS.innerHTML = btnCSScontent;
+        btnCSS.classList.add('copy-code');	
+    }, 1500);
 }
-
-    // New Copy HTML to clipboard
-    const btnHTML = document.getElementById("btn-copy");
-    const btnHTMLcontent = document.getElementById("btn-copy").innerHTML;
-    btnHTML.addEventListener("click", e => {
-        e.stopPropagation();
-        hideMenus();
-        let strHTML = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
-        strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
-        strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
-        doCopyHTML(strHTML);
-    });
-
-    async function doCopyHTML(strHTML) {
-        await navigator.clipboard.writeText(strHTML);
-        btnHTML.style.borderColor = "#48bb78";
-        btnHTML.style.backgroundColor = "#14f195";
-        btnHTML.style.fontWeight = "normal";
-        btnHTML.style.paddingTop = "6px";
-        btnHTML.style.paddingBottom = "6px";
-
-        btnHTML.innerHTML = "&#x2713; &nbsp;Copied";
-        setTimeout(function() {
-            btnHTML.style.backgroundColor = "";
-            btnHTML.style.borderColor = "";
-            btnHTML.style.paddingTop = "";
-            btnHTML.style.paddingBottom = "";
-            btnHTML.innerHTML = btnHTMLcontent;
-            btnHTML.classList.add('copy-code');	
-        }, 1500);
-    }
-
-
-    // New Copy CSS to clipboard
-    const btnCSS = document.getElementById("btn-copy-css");
-    const btnCSScontent = document.getElementById("btn-copy-css").innerHTML;
-    btnCSS.addEventListener("click", e => {
-        e.stopPropagation();
-        hideMenus();
-        let strCSS  = arrCSS.join(",");
-        strCSS = strCSS.replaceAll(",.theme", ".theme");
-        strCSS = strCSS.replaceAll(",.nav", "nav");
-        strCSS = strCSS.replaceAll(",nav", "nav");
-        strCSS = strCSS.replaceAll(".nav", "nav");
-        strCSS = strCSS.replaceAll("nav-toggle", ".nav-toggle");
-        strCSS = strCSS.replaceAll(",@media", "@media");
-        strCSS = strCSS.replaceAll(",@media", "@media");
-        strCSS = strCSS.replaceAll(",@media", "@media");   
-        strCSS = strCSS.replaceAll(",.header", "header");
-        strCSS = strCSS.replaceAll(",header", "header");
-        strCSS = strCSS.replaceAll(" ,header", "header");
-        strCSS = strCSS.replaceAll(",.section", ".section");
-        strCSS = strCSS.replaceAll(",.footer", ".footer");
-        doCopyCSS(strCSS);
-    });
-
-    async function doCopyCSS(strCSS) {
-        await navigator.clipboard.writeText(strCSS);
-        btnCSS.style.borderColor = "#48bb78";
-        btnCSS.style.backgroundColor = "#14f195";
-        btnCSS.style.fontWeight = "normal";
-        btnCSS.style.paddingTop = "6px";
-        btnCSS.style.paddingBottom = "6px";
-        btnCSS.innerHTML = "&#x2713; &nbsp;Copied";
-        setTimeout(function() {
-            btnCSS.style.backgroundColor = "";
-            btnCSS.style.borderColor = "";
-            btnCSS.style.paddingTop = "";
-            btnCSS.style.paddingBottom = "";
-            btnCSS.innerHTML = btnCSScontent;
-            btnCSS.classList.add('copy-code');	
-        }, 1500);
-    }
 

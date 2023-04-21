@@ -22,7 +22,6 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
             }
         }
 
-
         // Get themes
         navTheme = sessionStorage.getItem("navTheme");
         headerTheme = sessionStorage.getItem("headerTheme");
@@ -32,7 +31,8 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         /* Background: Desktop/default mobile */
         if (btn_id === "btn_bg_navbar") {
             newStyle = "nav"+navTheme+",\nnav"+navTheme+" ul.links-wrapper.active { background-color: var("+color_code+") }\n";
-            sub_string = "nav"+navTheme+" { background-color";
+            // sub_string = "nav"+navTheme+" { background-color";
+            sub_string = "nav"+navTheme+" ul.links-wrapper.active { background-color";
             doUpdateArray(sub_string,newStyle);
         }
 
@@ -223,6 +223,22 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
         if (btn_id === "btn_header_bg") {
             newStyle = "header"+headerTheme+" { background-color: var("+color_code+") }\n";
             sub_string = "header"+headerTheme+" { background-color: ";
+
+            let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
+
+            for (let i = 0; i < objStyles.length; i++) {
+                console.log(`${i}: ${objStyles[i].textContent}`);
+                let sheet = objStyles[i].sheet;
+                for (let j = 0; j < sheet.cssRules.length; j++) {
+                    let rule = sheet.cssRules[j];
+                    if (rule.cssText.includes("theme-light")) {
+                        sheet.deleteRule(j);
+                        j--;
+                    }
+                }
+            }
+
+            doUpdateArray(sub_string,newStyle);
         }
 
         /* badge text */
