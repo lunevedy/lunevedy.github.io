@@ -177,7 +177,7 @@ all_btns.forEach(el => el.addEventListener('click', event => {
     event.preventDefault();
     // get button id
     btn_id = event.target.id.toString();
-    console.log("Button ID: "+btn_id);
+    // console.log("Button ID: "+btn_id);
     displayModal(event);
 }));
 
@@ -267,21 +267,10 @@ function doHeaderTheme() {
 */
 
 function removeHeaderClasses(headerType) {
-    // console.log("Removing header classes: "+headerType);
+    console.log("Removing header classes: "+headerType);
     let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
-    for (let i = 0; i < objStyles.length; i++) {
-        // console.log(`${i}: ${objStyles[i].textContent}`);
-        let sheet = objStyles[i].sheet;
-        for (let j = 0; j < sheet.cssRules.length; j++) {
-            let rule = sheet.cssRules[j];
-            console.log("Rule: "+rule.cssText);
-            if (rule.cssText.includes("theme-light")) {
-                // console.log("Yes. Rule includes theme-light");
-                sheet.deleteRule(j);
-                j--;
-            }
-        }
-    }
+    console.log("Style rules in iframe <style> tag: "+objStyles.length);
+    // console.log(objStyles[0].cssText);
 }
 
 /*
@@ -507,12 +496,18 @@ function deleteWidthheaderDesktop() {
     iframe.contentWindow.document.querySelector("header").classList.remove("w-1536px");
 }
 
+/*
+//////////////// MANAGE CSS ///////////////
+*/
+
 function doUpdateArray(sub_string,newStyle) {
+    // If the array contains the sub_string, replace the element with the newStyle
     if ( arrCSS.some(e => e.includes(sub_string)) ) {
         const arrPos =arrCSS.findIndex(e => e.includes(sub_string));
         arrCSS.splice(arrPos, 1);
         arrCSS.push(newStyle);
     }
+    // Add sub_string to array
     else {
         arrCSS.push(newStyle);
     }
@@ -520,20 +515,26 @@ function doUpdateArray(sub_string,newStyle) {
 }
 
 function updateCSSTagPair() {
+    // Copy cuurent array contents to a string
     let strCSS = arrCSS.toString();
+    // Remove all unwanted characters
     strCSS = strCSS.replaceAll(",.theme", ".theme");
     strCSS = strCSS.replaceAll(",.section", ".section");
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(",nav", "nav");
     strCSS = strCSS.replaceAll(",@media", "@media");
+    // Remove all style rules from the iframe
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
-        var st = iframe.contentWindow.document.getElementsByTagName('style');
-        for(let i = 0 ; i < st.length ; i++){
-            st[i].parentNode.removeChild(st[i]);
+        let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
+        for(let i = 0 ; i < objStyles.length ; i++){
+            objStyles[i].parentNode.removeChild(objStyles[i]);
         }
     }
+    // Create new <style> block 
     styleTagPair = iframe.contentWindow.document.createElement("style");
+    // Add new <style> block to iframe
     iframe.contentWindow.document.head.appendChild(styleTagPair);
+    // Copy string to <style> block
     styleTagPair.append(strCSS);
     if (arrCSS.length > 0) {
         enableCSS();
@@ -546,9 +547,9 @@ function updateCSSTagPair() {
 // Remove all style rules
 function clearCSSTags() {
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
-        var st = iframe.contentWindow.document.getElementsByTagName('style');
-        for(let i = 0 ; i < st.length ; i++){
-            st[i].parentNode.removeChild(st[i]);
+        let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
+        for(let i = 0 ; i < objStyles.length ; i++){
+            objStyles[i].parentNode.removeChild(objStyles[i]);
         }
     }
     disableCSS();
@@ -593,6 +594,93 @@ function removeCSSTagPairs(...args) {
         disableCSS();
     }
 }
+
+/*
+//////////////// COPY TO CLIPBOARD ///////////////
+*/
+
+// document.querySelector("#btn-copy").addEventListener("click", copyHTML);
+
+function enableCSS() {
+    document.getElementById("btn-copy-css").disabled=false;
+}
+
+function disableCSS() {
+    document.getElementById("btn-copy-css").disabled=true;
+}
+
+// Copy HTML to clipboard
+const btnHTML = document.getElementById("btn-copy");
+const btnHTMLcontent = document.getElementById("btn-copy").innerHTML;
+btnHTML.addEventListener("click", e => {
+    e.stopPropagation();
+    hideMenus();
+    let strHTML = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
+    strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
+    strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
+    doCopyHTML(strHTML);
+});
+
+async function doCopyHTML(strHTML) {
+    await navigator.clipboard.writeText(strHTML);
+    btnHTML.style.borderColor = "#48bb78";
+    btnHTML.style.backgroundColor = "#14f195";
+    btnHTML.style.fontWeight = "normal";
+    btnHTML.style.paddingTop = "6px";
+    btnHTML.style.paddingBottom = "6px";
+
+    btnHTML.innerHTML = "&#x2713; &nbsp;Copied";
+    setTimeout( () => {
+        btnHTML.style.backgroundColor = "";
+        btnHTML.style.borderColor = "";
+        btnHTML.style.paddingTop = "";
+        btnHTML.style.paddingBottom = "";
+        btnHTML.innerHTML = btnHTMLcontent;
+        btnHTML.classList.add('copy-code');	
+    }, 1500);
+}
+
+// Copy CSS to clipboard
+const btnCSS = document.getElementById("btn-copy-css");
+const btnCSScontent = document.getElementById("btn-copy-css").innerHTML;
+btnCSS.addEventListener("click", e => {
+    e.stopPropagation();
+    hideMenus();
+    let strCSS  = arrCSS.join(",");
+    strCSS = strCSS.replaceAll(",.theme", ".theme");
+    strCSS = strCSS.replaceAll(",.nav", "nav");
+    strCSS = strCSS.replaceAll(",nav", "nav");
+    strCSS = strCSS.replaceAll(".nav", "nav");
+    strCSS = strCSS.replaceAll("nav-toggle", ".nav-toggle");
+    strCSS = strCSS.replaceAll(",@media", "@media");
+    strCSS = strCSS.replaceAll(",@media", "@media");
+    strCSS = strCSS.replaceAll(",@media", "@media");   
+    strCSS = strCSS.replaceAll(",.header", "header");
+    strCSS = strCSS.replaceAll(",header", "header");
+    strCSS = strCSS.replaceAll(" ,header", "header");
+    strCSS = strCSS.replaceAll(",.section", ".section");
+    strCSS = strCSS.replaceAll(",.footer", ".footer");
+    doCopyCSS(strCSS);
+});
+
+async function doCopyCSS(strCSS) {
+    await navigator.clipboard.writeText(strCSS);
+    btnCSS.style.borderColor = "#48bb78";
+    btnCSS.style.backgroundColor = "#14f195";
+    btnCSS.style.fontWeight = "normal";
+    btnCSS.style.paddingTop = "6px";
+    btnCSS.style.paddingBottom = "6px";
+    btnCSS.innerHTML = "&#x2713; &nbsp;Copied";
+    setTimeout( () => {
+        btnCSS.style.backgroundColor = "";
+        btnCSS.style.borderColor = "";
+        btnCSS.style.paddingTop = "";
+        btnCSS.style.paddingBottom = "";
+        btnCSS.innerHTML = btnCSScontent;
+        btnCSS.classList.add('copy-code');	
+    }, 1500);
+}
+
 
 /*
 //////////////// UI THEME SELECTOR  ///////////////
@@ -850,91 +938,5 @@ function resetResponsive() {
     document.querySelector("#respTabletPortrait img").src = "../../ui/assets/img/icons/icon-resize-tablet-portrait-selected.png";
     document.querySelector("#respMobileLarge img").src = "../../ui/assets/img/icons/icon-resize-mobile-large-selected.png";
     document.querySelector("#respMobileSmall img").src = "../../ui/assets/img/icons/icon-resize-mobile-small-selected.png";
-}
-
-/*
-//////////////// COPY TO CLIPBOARD ///////////////
-*/
-
-// document.querySelector("#btn-copy").addEventListener("click", copyHTML);
-
-function enableCSS() {
-    document.getElementById("btn-copy-css").disabled=false;
-}
-
-function disableCSS() {
-    document.getElementById("btn-copy-css").disabled=true;
-}
-
-// Copy HTML to clipboard
-const btnHTML = document.getElementById("btn-copy");
-const btnHTMLcontent = document.getElementById("btn-copy").innerHTML;
-btnHTML.addEventListener("click", e => {
-    e.stopPropagation();
-    hideMenus();
-    let strHTML = iframe.contentWindow.document.getElementById("HTML-Content").innerHTML;
-    strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/img\/", "https://lunevedy.com\/ui\/assets\/img\/");
-    strHTML = strHTML.replaceAll("..\/..\/ui\/assets\/videos\/", "https://lunevedy.com\/ui\/assets\/videos\/");
-    doCopyHTML(strHTML);
-});
-
-async function doCopyHTML(strHTML) {
-    await navigator.clipboard.writeText(strHTML);
-    btnHTML.style.borderColor = "#48bb78";
-    btnHTML.style.backgroundColor = "#14f195";
-    btnHTML.style.fontWeight = "normal";
-    btnHTML.style.paddingTop = "6px";
-    btnHTML.style.paddingBottom = "6px";
-
-    btnHTML.innerHTML = "&#x2713; &nbsp;Copied";
-    setTimeout( () => {
-        btnHTML.style.backgroundColor = "";
-        btnHTML.style.borderColor = "";
-        btnHTML.style.paddingTop = "";
-        btnHTML.style.paddingBottom = "";
-        btnHTML.innerHTML = btnHTMLcontent;
-        btnHTML.classList.add('copy-code');	
-    }, 1500);
-}
-
-    // Copy CSS to clipboard
-const btnCSS = document.getElementById("btn-copy-css");
-const btnCSScontent = document.getElementById("btn-copy-css").innerHTML;
-btnCSS.addEventListener("click", e => {
-    e.stopPropagation();
-    hideMenus();
-    let strCSS  = arrCSS.join(",");
-    strCSS = strCSS.replaceAll(",.theme", ".theme");
-    strCSS = strCSS.replaceAll(",.nav", "nav");
-    strCSS = strCSS.replaceAll(",nav", "nav");
-    strCSS = strCSS.replaceAll(".nav", "nav");
-    strCSS = strCSS.replaceAll("nav-toggle", ".nav-toggle");
-    strCSS = strCSS.replaceAll(",@media", "@media");
-    strCSS = strCSS.replaceAll(",@media", "@media");
-    strCSS = strCSS.replaceAll(",@media", "@media");   
-    strCSS = strCSS.replaceAll(",.header", "header");
-    strCSS = strCSS.replaceAll(",header", "header");
-    strCSS = strCSS.replaceAll(" ,header", "header");
-    strCSS = strCSS.replaceAll(",.section", ".section");
-    strCSS = strCSS.replaceAll(",.footer", ".footer");
-    doCopyCSS(strCSS);
-});
-
-async function doCopyCSS(strCSS) {
-    await navigator.clipboard.writeText(strCSS);
-    btnCSS.style.borderColor = "#48bb78";
-    btnCSS.style.backgroundColor = "#14f195";
-    btnCSS.style.fontWeight = "normal";
-    btnCSS.style.paddingTop = "6px";
-    btnCSS.style.paddingBottom = "6px";
-    btnCSS.innerHTML = "&#x2713; &nbsp;Copied";
-    setTimeout( () => {
-        btnCSS.style.backgroundColor = "";
-        btnCSS.style.borderColor = "";
-        btnCSS.style.paddingTop = "";
-        btnCSS.style.paddingBottom = "";
-        btnCSS.innerHTML = btnCSScontent;
-        btnCSS.classList.add('copy-code');	
-    }, 1500);
 }
 
