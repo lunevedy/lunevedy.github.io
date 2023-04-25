@@ -3130,11 +3130,11 @@ footer.theme-dark  { background-color: var(--black-000) }
 footer.theme-light { background-color: var(--white-000) }
 
 /* Padding */
-@media (min-width: 768px) { footer { padding: 4% 0 0 0 } }
+@media (min-width: 768px) { footer { padding: 3% 0 0 0 } }
 @media (max-width: 767px) { footer { padding: 9% 8% 0 8% } }
 
 @media (min-width: 1025px) and (max-width: 1199px ) { footer { padding: 3% 0 0 0 } }
-@media (min-width: 768px)  and (max-width: 1024px)  { footer { padding: 5% 0 0 0 } }
+@media (min-width: 768px)  and (max-width: 1024px)  { footer { padding: 3% 0 0 0 } }
 @media (max-width: 767px)                           { footer { padding: 8% 0 0 0 } }
 
 /* ======= footer single column ======== */
