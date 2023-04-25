@@ -254,3 +254,8 @@ arrH4Overlay[9] = "Look great. Feel fantastic"
 arrH4Overlay[10] = "Learn something new"
 arrH4Overlay[11] = "A holiday to remember"
 
+/* Text elements in footer */
+export const content_footer_h2 ="ABC Limited";
+export const content_footer_h3 ="Awesome and affordable products";
+export const content_footer_p ="Our awesome and affordable world-class products and services have been delighting customers since 2001.";
+export const content_footer_copy ="Copyright © 2023. All rights reserved.";

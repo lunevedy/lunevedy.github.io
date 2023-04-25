@@ -17,6 +17,10 @@ sessionStorage.setItem("headerTheme", headerTheme);
 /* section theme */
 let sectionTheme = '.theme-light';
 sessionStorage.setItem("sectionTheme", sectionTheme);
+/* section theme */
+let footerTheme = '.theme-dark';
+sessionStorage.setItem("footerTheme", sectionTheme);
+
 
 /* section class */
 let sectionClassName = '.section-selector-1';
@@ -220,7 +224,7 @@ function doNavTheme() {
         navTheme = ".theme-dark";
         // remove all nav.theme-light classes
     }
-    // clearCSSTags();
+    // clearCSSSectionTags();
 }
 
 
@@ -248,7 +252,8 @@ function doHeaderTheme() {
         sessionStorage.setItem("headerTheme", ".theme-light");
         headerTheme = '.theme-light';     
         // remove all header.theme-dark classes
-        removeHeaderClasses("theme-dark"); 
+        const arg1 = "header.theme-dark"; 
+        removeCSSHeaderTagPairs(arg1);
    }
 
     else if (selectedValue==="dark") {
@@ -257,9 +262,9 @@ function doHeaderTheme() {
         sessionStorage.setItem("headerTheme", ".theme-dark");
         headerTheme = '.theme-dark';
         // remove all header.theme-light classes
-        removeHeaderClasses("theme-light"); 
+        const arg1 = "header.theme-light";
+        removeCSSHeaderTagPairs(arg1);
     }
-    // clearCSSTags
 }
 
 /*
@@ -268,8 +273,8 @@ function doHeaderTheme() {
 
 function removeHeaderClasses(headerType) {
     console.log("Removing header classes: "+headerType);
-    let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
-    console.log("Style rules in iframe <style> tag: "+objStyles.length);
+    // let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
+    // console.log("Style rules in iframe <style> tag: "+objStyles.length);
     // console.log(objStyles[0].cssText);
 }
 
@@ -304,8 +309,9 @@ function doSectionTheme() {
         sessionStorage.setItem("sectionTheme", ".theme-dark");
         sectionTheme = '.theme-dark';
     }
-    clearCSSTags();
+    clearCSSSectionTags();
 }
+
 
 /*
 //////////////// SECTION: CLASS NAMES ///////////////
@@ -330,14 +336,48 @@ function removeClassNames() {
 }
 
 /*
-//////////////// ALIGN SECTION ///////////////
+//////////////// FOOTER: THEME  ///////////////
+*/
+
+if (document.getElementById("form_switch_footer_theme")) {
+    document.getElementById("form_switch_footer_theme").addEventListener("change", doFooterTheme);
+}
+
+function doFooterTheme() {
+    const rbs = document.querySelectorAll("input[name='switch_footer_light_dark']");
+    let selectedValue;
+
+    for (const rb of rbs) {
+        if (rb.checked) {
+            selectedValue = rb.value;
+            break;
+        }
+    }
+    if (selectedValue==="light") {
+        iframe.contentWindow.document.querySelector("footer").classList.remove("theme-dark");
+        iframe.contentWindow.document.querySelector("footer").classList.add("theme-light");
+        sessionStorage.setItem("footerTheme", ".theme-light");
+        footerTheme = '.theme-light';
+    }
+
+    else if (selectedValue==="dark") {
+        iframe.contentWindow.document.querySelector("footer").classList.remove("theme-light");
+        iframe.contentWindow.document.querySelector("footer").classList.add("theme-dark");
+        sessionStorage.setItem("footerTheme", ".theme-dark");
+        footerTheme = '.theme-dark';
+    }
+    clearCSSSectionTags();
+}
+
+/*
+//////////////// ALIGN HEADER, SECTION, FOOTER ///////////////
 */
 
 if (document.getElementById("form_align_desktop")) {
-    document.getElementById("form_align_desktop").addEventListener("change", doAlignSectionDesktop);
+    document.getElementById("form_align_desktop").addEventListener("change", doAlignBlockDesktop);
 }
 
-function doAlignSectionDesktop() {
+function doAlignBlockDesktop() {
     const rbs = document.querySelectorAll("input[name='align_desktop']");
     let selectedValue;
 
@@ -373,13 +413,30 @@ function doAlignSectionDesktop() {
             document.getElementById("rb_btn_align_desktop_left").disabled=true;
         }
     }
+
+    else if (iframe.contentWindow.document.querySelector("footer")) {
+        if (selectedValue==="left") {
+            iframe.contentWindow.document.querySelector("footer").classList.remove("text-center-desktop");
+            document.getElementById("rb_btn_align_desktop_center").checked=false;
+            document.getElementById("rb_btn_align_desktop_left").checked=true;
+            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            document.getElementById("rb_btn_align_desktop_left").disabled=false;
+        }
+        else if (selectedValue==="center") {
+            iframe.contentWindow.document.querySelector("footer").classList.add("text-center-desktop");
+            document.getElementById("rb_btn_align_desktop_center").checked=true;
+            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            document.getElementById("rb_btn_align_desktop_left").checked=false;
+            document.getElementById("rb_btn_align_desktop_left").disabled=true;
+        }
+    }
 }
 
 if (document.getElementById("form_align_mobile")) {
-    document.getElementById("form_align_mobile").addEventListener("change", doAlignSectionMobile);
+    document.getElementById("form_align_mobile").addEventListener("change", doAlignBlockMobile);
 }
 
-function doAlignSectionMobile() {
+function doAlignBlockMobile() {
 
     const rbs = document.querySelectorAll("input[name='align_mobile']");
     let selectedValue;
@@ -416,6 +473,23 @@ function doAlignSectionMobile() {
             document.getElementById("rb_btn_align_mobile_left").disabled=true;
         }
     }
+
+    else if (iframe.contentWindow.document.querySelector("footer")) {
+        if (selectedValue==="left") {
+            iframe.contentWindow.document.querySelector("footer").classList.remove("text-center-mobile");
+            document.getElementById("rb_btn_align_mobile_center").checked=false;
+            document.getElementById("rb_btn_align_mobile_left").checked=true;
+            document.getElementById("rb_btn_align_mobile_center").disabled=false;
+            document.getElementById("rb_btn_align_mobile_left").disabled=false;
+        }
+        else if (selectedValue==="center") {
+            iframe.contentWindow.document.querySelector("footer").classList.add("text-center-mobile");
+            document.getElementById("rb_btn_align_mobile_center").checked=true;
+            document.getElementById("rb_btn_align_mobile_center").disabled=false;
+            document.getElementById("rb_btn_align_mobile_left").checked=false;
+            document.getElementById("rb_btn_align_mobile_left").disabled=true;
+        }
+    }    
 }
 
 /*
@@ -515,13 +589,14 @@ function doUpdateArray(sub_string,newStyle) {
 }
 
 function updateCSSTagPair() {
-    // Copy cuurent array contents to a string
+    // Copy current array contents to a string
     let strCSS = arrCSS.toString();
     // Remove all unwanted characters
     strCSS = strCSS.replaceAll(",.theme", ".theme");
     strCSS = strCSS.replaceAll(",.section", ".section");
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(",nav", "nav");
+    strCSS = strCSS.replaceAll(",footer", "footer");
     strCSS = strCSS.replaceAll(",@media", "@media");
     // Remove all style rules from the iframe
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
@@ -545,7 +620,7 @@ function updateCSSTagPair() {
 }
 
 // Remove all style rules
-function clearCSSTags() {
+function clearCSSSectionTags() {
     if (iframe.contentWindow.document.head.innerHTML.includes("<style>")) {
         let objStyles = iframe.contentWindow.document.getElementsByTagName('style');
         for(let i = 0 ; i < objStyles.length ; i++){
@@ -594,6 +669,43 @@ function removeCSSTagPairs(...args) {
         disableCSS();
     }
 }
+
+
+// Remove selected style rules only
+function removeCSSHeaderTagPairs(...args) {
+    console.log(`number of args with header-theme: ${args.length}`);
+    // remove from CSS array
+    for (const arg of args) {
+        console.log("An arg content: "+arg);
+        const arrPos = arrCSS.findIndex(e => e.includes(arg));
+        console.log("arrPos: "+arrPos);
+        if (arrPos != "-1") {
+            // remove from CSS array
+            arrCSS.splice(arrPos, 1);
+        }
+    }
+
+    // remove current <style> from head
+    let strCSS = arrCSS.toString();
+    strCSS = strCSS.replaceAll(",.header", ".header");
+    var st = iframe.contentWindow.document.getElementsByTagName('style');
+    for(let i = 0 ; i < st.length ; i++){
+        st[i].parentNode.removeChild(st[i]);
+    }
+    // recreate new <style> in head
+    styleTagPair = iframe.contentWindow.document.createElement("style");
+    iframe.contentWindow.document.head.appendChild(styleTagPair);
+    // Add CSS rules without deleted rules to <style> in head
+    styleTagPair.append(strCSS);
+    if (arrCSS.length > 0) {
+        enableCSS();
+    }
+    else {
+        disableCSS();
+    }
+}
+
+
 
 /*
 //////////////// COPY TO CLIPBOARD ///////////////
@@ -659,6 +771,7 @@ btnCSS.addEventListener("click", e => {
     strCSS = strCSS.replaceAll(",header", "header");
     strCSS = strCSS.replaceAll(" ,header", "header");
     strCSS = strCSS.replaceAll(",.section", ".section");
+    strCSS = strCSS.replaceAll(",footer", "footer");
     strCSS = strCSS.replaceAll(",.footer", ".footer");
     doCopyCSS(strCSS);
 });
