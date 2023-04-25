@@ -3201,26 +3201,26 @@ footer ul.footer-links.footer-links-uppercase li { text-transform: uppercase; le
 footer ul.footer-links.footer-links-bigger li a { font-size: var(--font-size-md) }
 
 /* Footer links */
-.footer-0 > ul.footer-links { list-style-type: none; margin-bottom: 32px }
+footer > ul.footer-links { list-style-type: none; margin-bottom: 32px }
 
-.footer-0 > ul.footer-links li { 
+footer > ul.footer-links li { 
     display: inline-block; list-style: none;
     line-height: 1.7; margin-bottom: 16px
 }
 
-.footer-0 > ul.footer-links > li a { font-size: var(--font-size-base) }
+footer > ul.footer-links > li a { font-size: var(--font-size-base) }
 
 @media(min-width: 768px) { 
-    .footer-0 > ul.footer-links li { margin-right: 60px } 
-    .footer-0 > ul.footer-links li:last-child { margin-right: 0  } 
+    footer > ul.footer-links li { margin-right: 60px } 
+    footer > ul.footer-links li:last-child { margin-right: 0  } 
 }
 
 @media(max-width: 767px) { 
-    .footer-0:not(.text-center-mobile) > ul.footer-links li { margin-left: 0 }
-    .footer-0 > ul.footer-links li { margin-left: 20px; margin-right: 20px } 
+    footer:not(.text-center-mobile) > ul.footer-links li { margin-left: 0 }
+    footer > ul.footer-links li { margin-left: 20px; margin-right: 20px } 
 }
 
-.footer-0 > ul.footer-links li a {
+footer > ul.footer-links li a {
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 9px;
@@ -3228,11 +3228,11 @@ footer ul.footer-links.footer-links-bigger li a { font-size: var(--font-size-md)
 }
 
 /* Footer icons */
-.footer-0 > ul.footer-icons { list-style-type: none; margin: 0 auto 48px auto }
-.footer-0 > ul.footer-icons li { display: inline-block; line-height: 1.7; margin-right: 32px }
-.footer-0 > ul.footer-icons li:last-child { margin-right: 0 }
+footer > ul.footer-icons { list-style-type: none; margin: 0 auto 48px auto }
+footer > ul.footer-icons li { display: inline-block; line-height: 1.7; margin-right: 32px }
+footer > ul.footer-icons li:last-child { margin-right: 0 }
 
-.footer-0 > ul.footer-icons li a {
+footer > ul.footer-icons li a {
     text-decoration: none !important;
     font-size: var(--font-size-lg);
     transition: all 0.2s linear;
