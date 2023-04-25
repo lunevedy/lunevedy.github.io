@@ -258,7 +258,7 @@ body { font-family: var(--global-font) }
 nav, header, section, figure, footer { position: relative; display: block }
 header, section, footer { margin-left: auto; margin-right: auto; overflow: hidden }
 /* Under last content item, zero the bottom margin */
-section > *:last-child, footer > *:last-child { margin-bottom: 0 !important }
+section > *:last-child { margin-bottom: 0 !important }
 
 
 /*  ====================== SECTIONS ======================== */
