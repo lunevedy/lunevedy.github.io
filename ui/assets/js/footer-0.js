@@ -43,10 +43,12 @@ function doH3() {
     else {
         const newH3 = document.createElement("h3");
         newH3.textContent = content_footer_h3;
-        if (!iframe.contentWindow.document.querySelector("footer h3")) {
+        // no h2 yet
+        if (!iframe.contentWindow.document.querySelector("footer h2")) {
            iframe.contentWindow.document.querySelector('footer').prepend(newH3);
         }
         else {
+            // h2 exists
             iframe.contentWindow.document.querySelector("footer h2").insertAdjacentHTML("afterend", "<h3>"+content_footer_h3+"</h3>");
         }
         iframe.contentWindow.document.querySelector('footer').innerHTML = iframe.contentWindow.document.querySelector('footer').innerHTML.replace("<h3>", "\n\t\<h3>");
@@ -230,3 +232,31 @@ function removeIcons() {
 }
 
 
+/*
+//////////////// COPYRIGHT ///////////////
+*/
+
+document.querySelector("#cb_copyright").addEventListener("change", doCopyright);
+
+function doCopyright() {
+    if (!document.getElementById("cb_copyright").checked) {
+        removeCopyright();
+    }
+    else {
+        document.getElementById("btn_copyright_bg").disabled = false;
+        document.getElementById("btn_copyright_text").disabled = false;
+        const newCopyright = document.createElement("div");
+        newCopyright.setAttribute("class", "copyright");
+        newCopyright.innerHTML = `\t\n<p>Copyright © 2023 ABC Limited. All rights reserved.</p>\n`;
+        iframe.contentWindow.document.querySelector('footer').append(newCopyright);
+    }
+}
+
+function removeCopyright() {
+    iframe.contentWindow.document.querySelector("footer .copyright").remove();
+    document.getElementById("btn_copyright_bg").disabled = true;
+    document.getElementById("btn_copyright_text").disabled = true;
+    const arg1 = ".copyright { background-color:";
+    const arg2 = ".copyright p { color:";
+    removeCSSTagPairs(arg1,arg2);
+}
