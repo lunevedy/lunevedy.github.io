@@ -3570,7 +3570,7 @@ footer.theme-dark > .copyright { background-color: var(--gray-900) }
     text-decoration-color: transparent;
 }
 
-
+footer > p.privacy { font-size: var(--font-size-base); margin-bottom: 32px }
 
 /* Footer-1 */
 .footer-1 { text-align: center; margin-left: auto; margin-right: auto }
