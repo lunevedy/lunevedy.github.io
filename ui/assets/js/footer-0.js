@@ -41,9 +41,9 @@ function doH3() {
     }
 
     else {
-        const newH3 = document.createElement("h2");
+        const newH3 = document.createElement("h3");
         newH3.textContent = content_footer_h3;
-        if (!iframe.contentWindow.document.querySelector("footer h2")) {
+        if (!iframe.contentWindow.document.querySelector("footer h3")) {
            iframe.contentWindow.document.querySelector('footer').prepend(newH3);
         }
         else {
