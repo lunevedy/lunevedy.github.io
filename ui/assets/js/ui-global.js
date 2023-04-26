@@ -417,17 +417,21 @@ function doAlignBlockDesktop() {
     else if (iframe.contentWindow.document.querySelector("footer")) {
         if (selectedValue==="left") {
             iframe.contentWindow.document.querySelector("footer").classList.remove("text-center-desktop");
-            document.getElementById("rb_align_desktop_center").checked=false;
-            document.getElementById("rb_align_desktop_left").checked=true;
-            document.getElementById("rb_align_desktop_center").disabled=false;
-            document.getElementById("rb_align_desktop_left").disabled=false;
+            if (document.getElementById("rb_align_desktop_center")) {
+                document.getElementById("rb_align_desktop_center").checked=false;
+            }
+            if (document.getElementById("rb_align_desktop_left")) {
+                document.getElementById("rb_align_desktop_left").checked=true;
+            }
         }
         else if (selectedValue==="center") {
             iframe.contentWindow.document.querySelector("footer").classList.add("text-center-desktop");
-            document.getElementById("rb_align_desktop_center").checked=true;
-            document.getElementById("rb_align_desktop_center").disabled=false;
-            document.getElementById("rb_align_desktop_left").checked=false;
-            document.getElementById("rb_align_desktop_left").disabled=true;
+            if (document.getElementById("rb_align_desktop_center")) {
+                document.getElementById("rb_align_desktop_center").checked=true;
+            }
+            if (document.getElementById("rb_align_desktop_left")) {
+                document.getElementById("rb_align_desktop_left").checked=false;
+            }
         }
     }
 }
@@ -477,17 +481,21 @@ function doAlignBlockMobile() {
     else if (iframe.contentWindow.document.querySelector("footer")) {
         if (selectedValue==="left") {
             iframe.contentWindow.document.querySelector("footer").classList.remove("text-center-mobile");
-            document.getElementById("rb_align_mobile_center").checked=false;
-            document.getElementById("rb_align_mobile_left").checked=true;
-            document.getElementById("rb_align_mobile_center").disabled=false;
-            document.getElementById("rb_align_mobile_left").disabled=false;
+            if (document.getElementById("rb_align_mobile_center")) {
+                document.getElementById("rb_align_mobile_center").checked=false;
+            }
+            if (document.getElementById("rb_align_mobile_left")) {
+                document.getElementById("rb_align_mobile_left").checked=true;
+            }
         }
         else if (selectedValue==="center") {
             iframe.contentWindow.document.querySelector("footer").classList.add("text-center-mobile");
-            document.getElementById("rb_align_mobile_center").checked=true;
-            document.getElementById("rb_align_mobile_center").disabled=false;
-            document.getElementById("rb_align_mobile_left").checked=false;
-            document.getElementById("rb_align_mobile_left").disabled=true;
+            if (document.getElementById("rb_align_mobile_center")) {
+                document.getElementById("rb_align_mobile_center").checked=true;
+            }
+            if (document.getElementById("rb_align_mobile_left")) {
+                document.getElementById("rb_align_mobile_left").checked=false;
+            }
         }
     }    
 }
