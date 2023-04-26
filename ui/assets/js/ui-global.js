@@ -11,16 +11,17 @@ const arrCSS = []; // array for style rules to copy
 /* nav theme */
 let navTheme = ".theme-light";
 sessionStorage.setItem("navTheme", navTheme);
+
 /* header theme */
-let headerTheme = ".theme-light";
+let headerTheme =".theme-light";
 sessionStorage.setItem("headerTheme", headerTheme);
+
 /* section theme */
 let sectionTheme = '.theme-light';
 sessionStorage.setItem("sectionTheme", sectionTheme);
 /* section theme */
 let footerTheme = '.theme-dark';
 sessionStorage.setItem("footerTheme", sectionTheme);
-
 
 /* section class */
 let sectionClassName = '.section-selector-1';

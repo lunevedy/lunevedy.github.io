@@ -40,7 +40,7 @@ el_nav.innerHTML = "\n\t<div class=\"container-menu\">\n\t\t<a href=\"#\" class=
         text = el_body.innerHTML;
         result = text.replace("<nav", "\n<nav");
         el_body.innerHTML = result;
-
+        sessionStorage.setItem("navTheme", ".theme-light");
     }
     else {
         // If navbar menu currently displayed, remove it 
