@@ -733,7 +733,7 @@ div[class*="cols-borders-width-"] > div[class^="col-"] { border-style: solid }
 }
 
 .col-1 > h3 {
-    font-weight: 400; line-height: 1.4;
+    font-weight: 400; line-height: 1.6;
     font-size: var(--font-size-md);
 }
 
