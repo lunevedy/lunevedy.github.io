@@ -2530,7 +2530,7 @@ a:not(.btn):link, a:not(.btn):visited {
 
 @media (max-width: 767px) {
     a:not(.btn):link, a:not(.btn):visited {
-        text-decoration-thickness: 1.5px; text-underline-offset: 5px;
+        text-decoration-thickness: 1.5px; text-underline-offset: 7px;
     }
 }
 
@@ -3128,7 +3128,6 @@ footer.theme-light { background-color: var(--white-000) }
 @media (min-width: 768px)  and (max-width: 1024px)  { footer { padding: 3% 0 0 0 } }
 @media (max-width: 767px)                           { footer { padding: 8% 0 0 0 } }
 
-footer > .copyright { background-color: inherit }
 @media(min-width: 768px) { footer > .copyright { padding: 20px 0 24px 0 } }
 @media(max-width: 767px) { footer > .copyright { padding: 16px 0 18px 0 } }
 
@@ -3230,8 +3229,6 @@ footer.theme-light ul.footer-icons li a:active i {
 footer.theme-light .copyright { background-color: var(--gray-200) }
 footer.theme-light .copyright p { color: var(--gray-700) }
 
-footer.theme-dark .copyright { background-color: var(--gray-900) }
-
 
 /* ======= footer: single column ======== */
 
@@ -3280,12 +3277,15 @@ footer > ul.footer-links li { display: inline-block; line-height: 1.7; font-size
 
 @media(min-width: 768px) { 
     footer > ul.footer-links li { margin-right: 60px } 
-    footer > ul.footer-links li:last-child { margin-right: 0  } 
+    footer > ul.footer-links li:last-child { margin-right: 0 }
+    footer.text-center-desktop > ul.footer-links li { margin-left: 30px; margin-right: 30px } 
+    footer.text-center-desktop > ul.footer-links li:last-child { margin-right: 30px } 
 }
 
 @media(max-width: 767px) { 
-    footer:not(.text-center-mobile) > ul.footer-links li { margin-left: 0 }
-    footer > ul.footer-links li { margin-bottom: 16px; margin-left: 20px; margin-right: 20px } 
+    footer > ul.footer-links li { margin-left: 20px; margin-right: 20px; margin-bottom: 16px } 
+    footer > ul.footer-links li { margin-left: 0 }
+    footer.text-center-mobile > ul.footer-links li { margin-left: 16px; margin-right: 16px }
 }
 
 /* Footer icons */
@@ -3293,6 +3293,17 @@ footer > ul.footer-icons { margin: 0 auto 48px auto }
 footer > ul.footer-icons li { margin-right: 32px }
 footer > ul.footer-icons li:last-child { margin-right: 0 }
 
+@media(min-width: 768px) { 
+    footer.text-center-desktop > ul.footer-icons li { margin-left: 16px; margin-right: 16px }
+    footer.text-center-desktop > ul.footer-icons li:last-child { margin-right: 16px }
+}
+
+@media(max-width: 767px) { 
+    footer > ul.footer-icons li { margin-right: 32px }
+    footer > ul.footer-icons li:last-child { margin-right: 0 }
+    footer.text-center-desktop > ul.footer-icons li { margin-left: 16px; margin-right: 16px }
+    footer.text-center-desktop > ul.footer-icons li:last-child { margin-right: 16px }
+}
 
 /* colours: dark */
 footer.theme-dark > h2 { color: var(--white-000) }
@@ -3337,6 +3348,7 @@ footer .footer-cols-3.footer-h3-weight-400 h3 { font-weight: 400 }
     .footer-3 .footer-cols-3 { 
         display: block;
     }
+    footer .col-3 h3 { margin: 12px 0 6px 0 }
 }
 
 footer .col-3 address { 
@@ -3349,7 +3361,9 @@ footer .col-3 address {
 /* footer links */
 footer .col-3 ul.footer-links { list-style-type: none; margin: 24px 0 0 0 }
 footer .col-3 ul.footer-links li { line-height: 1.7; margin: 0 0 18px 0 }
+@media(max-width: 767px) { footer .col-3 ul.footer-links li { margin: 0 0 12px -6px } }
 footer .col-3 ul.fa-ul.footer-links li { margin: 0 0 12px 40px }
+@media(max-width: 767px) { footer .col-3 ul.fa-ul.footer-links li { margin: 0 0 12px 30px } }
 footer .col-3 ul.fa-ul.footer-links li:first-child .fa-li { top: -6px }
 
 /* footer icons */
@@ -3357,7 +3371,6 @@ footer .col-3 ul.fa-ul.footer-links li:first-child .fa-li { top: -6px }
 .footer-3 ul.footer-icons li { 
     display: inline-block; line-height: 1.7; margin-right: 12px; font-size: var(--font-size-lg) }
 .footer-3 ul.footer-icons li:last-child { margin-right: 0 }
-
 
 
 /* colors: dark */
@@ -3414,7 +3427,10 @@ footer .col-4 address {
 footer .col-4 ul.footer-links { list-style-type: none; margin: 24px 0 0 0 }
 footer .col-4:nth-child(4) ul.footer-links { list-style-type: none; margin: 24px 0 0 -4px }
 footer .col-4 ul.footer-links li { line-height: 1.7; margin: 0 0 18px 0 }
+@media(max-width: 767px) { footer .col-4 ul.footer-links li { line-height: 1.7; margin: 0 0 18px -6px } }
+
 footer .col-4 ul.fa-ul.footer-links li { margin: 0 0 12px 40px }
+@media(max-width: 767px) { footer .col-4 ul.fa-ul.footer-links li { margin: 0 0 12px 36px } }
 footer .col-4 ul.fa-ul.footer-links li:first-child .fa-li { top: -6px }
 
 /* footer icons */
