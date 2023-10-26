@@ -116,8 +116,8 @@ export const content_drawing_portrait_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t
 export const content_drawing_square_hero_half ="\n\t\t\t\t<figure>\n\t\t\t\t\t<img src=\"..\/..\/ui\/assets\/img\/800x800-drawing-green-country.png\" alt=\"Placeholder image\">\n\t\t\t\t<\/figure>";
 
 export const content_vid_file_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<div class=\"container-video-file\"><video controls=\"\"><source src=\"..\/..\/ui\/assets\/videos/1280x720-coffee-cafe.mp4\" type=\"video\/mp4\"><\/video><\/div>\n\t\t\t\t<\/figure>";
-export const content_vid_yt_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<div class=\"container-video-yt\"><iframe src=\"https://www.youtube.com/embed/L3OBlbOF30E\" title=\"YouTube video player\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" width=\"560\" height=\"315\" frameborder=\"0\"><\/iframe><\/div>\n\t\t\t\t<\/figure>";
-export const content_vid_rumble_section ="\n\t\t\t\t<figure>\n\t\t\t\t\t<div class=\"container-video-yt\"><iframe src=\"https://rumble.com/embed/v168c2l/?pub=4\" title=\"Rumble video player\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" width=\"560\" height=\"315\" frameborder=\"0\"><\/iframe><\/div>\n\t\t\t\t<\/figure>";
+export const content_vid_yt_section ="\n\t\t\t\t<figure class=\"w-80\">\n\t\t\t\t\t<div class=\"container-video-yt\"><iframe src=\"https://www.youtube.com/embed/L3OBlbOF30E\" title=\"YouTube video player\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" width=\"560\" height=\"315\" frameborder=\"0\"><\/iframe><\/div>\n\t\t\t\t<\/figure>";
+export const content_vid_rumble_section ="\n\t\t\t\t<figure class=\"w-80\">\n\t\t\t\t\t<div class=\"container-video-yt\"><iframe src=\"https://rumble.com/embed/v168c2l/?pub=4\" title=\"Rumble video player\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" width=\"560\" height=\"315\" frameborder=\"0\"><\/iframe><\/div>\n\t\t\t\t<\/figure>";
 
 export const content_textbox_section = "FRIENDLY SERVICE";
 export const content_H4Overlay_section = "Tasty breads fresh from the oven. Delicious coffee.";
@@ -259,3 +259,9 @@ export const content_footer_h2 ="ABC Limited";
 export const content_footer_h3 ="Awesome and affordable products";
 export const content_footer_p ="Our awesome and affordable world-class products and services have been delighting customers since 2001.";
 export const content_footer_copy ="Copyright © 2023. All rights reserved.";
+
+/* Text elements in subscription form */
+export const content_subscription_label ="Join our community";
+export const content_subscription_h2 ="Sign up for news, updates, and special offers";
+export const content_subscription_p ="Join our newsletter to receive email updates on new product announcements, special promotions, sales, and more.";
+export const content_subscription_p_data ="We do not share your data with anyone.<br>See our <a href=\"#\">Privacy policy</a>.<br>Unsubscribe at any time.";
