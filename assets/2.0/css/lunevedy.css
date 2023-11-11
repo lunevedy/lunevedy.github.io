@@ -3163,7 +3163,7 @@ section.theme-dark form p.data a:visited { color: inherit }
         margin: 0 0 0 32px;
         padding: 8px 22px 10px 22px;
     }
-    section p:not(.data) { margin-bottom: 44px }
+    section p:not(.data) { margin-bottom: 18px }
     section p.data { margin-top: 32px }
 }
 
