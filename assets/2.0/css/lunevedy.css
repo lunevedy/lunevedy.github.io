@@ -535,10 +535,8 @@ section figure.figure-overlay::after {
 .col-3 p { font-size: var(--font-size-base); margin-bottom: 16px; line-height: 1.4 }
 
 @media (min-width: 1200px) { .col-3 p + a.btn { margin-top: 12px } }
-@media (max-width: 1199px) { .col-3 p + a.btn { margin-top: 8px } }
-
-
-
+@media (max-width: 1199px) and (max-width: 768px) { .col-3 p + a.btn { margin-top: 8px } }
+@media (max-width: 767px) { .col-3 p + a.btn { margin-top: 0 } }
 
 .col-4 h3 {
     font-size: var(--font-size-base);
