@@ -272,20 +272,21 @@ document.querySelector("#form_p_size_desktop").addEventListener("change", doPara
         if (selectedValue==="bigger") {
             for (let i = 0; i < objParas.length; i++) {
                 objParas[i].classList.add("bigger-desktop");
-            }
-            for (let i = 0; i < objLists.length; i++) {
-                objLists[i].classList.add("bigger-desktop");
+                if (objLists.length != 0) {
+                    objLists[i].classList.add("bigger-desktop");
+                }
             }
         }
 
         else if (selectedValue==="smaller") {
             for (let i = 0; i < objParas.length; i++) {
                 objParas[i].classList.remove("bigger-desktop");
-            }
-            for (let i = 0; i < objLists.length; i++) {
-                objLists[i].classList.remove("bigger-desktop");
+                if (objLists.length != 0) {
+                    objLists[i].classList.remove("bigger-desktop");
+                }
             }
         }
+
     }
 
     document.querySelector("#form_p_size_mobile").addEventListener("change", doParaFontSizeMobile);
@@ -308,14 +309,18 @@ document.querySelector("#form_p_size_desktop").addEventListener("change", doPara
         if (selectedValue==="bigger") {
             for (let i = 0; i < objParas.length; i++) {
                 objParas[i].classList.add("bigger-mobile");
-                objLists[i].classList.add("bigger-desktop");
+                if (objLists.length != 0) {
+                    objLists[i].classList.add("bigger-mobile");
+                }
             }
         }
 
         else if (selectedValue==="smaller") {
             for (let i = 0; i < objParas.length; i++) {
                 objParas[i].classList.remove("bigger-mobile");
-                objLists[i].classList.remove("bigger-desktop");
+                if (objLists.length != 0) {
+                    objLists[i].classList.remove("bigger-mobile");
+                }
             }
         }
     }

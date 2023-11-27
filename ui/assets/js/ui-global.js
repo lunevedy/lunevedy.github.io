@@ -61,7 +61,7 @@ function hideMenus() {
 
 // Hide menus when users presses Esc key.
 document.onkeydown = function(e) {
-    e = e || window.event;
+    e = e || window.e;
     var isEscape = false;
     if ("key" in e) {
         isEscape = (e.key === "Escape" || e.key === "Esc");
@@ -88,6 +88,7 @@ function hideDialogBox() {
 /* Show/hide color picker */
 function showSidebar() {
     document.getElementById("myModal").classList.add("display-sidebar");
+    console.log("showSidebar");
     document.getElementById("myModal").classList.remove("hide-sidebar");
 }
 
@@ -187,6 +188,12 @@ all_btns.forEach(el => el.addEventListener('click', event => {
 }));
 
 function displayModal(event) {
+    if ((event.target.id === "btn_input_bg_passive") || (event.target.id === "btn_input_bg_active")) {
+        document.getElementById("color-transparent").style.display="inline-block";
+    }
+    else {
+        document.getElementById("color-transparent").style.display="none";
+    }
     showSidebar();
     event.preventDefault();
 }
@@ -409,9 +416,9 @@ function doAlignBlockDesktop() {
         else if (selectedValue==="center") {
             iframe.contentWindow.document.querySelector("section").classList.add("text-center-desktop");
             document.getElementById("rb_btn_align_desktop_center").checked=true;
-            document.getElementById("rb_btn_align_desktop_center").disabled=false;
             document.getElementById("rb_btn_align_desktop_left").checked=false;
-            document.getElementById("rb_btn_align_desktop_left").disabled=true;
+            document.getElementById("rb_btn_align_desktop_center").disabled=false;
+            document.getElementById("rb_btn_align_desktop_left").disabled=false;
         }
     }
 
@@ -475,7 +482,7 @@ function doAlignBlockMobile() {
             document.getElementById("rb_btn_align_mobile_center").checked=true;
             document.getElementById("rb_btn_align_mobile_center").disabled=false;
             document.getElementById("rb_btn_align_mobile_left").checked=false;
-            document.getElementById("rb_btn_align_mobile_left").disabled=true;
+            document.getElementById("rb_btn_align_mobile_left").disabled=false;
         }
     }
 
