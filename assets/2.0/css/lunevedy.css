@@ -3330,7 +3330,7 @@ footer > .subscribe p,
 footer > .subscribe button,
 footer > .subscribe input,
 footer > .hours p,
-footer > .copyright p { font-size: var(--font-size-base ) }
+footer > .copyright p { font-size: var(--font-size-base ); text-align: center }
 
 footer > .subscribe input { padding: 9px 8px; border-radius: 4px; min-width: 28ch }
 
