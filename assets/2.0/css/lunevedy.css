@@ -601,7 +601,8 @@ section figure.figure-overlay::after {
 
     /* row gaps: default */
     .flex-cols-2 { row-gap: 70px }
-    .flex-cols-3 { row-gap: 50px }
+    /* .flex-cols-3 { row-gap: 50px } */
+    .flex-cols-3 { row-gap: 80px }
     .flex-cols-4 { row-gap: 40px }
 
     /* row gaps */
