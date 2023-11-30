@@ -1632,15 +1632,16 @@ header.cols-2-half { position: relative }
 header .col-text .badge {
 	font-weight: 700;
 	display: block;
-	padding: 6px 20px;
+	padding: 4px 18px;
 	letter-spacing: 2px;
-	font-size: calc(var(--font-size-sm) * 1.2);
+	font-size: calc(var(--font-size-sm) * 1.25);
 	width: fit-content;
 }
 
-header .col-text .badge.corners-soft {
-    border-radius: 16px; padding: 6px 20px;
-}
+header .col-text .badge.corners-soft { border-radius: 16px; padding: 4px 18px }
+
+@media (min-width: 768px ) { header .col-text .badge { margin-bottom: 60px !important } }
+@media (max-width: 767px ) { header .col-text .badge { margin-bottom: 40px !important } }
 
 /* headings */
 header .col-text h1 {
