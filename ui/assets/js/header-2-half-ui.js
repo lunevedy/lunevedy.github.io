@@ -192,14 +192,14 @@ document.querySelector("#picker-box").addEventListener('click', handleLabelClick
 
         /* badge text */
         else if (btn_id === "btn_badge_text") {
-            newStyle = "header"+headerTheme+" .col-2.col-text .badge { color: var("+color_code+") }\n";
-            sub_string = "header"+headerTheme+" .col-2.col-text .badge { color";
+            newStyle = "header"+headerTheme+" .badge { color: var("+color_code+") }\n";
+            sub_string = "header"+headerTheme+" .badge { color";
         }
 
         /* badge background */
         else if (btn_id === "btn_badge_bg") {
-            newStyle = "header"+headerTheme+" .col-2.col-text .badge { background-color: var("+color_code+") }\n";
-            sub_string = "header"+headerTheme+ ".col-2.col-text .badge { background-color";
+            newStyle = "header"+headerTheme+" .badge { background-color: var("+color_code+") }\n";
+            sub_string = "header"+headerTheme+ " .badge { background-color";
         }
 
         /* h1 main heading */
