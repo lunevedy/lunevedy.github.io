@@ -2053,10 +2053,10 @@ nav.theme-dark ul.links-wrapper li a.btn-solid:active {
     color: var(--red-500);
 }
 
-/* .theme-light .badge { color: #fff; background-color: #000; width: fit-content } */
-/* .theme-light .badge span { color: #fff; background-color: #000 } */
-/* .theme-dark .col-2 .badge  { color: #000; background-color: #fff } */
-/* .theme-dark .badge span { color: #000; background-color: #fff } */
+section.theme-light .col-2 .badge { color: #fff; background-color: #000; width: fit-content } 
+section.theme-light .col-2 .badge span { color: #fff; background-color: #000 } *
+section.theme-dark .col-2 .badge  { color: #000; background-color: #fff } 
+section.theme-dark .col-2 .badge span { color: #000; background-color: #fff } 
 
 header.theme-light .badge { color: #fff; background-color: #000 }
 header.theme-dark .badge  { color: #000; background-color: #fff }
