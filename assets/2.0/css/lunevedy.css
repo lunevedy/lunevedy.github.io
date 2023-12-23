@@ -1707,7 +1707,7 @@ header .col-visual figure video { display: block }
     header.cols-2-half .col-visual {
         display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: center;
         max-width: 50%; 
-        /* padding-top: 5%; padding-bottom: 5% */
+        padding-top: 5%; padding-bottom: 5%
     }
 
     /* text column */
