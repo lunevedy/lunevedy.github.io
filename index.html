@@ -13,6 +13,38 @@
     <link rel="stylesheet" href="assets/css/controls-general.css" />
     <link rel="stylesheet" href="assets/css/home.css">
 
+    <style>
+
+        section h1 {
+            margin-bottom: 0;
+            font-size: 64px;
+            font-weight: normal;
+        }
+
+        section p {
+            font-size: 20px;
+            margin-top: 8px;
+            margin-bottom: 32px;
+        }
+
+        section li {
+            font-size: 20px;
+        }
+
+
+        .block-head {
+            margin-top: 0;
+            margin-bottom: 48px;
+            font-size: 38px;
+            text-align: center;
+            color: #222;
+        }
+
+        .block-head code {
+            color: #007acc;
+        }
+    </style>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
@@ -35,7 +67,7 @@
 
 </head>
 
-<body>
+<body id="top">
 
     <div class="controls-top">
         <nav id="control-menu">
@@ -48,78 +80,168 @@
     <main>
 
     <article>
+
         <div id="HTML-Content">
+
         <section>
+             <h1><b>Lunevedy</b> UI Builder</h1>
+             <p style="text-align: center;">Read the <a href="#instructions">instructions</a> first.</p>
+        </section>
 
-        <h1>What do you want to create?</h1>
+        <section style="background-color: #CCFBF1;">
 
+        <h2 class="block-head">Choose your <code>&lt;header&gt;</code></h2>
+
+        
         <div class="container-flex">
-
-            <div class="col-2">
+            <div class="col-3">
                 <h2><a href="header/0">Hero block 1</a></h2>
+                <a href="header/0"><img src="assets/img/hero-1.png" alt="hero-1"></a>
                 <p>A single-column header layout with the option to include images and videos.</p>
             </div>
-
-            <div class="col-2">
+            <div class="col-3">
                 <h2><a href="header/2-half">Hero block 2</a></h2>
+                <a href="header/2-half"><img src="assets/img/hero-2.png" alt="hero-2"></a>
                 <p>A two-column header layout with an image or video.</p>
             </div>
-
-            <div class="col-2">
+            <div class="col-3">
                 <h2><a href="header/bg">Hero block 3</a></h2>
-                <p>A single-column header layout with a background image or video.</p>
+                <a href="header/bg"><img src="assets/img/hero-3.png" alt="hero-3"></a>
+                <p>A single-column header layout with a background image or video on continuous loop.</p>
             </div>
 
-            <div class="col-2">
-                <p>&nbsp;</p>
-            </div>
+        </div>
 
-            <div class="col-2">
-                <h2><a href="main/0">Single column</a></h2>
+    </section>
+
+    <section>
+
+        <h2 class="block-head">Choose your <code>&lt;section&gt;</code></h2>
+
+        <div class="container-flex">
+            <div class="col-3">
+                <h2><a href="main/0">Single Column</a></h2>
+                <a href="main/0"><img src="assets/img/col-1.png" alt="Single Column"></a>
                 <p>The simplest layout. Just a single column of content, left to right across the screen.</p>
             </div>
-
-            <div class="col-2">
-               <h2><a href="main/2">Two-columns</a></h2>
-                <p>Two side-by-side columns of content. Either column may contain a mixture of text or images/videos.</p>
+            <div class="col-3">
+                <h2><a href="main/2-half">Two-column Split</a></h2>
+                <a href="main/2-half"><img src="assets/img/col-2.png" alt="Two-column Split"></a>
+                <p>Text only in one column and only an image or video in the other.</p>
             </div>
 
-            <div class="col-2">
-                <h2><a href="main/2-half">Two-column split</a></h2>
-                 <p>Text only in one column and only an image or video in the other.</p>
-             </div>
-
-            <div class="col-2">
-                <h2><a href="main/3">Three columns</a></h2>
+            <div class="col-3">
+                <h2><a href="main/3">Three Columns</a></h2>
+                <a href="main/3"><img src="assets/img/col-3.png" alt="Three Columns"></a>
                 <p>Three side-by-side columns of content. Can include images, icons and videos.</p>
             </div>
 
-            <div class="col-2">
-                <h2><a href="main/4">Four columns</a></h2>
+        </div>
+
+          <div class="container-flex">
+            <div class="col-3">
+                <h2><a href="main/4">Four Columns</a></h2>
+                <a href="main/4"><img src="assets/img/col-4.png" alt="Four Columns"></a>
                 <p>Four side-by-side columns of content. A good choice for small amounts of text. Can include images, icons and videos.</p>
             </div>
+        </div>
 
-            <div class="col-2">
-                <h2><a href="main/2-form">Contact form</a></h2>
-                <p>A two-column email contact form.</p>
-            </div>
+    </section>
 
-            <div class="col-2">
+    <section style="background-color: #CCFBF1;">
+
+        <h2 class="block-head">Choose your <code>&lt;footer&gt;</code></h2>
+
+
+        <div class="container-flex">
+
+
+            <div class="col-3">
                 <h2><a href="footer/0">Footer: One-column</a></h2>
+                <a href="footer/0"><img src="assets/img/footer-1.png" alt="Footer: One-column"></a>
                 <p>A one-column web page footer.</p>
             </div>
 
-            <div class="col-2">
+            <div class="col-3">
                 <h2><a href="footer/3">Footer: Three-column</a></h2>
+                <a href="footer/3"><img src="assets/img/footer-2.png" alt="Footer: Three-column"></a>
                 <p>A three-column web page footer.</p>
             </div>
 
-            <div class="col-2">
+            <div class="col-3">
                 <h2><a href="footer/4">Footer: Four-column</a></h2>
+                <a href="footer/4"><img src="assets/img/footer-3.png" alt="Footer: Four-column"></a>
                 <p>A four-column web page footer.</p>
             </div>
+        </div>
+    </section>
 
-            <!--
+    <section>
+
+        <h2 class="block-head">A contact <code>&lt;form&gt;</code></h2>
+
+        <div class="container-flex">
+             <div class="col-3">
+                <h2><a href="main/2-form">Contact form</a></h2>
+                <a href="main/2-form"><img src="assets/img/form.png" alt="Form"></a>
+                <p>A two-column email contact form with Name, Email and Message fields.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="instructions" class="section-narrow" style="background-color: #CCFBF1;">
+
+       <h2 class="block-head">How to use the Lunevedy UI builder</h2>
+
+       <p>For each website project you want to build:</p>
+
+        <ul>
+            <li>Create a new project folder and download the 'getting started' <a href="starter/index.html"><b>index.html</b></a> web page to it.
+            <img src="assets/img/file-folder-1.png" alt ="folders-1" style="max-width: 800px"></li>
+            <li>Create a sub-folder named 📁 <b>assets/css</b> inside your project folder.</li>
+            <li>Download the <a href="assets/css/custom.css"><b>custom.css</b></a> stylesheet file to your <b>assets/css</b> sub-folder.
+            <img src="assets/img/file-folder-2.png" alt ="folders-2" style="max-width: 800px"></li>
+        </ul>
+
+
+        <p>Choose the web layout you want to create from the options above, and then use the app's menu options to style your web page.</p>
+        <img src="assets/img/screenshot.jpg" alt ="copy html" style="max-width: 800px">
+
+        <p>At the bottom-right of the Lunevedy app screen, you can see two buttons:</p>
+        <ul>
+            <li><b>HTML</b>: Use this to copy-and-paste the HTML content into your <a href="starter/index.html"><b>index.html</b></a> web page.
+            <img src="assets/img/copy-html.png" alt ="copy html" style="max-width: 800px"></li>
+            <li><b>CSS</b>: Use this to copy-and-paste the CSS styles into your <a href="starter/index.html"><b>custom.css</b></a> stylesheet.
+            <img src="assets/img/copy-css.png" alt ="copy html" style="max-width: 800px">
+            This <b>CSS</b> button is enabled only if you have added your own CSS styles.
+            <img src="assets/img/file-folder-3.png" alt ="folders-1" style="max-width: 800px"></li>
+        </ul>
+
+
+      
+        <p>The &#8216;getting started&#8217; <b>index.html</b> web page will link to several placeholder images and video files to help you design your web layouts.</p>
+
+        <p>When creating your website projects, replace these assets with your own images and videos.</p>
+
+        <p>Also, remove any links in the &lt;head&gt; of the <b>index.html</b> file to icon sets you are not using.</p>
+
+    <p>That&#8217;s it. Happy web designing!</p>
+     
+    <p><a href="#top">Back to top</a></p>
+    </section>
+
+
+</div>
+    </article>
+</main>
+
+
+</body>
+
+</html>
+
+<!--
             <div class="col-2">
                 <h2><a href="contact-form.html">Contact form</a></h2>
                 <p>A basic form with Name, Email and Message fields. Add a FormID from <a href="https:formspree.io" target="_blank" rel="noopener">Formspree</a> or similar.</p>
@@ -135,63 +257,5 @@
                 <p>A responsive menu for desktop and mobile screens. Requires <a href="assets/js/lunevedy.js">assert/js/lunevedy.js</a>.</p>
             </div>
         -->
-        </div>
-
-        <h2>Files you need to download</h2>
-        <div class="box-yellow">
-            <p>You will need to download the following two files:</p>
-
-            <p><i class="far fa-arrow-alt-circle-down"></i> &nbsp;The <a href="assets/css/custom.css">custom.css</a> stylesheet you will use to amend the web page design according to your requirements.</p>
-
-            <p><i class="far fa-arrow-alt-circle-down"></i> &nbsp; The <a href="starter/index.html">index.html</a> &#8216;getting started&#8217; web page.</p>
-
-            <p>This web page includes some sample semantic HTML mark-up tags and has links to two icon sets: <a href="https://fontawesome.com/icons" target="blank" rel="noopener">Font Awesome</a> and <a href="https://icons8.com/line-awesome" target="blank" rel="noopener">Line Awesome</a>.</p>
-        </div>
-
-        <h2>How to use the Lunevedy UI builder</h2>
-        <p>For each website project you want to build:</p>
-
-        <ul>
-            <li>Create a new project folder and download the 'getting started' <a href="starter/index.html"><b>index.html</b></a> web page to it.
-            <img src="assets/img/file-folder-1.png" alt ="folders-1" style="max-width: 700px"></li>
-            <li>Create a sub-folder named 📁 <b>assets/css</b> inside your project folder.</li>
-            <li>Download the <a href="assets/css/custom.css"><b>custom.css</b></a> stylesheet file to your <b>assets/css</b> sub-folder.
-            <img src="assets/img/file-folder-2.png" alt ="folders-2" style="max-width: 700px"></li>
-        </ul>
 
 
-        <p>Choose the web layout you want to create from the options above, and then use the app's menu options to style your web page.</p>
-        <img src="assets/img/screenshot.jpg" alt ="copy html" style="max-width: 700px">
-
-        <p>At the bottom-right of the Lunevedy app screen, you can see two buttons:</p>
-        <ul>
-            <li><b>HTML</b>: Use this to copy-and-paste the HTML content into your <a href="starter/index.html"><b>index.html</b></a> web page.
-            <img src="assets/img/copy-html.png" alt ="copy html" style="max-width: 700px"></li>
-            <li><b>CSS</b>: Use this to copy-and-paste the CSS styles into your <a href="starter/index.html"><b>custom.css</b></a> stylesheet.
-            <img src="assets/img/copy-css.png" alt ="copy html" style="max-width: 700px">
-            This <b>CSS</b> button is enabled only if you have added your own CSS styles.
-            <img src="assets/img/file-folder-3.png" alt ="folders-1" style="max-width: 700px"></li>
-        </ul>
-
-
-        <h3>The placeholder assets</h3>
-        <p>The &#8216;getting started&#8217; <b>index.html</b> web page will link to several placeholder images and video files to help you design your web layouts.</p>
-
-        <p>When creating your website projects, replace these assets with your own images and videos.</p>
-
-        <p>Also, remove any links in the &lt;head&gt; of the <b>index.html</b> file to icon sets you are not using.</p>
-
-    <p>That&#8217;s it. Happy web designing!</p>
-
-    </section>
-</div>
-
-
-    </article>
-
-</main>
-
-
-</body>
-
-</html>
