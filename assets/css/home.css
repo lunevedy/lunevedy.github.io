@@ -42,7 +42,8 @@ nav ul {
 body { font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans, Apple Color Emoji, Segoe UI Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica, Arial, sans-serif }
 
 @media (min-width: 1200px) { 
-	section { padding: 3% 18% 5% 18% } 
+	section { padding: 3% 8% 5% 8% } 
+    .section-narrow { padding: 3% 18% 5% 18% }
 }
 
 /* Tablets */
@@ -75,17 +76,21 @@ section .container-flex {
     margin-bottom: 42px
 } 
 
+
 .col-2 { background-color: #fff; padding: 20px 20px 20px 20px }
+.col-3 { background-color: #fff; padding: 20px 20px 20px 20px }
 
 /* Non-mobiles */
 @media (min-width: 768px) { 
     .col-2 { width: 47%; margin-bottom: 40px }
     .col-2:nth-last-child(-n+2) { margin-bottom: 0 }
+    .col-3 { width: 30%;  }
+    /* .col-3:nth-last-child(-n+2) { margin-bottom: 0 } */
 }
 
 /* Mobiles */
 @media (max-width: 767px) { 
-    .col-2 { 
+    .col-2, .col-3 { 
         width: 100%; 
         max-width: 400px; 
         margin-left: auto; margin-right: auto; 
@@ -93,19 +98,23 @@ section .container-flex {
     }
 }
 
-section h2 { font-size: 32px }
-section h3 { margin-top: 48px; font-size: 22px }
+section .col-2 h2 { font-size: 22px }
+section .col-2 h3 { margin-top: 48px; font-size: 22px }
+
+section .col-3 h2 { font-size: 22px; margin-bottom: 8px }
+section .col-3 h3 { margin-top: 48px; font-size: 22px }
+
 
 section img { margin-top: 20px; margin-bottom: 24px }
-.col-2 h2 { font-size: 22px }
-section p { font-size: 19px; margin-bottom: 12px }
+section .col-2 p { font-size: 19px; margin-bottom: 12px }
+section .col-3 p { font-size: 18px; margin-top: 12px; margin-bottom: 12px }
 
 section ul { margin-bottom: 18px }
 section ul li img { margin-top: 20px }
 section p img { margin-top: 20px }
 
 section > ul > li { 
-	font-size: 19px;
+	font-size: 20px;
     line-height: 1.5; margin-bottom: 14px; 
     margin-left: 22px; padding-left: 12px; 
 }
@@ -175,3 +184,7 @@ a:not(.btn):any-link {
     color: #000;
     background-color:#e9ecef;
 }
+
+
+@media (min-width: 768px) { .section-selector-1 .col-3 figure.fig-shadows-box { filter: drop-shadow(8px 8px 8px rgba(160, 174, 192, 0.9)); } }
+@media (max-width: 767px) { .section-selector-1 .col-3 figure.fig-shadows-box { filter: drop-shadow(6px 6px 6px rgba(160, 174, 192, 0.9)); } }
