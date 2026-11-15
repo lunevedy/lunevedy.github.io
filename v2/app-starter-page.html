@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Starter Page Generator</title>
+
+    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Editor interface styles -->
+    <style type="text/tailwindcss" id="editor-styles">
+
+        /* ---------- Home link (back to the list of generators) ---------- */
+
+        .home-link {
+            @apply mb-3 inline-flex items-center gap-1 rounded text-sm font-medium text-slate-500 hover:text-slate-900;
+        }
+
+        .home-link:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* ---------- Page layout: sidebar + main area ---------- */
+
+        .app-container {
+            @apply min-h-screen bg-slate-100 text-slate-900;
+        }
+
+        .app-layout {
+            @apply grid min-h-screen grid-cols-[20rem_1fr];
+        }
+
+        .app-sidebar {
+            @apply sticky top-0 flex h-screen flex-col gap-8 overflow-y-auto border-r border-slate-200 bg-white px-6 py-6;
+        }
+
+        .app-main {
+            @apply min-w-0 px-8 py-6;
+        }
+
+        .app-title {
+            @apply text-xl font-bold tracking-tight;
+        }
+
+        .app-description {
+            @apply mt-1 text-sm leading-relaxed text-slate-600;
+        }
+
+        /* ---------- Sidebar controls ---------- */
+
+        .controls-heading {
+            @apply mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500;
+        }
+
+        .controls-row {
+            @apply flex flex-col divide-y divide-slate-100;
+        }
+
+        .control-label {
+            @apply flex cursor-pointer items-center justify-between gap-4 py-3 text-sm font-medium text-slate-700;
+        }
+
+        .field {
+            @apply py-3;
+        }
+
+        .field-label-row {
+            @apply mb-2 flex items-baseline justify-between gap-3;
+        }
+
+        .field-label {
+            @apply text-sm font-medium text-slate-700;
+        }
+
+        .char-count {
+            @apply font-mono text-xs tabular-nums text-slate-500;
+        }
+
+        .char-count.is-over {
+            @apply text-amber-700;
+        }
+
+        .text-input {
+            @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800;
+        }
+
+        textarea.text-input {
+            @apply min-h-24 resize-y leading-relaxed;
+        }
+
+        .text-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 1px;
+        }
+
+        .controls-note {
+            @apply mt-2 text-xs leading-snug text-slate-500;
+        }
+
+        .path-warning {
+            @apply mt-2 rounded-md bg-amber-50 px-3 py-2 text-xs leading-snug text-amber-800;
+        }
+
+        .path-warning[hidden],
+        .preload-options[hidden],
+        .custom-path[hidden] {
+            display: none;
+        }
+
+        .preload-options {
+            @apply pb-3;
+        }
+
+        /* Native checkbox restyled as a toggle switch */
+        .toggle-input {
+            @apply relative h-6 w-10 shrink-0 cursor-pointer appearance-none rounded-full bg-slate-300 transition-colors;
+        }
+
+        .toggle-input::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 9999px;
+            background-color: var(--color-white);
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+            transition: transform 150ms ease;
+        }
+
+        .toggle-input:checked {
+            @apply bg-slate-900;
+        }
+
+        .toggle-input:checked::before {
+            transform: translateX(16px);
+        }
+
+        .toggle-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        @media (forced-colors: active) {
+            .toggle-input {
+                border: 1px solid CanvasText;
+            }
+            .toggle-input::before {
+                background-color: CanvasText;
+            }
+        }
+
+        /* Segmented control built from native radio buttons */
+        .segmented {
+            @apply grid grid-cols-3 gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .segmented-option {
+            @apply cursor-pointer rounded-md px-2 py-1.5 text-center text-sm font-medium text-slate-600 hover:text-slate-900;
+        }
+
+        .segmented-option:has(input:checked) {
+            @apply bg-white text-slate-900 shadow-sm;
+        }
+
+        .segmented-option:has(input:focus-visible) {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* ---------- Code view ---------- */
+
+        .preview-toolbar {
+            @apply mb-3 flex items-baseline justify-between gap-4;
+        }
+
+        .preview-label {
+            @apply text-sm font-semibold text-slate-800;
+        }
+
+        .preview-note {
+            @apply text-sm text-slate-500;
+        }
+
+        .code-frame {
+            @apply overflow-hidden rounded-xl border border-slate-300 bg-slate-900 shadow-sm;
+        }
+
+        .code-bar {
+            @apply flex items-center gap-3 border-b border-slate-700 bg-slate-800 px-4 py-2.5;
+        }
+
+        .code-dots {
+            @apply flex gap-1.5;
+        }
+
+        .code-dots span {
+            @apply h-3 w-3 rounded-full bg-slate-600;
+        }
+
+        .code-filename {
+            @apply font-mono text-xs text-slate-300;
+        }
+
+        .code-view {
+            @apply m-0 overflow-x-auto p-6 font-mono text-[13px] leading-relaxed text-slate-100;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        /* ---------- Action buttons ---------- */
+
+        .action-buttons {
+            @apply fixed bottom-5 right-5 z-50 flex gap-3;
+        }
+
+        .action-button {
+            @apply inline-flex min-w-40 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        }
+
+        .action-button svg {
+            @apply h-4 w-4 shrink-0;
+        }
+
+        .action-button svg[hidden] {
+            display: none;
+        }
+
+        .action-primary {
+            @apply bg-slate-900 text-white hover:bg-slate-700;
+        }
+
+        .action-secondary {
+            @apply bg-white text-slate-900 ring-1 ring-slate-300 hover:bg-slate-50;
+        }
+
+        .action-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Shown briefly after a successful save or copy */
+        .action-success {
+            @apply bg-emerald-600 text-white ring-0 hover:bg-emerald-600;
+        }
+
+        .status-message {
+            @apply mt-4 text-sm text-slate-700;
+        }
+
+        .fallback-container {
+            @apply mt-4;
+        }
+
+        .fallback-container[hidden] {
+            display: none;
+        }
+
+        .fallback-label {
+            @apply mb-2 block text-sm font-semibold text-slate-800;
+        }
+
+        .fallback-textarea {
+            @apply min-h-64 w-full rounded-xl border border-slate-300 bg-white p-4 font-mono text-xs leading-relaxed text-slate-800;
+        }
+
+        .page-bottom-space {
+            @apply h-28;
+        }
+
+    </style>
+</head>
+
+<body class="app-container">
+
+    <div class="app-layout">
+
+        <!-- Sidebar: settings -->
+        <aside class="app-sidebar">
+
+            <header>
+                <a class="home-link" href="index.html">← Home</a>
+                <h1 class="app-title">Starter Page Generator</h1>
+
+                <p class="app-description">
+                    Create the page that your hero and section blocks are pasted into.
+                    Save it in your project-folder.
+                </p>
+            </header>
+
+            <!-- Page details -->
+            <section aria-labelledby="details-heading">
+
+                <h2 id="details-heading" class="controls-heading">
+                    Page details
+                </h2>
+
+                <div class="field">
+                    <div class="field-label-row">
+                        <label class="field-label" for="file-name">File name</label>
+                    </div>
+                    <input type="text" id="file-name" class="text-input" value="index.html" spellcheck="false">
+                    <p class="controls-note">Lowercase letters, numbers and hyphens, ending in .html.</p>
+                </div>
+
+                <div class="field">
+                    <div class="field-label-row">
+                        <label class="field-label" for="page-title">Title</label>
+                        <span id="title-count" class="char-count" aria-live="polite"></span>
+                    </div>
+                    <input type="text" id="page-title" class="text-input" value="My page title">
+                    <p class="controls-note">Shown in the browser tab and search results. Aim for 60 characters or fewer.</p>
+                </div>
+
+                <div class="field">
+                    <div class="field-label-row">
+                        <label class="field-label" for="page-description">Meta description</label>
+                        <span id="description-count" class="char-count" aria-live="polite"></span>
+                    </div>
+                    <textarea id="page-description" class="text-input">Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.</textarea>
+                    <p class="controls-note">Often used as the snippet in search results. Aim for about 120–155 characters.</p>
+                </div>
+
+            </section>
+
+            <!-- Preload -->
+            <section aria-labelledby="preload-heading">
+
+                <h2 id="preload-heading" class="controls-heading">
+                    Hero image preload
+                </h2>
+
+                <div class="controls-row">
+                    <label class="control-label">
+                        <span>Preload an image</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="preload-image" checked>
+                    </label>
+                </div>
+
+                <div id="preload-options" class="preload-options">
+
+                    <div class="segmented" role="radiogroup" aria-label="Image to preload">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="preload-choice" value="image" class="sr-only" checked>
+                            <span>Hero image</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="preload-choice" value="poster" class="sr-only">
+                            <span>Video poster</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="preload-choice" value="custom" class="sr-only">
+                            <span>Custom</span>
+                        </label>
+
+                    </div>
+
+                    <div id="custom-path" class="field custom-path" hidden>
+                        <div class="field-label-row">
+                            <label class="field-label" for="custom-path-input">Image path</label>
+                        </div>
+                        <input type="text" id="custom-path-input" class="text-input" value="assets/img/" spellcheck="false">
+                    </div>
+
+                    <p class="controls-note">
+                        The presets are hosted sample images. For your own images,
+                        use a path relative to your project-folder, starting with assets/.
+                    </p>
+
+                    <p id="path-warning" class="path-warning" role="status" hidden></p>
+
+                </div>
+
+            </section>
+
+            <!-- Page structure -->
+            <section aria-labelledby="structure-heading">
+
+                <h2 id="structure-heading" class="controls-heading">
+                    Page structure
+                </h2>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Include &lt;nav&gt;</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="include-nav" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>Include &lt;footer&gt;</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="include-footer" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>Page contains video</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="contains-video">
+                    </label>
+
+                </div>
+
+                <p class="controls-note">
+                    The nav and footer start empty, ready to be filled in later.
+                    Turn on “Page contains video” to add a place for the video script.
+                </p>
+
+            </section>
+
+        </aside>
+
+        <!-- Main area: live code view -->
+        <main class="app-main">
+
+            <section aria-labelledby="code-heading">
+
+                <div class="preview-toolbar">
+                    <h2 id="code-heading" class="preview-label">
+                        Generated HTML
+                    </h2>
+
+                    <p class="preview-note">
+                        The page looks blank in a browser until you paste in your blocks.
+                    </p>
+                </div>
+
+                <div class="code-frame">
+
+                    <div class="code-bar" aria-hidden="true">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <div id="code-filename" class="code-filename">project-folder/index.html</div>
+                    </div>
+
+                    <pre class="code-view" tabindex="0" aria-label="Generated HTML code"><code id="code-view"></code></pre>
+
+                </div>
+
+            </section>
+
+            <!-- Accessible status -->
+            <p id="action-status" class="status-message" role="status" aria-live="polite"></p>
+
+            <!-- Manual copying fallback -->
+            <section id="fallback-container" class="fallback-container" hidden aria-labelledby="fallback-heading">
+
+                <label id="fallback-heading" class="fallback-label" for="fallback-html">
+                    Your generated HTML – select and copy manually
+                </label>
+
+                <textarea id="fallback-html" class="fallback-textarea" readonly spellcheck="false"></textarea>
+
+            </section>
+
+            <div class="page-bottom-space"></div>
+
+        </main>
+
+    </div>
+
+    <!-- Fixed action buttons -->
+    <div class="action-buttons">
+
+        <button type="button" id="copy-button" class="action-button action-secondary">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy HTML</span>
+        </button>
+
+        <button type="button" id="download-button" class="action-button action-primary">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Download HTML</span>
+        </button>
+
+    </div>
+
+
+    <script>
+
+        // -----------------------------------------
+        // 1. Find the page elements
+        // -----------------------------------------
+
+        const fileNameInput = document.getElementById("file-name");
+
+        const pageTitle = document.getElementById("page-title");
+
+        const pageDescription = document.getElementById("page-description");
+
+        const titleCount = document.getElementById("title-count");
+
+        const descriptionCount = document.getElementById("description-count");
+
+        const preloadImage = document.getElementById("preload-image");
+
+        const preloadOptions = document.getElementById("preload-options");
+
+        const preloadChoices = document.querySelectorAll('input[name="preload-choice"]');
+
+        const customPath = document.getElementById("custom-path");
+
+        const customPathInput = document.getElementById("custom-path-input");
+
+        const pathWarning = document.getElementById("path-warning");
+
+        const includeNav = document.getElementById("include-nav");
+
+        const includeFooter = document.getElementById("include-footer");
+
+        const containsVideo = document.getElementById("contains-video");
+
+        const codeView = document.getElementById("code-view");
+
+        const codeFilename = document.getElementById("code-filename");
+
+        const copyButton = document.getElementById("copy-button");
+
+        const downloadButton = document.getElementById("download-button");
+
+        const actionStatus = document.getElementById("action-status");
+
+        const fallbackContainer = document.getElementById("fallback-container");
+
+        const fallbackTextarea = document.getElementById("fallback-html");
+
+        // Preset preload URLs: the hosted sample hero image and video poster.
+        const preloadPaths = {
+            image: "https://lunevedy.com/v2/assets/img/hero-image.jpg",
+            poster: "https://lunevedy.com/v2/assets/videos/hero-poster.jpg"
+        };
+
+        // Remembers the timers that reset the button labels.
+        const feedbackTimers = new Map();
+
+
+        // -----------------------------------------
+        // 2. Store all settings in one object
+        // -----------------------------------------
+
+        const settings = {
+
+            fileName: fileNameInput.value,
+
+            title: pageTitle.value,
+
+            description: pageDescription.value,
+
+            preload: preloadImage.checked,
+
+            preloadChoice: "image",
+
+            customPath: customPathInput.value,
+
+            includeNav: includeNav.checked,
+
+            includeFooter: includeFooter.checked,
+
+            containsVideo: containsVideo.checked
+
+        };
+
+
+        // -----------------------------------------
+        // 3. Helpers
+        // -----------------------------------------
+
+        function escapeHTML(text) {
+
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+
+        }
+
+
+        function getSafeFileName() {
+
+            // Lowercase, spaces to hyphens, only letters, numbers, hyphens
+            // and dots, always ending in .html.
+
+            let name = settings.fileName.trim().toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^a-z0-9.\-]/g, "");
+
+            name = name.replace(/\.html?$/, "");
+
+            return (name || "index") + ".html";
+
+        }
+
+
+        function getPreloadPath() {
+
+            if (settings.preloadChoice === "custom") {
+                return settings.customPath.trim();
+            }
+
+            return preloadPaths[settings.preloadChoice];
+
+        }
+
+
+        function getPathWarning(path) {
+
+            // Common relative-URL mistakes, explained in plain words.
+
+            if (path === "" || path.endsWith("/")) {
+                return "Add the image file name to the end of the path.";
+            }
+
+            // Full web addresses (such as the hosted sample images) are fine,
+            // as long as they end with an image file extension.
+
+            if (/^https?:\/\//i.test(path)) {
+                return /\.(jpe?g|png|webp|avif|gif|svg)$/i.test(path)
+                    ? ""
+                    : "The address should end with an image file extension, such as .jpg, .png or .webp.";
+            }
+
+            if (path.includes("\\")) {
+                return "Use forward slashes (/) in web paths, not backslashes (\\).";
+            }
+
+            if (path.startsWith("/") || /^[a-z]:/i.test(path) || path.startsWith("file:")) {
+                return "Use a relative path such as assets/img/photo.jpg, not a path from the root of your computer.";
+            }
+
+            if (!path.startsWith("assets/")) {
+                return "Images for this course live in the assets folder, so the path should start with assets/.";
+            }
+
+            if (!/\.(jpe?g|png|webp|avif|gif|svg)$/i.test(path)) {
+                return "The path should end with an image file extension, such as .jpg, .png or .webp.";
+            }
+
+            return "";
+
+        }
+
+
+        // -----------------------------------------
+        // 4. Generate the starter page
+        // -----------------------------------------
+
+        function generateHTML() {
+
+            const fileName = getSafeFileName();
+
+            const preloadHTML = settings.preload
+                ? `
+    <!-- Preload the hero image so it appears as soon as possible -->
+    <link rel="preload" as="image" href="${escapeHTML(getPreloadPath())}">
+`
+                : "";
+
+            const navHTML = settings.includeNav
+                ? `
+    <nav>
+        <!-- Navigation will go here later -->
+    </nav>
+`
+                : "";
+
+            const footerHTML = settings.includeFooter
+                ? `
+    <footer>
+        <!-- Footer content will go here later -->
+    </footer>
+`
+                : "";
+
+            const videoScriptHTML = settings.containsVideo
+                ? `
+    <!-- Paste the video script here -->
+`
+                : "";
+
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        Save this file in your project-folder:
+
+        project-folder/
+        ├── ${fileName.padEnd(18)}← this file
+        └── assets/
+            ├── img/          ← images:  src="assets/img/..."
+            └── videos/       ← videos:  src="assets/videos/..."
+
+        The sample images and videos in the generators load from lunevedy.com,
+        so they work wherever this file is saved. Paths to your own images and
+        videos start with assets/, so they only work when this file sits
+        directly inside your project-folder.
+    -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>${escapeHTML(settings.title.trim())}</title>
+
+    <meta name="description" content="${escapeHTML(settings.description.trim())}">
+${preloadHTML}
+    <!-- Tailwind CSS (include once per page) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
+
+    <!--
+        All the page's CSS goes in this one style element.
+        Paste each block type's CSS once, even if you use that block type several times.
+    -->
+    <style type="text/tailwindcss">
+
+        /* Paste CSS styles here */
+
+
+    </style>
+</head>
+
+<body>
+${navHTML}
+    <!--
+        1. HERO
+        Paste your hero block here (it starts with <header class="hero">).
+        Use one hero per page: it contains the page's only h1.
+    -->
+
+
+    <main>
+
+        <!--
+            2. SECTIONS
+            Paste section blocks here, in the order you want them.
+            Sections use h2 headings; cards inside them use h3.
+        -->
+
+
+    </main>
+${footerHTML}${videoScriptHTML}
+</body>
+</html>
+`;
+
+        }
+
+
+        // -----------------------------------------
+        // 5. Update the interface
+        // -----------------------------------------
+
+        function updateCounter(element, length, limit) {
+
+            element.textContent = length + " / " + limit;
+
+            element.classList.toggle("is-over", length > limit);
+
+        }
+
+
+        function updateApp() {
+
+            settings.fileName = fileNameInput.value;
+
+            settings.title = pageTitle.value;
+
+            settings.description = pageDescription.value;
+
+            settings.preload = preloadImage.checked;
+
+            settings.customPath = customPathInput.value;
+
+            settings.includeNav = includeNav.checked;
+
+            settings.includeFooter = includeFooter.checked;
+
+            settings.containsVideo = containsVideo.checked;
+
+            updateCounter(titleCount, settings.title.trim().length, 60);
+
+            updateCounter(descriptionCount, settings.description.trim().length, 155);
+
+            // Preload choices only matter when preloading is on.
+
+            preloadOptions.hidden = !settings.preload;
+
+            customPath.hidden = settings.preloadChoice !== "custom";
+
+            const warning = settings.preload ? getPathWarning(getPreloadPath()) : "";
+
+            pathWarning.textContent = warning;
+
+            pathWarning.hidden = warning === "";
+
+            const html = generateHTML();
+
+            codeView.textContent = html;
+
+            codeFilename.textContent = "project-folder/" + getSafeFileName();
+
+            fallbackTextarea.value = html;
+
+        }
+
+
+        function handlePreloadChoice(event) {
+
+            settings.preloadChoice = event.target.value;
+
+            updateApp();
+
+            if (settings.preloadChoice === "custom") {
+                customPathInput.focus();
+            }
+
+        }
+
+
+        // -----------------------------------------
+        // 6. Download and copy
+        // -----------------------------------------
+
+        function showSuccess(button, label) {
+
+            const labelElement = button.querySelector(".button-label");
+
+            const originalLabel = button.dataset.label || labelElement.textContent;
+
+            button.dataset.label = originalLabel;
+
+            button.classList.add("action-success");
+
+            labelElement.textContent = label;
+
+            button.querySelector(".idle-icon").hidden = true;
+
+            button.querySelector(".done-icon").hidden = false;
+
+            clearTimeout(feedbackTimers.get(button));
+
+            // Return the button to normal after two seconds.
+
+            feedbackTimers.set(button, setTimeout(function() {
+
+                button.classList.remove("action-success");
+
+                labelElement.textContent = originalLabel;
+
+                button.querySelector(".idle-icon").hidden = false;
+
+                button.querySelector(".done-icon").hidden = true;
+
+            }, 2000));
+
+        }
+
+
+        async function downloadHTML() {
+
+            const html = generateHTML();
+
+            const fileName = getSafeFileName();
+
+            actionStatus.textContent = "";
+
+            // Chrome and Edge: a Save As window, so students can choose
+            // their project-folder themselves.
+
+            if (typeof window.showSaveFilePicker === "function") {
+
+                try {
+
+                    const fileHandle = await window.showSaveFilePicker({
+                        suggestedName: fileName,
+                        types: [{
+                            description: "HTML file",
+                            accept: { "text/html": [".html"] }
+                        }]
+                    });
+
+                    const writable = await fileHandle.createWritable();
+
+                    await writable.write(html);
+
+                    await writable.close();
+
+                    actionStatus.textContent = "Saved " + fileHandle.name + ". Check that it is in your project-folder.";
+
+                    showSuccess(downloadButton, "Saved!");
+
+                    return;
+
+                } catch (error) {
+
+                    // Cancelling the Save As window is not an error.
+
+                    if (error.name === "AbortError") {
+                        return;
+                    }
+
+                }
+
+            }
+
+            // Other browsers: an ordinary download of the HTML file only.
+
+            const blob = new Blob([html], { type: "text/html" });
+
+            const link = document.createElement("a");
+
+            link.href = URL.createObjectURL(blob);
+
+            link.download = fileName;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+            setTimeout(function() {
+                URL.revokeObjectURL(link.href);
+            }, 1000);
+
+            actionStatus.textContent = "Downloaded " + fileName + ". Move it from your Downloads folder into your project-folder.";
+
+            showSuccess(downloadButton, "Downloaded!");
+
+        }
+
+
+        async function copyHTML() {
+
+            const html = generateHTML();
+
+            actionStatus.textContent = "";
+
+            try {
+
+                if (!navigator.clipboard || !navigator.clipboard.writeText) {
+                    throw new Error("Clipboard API unavailable");
+                }
+
+                await navigator.clipboard.writeText(html);
+
+                actionStatus.textContent = "HTML copied—paste it into a new file in VS Code and save it in your project-folder.";
+
+                fallbackContainer.hidden = true;
+
+                showSuccess(copyButton, "Copied!");
+
+            } catch (error) {
+
+                fallbackTextarea.value = html;
+
+                fallbackContainer.hidden = false;
+
+                actionStatus.textContent = "Automatic copying is unavailable. Select and copy the HTML below.";
+
+                fallbackTextarea.focus();
+
+                fallbackTextarea.select();
+
+            }
+
+        }
+
+
+        // -----------------------------------------
+        // 7. Event listeners
+        // -----------------------------------------
+
+        [fileNameInput, pageTitle, pageDescription, customPathInput].forEach(function(input) {
+            input.addEventListener("input", updateApp);
+        });
+
+        [preloadImage, includeNav, includeFooter, containsVideo].forEach(function(control) {
+            control.addEventListener("change", updateApp);
+        });
+
+        preloadChoices.forEach(function(choice) {
+            choice.addEventListener("change", handlePreloadChoice);
+        });
+
+        downloadButton.addEventListener("click", downloadHTML);
+
+        copyButton.addEventListener("click", copyHTML);
+
+
+        // -----------------------------------------
+        // 8. Initialise the application
+        // -----------------------------------------
+
+        updateApp();
+
+    </script>
+
+</body>
+</html>

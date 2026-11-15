@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Section Block Generator v2</title>
+
+    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Shared section styles: used by preview and exported HTML -->
+    <style type="text/tailwindcss" id="section-styles">
+
+        .section-block {
+            @apply w-full px-6 py-16 md:px-12 md:py-24;
+        }
+
+        /* Single column. Width is measured in characters (ch),
+           so it scales with the text size: 90ch is about 900px
+           at this 18px text size. Full width below the md breakpoint. */
+        .section-content {
+            @apply mx-auto w-full text-lg md:max-w-[90ch];
+        }
+
+        .section-centre {
+            text-align: center;
+        }
+
+        .section-block h2 {
+            @apply text-3xl md:text-4xl font-normal leading-tight tracking-tight;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .section-block h2.section-h2-bold {
+            @apply font-bold;
+        }
+
+        .section-block h2.section-h2-italic {
+            @apply italic;
+        }
+
+        .section-block p {
+            @apply mt-5 leading-relaxed;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .section-block h2 + p {
+            @apply mt-3;
+        }
+
+        /* Larger text options (the content width stays 90ch,
+           because ch is measured from .section-content, not the p) */
+        .section-block.section-heading-large h2 {
+            @apply text-4xl md:text-5xl;
+        }
+
+        .section-block.section-heading-xlarge h2 {
+            @apply text-5xl md:text-6xl;
+        }
+
+        .section-block.section-text-large p {
+            @apply text-xl;
+        }
+
+        .section-block.section-text-xlarge p {
+            @apply text-2xl;
+        }
+
+        /* Hidden heading and paragraphs take up no space */
+        .section-block h2[hidden],
+        .section-block p[hidden] {
+            display: none !important;
+        }
+
+        /* Without a heading, the first paragraph starts at the top */
+        .section-block h2[hidden] + p,
+        .section-content > p:first-child {
+            @apply mt-0;
+        }
+
+        /* Image: fills the column and scales down; sits under the h2 */
+        .section-block .section-image {
+            @apply mt-6 block h-auto w-full;
+        }
+
+        .section-block .section-image + p {
+            @apply mt-6;
+        }
+
+        .section-block h2[hidden] + .section-image,
+        .section-content > .section-image:first-child {
+            @apply mt-0;
+        }
+
+        /* Link: underlined in both states; colours come from the colour rules.
+           Thickness and offset are in em, so they scale with the text size
+           (about 2px thick, set 0.3em below the baseline so it clears
+           descenders such as g and y at the Normal size). */
+        .section-block .section-link {
+            @apply underline decoration-[length:0.11em] underline-offset-[0.3em] transition-colors;
+        }
+
+        .section-block .section-link:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+    </style>
+
+    <!-- Colour rules: shared by preview and exported HTML -->
+    <style type="text/tailwindcss" id="section-colour-styles">
+        .section-block.section-custom-colours {
+            background-color: var(--color-white);
+        }
+
+        .section-block.section-custom-colours h2 {
+            color: var(--color-black);
+        }
+
+        .section-block.section-custom-colours p {
+            color: var(--color-black);
+        }
+
+        .section-block.section-custom-colours .section-link {
+            color: var(--color-blue-700);
+        }
+
+        .section-block.section-custom-colours .section-link:hover {
+            color: var(--color-blue-900);
+        }
+    </style>
+
+    <!-- Palette swatch colours (editor only) -->
+    <style type="text/tailwindcss" id="palette-swatch-styles"></style>
+
+    <style type="text/tailwindcss" id="editor-styles">
+
+        /* ---------- Home link (back to the list of generators) ---------- */
+
+        .home-link {
+            @apply mb-3 inline-flex items-center gap-1 rounded text-sm font-medium text-slate-500 hover:text-slate-900;
+        }
+
+        .home-link:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* ---------- Page layout: sidebar + main area ---------- */
+
+        .app-container {
+            @apply min-h-screen bg-slate-100 text-slate-900;
+        }
+
+        .app-layout {
+            @apply grid min-h-screen grid-cols-[20rem_1fr];
+        }
+
+        .app-sidebar {
+            @apply sticky top-0 flex h-screen flex-col gap-8 overflow-y-auto border-r border-slate-200 bg-white px-6 py-6;
+        }
+
+        .app-main {
+            @apply min-w-0 px-8 py-6;
+        }
+
+        /* ---------- Sidebar header ---------- */
+
+        .app-title {
+            @apply text-xl font-bold tracking-tight;
+        }
+
+        .app-description {
+            @apply mt-1 text-sm leading-relaxed text-slate-600;
+        }
+
+        /* ---------- Settings ---------- */
+
+        .controls-heading {
+            @apply mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500;
+        }
+
+        .controls-row {
+            @apply flex flex-col divide-y divide-slate-100;
+        }
+
+        .control-label {
+            @apply flex cursor-pointer items-center justify-between gap-4 py-3 text-sm font-medium text-slate-700;
+        }
+
+        /* Native checkbox restyled as a toggle switch */
+        .toggle-input {
+            @apply relative h-6 w-10 shrink-0 cursor-pointer appearance-none rounded-full bg-slate-300 transition-colors;
+        }
+
+        .toggle-input::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 9999px;
+            background-color: var(--color-white);
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+            transition: transform 150ms ease;
+        }
+
+        .toggle-input:checked {
+            @apply bg-slate-900;
+        }
+
+        .toggle-input:checked::before {
+            transform: translateX(16px);
+        }
+
+        .toggle-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        /* Keep switches visible in Windows high-contrast mode */
+        @media (forced-colors: active) {
+            .toggle-input {
+                border: 1px solid CanvasText;
+            }
+            .toggle-input::before {
+                background-color: CanvasText;
+            }
+        }
+
+        /* ---------- Hero colour targets ---------- */
+
+        .colour-target {
+            @apply -mx-2 flex w-[calc(100%+1rem)] cursor-pointer items-center justify-between gap-3 rounded-md px-2 py-2.5 text-left text-sm font-medium text-slate-700 hover:bg-slate-50;
+        }
+
+        /* Highlight the target whose palette is open */
+        .colour-target[aria-expanded="true"] {
+            @apply bg-slate-100 text-slate-900;
+        }
+
+        .colour-target:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .colour-target:disabled {
+            @apply cursor-not-allowed opacity-40 hover:bg-transparent;
+        }
+
+        .colour-target-value {
+            @apply flex items-center gap-2 font-mono text-xs text-slate-500;
+        }
+
+        .colour-chip {
+            @apply h-5 w-5 shrink-0 rounded-md border border-slate-900/15;
+        }
+
+        .colour-target-arrow {
+            @apply h-4 w-4 shrink-0 text-slate-400;
+        }
+
+        /* ---------- Pop-out palette panel ---------- */
+
+        .palette-panel {
+            @apply fixed top-6 z-40 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-5 shadow-xl;
+            left: calc(20rem + 1rem);
+        }
+
+        .palette-panel[hidden] {
+            display: none;
+        }
+
+        .palette-panel-header {
+            @apply mb-4 flex items-start justify-between gap-6;
+        }
+
+        .palette-panel-title {
+            @apply text-sm font-semibold text-slate-800;
+        }
+
+        .active-colour-description {
+            @apply mt-1 font-mono text-xs text-slate-600;
+        }
+
+        .palette-close {
+            @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-900;
+        }
+
+        .palette-close svg {
+            @apply h-4 w-4;
+        }
+
+        .palette-close:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .palette-section-title {
+            @apply mb-2 mt-5 text-sm font-semibold text-slate-800;
+        }
+
+        .palette-viewport {
+            max-width: 100%;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: 6rem repeat(11, 2.25rem);
+            min-width: max-content;
+            gap: 4px;
+            padding: 8px;
+        }
+
+        .palette-column-heading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2rem;
+            color: #475569;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .palette-row-heading {
+            display: flex;
+            align-items: center;
+            padding-left: 4px;
+            color: #334155;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .palette-swatch {
+            width: 2.25rem;
+            height: 2.25rem;
+            border: 1px solid rgb(15 23 42 / 15%);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .palette-swatch:hover {
+            outline: 2px solid #64748b;
+            outline-offset: 1px;
+        }
+
+        .palette-swatch[aria-pressed="true"] {
+            outline: 3px solid #0f172a;
+            outline-offset: 2px;
+            box-shadow: inset 0 0 0 2px white;
+        }
+
+        .palette-swatch:focus-visible {
+            outline: 3px solid #2563eb;
+            outline-offset: 3px;
+        }
+
+        .palette-special-grid {
+            display: grid;
+            grid-template-columns: 6rem repeat(2, 2.25rem);
+            gap: 4px;
+            width: max-content;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        /* ---------- H1 / H2 text-effect groups ---------- */
+
+        /* Collapsible wrapper */
+        .effects-section {
+            @apply -mt-4 border-t border-slate-200 pt-4;
+        }
+
+        .effects-summary {
+            @apply flex cursor-pointer list-none items-center justify-between rounded-md text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-slate-800;
+        }
+
+        /* Hide the browser's default triangle */
+        .effects-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .effects-summary:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 4px;
+        }
+
+        .effects-chevron {
+            @apply h-4 w-4 shrink-0 transition-transform;
+        }
+
+        .effects-section[open] .effects-chevron {
+            @apply rotate-180;
+        }
+
+        .effects-section[open] .effects-summary {
+            @apply mb-2 text-slate-800;
+        }
+
+        /* Dim the H2 heading while "Show subheading" is off */
+        .effects-section:has(.effects-group:disabled) .effects-summary {
+            @apply opacity-50;
+        }
+
+        .effects-group {
+            @apply min-w-0 border-0 p-0;
+        }
+
+        .effects-group:disabled {
+            @apply opacity-50;
+        }
+
+        .effects-group:disabled * {
+            cursor: not-allowed;
+        }
+
+        /* Only shown while the H2 group is disabled */
+        .effects-hint {
+            @apply hidden pb-1 text-xs text-slate-500;
+        }
+
+        .effects-group:disabled .effects-hint {
+            @apply block;
+        }
+
+        .spacing-control {
+            @apply flex flex-col gap-2 py-3;
+        }
+
+        .spacing-label-row {
+            @apply flex items-center justify-between gap-3;
+        }
+
+        .spacing-label {
+            @apply text-sm font-medium text-slate-700;
+        }
+
+        .spacing-value {
+            @apply rounded-md bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700 tabular-nums;
+        }
+
+        .spacing-slider {
+            @apply w-full cursor-pointer accent-slate-900;
+        }
+
+        .spacing-slider:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 4px;
+        }
+
+        /* ---------- Preview ---------- */
+
+        .preview-toolbar {
+            @apply mb-3 flex items-baseline justify-between gap-4;
+        }
+
+        .preview-label {
+            @apply text-sm font-semibold text-slate-800;
+        }
+
+        .editing-instruction {
+            @apply text-sm text-slate-500;
+        }
+
+        /* Fake browser window around the hero */
+        .browser-frame {
+            @apply overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm;
+        }
+
+        .browser-bar {
+            @apply flex items-center gap-3 border-b border-slate-200 bg-slate-50 px-4 py-2.5;
+        }
+
+        .browser-dots {
+            @apply flex gap-1.5;
+        }
+
+        .browser-dots span {
+            @apply h-3 w-3 rounded-full bg-slate-300;
+        }
+
+        .browser-address {
+            @apply flex-1 rounded-md bg-white px-3 py-1 text-xs text-slate-500 ring-1 ring-slate-200;
+        }
+
+        /* ---------- Editable headings ---------- */
+
+        .section-block [contenteditable="true"] {
+            cursor: text;
+            border-radius: 4px;
+        }
+
+        .section-block [contenteditable="true"]:hover {
+            outline: 2px dashed #94a3b8;
+            outline-offset: 5px;
+        }
+
+        .section-block [contenteditable="true"]:focus {
+            outline: 3px solid #3b82f6;
+            outline-offset: 5px;
+        }
+
+        /* ---------- Copy button ---------- */
+
+        .copy-button {
+            @apply fixed bottom-5 right-5 z-50 inline-flex min-w-40 items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        }
+
+        .copy-button:active {
+            transform: translateY(1px);
+        }
+
+        .copy-button svg {
+            @apply h-4 w-4 shrink-0;
+        }
+
+        .copy-button svg[hidden] {
+            display: none;
+        }
+
+        /* Shown briefly after a successful copy. */
+        .copy-button-success {
+            @apply bg-emerald-600 hover:bg-emerald-600;
+        }
+
+        /* ---------- Status and manual-copy fallback ---------- */
+
+        .status-message {
+            @apply mt-4 text-sm text-slate-700;
+        }
+
+        .fallback-container {
+            @apply mt-4;
+        }
+
+        .fallback-label {
+            @apply mb-2 block text-sm font-semibold text-slate-800;
+        }
+
+        .fallback-textarea {
+            @apply min-h-64 w-full rounded-xl border border-slate-300 bg-white p-4 font-mono text-xs leading-relaxed text-slate-800 focus-visible:outline-2 focus-visible:outline-blue-500;
+        }
+
+        .page-bottom-space {
+            @apply h-24;
+        }
+
+        /* ---------- Light / Dark switch ---------- */
+
+        .segmented {
+            @apply grid grid-cols-2 gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .segmented-option {
+            @apply cursor-pointer rounded-md px-3 py-1.5 text-center text-sm font-medium text-slate-600 hover:text-slate-900;
+        }
+
+        .segmented-option:has(input:checked) {
+            @apply bg-white text-slate-900 shadow-sm;
+        }
+
+        .segmented-option:has(input:focus-visible) {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .segmented-3 {
+            @apply grid-cols-3;
+        }
+
+        .size-control {
+            @apply py-3;
+        }
+
+        .size-control:has(input:disabled) {
+            @apply opacity-50;
+        }
+
+        .size-control:has(input:disabled) .segmented-option {
+            cursor: not-allowed;
+        }
+
+        .size-control-label {
+            @apply mb-2 block text-sm font-medium text-slate-700;
+        }
+
+        .text-input {
+            @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800;
+        }
+
+        .text-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 1px;
+        }
+
+        .image-options {
+            @apply m-0 min-w-0 border-0 p-0;
+        }
+
+        .image-options:disabled {
+            @apply opacity-50;
+        }
+
+        .image-options:disabled * {
+            cursor: not-allowed;
+        }
+
+        .controls-note {
+            @apply mt-2 text-xs text-slate-500;
+        }
+
+        /* ---------- Paragraph stepper ---------- */
+
+        .stepper {
+            @apply flex items-center gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .stepper-button {
+            @apply inline-flex h-7 w-7 items-center justify-center rounded-md text-base font-semibold text-slate-700 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent;
+        }
+
+        .stepper-button:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .stepper-value {
+            @apply w-6 text-center font-mono text-sm tabular-nums text-slate-800;
+        }
+
+    </style>
+</head>
+
+<body class="app-container">
+
+    <div class="app-layout">
+
+        <!-- Sidebar: app intro and settings -->
+        <aside class="app-sidebar">
+
+            <header>
+                <a class="home-link" href="index.html">← Home</a>
+                <h1 class="app-title">Section Block Generator</h1>
+
+                <p class="app-description">
+                    Create a single-column content section.
+                    Edit the text directly and copy your HTML when ready.
+                </p>
+            </header>
+
+            <!-- Light / Dark preset -->
+            <section aria-labelledby="appearance-heading">
+
+                <h2 id="appearance-heading" class="controls-heading">
+                    Appearance
+                </h2>
+
+                <div class="segmented" role="radiogroup" aria-labelledby="appearance-heading">
+
+                    <label class="segmented-option">
+                        <input type="radio" name="appearance" value="light" class="sr-only" checked>
+                        <span>Light</span>
+                    </label>
+
+                    <label class="segmented-option">
+                        <input type="radio" name="appearance" value="dark" class="sr-only">
+                        <span>Dark</span>
+                    </label>
+
+                </div>
+
+                <p class="controls-note">
+                    Choosing Light or Dark resets all three colours.
+                </p>
+
+            </section>
+
+            <!-- Layout and content -->
+            <section aria-labelledby="controls-heading">
+
+                <h2 id="controls-heading" class="controls-heading">
+                    Section settings
+                </h2>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Show heading</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-heading" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>Centre text</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="centre-text">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Include link</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-link" checked>
+                    </label>
+
+                    <div class="control-label">
+                        <span id="paragraph-count-label">Paragraphs</span>
+
+                        <div class="stepper" role="group" aria-labelledby="paragraph-count-label">
+                            <button type="button" id="remove-paragraph" class="stepper-button" aria-label="Remove a paragraph">−</button>
+                            <output id="paragraph-count" class="stepper-value" aria-live="polite">1</output>
+                            <button type="button" id="add-paragraph" class="stepper-button" aria-label="Add a paragraph">+</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Image -->
+            <section aria-labelledby="image-heading">
+
+                <h2 id="image-heading" class="controls-heading">
+                    Image
+                </h2>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Show image</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-image" checked>
+                    </label>
+
+                </div>
+
+                <fieldset id="image-options" class="image-options">
+
+                    <legend class="sr-only">Image options</legend>
+
+                    <div class="size-control">
+
+                        <span id="image-format-label" class="size-control-label">Format (1920 × 1080)</span>
+
+                        <div class="segmented" role="radiogroup" aria-labelledby="image-format-label">
+
+                            <label class="segmented-option">
+                                <input type="radio" name="image-format" value="jpg" class="sr-only" checked>
+                                <span>JPG</span>
+                            </label>
+
+                            <label class="segmented-option">
+                                <input type="radio" name="image-format" value="png" class="sr-only">
+                                <span>Transparent PNG</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <label class="size-control-label" for="image-alt">Alt text</label>
+
+                    <input type="text" id="image-alt" class="text-input" value="Placeholder image, 1920 by 1080 pixels">
+
+                    <p class="controls-note">
+                        Describe what the image shows. Leave empty if it is purely decorative.
+                    </p>
+
+                </fieldset>
+
+            </section>
+
+            <!-- Text size -->
+            <section aria-labelledby="text-size-heading">
+
+                <h2 id="text-size-heading" class="controls-heading">
+                    Text size
+                </h2>
+
+                <div class="controls-row">
+
+                <div class="size-control">
+
+                    <span id="heading-size-label" class="size-control-label">H2</span>
+
+                    <div class="segmented segmented-3" role="radiogroup" aria-labelledby="heading-size-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="heading-size" value="normal" class="sr-only" checked>
+                            <span>Normal</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="heading-size" value="large" class="sr-only">
+                            <span>Large</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="heading-size" value="xlarge" class="sr-only">
+                            <span>X-large</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="size-control">
+
+                    <span id="text-size-label" class="size-control-label">Paragraphs</span>
+
+                    <div class="segmented segmented-3" role="radiogroup" aria-labelledby="text-size-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="text-size" value="normal" class="sr-only" checked>
+                            <span>Normal</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="text-size" value="large" class="sr-only">
+                            <span>Large</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="text-size" value="xlarge" class="sr-only">
+                            <span>X-large</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+            </section>
+
+            <!-- Colours: each row opens the palette panel -->
+            <section aria-labelledby="colour-panel-title">
+
+                <h2 id="colour-panel-title" class="controls-heading">
+                    Colours
+                </h2>
+
+                <div class="colour-targets" role="group" aria-label="Choose which colour to change">
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="background"
+                        aria-pressed="true"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Background</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="white"></span>
+                            <span class="colour-target-name">white</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="heading"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>H2</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="black"></span>
+                            <span class="colour-target-name">black</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="paragraph"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Paragraphs</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="black"></span>
+                            <span class="colour-target-name">black</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="link"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Link</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="blue-700"></span>
+                            <span class="colour-target-name">blue-700</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="linkHover"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Link hover</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="blue-900"></span>
+                            <span class="colour-target-name">blue-900</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- H2 effects: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>H2 text effects</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group" id="h2-effects">
+
+                <legend class="sr-only">
+                    H2 text effects
+                </legend>
+
+                <p class="effects-hint">
+                    Turn on “Show heading” to edit these.
+                </p>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Bold</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h2-bold" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>Italic</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h2-italic">
+                    </label>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
+        </aside>
+
+        <!-- Pop-out colour palette (opened from the Colours rows) -->
+        <div
+            id="palette-panel"
+            class="palette-panel"
+            role="dialog"
+            aria-labelledby="palette-panel-title"
+            hidden
+        >
+
+            <div class="palette-panel-header">
+
+                <div>
+                    <h2 id="palette-panel-title" class="palette-panel-title">
+                        Tailwind colour palette
+                    </h2>
+
+                    <p
+                        id="active-colour-description"
+                        class="active-colour-description"
+                        aria-live="polite"
+                    >
+                        Background colour: white
+                    </p>
+                </div>
+
+                <button type="button" id="palette-close" class="palette-close" aria-label="Close colour palette">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+
+            </div>
+
+            <div class="palette-viewport" tabindex="0" aria-label="Scrollable Tailwind colour palette">
+
+                <div
+                    id="palette-grid"
+                    class="palette-grid"
+                    role="group"
+                    aria-label="Tailwind colour families and shades"
+                ></div>
+
+            </div>
+
+            <h3 class="palette-section-title">
+                Black and white
+            </h3>
+
+            <div
+                id="palette-special-grid"
+                class="palette-special-grid"
+                role="group"
+                aria-label="Black and white colours"
+            ></div>
+
+        </div>
+
+        <!-- Main area: live preview -->
+        <main class="app-main">
+
+            <section aria-labelledby="preview-heading">
+
+                <div class="preview-toolbar">
+                    <h2 id="preview-heading" class="preview-label">
+                        Live preview
+                    </h2>
+
+                    <p class="editing-instruction">
+                        Click the heading or a paragraph to edit the text.
+                    </p>
+                </div>
+
+                <div class="browser-frame">
+
+                    <!-- Decorative browser bar -->
+                    <div class="browser-bar" aria-hidden="true">
+                        <div class="browser-dots"><span></span><span></span><span></span></div>
+                        <div class="browser-address">my-section.html</div>
+                    </div>
+
+                    <section
+                        id="section-preview"
+                        class="section-block section-custom-colours"
+                    >
+
+                        <div class="section-content">
+
+                            <h2
+                                id="section-heading"
+                                class="section-h2-bold"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit section heading"
+                                aria-multiline="false"
+                                spellcheck="false"
+                            >Nice section heading</h2>
+
+                            <img
+                                id="section-image"
+                                class="section-image"
+                                src="https://lunevedy.com/v2/assets/img/1920x1080.jpg"
+                                alt="Placeholder image, 1920 by 1080 pixels"
+                                width="1920"
+                                height="1080"
+                                loading="lazy"
+                                decoding="async"
+                            >
+
+                            <p
+                                id="section-paragraph-1"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit paragraph 1"
+                                aria-multiline="false"
+                                spellcheck="false"
+                            >Leverage <a href="#" class="section-link">agile frameworks</a> to provide a robust synopsis for high-level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. At the end of the day, going forward, a new paradigm that has evolved from Generation X is on the runway heading towards a streamlined cloud solution. User-generated content in real-time will have multiple touchpoints.</p>
+
+                            <p
+                                id="section-paragraph-2"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit paragraph 2"
+                                aria-multiline="false"
+                                spellcheck="false"
+                                hidden
+                            >Leverage agile frameworks to provide a robust synopsis for high-level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. At the end of the day, going forward, a new paradigm that has evolved from Generation X is on the runway heading towards a streamlined cloud solution. User-generated content in real-time will have multiple touchpoints.</p>
+
+                            <p
+                                id="section-paragraph-3"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit paragraph 3"
+                                aria-multiline="false"
+                                spellcheck="false"
+                                hidden
+                            >Leverage agile frameworks to provide a robust synopsis for high-level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. At the end of the day, going forward, a new paradigm that has evolved from Generation X is on the runway heading towards a streamlined cloud solution. User-generated content in real-time will have multiple touchpoints.</p>
+
+                            <p
+                                id="section-paragraph-4"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit paragraph 4"
+                                aria-multiline="false"
+                                spellcheck="false"
+                                hidden
+                            >Leverage agile frameworks to provide a robust synopsis for high-level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. At the end of the day, going forward, a new paradigm that has evolved from Generation X is on the runway heading towards a streamlined cloud solution. User-generated content in real-time will have multiple touchpoints.</p>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </section>
+
+            <!-- Accessible copy status -->
+            <p
+                id="copy-status"
+                class="status-message"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- Manual copying fallback -->
+            <section
+                id="fallback-container"
+                class="fallback-container"
+                hidden
+                aria-labelledby="fallback-heading"
+            >
+
+                <label
+                    id="fallback-heading"
+                    class="fallback-label"
+                    for="fallback-html"
+                >
+                    Your generated HTML – select and copy manually
+                </label>
+
+                <textarea
+                    id="fallback-html"
+                    class="fallback-textarea"
+                    readonly
+                    spellcheck="false"
+                ></textarea>
+
+            </section>
+
+            <div class="page-bottom-space"></div>
+
+        </main>
+
+    </div>
+
+    <!-- Fixed copy button -->
+    <button
+        type="button"
+        id="copy-button"
+        class="copy-button"
+    >
+        <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+        <span id="copy-button-label">Copy HTML</span>
+    </button>
+
+
+    <script>
+
+        // -----------------------------------------
+        // 1. Find the page elements
+        // -----------------------------------------
+
+        const sectionPreview = document.getElementById("section-preview");
+
+        const sectionHeading = document.getElementById("section-heading");
+
+        const sectionParagraphs = document.querySelectorAll(".section-content p");
+
+        const appearanceOptions = document.querySelectorAll('input[name="appearance"]');
+
+        const showHeading = document.getElementById("show-heading");
+
+        const h2Effects = document.getElementById("h2-effects");
+
+        const centreText = document.getElementById("centre-text");
+
+        const showLink = document.getElementById("show-link");
+
+        const showImage = document.getElementById("show-image");
+
+        const imageOptions = document.getElementById("image-options");
+
+        const imageFormatOptions = document.querySelectorAll('input[name="image-format"]');
+
+        const imageAlt = document.getElementById("image-alt");
+
+        const sectionImage = document.getElementById("section-image");
+
+        const sectionContent = document.querySelector(".section-content");
+
+        // Sample images are hosted online, so the same full URLs work
+        // in the preview and in pages saved on students' own computers.
+
+        const appImageFolder = "https://lunevedy.com/v2/assets/img/";
+
+        const exportedImageFolder = "https://lunevedy.com/v2/assets/img/";
+
+        // One entry per format: file name and its width and height.
+
+        const imageFiles = {
+            jpg: { name: "1920x1080.jpg", width: 1920, height: 1080 },
+            png: { name: "1920x1080-trans.png", width: 1920, height: 1080 }
+        };
+
+        const removeParagraphButton = document.getElementById("remove-paragraph");
+
+        const addParagraphButton = document.getElementById("add-paragraph");
+
+        const paragraphCountValue = document.getElementById("paragraph-count");
+
+        const headingSizeOptions = document.querySelectorAll('input[name="heading-size"]');
+
+        const textSizeOptions = document.querySelectorAll('input[name="text-size"]');
+
+        const h2Bold = document.getElementById("h2-bold");
+
+        const h2Italic = document.getElementById("h2-italic");
+
+        const colourTargetButtons = document.querySelectorAll(".colour-target");
+
+        const activeColourDescription = document.getElementById("active-colour-description");
+
+        const paletteGrid = document.getElementById("palette-grid");
+
+        const paletteSpecialGrid = document.getElementById("palette-special-grid");
+
+        const palettePanel = document.getElementById("palette-panel");
+
+        const paletteCloseButton = document.getElementById("palette-close");
+
+        const sectionStyles = document.getElementById("section-styles");
+
+        const sectionColourStyles = document.getElementById("section-colour-styles");
+
+        const paletteSwatchStyles = document.getElementById("palette-swatch-styles");
+
+        const copyButton = document.getElementById("copy-button");
+
+        const copyButtonLabel = document.getElementById("copy-button-label");
+
+        const copyIcon = document.getElementById("copy-icon");
+
+        const checkIcon = document.getElementById("check-icon");
+
+        const copyStatus = document.getElementById("copy-status");
+
+        const fallbackContainer = document.getElementById("fallback-container");
+
+        const fallbackTextarea = document.getElementById("fallback-html");
+
+        // Remembers the timer that resets the copy button label.
+        let copyFeedbackTimer = null;
+
+        // Remembers which colour row opened the palette.
+        let paletteOpener = null;
+
+
+        // -----------------------------------------
+        // 2. Tailwind colour palette and presets
+        // -----------------------------------------
+
+        const colourFamilies = [
+            "slate", "gray", "zinc", "neutral", "stone",
+            "red", "orange", "amber", "yellow", "lime",
+            "green", "emerald", "teal", "cyan", "sky",
+            "blue", "indigo", "violet", "purple", "fuchsia",
+            "pink", "rose"
+        ];
+
+        const colourShades = [
+            "50", "100", "200", "300", "400", "500",
+            "600", "700", "800", "900", "950"
+        ];
+
+        const specialColours = ["black", "white"];
+
+        const appearancePresets = {
+            light: { background: "white", heading: "black", paragraph: "black", link: "blue-700", linkHover: "blue-900" },
+            dark: { background: "slate-900", heading: "white", paragraph: "white", link: "sky-300", linkHover: "sky-100" }
+        };
+
+        const maximumParagraphs = 4;
+
+
+        // -----------------------------------------
+        // 3. Store all settings in one object
+        // -----------------------------------------
+
+        const settings = {
+
+            appearance: "light",
+
+            showHeading: showHeading.checked,
+
+            centre: centreText.checked,
+
+            showLink: showLink.checked,
+
+            showImage: showImage.checked,
+
+            imageFormat: "jpg",
+
+            imageAlt: imageAlt.value,
+
+            paragraphCount: 1,
+
+            headingSize: "normal",
+
+            textSize: "normal",
+
+            h2Bold: h2Bold.checked,
+
+            h2Italic: h2Italic.checked,
+
+            activeColourTarget: "background",
+
+            backgroundColour: appearancePresets.light.background,
+
+            headingColour: appearancePresets.light.heading,
+
+            paragraphColour: appearancePresets.light.paragraph,
+
+            linkColour: appearancePresets.light.link,
+
+            linkHoverColour: appearancePresets.light.linkHover
+
+        };
+
+
+        // -----------------------------------------
+        // 4. Build the colour palette
+        // -----------------------------------------
+
+        function createPaletteSwatchStyles() {
+
+            const allColours = [];
+
+            colourFamilies.forEach(function(family) {
+                colourShades.forEach(function(shade) {
+                    allColours.push(family + "-" + shade);
+                });
+            });
+
+            allColours.push(...specialColours);
+
+            // One rule per colour, used by swatches and row chips.
+            const rules = allColours.map(function(colour) {
+                return `
+                    .palette-swatch[data-colour="${colour}"],
+                    .colour-chip[data-colour="${colour}"] {
+                        background-color: var(--color-${colour});
+                    }
+                `;
+            });
+
+            paletteSwatchStyles.textContent = rules.join("\n");
+
+        }
+
+
+        function createColourSwatch(colourName) {
+
+            const button = document.createElement("button");
+
+            button.type = "button";
+
+            button.className = "palette-swatch";
+
+            button.dataset.colour = colourName;
+
+            button.setAttribute("aria-label", colourName.replace("-", " ") + " colour");
+
+            button.setAttribute("aria-pressed", "false");
+
+            button.title = colourName;
+
+            button.addEventListener("click", function() {
+                selectColour(colourName);
+            });
+
+            return button;
+
+        }
+
+
+        function buildColourPalette() {
+
+            // Shade headings across the top.
+
+            const cornerHeading = document.createElement("span");
+
+            cornerHeading.className = "palette-column-heading";
+
+            cornerHeading.textContent = "Colour";
+
+            paletteGrid.appendChild(cornerHeading);
+
+            colourShades.forEach(function(shade) {
+
+                const heading = document.createElement("span");
+
+                heading.className = "palette-column-heading";
+
+                heading.textContent = shade;
+
+                paletteGrid.appendChild(heading);
+
+            });
+
+            // One row per colour family.
+
+            colourFamilies.forEach(function(family) {
+
+                const rowHeading = document.createElement("span");
+
+                rowHeading.className = "palette-row-heading";
+
+                rowHeading.textContent = family.charAt(0).toUpperCase() + family.slice(1);
+
+                paletteGrid.appendChild(rowHeading);
+
+                colourShades.forEach(function(shade) {
+                    paletteGrid.appendChild(createColourSwatch(family + "-" + shade));
+                });
+
+            });
+
+            // Black and white on their own.
+
+            const specialHeading = document.createElement("span");
+
+            specialHeading.className = "palette-row-heading";
+
+            specialHeading.textContent = "Colour";
+
+            paletteSpecialGrid.appendChild(specialHeading);
+
+            specialColours.forEach(function(colourName) {
+                paletteSpecialGrid.appendChild(createColourSwatch(colourName));
+            });
+
+        }
+
+
+        // -----------------------------------------
+        // 5. Colours
+        // -----------------------------------------
+
+        function getTargetColour(target) {
+
+            const colourForTarget = {
+                background: settings.backgroundColour,
+                heading: settings.headingColour,
+                paragraph: settings.paragraphColour,
+                link: settings.linkColour,
+                linkHover: settings.linkHoverColour
+            };
+
+            return colourForTarget[target];
+
+        }
+
+
+        function getActiveColour() {
+
+            return getTargetColour(settings.activeColourTarget);
+
+        }
+
+
+        function updateColourStyles() {
+
+            // Tailwind-processed, so the CDN creates every colour variable used.
+
+            sectionColourStyles.textContent = `
+        .section-block.section-custom-colours {
+            background-color: var(--color-${settings.backgroundColour});
+        }
+
+        .section-block.section-custom-colours h2 {
+            color: var(--color-${settings.headingColour});
+        }
+
+        .section-block.section-custom-colours p {
+            color: var(--color-${settings.paragraphColour});
+        }
+
+        .section-block.section-custom-colours .section-link {
+            color: var(--color-${settings.linkColour});
+        }
+
+        .section-block.section-custom-colours .section-link:hover {
+            color: var(--color-${settings.linkHoverColour});
+        }
+    `;
+
+        }
+
+
+        function updateColourTargetButtons() {
+
+            colourTargetButtons.forEach(function(button) {
+
+                const target = button.dataset.target;
+
+                const isActive = target === settings.activeColourTarget;
+
+                const targetColour = getTargetColour(target);
+
+                button.setAttribute("aria-pressed", String(isActive));
+
+                button.disabled = isTargetDisabled(target);
+
+                // Show each target's current colour in its row.
+
+                button.querySelector(".colour-chip").dataset.colour = targetColour;
+
+                button.querySelector(".colour-target-name").textContent = targetColour;
+
+                // Mark the row whose palette is open.
+
+                button.setAttribute("aria-expanded", String(isActive && !palettePanel.hidden));
+
+            });
+
+            const targetLabels = {
+                background: "Background colour: ",
+                heading: "H2 colour: ",
+                paragraph: "Paragraph colour: ",
+                link: "Link colour: ",
+                linkHover: "Link hover colour: "
+            };
+
+            activeColourDescription.textContent =
+                targetLabels[settings.activeColourTarget] + getActiveColour();
+
+        }
+
+
+        function updateSelectedSwatch() {
+
+            const selectedColour = getActiveColour();
+
+            document.querySelectorAll(".palette-swatch").forEach(function(swatch) {
+                swatch.setAttribute("aria-pressed", String(swatch.dataset.colour === selectedColour));
+            });
+
+        }
+
+
+        function isTargetDisabled(target) {
+
+            // H2 and link colours are unavailable while those are switched off.
+
+            if (target === "heading") {
+                return !settings.showHeading;
+            }
+
+            if (target === "link" || target === "linkHover") {
+                return !settings.showLink;
+            }
+
+            return false;
+
+        }
+
+
+        function selectColourTarget(target) {
+
+            if (isTargetDisabled(target)) {
+                return;
+            }
+
+            settings.activeColourTarget = target;
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+        }
+
+
+        function selectColour(colourName) {
+
+            // Which setting each colour row changes.
+
+            const settingForTarget = {
+                background: "backgroundColour",
+                heading: "headingColour",
+                paragraph: "paragraphColour",
+                link: "linkColour",
+                linkHover: "linkHoverColour"
+            };
+
+            settings[settingForTarget[settings.activeColourTarget]] = colourName;
+
+            updateColourStyles();
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function handleAppearanceChange(event) {
+
+            // Light or Dark resets all three colours.
+
+            settings.appearance = event.target.value;
+
+            const preset = appearancePresets[settings.appearance];
+
+            settings.backgroundColour = preset.background;
+
+            settings.headingColour = preset.heading;
+
+            settings.paragraphColour = preset.paragraph;
+
+            settings.linkColour = preset.link;
+
+            settings.linkHoverColour = preset.linkHover;
+
+            updateColourStyles();
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 6. Paragraph count
+        // -----------------------------------------
+
+        function updateParagraphs() {
+
+            // Hide extra paragraphs rather than deleting them,
+            // so edited text returns when they are shown again.
+
+            sectionParagraphs.forEach(function(paragraph, index) {
+                paragraph.hidden = index >= settings.paragraphCount;
+            });
+
+            paragraphCountValue.textContent = String(settings.paragraphCount);
+
+            removeParagraphButton.disabled = settings.paragraphCount <= 1;
+
+            addParagraphButton.disabled = settings.paragraphCount >= maximumParagraphs;
+
+        }
+
+
+        function changeParagraphCount(change) {
+
+            const newCount = settings.paragraphCount + change;
+
+            if (newCount < 1 || newCount > maximumParagraphs) {
+                return;
+            }
+
+            settings.paragraphCount = newCount;
+
+            updateParagraphs();
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 7. Layout and H2 effects
+        // -----------------------------------------
+
+        function updateSection() {
+
+            settings.showHeading = showHeading.checked;
+
+            settings.showLink = showLink.checked;
+
+            settings.showImage = showImage.checked;
+
+            settings.centre = centreText.checked;
+
+            settings.h2Bold = h2Bold.checked;
+
+            settings.h2Italic = h2Italic.checked;
+
+            sectionPreview.classList.toggle("section-centre", settings.centre);
+
+            // Text sizes: "normal" needs no extra class.
+
+            sectionPreview.classList.toggle("section-heading-large", settings.headingSize === "large");
+
+            sectionPreview.classList.toggle("section-heading-xlarge", settings.headingSize === "xlarge");
+
+            sectionPreview.classList.toggle("section-text-large", settings.textSize === "large");
+
+            sectionPreview.classList.toggle("section-text-xlarge", settings.textSize === "xlarge");
+
+            sectionHeading.classList.toggle("section-h2-bold", settings.h2Bold);
+
+            sectionHeading.classList.toggle("section-h2-italic", settings.h2Italic);
+
+            // Hide the heading without deleting it, so its text returns.
+            // Disable its controls meanwhile; their settings are kept.
+
+            sectionHeading.hidden = !settings.showHeading;
+
+            h2Effects.disabled = !settings.showHeading;
+
+            headingSizeOptions.forEach(function(option) {
+                option.disabled = !settings.showHeading;
+            });
+
+            // Link: keep the element (and its edited text) but show it as
+            // plain text while switched off.
+
+            const sectionLink = sectionParagraphs[0].querySelector("a");
+
+            if (sectionLink) {
+                sectionLink.classList.toggle("section-link", settings.showLink);
+            }
+
+            updateImage();
+
+            // If a switched-off colour row was selected, switch to Background.
+
+            if (isTargetDisabled(settings.activeColourTarget)) {
+                settings.activeColourTarget = "background";
+            }
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function updateImage() {
+
+            // Insert the image under the h2, or take it out of the page.
+            // The same element is reused, so its settings are kept.
+
+            if (settings.showImage && !sectionImage.isConnected) {
+                sectionHeading.after(sectionImage);
+            }
+
+            if (!settings.showImage && sectionImage.isConnected) {
+                sectionImage.remove();
+            }
+
+            const imageFile = imageFiles[settings.imageFormat];
+
+            sectionImage.src = appImageFolder + imageFile.name;
+
+            sectionImage.width = imageFile.width;
+
+            sectionImage.height = imageFile.height;
+
+            sectionImage.alt = settings.imageAlt;
+
+            imageOptions.disabled = !settings.showImage;
+
+        }
+
+
+        function handleImageFormatChange(event) {
+
+            settings.imageFormat = event.target.value;
+
+            updateImage();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function handleImageAltInput() {
+
+            settings.imageAlt = imageAlt.value;
+
+            updateImage();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function handleHeadingSizeChange(event) {
+
+            settings.headingSize = event.target.value;
+
+            updateSection();
+
+        }
+
+
+        function handleTextSizeChange(event) {
+
+            settings.textSize = event.target.value;
+
+            updateSection();
+
+        }
+
+
+        // -----------------------------------------
+        // 8. Keep edited text plain
+        // -----------------------------------------
+
+        function handlePlainTextPaste(event) {
+
+            event.preventDefault();
+
+            const pastedText = event.clipboardData.getData("text/plain");
+
+            const selection = window.getSelection();
+
+            if (!selection || selection.rangeCount === 0) {
+                return;
+            }
+
+            const range = selection.getRangeAt(0);
+
+            // Insert a text node instead of pasted HTML.
+
+            range.deleteContents();
+
+            const textNode = document.createTextNode(pastedText);
+
+            range.insertNode(textNode);
+
+            range.setStartAfter(textNode);
+
+            range.collapse(true);
+
+            selection.removeAllRanges();
+
+            selection.addRange(range);
+
+            event.currentTarget.dispatchEvent(new Event("input", { bubbles: true }));
+
+        }
+
+
+        function preventLineBreak(event) {
+
+            // Each heading and paragraph stays a single block of text.
+
+            if (event.key === "Enter") {
+                event.preventDefault();
+            }
+
+        }
+
+
+        function escapeHTML(text) {
+
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+
+        }
+
+
+        // -----------------------------------------
+        // 9. Generate the standalone HTML document
+        // -----------------------------------------
+
+        function generateHTML() {
+
+            const headingText = escapeHTML(sectionHeading.innerText);
+
+            const h2Classes = [
+                settings.h2Bold ? "section-h2-bold" : "",
+                settings.h2Italic ? "section-h2-italic" : ""
+            ].filter(Boolean).join(" ");
+
+            const h2ClassAttribute = h2Classes ? ` class="${h2Classes}"` : "";
+
+            // Include the h2 only when Show heading is on.
+
+            const headingHTML = settings.showHeading
+                ? `
+            <h2${h2ClassAttribute}>${headingText}</h2>`
+                : "";
+
+            const imageFile = imageFiles[settings.imageFormat];
+
+            const imageHTML = settings.showImage
+                ? `
+            <img class="section-image" src="${exportedImageFolder}${imageFile.name}" alt="${escapeHTML(settings.imageAlt.trim())}" width="${imageFile.width}" height="${imageFile.height}" loading="lazy" decoding="async">`
+                : "";
+
+            // Only the visible paragraphs, with their latest text.
+
+            const paragraphHTML = Array.from(sectionParagraphs)
+                .slice(0, settings.paragraphCount)
+                .map(function(paragraph) {
+                    return `
+            <p>${paragraphToHTML(paragraph)}</p>`;
+                })
+                .join("\n");
+
+            const sectionClasses = [
+                "section-block",
+                "section-custom-colours",
+                settings.centre ? "section-centre" : "",
+                settings.showHeading && settings.headingSize !== "normal"
+                    ? "section-heading-" + settings.headingSize
+                    : "",
+                settings.textSize !== "normal" ? "section-text-" + settings.textSize : ""
+            ].filter(Boolean).join(" ");
+
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Section</title>
+
+    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
+
+    <style type="text/tailwindcss">
+${sectionStyles.textContent}
+    </style>
+
+    <style type="text/tailwindcss">
+${sectionColourStyles.textContent}
+    </style>
+
+</head>
+
+<body>
+
+    <section class="${sectionClasses}">
+        <div class="section-content">
+${headingHTML}${imageHTML}
+${paragraphHTML}
+
+        </div>
+    </section>
+
+</body>
+</html>`;
+
+        }
+
+
+        function paragraphToHTML(paragraph) {
+
+            // Escape each piece of text; keep the link only when it is switched on.
+
+            return Array.from(paragraph.childNodes).map(function(node) {
+
+                const text = escapeHTML(node.textContent);
+
+                if (node.nodeName === "A" && settings.showLink) {
+                    return `<a href="#" class="section-link">${text}</a>`;
+                }
+
+                return text;
+
+            }).join("");
+
+        }
+
+
+        function updateFallbackHTML() {
+
+            fallbackTextarea.value = generateHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 10. Pop-out palette panel
+        // -----------------------------------------
+
+        function openPalettePanel(button) {
+
+            palettePanel.hidden = false;
+
+            paletteOpener = button;
+
+            updateColourTargetButtons();
+
+            // Start keyboard users on the selected swatch.
+
+            const selectedSwatch =
+                palettePanel.querySelector('.palette-swatch[aria-pressed="true"]') ||
+                palettePanel.querySelector(".palette-swatch");
+
+            selectedSwatch.focus();
+
+        }
+
+
+        function closePalettePanel(returnFocus) {
+
+            if (palettePanel.hidden) {
+                return;
+            }
+
+            palettePanel.hidden = true;
+
+            updateColourTargetButtons();
+
+            if (returnFocus && paletteOpener) {
+                paletteOpener.focus();
+            }
+
+        }
+
+
+        function handleColourTargetClick(event) {
+
+            const button = event.currentTarget;
+
+            const target = button.dataset.target;
+
+            // Clicking the open row again closes the palette.
+
+            if (!palettePanel.hidden && settings.activeColourTarget === target) {
+                closePalettePanel(true);
+                return;
+            }
+
+            selectColourTarget(target);
+
+            openPalettePanel(button);
+
+        }
+
+
+        function handleOutsideClick(event) {
+
+            if (
+                !palettePanel.hidden &&
+                !palettePanel.contains(event.target) &&
+                !event.target.closest(".colour-target")
+            ) {
+                closePalettePanel(false);
+            }
+
+        }
+
+
+        function handleEscapeKey(event) {
+
+            if (event.key === "Escape") {
+                closePalettePanel(true);
+            }
+
+        }
+
+
+        // -----------------------------------------
+        // 11. Copy HTML to the clipboard
+        // -----------------------------------------
+
+        function showCopiedFeedback() {
+
+            copyButton.classList.add("copy-button-success");
+
+            copyButtonLabel.textContent = "Copied!";
+
+            copyIcon.hidden = true;
+
+            checkIcon.hidden = false;
+
+            clearTimeout(copyFeedbackTimer);
+
+            // Return the button to normal after two seconds.
+
+            copyFeedbackTimer = setTimeout(function() {
+
+                copyButton.classList.remove("copy-button-success");
+
+                copyButtonLabel.textContent = "Copy HTML";
+
+                copyIcon.hidden = false;
+
+                checkIcon.hidden = true;
+
+            }, 2000);
+
+        }
+
+
+        async function copyHTML() {
+
+            const generatedHTML = generateHTML();
+
+            copyStatus.textContent = "";
+
+            try {
+
+                if (!navigator.clipboard || !navigator.clipboard.writeText) {
+                    throw new Error("Clipboard API unavailable");
+                }
+
+                await navigator.clipboard.writeText(generatedHTML);
+
+                // Only report success after copying succeeds.
+
+                copyStatus.textContent = "HTML copied—paste it into VS Code.";
+
+                fallbackContainer.hidden = true;
+
+                showCopiedFeedback();
+
+            } catch (error) {
+
+                // Offer a manual-copy alternative.
+
+                fallbackTextarea.value = generatedHTML;
+
+                fallbackContainer.hidden = false;
+
+                copyStatus.textContent =
+                    "Automatic copying is unavailable. Select and copy the HTML below.";
+
+                fallbackTextarea.focus();
+
+                fallbackTextarea.select();
+
+            }
+
+        }
+
+
+        // -----------------------------------------
+        // 12. Event listeners
+        // -----------------------------------------
+
+        appearanceOptions.forEach(function(option) {
+            option.addEventListener("change", handleAppearanceChange);
+        });
+
+        showHeading.addEventListener("change", updateSection);
+
+        centreText.addEventListener("change", updateSection);
+
+        showLink.addEventListener("change", updateSection);
+
+        showImage.addEventListener("change", updateSection);
+
+        imageFormatOptions.forEach(function(option) {
+            option.addEventListener("change", handleImageFormatChange);
+        });
+
+        imageAlt.addEventListener("input", handleImageAltInput);
+
+        headingSizeOptions.forEach(function(option) {
+            option.addEventListener("change", handleHeadingSizeChange);
+        });
+
+        textSizeOptions.forEach(function(option) {
+            option.addEventListener("change", handleTextSizeChange);
+        });
+
+        h2Bold.addEventListener("change", updateSection);
+
+        h2Italic.addEventListener("change", updateSection);
+
+        removeParagraphButton.addEventListener("click", function() {
+            changeParagraphCount(-1);
+        });
+
+        addParagraphButton.addEventListener("click", function() {
+            changeParagraphCount(1);
+        });
+
+        colourTargetButtons.forEach(function(button) {
+            button.addEventListener("click", handleColourTargetClick);
+        });
+
+        paletteCloseButton.addEventListener("click", function() {
+            closePalettePanel(true);
+        });
+
+        document.addEventListener("pointerdown", handleOutsideClick);
+
+        document.addEventListener("keydown", handleEscapeKey);
+
+        [sectionHeading, ...sectionParagraphs].forEach(function(element) {
+
+            element.addEventListener("paste", handlePlainTextPaste);
+
+            element.addEventListener("keydown", preventLineBreak);
+
+            element.addEventListener("input", updateFallbackHTML);
+
+        });
+
+        copyButton.addEventListener("click", copyHTML);
+
+
+        // -----------------------------------------
+        // 13. Initialise the application
+        // -----------------------------------------
+
+        createPaletteSwatchStyles();
+
+        buildColourPalette();
+
+        updateColourStyles();
+
+        updateColourTargetButtons();
+
+        updateSelectedSwatch();
+
+        updateParagraphs();
+
+        updateSection();
+
+    </script>
+
+</body>
+</html>

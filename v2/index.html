@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Web Page Block Generators | Lunevedy</title>
+
+    <meta name="description" content="Design hero blocks and content sections in your browser, then copy the HTML into your own web pages. Built for frontend development students.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+
+        body {
+            @apply bg-slate-100 font-sans text-slate-900 antialiased;
+        }
+
+        /* ---------- Page header ---------- */
+
+        .site-header {
+            @apply bg-slate-900 px-6 py-16 text-white md:px-12 md:py-20;
+        }
+
+        .site-header-inner {
+            @apply mx-auto max-w-6xl;
+        }
+
+        .site-kicker {
+            @apply text-sm font-semibold uppercase tracking-wider text-sky-300;
+        }
+
+        .site-title {
+            @apply mt-3 text-4xl font-bold leading-tight tracking-tight md:text-5xl;
+        }
+
+        .site-intro {
+            @apply mt-4 max-w-[60ch] text-lg leading-relaxed text-slate-300;
+        }
+
+        /* ---------- How it works ---------- */
+
+        .steps {
+            @apply mt-10 grid gap-4 md:grid-cols-3;
+        }
+
+        .step {
+            @apply rounded-xl bg-white/5 p-5 ring-1 ring-white/10;
+        }
+
+        .step-number {
+            @apply inline-flex h-7 w-7 items-center justify-center rounded-full bg-sky-300 text-sm font-bold text-slate-900;
+        }
+
+        .step-title {
+            @apply mt-3 font-semibold text-white;
+        }
+
+        .step-text {
+            @apply mt-1 text-sm leading-relaxed text-slate-300;
+        }
+
+        /* ---------- Generator groups ---------- */
+
+        .site-main {
+            @apply mx-auto max-w-6xl px-6 py-14 md:px-12;
+        }
+
+        .group + .group {
+            @apply mt-14;
+        }
+
+        .group-title {
+            @apply text-2xl font-bold tracking-tight;
+        }
+
+        .group-intro {
+            @apply mt-1 text-slate-600;
+        }
+
+        .card-grid {
+            @apply mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+        }
+
+        /* Whole card is one link */
+        .card {
+            @apply flex flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:shadow-md;
+        }
+
+        .card:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        .card-image {
+            @apply block aspect-[16/9] w-full object-cover;
+        }
+
+        /* Starter page card: no photo, so a simple code-file panel */
+        .card-panel {
+            @apply flex aspect-[16/9] w-full items-center justify-center bg-slate-900 font-mono text-sm text-slate-300;
+        }
+
+        .card-panel span {
+            @apply rounded-md bg-white/10 px-3 py-1.5 ring-1 ring-white/15;
+        }
+
+        /* Text hero card: a miniature hero with sample headings */
+        .card-hero-sample {
+            @apply flex aspect-[16/9] w-full flex-col justify-center bg-slate-50 px-6;
+        }
+
+        .card-hero-sample-h1 {
+            @apply text-2xl font-bold leading-tight tracking-tight text-slate-900;
+        }
+
+        .card-hero-sample-h2 {
+            @apply mt-2 text-sm leading-relaxed text-slate-600;
+        }
+
+        /* Content section cards: simple layout schematics */
+        .card-schematic {
+            @apply block aspect-[16/9] w-full bg-slate-50;
+        }
+
+        .card-body {
+            @apply flex flex-1 flex-col p-5;
+        }
+
+        .card-title {
+            @apply text-lg font-semibold;
+        }
+
+        .card-text {
+            @apply mt-1 flex-1 text-sm leading-relaxed text-slate-600;
+        }
+
+        .card-action {
+            @apply mt-4 text-sm font-semibold text-sky-700;
+        }
+
+        .card:hover .card-action {
+            @apply text-sky-900 underline underline-offset-4;
+        }
+
+        /* ---------- Footer ---------- */
+
+        .site-footer {
+            @apply border-t border-slate-200 px-6 py-8 text-center text-sm text-slate-500;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .card {
+                transition: none;
+            }
+
+            .card:hover {
+                transform: none;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="site-header-inner">
+
+            <p class="site-kicker">Frontend development</p>
+
+            <h1 class="site-title">Web page block generators</h1>
+
+            <p class="site-intro">
+                Design a hero and content sections in your browser, then copy
+                the HTML into your own page in VS Code. These tools work best
+                on a laptop or desktop screen.
+            </p>
+
+            <ol class="steps">
+                <li class="step">
+                    <span class="step-number">1</span>
+                    <h2 class="step-title">Create your page</h2>
+                    <p class="step-text">Use the starter page generator and save the file in your project-folder.</p>
+                </li>
+                <li class="step">
+                    <span class="step-number">2</span>
+                    <h2 class="step-title">Design your blocks</h2>
+                    <p class="step-text">Choose a hero and some sections. Edit the text and settings in each generator.</p>
+                </li>
+                <li class="step">
+                    <span class="step-number">3</span>
+                    <h2 class="step-title">Copy and paste</h2>
+                    <p class="step-text">Copy each block from its generator and paste it into your page in VS Code.</p>
+                </li>
+            </ol>
+
+        </div>
+    </header>
+
+    <main class="site-main">
+
+        <!-- Start here -->
+        <section class="group" aria-labelledby="start-heading">
+
+            <h2 id="start-heading" class="group-title">Start here</h2>
+            <p class="group-intro">The empty page that your blocks are pasted into.</p>
+
+            <div class="card-grid">
+
+                <a class="card" href="app-starter-page.html">
+                    <div class="card-panel" aria-hidden="true"><span>index.html</span></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Starter page</h3>
+                        <p class="card-text">Set the page title and description, preload the hero image, and add an empty nav and footer.</p>
+                        <span class="card-action">Open generator →</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- Hero blocks -->
+        <section class="group" aria-labelledby="hero-heading">
+
+            <h2 id="hero-heading" class="group-title">Hero blocks</h2>
+            <p class="group-intro">The large banner at the top of your page. Use one per page: it holds the page’s h1.</p>
+
+            <div class="card-grid">
+
+                <a class="card" href="app-hero-text.html">
+                    <div class="card-hero-sample" aria-hidden="true">
+                        <p class="card-hero-sample-h1">Lorem ipsum dolor sit amet</p>
+                        <p class="card-hero-sample-h2">Consectetur adipiscing elit. Integer vitae libero ac risus egestas placerat.</p>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Text hero</h3>
+                        <p class="card-text">Headings on a solid colour or gradient, with font, spacing and text animation options.</p>
+                        <span class="card-action">Open generator →</span>
+                    </div>
+                </a>
+
+                <a class="card" href="app-hero-media.html">
+                    <img class="card-image" src="assets/img/hero-image.jpg" alt="" width="960" height="464" loading="lazy">
+                    <div class="card-body">
+                        <h3 class="card-title">Image and video hero</h3>
+                        <p class="card-text">Headings over a photo or looping video, with a tinted colour or gradient overlay.</p>
+                        <span class="card-action">Open generator →</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- Content sections -->
+        <section class="group" aria-labelledby="sections-heading">
+
+            <h2 id="sections-heading" class="group-title">Content sections</h2>
+            <p class="group-intro">The blocks below the hero. Use as many as you like, in any order.</p>
+
+            <div class="card-grid">
+
+                <a class="card" href="app-1-col.html">
+                    <svg class="card-schematic" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="90" y="20" width="90" height="8" rx="4" fill="#64748b"/><rect x="90" y="36" width="140" height="78" rx="3" fill="#e2e8f0"/><polygon points="111.0,102.3 148.8,71.1 174.0,89.0 190.8,78.9 213.2,102.3" fill="#cbd5e1"/><circle cx="193.6" cy="59.4" r="7.0" fill="#cbd5e1"/><rect x="90" y="124" width="140" height="5" rx="2.5" fill="#cbd5e1"/><rect x="90" y="134" width="140" height="5" rx="2.5" fill="#cbd5e1"/><rect x="90" y="144" width="140" height="5" rx="2.5" fill="#cbd5e1"/><rect x="90" y="154" width="96" height="5" rx="2.5" fill="#cbd5e1"/></svg>
+                    <div class="card-body">
+                        <h3 class="card-title">One column</h3>
+                        <p class="card-text">A heading, paragraphs, an optional image and a link, in a single readable column.</p>
+                        <span class="card-action">Open generator →</span>
+                    </div>
+                </a>
+
+                <a class="card" href="app-2-col-split.html">
+                    <svg class="card-schematic" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="30" y="58" width="90" height="8" rx="4" fill="#64748b"/><rect x="30" y="76" width="120" height="5" rx="2.5" fill="#cbd5e1"/><rect x="30" y="86" width="120" height="5" rx="2.5" fill="#cbd5e1"/><rect x="30" y="96" width="120" height="5" rx="2.5" fill="#cbd5e1"/><rect x="30" y="106" width="80" height="5" rx="2.5" fill="#cbd5e1"/><rect x="170" y="45" width="120" height="90" rx="3" fill="#e2e8f0"/><polygon points="188.0,121.5 220.4,85.5 242.0,106.2 256.4,94.5 275.6,121.5" fill="#cbd5e1"/><circle cx="258.8" cy="72.0" r="8.1" fill="#cbd5e1"/></svg>
+                    <div class="card-body">
+                        <h3 class="card-title">Split: text and image</h3>
+                        <p class="card-text">Text beside an image, side by side on wide screens, with the image on either side.</p>
+                        <span class="card-action">Open generator →</span>
+                    </div>
+                </a>
+
+                <a class="card" href="app-3-col.html">
+                    <svg class="card-schematic" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="120" y="18" width="80" height="7" rx="3.5" fill="#64748b"/><rect x="95" y="32" width="130" height="4" rx="2" fill="#cbd5e1"/><rect x="20" y="50" width="80" height="49" rx="3" fill="#e2e8f0"/><polygon points="32.0,91.7 53.6,72.0 68.0,83.3 77.6,77.0 90.4,91.7" fill="#cbd5e1"/><circle cx="79.2" cy="64.7" r="4.4" fill="#cbd5e1"/><rect x="20" y="108" width="55" height="6" rx="3" fill="#64748b"/><rect x="20" y="120" width="80" height="4" rx="2" fill="#cbd5e1"/><rect x="20" y="129" width="80" height="4" rx="2" fill="#cbd5e1"/><rect x="20" y="138" width="60" height="4" rx="2" fill="#cbd5e1"/><rect x="120" y="50" width="80" height="49" rx="3" fill="#e2e8f0"/><polygon points="132.0,91.7 153.6,72.0 168.0,83.3 177.6,77.0 190.4,91.7" fill="#cbd5e1"/><circle cx="179.2" cy="64.7" r="4.4" fill="#cbd5e1"/><rect x="120" y="108" width="55" height="6" rx="3" fill="#64748b"/><rect x="120" y="120" width="80" height="4" rx="2" fill="#cbd5e1"/><rect x="120" y="129" width="80" height="4" rx="2" fill="#cbd5e1"/><rect x="120" y="138" width="60" height="4" rx="2" fill="#cbd5e1"/><rect x="220" y="50" width="80" height="49" rx="3" fill="#e2e8f0"/><polygon points="232.0,91.7 253.6,72.0 268.0,83.3 277.6,77.0 290.4,91.7" fill="#cbd5e1"/><circle cx="279.2" cy="64.7" r="4.4" fill="#cbd5e1"/><rect x="220" y="108" width="55" height="6" rx="3" fill="#64748b"/><rect x="220" y="120" width="80" height="4" rx="2" fill="#cbd5e1"/><rect x="220" y="129" width="80" height="4" rx="2" fill="#cbd5e1"/><rect x="220" y="138" width="60" height="4" rx="2" fill="#cbd5e1"/></svg>
+                    <div class="card-body">
+                        <h3 class="card-title">Three columns</h3>
+                        <p class="card-text">An intro above rows of three image cards, with optional links and column backgrounds.</p>
+                        <span class="card-action">Open generator →</span>
+                    </div>
+                </a>
+
+                <a class="card" href="app-4-col.html">
+                    <svg class="card-schematic" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="120" y="18" width="80" height="7" rx="3.5" fill="#64748b"/><rect x="95" y="32" width="130" height="4" rx="2" fill="#cbd5e1"/><rect x="15" y="50" width="62" height="38" rx="3" fill="#e2e8f0"/><polygon points="24.3,82.3 41.0,67.1 52.2,75.8 59.6,70.9 69.6,82.3" fill="#cbd5e1"/><circle cx="60.9" cy="61.4" r="3.4" fill="#cbd5e1"/><rect x="15" y="97" width="44" height="5" rx="2.5" fill="#64748b"/><rect x="15" y="108" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="15" y="116" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="15" y="124" width="46" height="4" rx="2" fill="#cbd5e1"/><rect x="91" y="50" width="62" height="38" rx="3" fill="#e2e8f0"/><polygon points="100.3,82.3 117.0,67.1 128.2,75.8 135.6,70.9 145.6,82.3" fill="#cbd5e1"/><circle cx="136.9" cy="61.4" r="3.4" fill="#cbd5e1"/><rect x="91" y="97" width="44" height="5" rx="2.5" fill="#64748b"/><rect x="91" y="108" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="91" y="116" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="91" y="124" width="46" height="4" rx="2" fill="#cbd5e1"/><rect x="167" y="50" width="62" height="38" rx="3" fill="#e2e8f0"/><polygon points="176.3,82.3 193.0,67.1 204.2,75.8 211.6,70.9 221.6,82.3" fill="#cbd5e1"/><circle cx="212.9" cy="61.4" r="3.4" fill="#cbd5e1"/><rect x="167" y="97" width="44" height="5" rx="2.5" fill="#64748b"/><rect x="167" y="108" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="167" y="116" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="167" y="124" width="46" height="4" rx="2" fill="#cbd5e1"/><rect x="243" y="50" width="62" height="38" rx="3" fill="#e2e8f0"/><polygon points="252.3,82.3 269.0,67.1 280.2,75.8 287.6,70.9 297.6,82.3" fill="#cbd5e1"/><circle cx="288.9" cy="61.4" r="3.4" fill="#cbd5e1"/><rect x="243" y="97" width="44" height="5" rx="2.5" fill="#64748b"/><rect x="243" y="108" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="243" y="116" width="62" height="4" rx="2" fill="#cbd5e1"/><rect x="243" y="124" width="46" height="4" rx="2" fill="#cbd5e1"/></svg>
+                    <div class="card-body">
+                        <h3 class="card-title">Four columns</h3>
+                        <p class="card-text">An intro above rows of four image cards, with one or two columns on phones.</p>
+                        <span class="card-action">Open generator →</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>Lunevedy · Web page block generators, version 2</p>
+    </footer>
+
+</body>
+</html>

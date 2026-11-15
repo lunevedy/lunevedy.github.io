@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Three-Column Section Generator v2</title>
+
+    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Shared section styles: used by preview and exported HTML -->
+    <style type="text/tailwindcss" id="section-styles">
+
+        .section-block {
+            @apply w-full px-6 py-16 md:px-12 md:py-24;
+        }
+
+        /* Intro: centred above the columns. Width is measured in
+           characters (60ch is about 600px at this 18px text size). */
+        .columns-intro {
+            @apply mx-auto mb-12 max-w-[60ch] text-center text-lg md:mb-16;
+        }
+
+        .columns-intro[hidden] {
+            display: none !important;
+        }
+
+        .columns-intro h2 {
+            @apply text-4xl md:text-5xl font-normal leading-tight tracking-tight;
+        }
+
+        .columns-intro p {
+            @apply mt-3 text-xl leading-relaxed;
+        }
+
+        /* Three columns from lg (1024px). Below that, one centred
+           column no wider than the images (460px), so they never stretch. */
+        .columns-grid {
+            @apply mx-auto grid w-full max-w-[460px] grid-cols-1 gap-12 lg:max-w-6xl lg:grid-cols-3 lg:gap-x-8 lg:gap-y-14;
+        }
+
+        .column-card {
+            @apply flex flex-col;
+        }
+
+        /* Cards beyond the chosen count (3, 6 or 9) take up no space */
+        .column-card[hidden] {
+            display: none !important;
+        }
+
+        .column-card img {
+            @apply block h-auto w-full;
+        }
+
+        .column-card h3 {
+            @apply mt-5 text-xl md:text-2xl font-normal leading-snug;
+        }
+
+        .column-card p {
+            @apply mt-2 text-lg leading-normal;
+        }
+
+        /* Column background: coloured cards with padding and rounded corners;
+           the image runs edge to edge across the top. */
+        .columns-card-bg .column-card {
+            @apply overflow-hidden rounded-xl;
+        }
+
+        .columns-card-bg .column-card-body {
+            @apply px-6 pb-6;
+        }
+
+        /* H3 links: always underlined to show they are clickable.
+           Thickness and offset are in em, so they scale with the text. */
+        .column-card h3 a {
+            @apply underline decoration-[length:0.11em] underline-offset-[0.3em] transition-colors;
+        }
+
+        .column-card h3 a:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* Image links: on hover or keyboard focus the image zooms in
+           slightly within its frame and darkens a little. */
+        .column-card-image-link {
+            @apply block overflow-hidden;
+        }
+
+        .column-card-image-link img {
+            transition: transform 300ms ease-out, filter 300ms ease-out;
+        }
+
+        .column-card-image-link:hover img,
+        .column-card-image-link:focus-visible img {
+            transform: scale(1.05);
+            filter: brightness(0.85);
+        }
+
+        /* Focus ring drawn inside the image, so rounded cards cannot clip it */
+        .column-card-image-link:focus-visible {
+            outline: 3px solid white;
+            outline-offset: -6px;
+        }
+
+        /* Reduced motion: keep the darkening, drop the zoom */
+        @media (prefers-reduced-motion: reduce) {
+            .column-card-image-link img {
+                transition: filter 300ms ease-out;
+            }
+
+            .column-card-image-link:hover img,
+            .column-card-image-link:focus-visible img {
+                transform: none;
+            }
+        }
+
+        /* Edited text stays plain and wraps safely */
+        .columns-intro h2,
+        .columns-intro p,
+        .column-card h3,
+        .column-card p {
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        /* Bold and italic options */
+        .columns-h2-bold .columns-intro h2 { @apply font-bold; }
+        .columns-h2-italic .columns-intro h2 { @apply italic; }
+        .columns-h3-bold .column-card h3 { @apply font-bold; }
+        .columns-h3-italic .column-card h3 { @apply italic; }
+
+        /* "Larger" intro text options. The intro width stays 60ch, because ch
+           is measured from .columns-intro, not from the paragraph.
+           Card text sizes are fixed: H3 text-xl (md:text-2xl), paragraphs text-lg. */
+        .columns-h2-larger .columns-intro h2 { @apply text-5xl md:text-6xl; }
+        .columns-intro-larger .columns-intro p { @apply text-2xl; }
+
+    </style>
+
+    <!-- Colour rules: shared by preview and exported HTML -->
+    <style type="text/tailwindcss" id="section-colour-styles"></style>
+
+    <!-- Palette swatch colours (editor only) -->
+    <style type="text/tailwindcss" id="palette-swatch-styles"></style>
+
+    <style type="text/tailwindcss" id="editor-styles">
+
+        /* ---------- Home link (back to the list of generators) ---------- */
+
+        .home-link {
+            @apply mb-3 inline-flex items-center gap-1 rounded text-sm font-medium text-slate-500 hover:text-slate-900;
+        }
+
+        .home-link:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* ---------- Page layout: sidebar + main area ---------- */
+
+        .app-container {
+            @apply min-h-screen bg-slate-100 text-slate-900;
+        }
+
+        .app-layout {
+            @apply grid min-h-screen grid-cols-[20rem_1fr];
+        }
+
+        .app-sidebar {
+            @apply sticky top-0 flex h-screen flex-col gap-8 overflow-y-auto border-r border-slate-200 bg-white px-6 py-6;
+        }
+
+        .app-main {
+            @apply min-w-0 px-8 py-6;
+        }
+
+        /* ---------- Sidebar header ---------- */
+
+        .app-title {
+            @apply text-xl font-bold tracking-tight;
+        }
+
+        .app-description {
+            @apply mt-1 text-sm leading-relaxed text-slate-600;
+        }
+
+        /* ---------- Settings ---------- */
+
+        .controls-heading {
+            @apply mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500;
+        }
+
+        .controls-row {
+            @apply flex flex-col divide-y divide-slate-100;
+        }
+
+        .control-label {
+            @apply flex cursor-pointer items-center justify-between gap-4 py-3 text-sm font-medium text-slate-700;
+        }
+
+        /* Native checkbox restyled as a toggle switch */
+        .toggle-input {
+            @apply relative h-6 w-10 shrink-0 cursor-pointer appearance-none rounded-full bg-slate-300 transition-colors;
+        }
+
+        .toggle-input::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 9999px;
+            background-color: var(--color-white);
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+            transition: transform 150ms ease;
+        }
+
+        .toggle-input:checked {
+            @apply bg-slate-900;
+        }
+
+        .toggle-input:checked::before {
+            transform: translateX(16px);
+        }
+
+        .toggle-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        /* Keep switches visible in Windows high-contrast mode */
+        @media (forced-colors: active) {
+            .toggle-input {
+                border: 1px solid CanvasText;
+            }
+            .toggle-input::before {
+                background-color: CanvasText;
+            }
+        }
+
+        /* ---------- Hero colour targets ---------- */
+
+        .colour-target {
+            @apply -mx-2 flex w-[calc(100%+1rem)] cursor-pointer items-center justify-between gap-3 rounded-md px-2 py-2.5 text-left text-sm font-medium text-slate-700 hover:bg-slate-50;
+        }
+
+        /* Highlight the target whose palette is open */
+        .colour-target[aria-expanded="true"] {
+            @apply bg-slate-100 text-slate-900;
+        }
+
+        .colour-target:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .colour-target:disabled {
+            @apply cursor-not-allowed opacity-40 hover:bg-transparent;
+        }
+
+        .colour-target-value {
+            @apply flex items-center gap-2 font-mono text-xs text-slate-500;
+        }
+
+        .colour-chip {
+            @apply h-5 w-5 shrink-0 rounded-md border border-slate-900/15;
+        }
+
+        .colour-target-arrow {
+            @apply h-4 w-4 shrink-0 text-slate-400;
+        }
+
+        /* ---------- Pop-out palette panel ---------- */
+
+        .palette-panel {
+            @apply fixed top-6 z-40 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-5 shadow-xl;
+            left: calc(20rem + 1rem);
+        }
+
+        .palette-panel[hidden] {
+            display: none;
+        }
+
+        .palette-panel-header {
+            @apply mb-4 flex items-start justify-between gap-6;
+        }
+
+        .palette-panel-title {
+            @apply text-sm font-semibold text-slate-800;
+        }
+
+        .active-colour-description {
+            @apply mt-1 font-mono text-xs text-slate-600;
+        }
+
+        .palette-close {
+            @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-900;
+        }
+
+        .palette-close svg {
+            @apply h-4 w-4;
+        }
+
+        .palette-close:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .palette-section-title {
+            @apply mb-2 mt-5 text-sm font-semibold text-slate-800;
+        }
+
+        .palette-viewport {
+            max-width: 100%;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: 6rem repeat(11, 2.25rem);
+            min-width: max-content;
+            gap: 4px;
+            padding: 8px;
+        }
+
+        .palette-column-heading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2rem;
+            color: #475569;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .palette-row-heading {
+            display: flex;
+            align-items: center;
+            padding-left: 4px;
+            color: #334155;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .palette-swatch {
+            width: 2.25rem;
+            height: 2.25rem;
+            border: 1px solid rgb(15 23 42 / 15%);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .palette-swatch:hover {
+            outline: 2px solid #64748b;
+            outline-offset: 1px;
+        }
+
+        .palette-swatch[aria-pressed="true"] {
+            outline: 3px solid #0f172a;
+            outline-offset: 2px;
+            box-shadow: inset 0 0 0 2px white;
+        }
+
+        .palette-swatch:focus-visible {
+            outline: 3px solid #2563eb;
+            outline-offset: 3px;
+        }
+
+        .palette-special-grid {
+            display: grid;
+            grid-template-columns: 6rem repeat(2, 2.25rem);
+            gap: 4px;
+            width: max-content;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        /* ---------- H1 / H2 text-effect groups ---------- */
+
+        /* Collapsible wrapper */
+        .effects-section {
+            @apply -mt-4 border-t border-slate-200 pt-4;
+        }
+
+        .effects-summary {
+            @apply flex cursor-pointer list-none items-center justify-between rounded-md text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-slate-800;
+        }
+
+        /* Hide the browser's default triangle */
+        .effects-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .effects-summary:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 4px;
+        }
+
+        .effects-chevron {
+            @apply h-4 w-4 shrink-0 transition-transform;
+        }
+
+        .effects-section[open] .effects-chevron {
+            @apply rotate-180;
+        }
+
+        .effects-section[open] .effects-summary {
+            @apply mb-2 text-slate-800;
+        }
+
+        /* Dim the H2 heading while "Show subheading" is off */
+        .effects-section:has(.effects-group:disabled) .effects-summary {
+            @apply opacity-50;
+        }
+
+        .effects-group {
+            @apply min-w-0 border-0 p-0;
+        }
+
+        .effects-group:disabled {
+            @apply opacity-50;
+        }
+
+        .effects-group:disabled * {
+            cursor: not-allowed;
+        }
+
+        /* Only shown while the H2 group is disabled */
+        .effects-hint {
+            @apply hidden pb-1 text-xs text-slate-500;
+        }
+
+        .effects-group:disabled .effects-hint {
+            @apply block;
+        }
+
+        .spacing-control {
+            @apply flex flex-col gap-2 py-3;
+        }
+
+        .spacing-label-row {
+            @apply flex items-center justify-between gap-3;
+        }
+
+        .spacing-label {
+            @apply text-sm font-medium text-slate-700;
+        }
+
+        .spacing-value {
+            @apply rounded-md bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700 tabular-nums;
+        }
+
+        .spacing-slider {
+            @apply w-full cursor-pointer accent-slate-900;
+        }
+
+        .spacing-slider:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 4px;
+        }
+
+        /* ---------- Preview ---------- */
+
+        .preview-toolbar {
+            @apply mb-3 flex items-baseline justify-between gap-4;
+        }
+
+        .preview-label {
+            @apply text-sm font-semibold text-slate-800;
+        }
+
+        .editing-instruction {
+            @apply text-sm text-slate-500;
+        }
+
+        /* Fake browser window around the hero */
+        .browser-frame {
+            @apply overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm;
+        }
+
+        .browser-bar {
+            @apply flex items-center gap-3 border-b border-slate-200 bg-slate-50 px-4 py-2.5;
+        }
+
+        .browser-dots {
+            @apply flex gap-1.5;
+        }
+
+        .browser-dots span {
+            @apply h-3 w-3 rounded-full bg-slate-300;
+        }
+
+        .browser-address {
+            @apply flex-1 rounded-md bg-white px-3 py-1 text-xs text-slate-500 ring-1 ring-slate-200;
+        }
+
+        /* ---------- Editable headings ---------- */
+
+        .section-block [contenteditable="true"] {
+            cursor: text;
+            border-radius: 4px;
+        }
+
+        .section-block [contenteditable="true"]:hover {
+            outline: 2px dashed #94a3b8;
+            outline-offset: 5px;
+        }
+
+        .section-block [contenteditable="true"]:focus {
+            outline: 3px solid #3b82f6;
+            outline-offset: 5px;
+        }
+
+        /* Rows replaced by the H3 link rows (and back) */
+        .colour-target[hidden] {
+            display: none;
+        }
+
+        /* ---------- Copy button ---------- */
+
+        .copy-button {
+            @apply fixed bottom-5 right-5 z-50 inline-flex min-w-40 items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        }
+
+        .copy-button:active {
+            transform: translateY(1px);
+        }
+
+        .copy-button svg {
+            @apply h-4 w-4 shrink-0;
+        }
+
+        .copy-button svg[hidden] {
+            display: none;
+        }
+
+        /* Shown briefly after a successful copy. */
+        .copy-button-success {
+            @apply bg-emerald-600 hover:bg-emerald-600;
+        }
+
+        /* ---------- Status and manual-copy fallback ---------- */
+
+        .status-message {
+            @apply mt-4 text-sm text-slate-700;
+        }
+
+        .fallback-container {
+            @apply mt-4;
+        }
+
+        .fallback-label {
+            @apply mb-2 block text-sm font-semibold text-slate-800;
+        }
+
+        .fallback-textarea {
+            @apply min-h-64 w-full rounded-xl border border-slate-300 bg-white p-4 font-mono text-xs leading-relaxed text-slate-800 focus-visible:outline-2 focus-visible:outline-blue-500;
+        }
+
+        .page-bottom-space {
+            @apply h-24;
+        }
+
+        /* ---------- Light / Dark switch ---------- */
+
+        .segmented {
+            @apply grid grid-cols-2 gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .segmented-option {
+            @apply cursor-pointer rounded-md px-3 py-1.5 text-center text-sm font-medium text-slate-600 hover:text-slate-900;
+        }
+
+        .segmented-option:has(input:checked) {
+            @apply bg-white text-slate-900 shadow-sm;
+        }
+
+        .segmented-option:has(input:focus-visible) {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .segmented-3 {
+            @apply grid-cols-3;
+        }
+
+        .size-control {
+            @apply py-3;
+        }
+
+        .size-control:has(input:disabled) {
+            @apply opacity-50;
+        }
+
+        .size-control:has(input:disabled) .segmented-option {
+            cursor: not-allowed;
+        }
+
+        .size-control-label {
+            @apply mb-2 block text-sm font-medium text-slate-700;
+        }
+
+        .text-input {
+            @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800;
+        }
+
+        .text-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 1px;
+        }
+
+        .image-options {
+            @apply m-0 min-w-0 border-0 p-0;
+        }
+
+        .image-options:disabled {
+            @apply opacity-50;
+        }
+
+        .image-options:disabled * {
+            cursor: not-allowed;
+        }
+
+        .controls-note {
+            @apply mt-2 text-xs text-slate-500;
+        }
+
+        /* ---------- Paragraph stepper ---------- */
+
+        .stepper {
+            @apply flex items-center gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .stepper-button {
+            @apply inline-flex h-7 w-7 items-center justify-center rounded-md text-base font-semibold text-slate-700 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent;
+        }
+
+        .stepper-button:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .stepper-value {
+            @apply w-6 text-center font-mono text-sm tabular-nums text-slate-800;
+        }
+
+
+        /* Spacing between the three alt text fields */
+        .alt-label:not(:first-of-type) {
+            @apply mt-3;
+        }
+
+    </style>
+</head>
+
+<body class="app-container">
+
+    <div class="app-layout">
+
+        <!-- Sidebar: app intro and settings -->
+        <aside class="app-sidebar">
+
+            <header>
+                <a class="home-link" href="index.html">← Home</a>
+                <h1 class="app-title">Three-Column Section Generator</h1>
+
+                <p class="app-description">
+                    Create a section with an intro and three image cards.
+                    Edit the text directly and copy your HTML when ready.
+                </p>
+            </header>
+
+            <!-- Light / Dark preset -->
+            <section aria-labelledby="appearance-heading">
+
+                <h2 id="appearance-heading" class="controls-heading">
+                    Appearance
+                </h2>
+
+                <div class="segmented" role="radiogroup" aria-labelledby="appearance-heading">
+
+                    <label class="segmented-option">
+                        <input type="radio" name="appearance" value="light" class="sr-only" checked>
+                        <span>Light</span>
+                    </label>
+
+                    <label class="segmented-option">
+                        <input type="radio" name="appearance" value="dark" class="sr-only">
+                        <span>Dark</span>
+                    </label>
+
+                </div>
+
+                <p class="controls-note">
+                    Choosing Light or Dark resets all the colours.
+                </p>
+
+            </section>
+
+            <!-- Layout -->
+            <section aria-labelledby="controls-heading">
+
+                <h2 id="controls-heading" class="controls-heading">
+                    Section settings
+                </h2>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Show intro</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-intro" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>Column background</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="card-background">
+                    </label>
+
+                <div class="size-control">
+
+                    <span id="card-count-label" class="size-control-label">Cards (rows of three)</span>
+
+                    <div class="segmented segmented-3" role="radiogroup" aria-labelledby="card-count-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="card-count" value="3" class="sr-only" checked>
+                            <span>3</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="card-count" value="6" class="sr-only">
+                            <span>6</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="card-count" value="9" class="sr-only">
+                            <span>9</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+            </section>
+
+            <!-- Links -->
+            <section aria-labelledby="links-heading">
+
+                <h2 id="links-heading" class="controls-heading">
+                    Links
+                </h2>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Link H3 headings</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="heading-links">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Link images</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="image-links">
+                    </label>
+
+                </div>
+
+                <p class="controls-note">
+                    Links use href="#". When both are on, the image link is hidden from keyboard and screen-reader users, so each card has one link.
+                </p>
+
+            </section>
+
+            <!-- Text size -->
+            <section aria-labelledby="text-size-heading">
+
+                <h2 id="text-size-heading" class="controls-heading">
+                    Text size
+                </h2>
+
+                <div class="controls-row">
+
+                <div class="size-control">
+
+                    <span id="heading-size-label" class="size-control-label">H2</span>
+
+                    <div class="segmented" role="radiogroup" aria-labelledby="heading-size-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="heading-size" value="normal" class="sr-only" checked>
+                            <span>Normal</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="heading-size" value="larger" class="sr-only">
+                            <span>Larger</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="size-control">
+
+                    <span id="intro-size-label" class="size-control-label">Intro text</span>
+
+                    <div class="segmented" role="radiogroup" aria-labelledby="intro-size-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="intro-size" value="normal" class="sr-only" checked>
+                            <span>Normal</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="intro-size" value="larger" class="sr-only">
+                            <span>Larger</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+            </section>
+
+            <!-- Colours: each row opens the palette panel -->
+            <section aria-labelledby="colour-panel-title">
+
+                <h2 id="colour-panel-title" class="controls-heading">
+                    Colours
+                </h2>
+
+                <div class="colour-targets" role="group" aria-label="Choose which colour to change">
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="background"
+                        aria-pressed="true"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Section background</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="white"></span>
+                            <span class="colour-target-name">white</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="heading"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>H2</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="black"></span>
+                            <span class="colour-target-name">black</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="intro"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Intro text</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="black"></span>
+                            <span class="colour-target-name">black</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="cardHeading"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>H3</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="black"></span>
+                            <span class="colour-target-name">black</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="cardLink"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                        hidden
+                    >
+                        <span>H3 link</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="blue-700"></span>
+                            <span class="colour-target-name">blue-700</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="cardLinkHover"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                        hidden
+                    >
+                        <span>H3 link hover</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="blue-900"></span>
+                            <span class="colour-target-name">blue-900</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="cardText"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Card text</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="black"></span>
+                            <span class="colour-target-name">black</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="cardBackground"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Column background</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="slate-100"></span>
+                            <span class="colour-target-name">slate-100</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- H2 effects: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>H2 text effects</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group" id="h2-effects">
+
+                <legend class="sr-only">H2 text effects</legend>
+
+                <p class="effects-hint">
+                    Turn on “Show intro” to edit these.
+                </p>
+
+                <div class="controls-row">
+
+                <div class="size-control">
+
+                    <span id="h2-weight-label" class="size-control-label">Weight</span>
+
+                    <div class="segmented" role="radiogroup" aria-labelledby="h2-weight-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="h2-weight" value="bold" class="sr-only" checked>
+                            <span>Bold</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="h2-weight" value="normal" class="sr-only">
+                            <span>Normal</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="size-control">
+
+                    <span id="h2-style-label" class="size-control-label">Style</span>
+
+                    <div class="segmented" role="radiogroup" aria-labelledby="h2-style-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="h2-style" value="normal" class="sr-only" checked>
+                            <span>Normal</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="h2-style" value="italic" class="sr-only">
+                            <span>Italic</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
+            <!-- H3 effects: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>H3 text effects</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group">
+
+                <legend class="sr-only">H3 text effects</legend>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Bold</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h3-bold" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>Italic</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h3-italic">
+                    </label>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
+
+            <!-- Image alt text: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>Images</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group">
+
+                <legend class="sr-only">Alt text for the three images</legend>
+
+                <label class="size-control-label alt-label" for="image-alt-1">Image 1 (bakery) alt text</label>
+
+                <input type="text" id="image-alt-1" class="text-input alt-input" data-index="0" value="Bakery shop window with loaves of bread on wooden shelves and a bicycle parked outside">
+
+                <label class="size-control-label alt-label" for="image-alt-2">Image 2 (fashion) alt text</label>
+
+                <input type="text" id="image-alt-2" class="text-input alt-input" data-index="1" value="Smiling woman in sunglasses and a denim jacket against a bright yellow wall">
+
+                <label class="size-control-label alt-label" for="image-alt-3">Image 3 (course) alt text</label>
+
+                <input type="text" id="image-alt-3" class="text-input alt-input" data-index="2" value="Person working on a laptop at a wooden desk beside a window">
+
+                <p class="controls-note">
+                    Describe what each image shows. Leave empty if purely decorative. Repeated images share their alt text.
+                </p>
+
+            </fieldset>
+
+            </details>
+
+        </aside>
+
+        <!-- Pop-out colour palette (opened from the Colours rows) -->
+        <div
+            id="palette-panel"
+            class="palette-panel"
+            role="dialog"
+            aria-labelledby="palette-panel-title"
+            hidden
+        >
+
+            <div class="palette-panel-header">
+
+                <div>
+                    <h2 id="palette-panel-title" class="palette-panel-title">
+                        Tailwind colour palette
+                    </h2>
+
+                    <p
+                        id="active-colour-description"
+                        class="active-colour-description"
+                        aria-live="polite"
+                    >
+                        Section background: white
+                    </p>
+                </div>
+
+                <button type="button" id="palette-close" class="palette-close" aria-label="Close colour palette">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+
+            </div>
+
+            <div class="palette-viewport" tabindex="0" aria-label="Scrollable Tailwind colour palette">
+
+                <div
+                    id="palette-grid"
+                    class="palette-grid"
+                    role="group"
+                    aria-label="Tailwind colour families and shades"
+                ></div>
+
+            </div>
+
+            <h3 class="palette-section-title">
+                Black and white
+            </h3>
+
+            <div
+                id="palette-special-grid"
+                class="palette-special-grid"
+                role="group"
+                aria-label="Black and white colours"
+            ></div>
+
+        </div>
+
+        <!-- Main area: live preview -->
+        <main class="app-main">
+
+            <section aria-labelledby="preview-heading">
+
+                <div class="preview-toolbar">
+                    <h2 id="preview-heading" class="preview-label">
+                        Live preview
+                    </h2>
+
+                    <p class="editing-instruction">
+                        Click any heading or paragraph to edit the text.
+                    </p>
+                </div>
+
+                <div class="browser-frame">
+
+                    <!-- Decorative browser bar -->
+                    <div class="browser-bar" aria-hidden="true">
+                        <div class="browser-dots"><span></span><span></span><span></span></div>
+                        <div class="browser-address">my-columns-section.html</div>
+                    </div>
+
+                    <section
+                        id="section-preview"
+                        class="section-block section-custom-colours columns-h2-bold columns-h3-bold"
+                    >
+
+                        <!-- Intro -->
+                        <div id="columns-intro" class="columns-intro">
+
+                            <h2
+                                id="section-heading"
+                                class="editable"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit section heading"
+                                aria-multiline="false"
+                                spellcheck="false"
+                            >Nice section heading</h2>
+
+                            <p
+                                id="section-intro-text"
+                                class="editable"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit intro paragraph"
+                                aria-multiline="false"
+                                spellcheck="false"
+                            >Leverage agile frameworks to provide a robust synopsis for high level overviews to foster collaborative thinking.</p>
+
+                        </div>
+
+                        <!-- Three columns -->
+                        <div class="columns-grid">
+
+                            <!-- Card 1 -->
+                            <article class="column-card" data-image-index="0">
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-bakery.png"
+                                    data-file="460x280-bakery.png"
+                                    alt="Bakery shop window with loaves of bread on wooden shelves and a bicycle parked outside"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 1 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Lunevedy Cafe Bakery</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 1 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Our friendly baristas are waiting to pour your favourite beverage. We use only expertly selected coffee beans and tea leaves.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 2 -->
+                            <article class="column-card" data-image-index="1">
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-fashion-yellow.png"
+                                    data-file="460x280-fashion-yellow.png"
+                                    alt="Smiling woman in sunglasses and a denim jacket against a bright yellow wall"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 2 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Lunevedy Fashion Store</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 2 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Level up your look with our ever-changing selection of on-trend brands. We ship to almost everywhere in the world.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 3 -->
+                            <article class="column-card" data-image-index="2">
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-student.png"
+                                    data-file="460x280-student.png"
+                                    alt="Person working on a laptop at a wooden desk beside a window"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 3 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Learn JavaScript today</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 3 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Supercharge your web design career with the Lunevedy: JavaScript for Beginners training course. All important topics covered.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 4 -->
+                            <article class="column-card" data-image-index="0" hidden>
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-bakery.png"
+                                    data-file="460x280-bakery.png"
+                                    alt="Bakery shop window with loaves of bread on wooden shelves and a bicycle parked outside"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 4 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Lunevedy Cafe Bakery</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 4 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Our friendly baristas are waiting to pour your favourite beverage. We use only expertly selected coffee beans and tea leaves.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 5 -->
+                            <article class="column-card" data-image-index="1" hidden>
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-fashion-yellow.png"
+                                    data-file="460x280-fashion-yellow.png"
+                                    alt="Smiling woman in sunglasses and a denim jacket against a bright yellow wall"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 5 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Lunevedy Fashion Store</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 5 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Level up your look with our ever-changing selection of on-trend brands. We ship to almost everywhere in the world.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 6 -->
+                            <article class="column-card" data-image-index="2" hidden>
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-student.png"
+                                    data-file="460x280-student.png"
+                                    alt="Person working on a laptop at a wooden desk beside a window"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 6 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Learn JavaScript today</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 6 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Supercharge your web design career with the Lunevedy: JavaScript for Beginners training course. All important topics covered.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 7 -->
+                            <article class="column-card" data-image-index="0" hidden>
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-bakery.png"
+                                    data-file="460x280-bakery.png"
+                                    alt="Bakery shop window with loaves of bread on wooden shelves and a bicycle parked outside"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 7 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Lunevedy Cafe Bakery</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 7 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Our friendly baristas are waiting to pour your favourite beverage. We use only expertly selected coffee beans and tea leaves.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 8 -->
+                            <article class="column-card" data-image-index="1" hidden>
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-fashion-yellow.png"
+                                    data-file="460x280-fashion-yellow.png"
+                                    alt="Smiling woman in sunglasses and a denim jacket against a bright yellow wall"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 8 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Lunevedy Fashion Store</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 8 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Level up your look with our ever-changing selection of on-trend brands. We ship to almost everywhere in the world.</p>
+
+                                </div>
+
+                            </article>
+
+                            <!-- Card 9 -->
+                            <article class="column-card" data-image-index="2" hidden>
+
+                                <img
+                                    src="https://lunevedy.com/v2/assets/img/460x280-student.png"
+                                    data-file="460x280-student.png"
+                                    alt="Person working on a laptop at a wooden desk beside a window"
+                                    width="460"
+                                    height="280"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                                <div class="column-card-body">
+
+                                    <h3><span
+                                        class="editable heading-text"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 9 heading"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Learn JavaScript today</span></h3>
+
+                                    <p
+                                        class="editable"
+                                        contenteditable="true"
+                                        role="textbox"
+                                        aria-label="Edit card 9 text"
+                                        aria-multiline="false"
+                                        spellcheck="false"
+                                    >Supercharge your web design career with the Lunevedy: JavaScript for Beginners training course. All important topics covered.</p>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </section>
+
+            <!-- Accessible copy status -->
+            <p
+                id="copy-status"
+                class="status-message"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- Manual copying fallback -->
+            <section
+                id="fallback-container"
+                class="fallback-container"
+                hidden
+                aria-labelledby="fallback-heading"
+            >
+
+                <label
+                    id="fallback-heading"
+                    class="fallback-label"
+                    for="fallback-html"
+                >
+                    Your generated HTML – select and copy manually
+                </label>
+
+                <textarea
+                    id="fallback-html"
+                    class="fallback-textarea"
+                    readonly
+                    spellcheck="false"
+                ></textarea>
+
+            </section>
+
+            <div class="page-bottom-space"></div>
+
+        </main>
+
+    </div>
+
+    <!-- Fixed copy button -->
+    <button
+        type="button"
+        id="copy-button"
+        class="copy-button"
+    >
+        <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+        <span id="copy-button-label">Copy HTML</span>
+    </button>
+
+
+    <script>
+
+        // -----------------------------------------
+        // 1. Find the page elements
+        // -----------------------------------------
+
+        const sectionPreview = document.getElementById("section-preview");
+
+        const columnsIntro = document.getElementById("columns-intro");
+
+        const sectionHeading = document.getElementById("section-heading");
+
+        const sectionIntroText = document.getElementById("section-intro-text");
+
+        const columnCards = document.querySelectorAll(".column-card");
+
+        const editableElements = document.querySelectorAll(".section-block .editable");
+
+        const appearanceOptions = document.querySelectorAll('input[name="appearance"]');
+
+        const showIntro = document.getElementById("show-intro");
+
+        const cardBackground = document.getElementById("card-background");
+
+        const headingLinks = document.getElementById("heading-links");
+
+        const imageLinks = document.getElementById("image-links");
+
+        // Every sidebar radio group except Light/Dark: sizes, card count, H2 weight and style.
+        const optionRadios = document.querySelectorAll('.app-sidebar input[type="radio"]:not([name="appearance"])');
+
+        const h2Effects = document.getElementById("h2-effects");
+
+        const h3Bold = document.getElementById("h3-bold");
+
+        const h3Italic = document.getElementById("h3-italic");
+
+        const altInputs = document.querySelectorAll(".alt-input");
+
+        const colourTargetButtons = document.querySelectorAll(".colour-target");
+
+        const activeColourDescription = document.getElementById("active-colour-description");
+
+        const paletteGrid = document.getElementById("palette-grid");
+
+        const paletteSpecialGrid = document.getElementById("palette-special-grid");
+
+        const palettePanel = document.getElementById("palette-panel");
+
+        const paletteCloseButton = document.getElementById("palette-close");
+
+        const sectionStyles = document.getElementById("section-styles");
+
+        const sectionColourStyles = document.getElementById("section-colour-styles");
+
+        const paletteSwatchStyles = document.getElementById("palette-swatch-styles");
+
+        const copyButton = document.getElementById("copy-button");
+
+        const copyButtonLabel = document.getElementById("copy-button-label");
+
+        const copyIcon = document.getElementById("copy-icon");
+
+        const checkIcon = document.getElementById("check-icon");
+
+        const copyStatus = document.getElementById("copy-status");
+
+        const fallbackContainer = document.getElementById("fallback-container");
+
+        const fallbackTextarea = document.getElementById("fallback-html");
+
+        // Sample images are hosted online, so the same full URLs work
+        // in the preview and in pages saved on students' own computers.
+
+        const appImageFolder = "https://lunevedy.com/v2/assets/img/";
+
+        const exportedImageFolder = "https://lunevedy.com/v2/assets/img/";
+
+        // Remembers the timer that resets the copy button label.
+        let copyFeedbackTimer = null;
+
+        // Remembers which colour row opened the palette.
+        let paletteOpener = null;
+
+
+        // -----------------------------------------
+        // 2. Tailwind colour palette and presets
+        // -----------------------------------------
+
+        const colourFamilies = [
+            "slate", "gray", "zinc", "neutral", "stone",
+            "red", "orange", "amber", "yellow", "lime",
+            "green", "emerald", "teal", "cyan", "sky",
+            "blue", "indigo", "violet", "purple", "fuchsia",
+            "pink", "rose"
+        ];
+
+        const colourShades = [
+            "50", "100", "200", "300", "400", "500",
+            "600", "700", "800", "900", "950"
+        ];
+
+        const specialColours = ["black", "white"];
+
+        // One colour per target: section background, H2, intro text,
+        // H3, card text and column (card) background.
+        const appearancePresets = {
+            light: {
+                background: "white", heading: "black", intro: "black",
+                cardHeading: "black", cardText: "black", cardBackground: "slate-100",
+                cardLink: "blue-700", cardLinkHover: "blue-900"
+            },
+            dark: {
+                background: "slate-900", heading: "white", intro: "white",
+                cardHeading: "white", cardText: "white", cardBackground: "slate-800",
+                cardLink: "sky-300", cardLinkHover: "sky-100"
+            }
+        };
+
+        const targetLabels = {
+            background: "Section background: ",
+            heading: "H2 colour: ",
+            intro: "Intro text colour: ",
+            cardHeading: "H3 colour: ",
+            cardText: "Card text colour: ",
+            cardBackground: "Column background: ",
+            cardLink: "H3 link colour: ",
+            cardLinkHover: "H3 link hover colour: "
+        };
+
+
+        // -----------------------------------------
+        // 3. Store all settings in one object
+        // -----------------------------------------
+
+        const settings = {
+
+            appearance: "light",
+
+            showIntro: showIntro.checked,
+
+            cardBackground: cardBackground.checked,
+
+            headingLinks: headingLinks.checked,
+
+            imageLinks: imageLinks.checked,
+
+            cardCount: 3,
+
+            headingSize: "normal",
+
+            introSize: "normal",
+
+            h2Bold: true,
+
+            h2Italic: false,
+
+            h3Bold: h3Bold.checked,
+
+            h3Italic: h3Italic.checked,
+
+            activeColourTarget: "background",
+
+            colours: { ...appearancePresets.light },
+
+            imageAlts: Array.from(altInputs).map(function(input) {
+                return input.value;
+            })
+
+        };
+
+
+        // -----------------------------------------
+        // 4. Build the colour palette
+        // -----------------------------------------
+
+        function createPaletteSwatchStyles() {
+
+            const allColours = [];
+
+            colourFamilies.forEach(function(family) {
+                colourShades.forEach(function(shade) {
+                    allColours.push(family + "-" + shade);
+                });
+            });
+
+            allColours.push(...specialColours);
+
+            // One rule per colour, used by swatches and row chips.
+            const rules = allColours.map(function(colour) {
+                return `
+                    .palette-swatch[data-colour="${colour}"],
+                    .colour-chip[data-colour="${colour}"] {
+                        background-color: var(--color-${colour});
+                    }
+                `;
+            });
+
+            paletteSwatchStyles.textContent = rules.join("\n");
+
+        }
+
+
+        function createColourSwatch(colourName) {
+
+            const button = document.createElement("button");
+
+            button.type = "button";
+
+            button.className = "palette-swatch";
+
+            button.dataset.colour = colourName;
+
+            button.setAttribute("aria-label", colourName.replace("-", " ") + " colour");
+
+            button.setAttribute("aria-pressed", "false");
+
+            button.title = colourName;
+
+            button.addEventListener("click", function() {
+                selectColour(colourName);
+            });
+
+            return button;
+
+        }
+
+
+        function buildColourPalette() {
+
+            const cornerHeading = document.createElement("span");
+
+            cornerHeading.className = "palette-column-heading";
+
+            cornerHeading.textContent = "Colour";
+
+            paletteGrid.appendChild(cornerHeading);
+
+            colourShades.forEach(function(shade) {
+
+                const heading = document.createElement("span");
+
+                heading.className = "palette-column-heading";
+
+                heading.textContent = shade;
+
+                paletteGrid.appendChild(heading);
+
+            });
+
+            colourFamilies.forEach(function(family) {
+
+                const rowHeading = document.createElement("span");
+
+                rowHeading.className = "palette-row-heading";
+
+                rowHeading.textContent = family.charAt(0).toUpperCase() + family.slice(1);
+
+                paletteGrid.appendChild(rowHeading);
+
+                colourShades.forEach(function(shade) {
+                    paletteGrid.appendChild(createColourSwatch(family + "-" + shade));
+                });
+
+            });
+
+            const specialHeading = document.createElement("span");
+
+            specialHeading.className = "palette-row-heading";
+
+            specialHeading.textContent = "Colour";
+
+            paletteSpecialGrid.appendChild(specialHeading);
+
+            specialColours.forEach(function(colourName) {
+                paletteSpecialGrid.appendChild(createColourSwatch(colourName));
+            });
+
+        }
+
+
+        // -----------------------------------------
+        // 5. Colours
+        // -----------------------------------------
+
+        function updateColourStyles() {
+
+            // Tailwind-processed, so the CDN creates every colour variable used.
+
+            const c = settings.colours;
+
+            sectionColourStyles.textContent = `
+        .section-block.section-custom-colours {
+            background-color: var(--color-${c.background});
+        }
+
+        .section-block.section-custom-colours .columns-intro h2 {
+            color: var(--color-${c.heading});
+        }
+
+        .section-block.section-custom-colours .columns-intro p {
+            color: var(--color-${c.intro});
+        }
+
+        .section-block.section-custom-colours .column-card h3 {
+            color: var(--color-${c.cardHeading});
+        }
+
+        .section-block.section-custom-colours .column-card p {
+            color: var(--color-${c.cardText});
+        }
+
+        .section-block.section-custom-colours.columns-card-bg .column-card {
+            background-color: var(--color-${c.cardBackground});
+        }
+
+        .section-block.section-custom-colours .column-card h3 a {
+            color: var(--color-${c.cardLink});
+        }
+
+        .section-block.section-custom-colours .column-card h3 a:hover {
+            color: var(--color-${c.cardLinkHover});
+        }
+    `;
+
+        }
+
+
+        function isTargetDisabled(target) {
+
+            // Intro colours are unavailable while the intro is hidden;
+            // the column background only applies when switched on.
+
+            if (target === "heading" || target === "intro") {
+                return !settings.showIntro;
+            }
+
+            if (target === "cardBackground") {
+                return !settings.cardBackground;
+            }
+
+            return false;
+
+        }
+
+
+        function updateColourTargetButtons() {
+
+            colourTargetButtons.forEach(function(button) {
+
+                const target = button.dataset.target;
+
+                const isActive = target === settings.activeColourTarget;
+
+                const targetColour = settings.colours[target];
+
+                button.setAttribute("aria-pressed", String(isActive));
+
+                button.disabled = isTargetDisabled(target);
+
+                // H3 links replace the H3 colour row with two link rows.
+
+                if (target === "cardHeading") {
+                    button.hidden = settings.headingLinks;
+                }
+
+                if (target === "cardLink" || target === "cardLinkHover") {
+                    button.hidden = !settings.headingLinks;
+                }
+
+                button.querySelector(".colour-chip").dataset.colour = targetColour;
+
+                button.querySelector(".colour-target-name").textContent = targetColour;
+
+                button.setAttribute("aria-expanded", String(isActive && !palettePanel.hidden));
+
+            });
+
+            activeColourDescription.textContent =
+                targetLabels[settings.activeColourTarget] + settings.colours[settings.activeColourTarget];
+
+        }
+
+
+        function updateSelectedSwatch() {
+
+            const selectedColour = settings.colours[settings.activeColourTarget];
+
+            document.querySelectorAll(".palette-swatch").forEach(function(swatch) {
+                swatch.setAttribute("aria-pressed", String(swatch.dataset.colour === selectedColour));
+            });
+
+        }
+
+
+        function selectColourTarget(target) {
+
+            if (isTargetDisabled(target)) {
+                return;
+            }
+
+            settings.activeColourTarget = target;
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+        }
+
+
+        function selectColour(colourName) {
+
+            settings.colours[settings.activeColourTarget] = colourName;
+
+            updateColourStyles();
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function handleAppearanceChange(event) {
+
+            // Light or Dark resets all six colours.
+
+            settings.appearance = event.target.value;
+
+            settings.colours = { ...appearancePresets[settings.appearance] };
+
+            updateColourStyles();
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 6. Layout, sizes and text effects
+        // -----------------------------------------
+
+        function getSectionClasses() {
+
+            // The same class list is used by the preview and the export.
+
+            return [
+                "section-block",
+                "section-custom-colours",
+                settings.cardBackground ? "columns-card-bg" : "",
+                settings.showIntro && settings.h2Bold ? "columns-h2-bold" : "",
+                settings.showIntro && settings.h2Italic ? "columns-h2-italic" : "",
+                settings.h3Bold ? "columns-h3-bold" : "",
+                settings.h3Italic ? "columns-h3-italic" : "",
+                settings.showIntro && settings.headingSize === "larger" ? "columns-h2-larger" : "",
+                settings.showIntro && settings.introSize === "larger" ? "columns-intro-larger" : ""
+
+            ].filter(Boolean);
+
+        }
+
+
+        function updateSection() {
+
+            settings.showIntro = showIntro.checked;
+
+            settings.cardBackground = cardBackground.checked;
+
+            settings.headingLinks = headingLinks.checked;
+
+            settings.imageLinks = imageLinks.checked;
+
+            updateLinks();
+
+            // Keep the palette on a visible row when the H3 rows swap.
+
+            if (settings.headingLinks && settings.activeColourTarget === "cardHeading") {
+                settings.activeColourTarget = "cardLink";
+            }
+
+            if (!settings.headingLinks && settings.activeColourTarget.startsWith("cardLink")) {
+                settings.activeColourTarget = "cardHeading";
+            }
+
+            settings.h3Bold = h3Bold.checked;
+
+            settings.h3Italic = h3Italic.checked;
+
+            sectionPreview.className = getSectionClasses().join(" ");
+
+            // Hide the intro without deleting it, so its text returns.
+            // Disable its controls meanwhile; their settings are kept.
+
+            columnsIntro.hidden = !settings.showIntro;
+
+            h2Effects.disabled = !settings.showIntro;
+
+            document.querySelectorAll('input[name="heading-size"], input[name="intro-size"]').forEach(function(option) {
+                option.disabled = !settings.showIntro;
+            });
+
+            // Show 3, 6 or 9 cards. Extra cards are hidden, not deleted,
+            // so their edited text returns when they are shown again.
+
+            columnCards.forEach(function(card, index) {
+                card.hidden = index >= settings.cardCount;
+            });
+
+            // If a disabled colour row was selected, switch to the section background.
+
+            if (isTargetDisabled(settings.activeColourTarget)) {
+                settings.activeColourTarget = "background";
+            }
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // Links: wrap or unwrap the existing elements,
+        // so edited text and settings are kept.
+        // -----------------------------------------
+
+        const cardLinkParts = Array.from(columnCards).map(function(card) {
+
+            const imageLink = document.createElement("a");
+
+            imageLink.href = "#";
+
+            imageLink.className = "column-card-image-link";
+
+            return {
+                card: card,
+                image: card.querySelector("img"),
+                heading: card.querySelector("h3"),
+                headingText: card.querySelector(".heading-text"),
+                imageLink: imageLink,
+                headingLink: document.createElement("a")
+            };
+
+        });
+
+        cardLinkParts.forEach(function(part) {
+            part.headingLink.href = "#";
+        });
+
+
+        function getImageLinkAccessibility(part) {
+
+            // Both links on: the H3 link is the real one, so the image link
+            // is skipped by keyboard and screen readers. Image link alone:
+            // it is named by the alt text, or by the H3 if the alt is empty.
+
+            if (settings.headingLinks) {
+                return { tabindex: "-1", "aria-hidden": "true" };
+            }
+
+            if (part.image.alt.trim() === "") {
+                return { "aria-label": part.headingText.innerText.trim() };
+            }
+
+            return {};
+
+        }
+
+
+        function updateLinks() {
+
+            cardLinkParts.forEach(function(part) {
+
+                // Image link
+
+                if (settings.imageLinks && part.image.parentNode !== part.imageLink) {
+                    part.card.insertBefore(part.imageLink, part.image);
+                    part.imageLink.appendChild(part.image);
+                }
+
+                if (!settings.imageLinks && part.image.parentNode === part.imageLink) {
+                    part.card.insertBefore(part.image, part.imageLink);
+                    part.imageLink.remove();
+                }
+
+                ["tabindex", "aria-hidden", "aria-label"].forEach(function(name) {
+                    part.imageLink.removeAttribute(name);
+                });
+
+                const accessibility = getImageLinkAccessibility(part);
+
+                Object.keys(accessibility).forEach(function(name) {
+                    part.imageLink.setAttribute(name, accessibility[name]);
+                });
+
+                // H3 link
+
+                if (settings.headingLinks && part.headingText.parentNode !== part.headingLink) {
+                    part.heading.appendChild(part.headingLink);
+                    part.headingLink.appendChild(part.headingText);
+                }
+
+                if (!settings.headingLinks && part.headingText.parentNode === part.headingLink) {
+                    part.heading.appendChild(part.headingText);
+                    part.headingLink.remove();
+                }
+
+            });
+
+        }
+
+
+        function preventPreviewNavigation(event) {
+
+            // Links in the preview go nowhere, so clicks can edit the text.
+
+            if (event.target.closest("a")) {
+                event.preventDefault();
+            }
+
+        }
+
+
+        function handleOptionChange(event) {
+
+            // The radio group's name says which setting it changes.
+
+            const name = event.target.name;
+
+            const value = event.target.value;
+
+            if (name === "card-count") {
+                settings.cardCount = Number(value);
+            } else if (name === "h2-weight") {
+                settings.h2Bold = value === "bold";
+            } else if (name === "h2-style") {
+                settings.h2Italic = value === "italic";
+            } else {
+                const settingForGroup = {
+                    "heading-size": "headingSize",
+                    "intro-size": "introSize"
+                };
+                settings[settingForGroup[name]] = value;
+            }
+
+            updateSection();
+
+        }
+
+
+        function handleAltInput(event) {
+
+            // Alt text belongs to the image, so every card using it updates.
+
+            const imageIndex = event.target.dataset.index;
+
+            settings.imageAlts[imageIndex] = event.target.value;
+
+            document.querySelectorAll(`.column-card[data-image-index="${imageIndex}"] img`).forEach(function(image) {
+                image.alt = event.target.value;
+            });
+
+            updateLinks();
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 7. Keep edited text plain
+        // -----------------------------------------
+
+        function handlePlainTextPaste(event) {
+
+            event.preventDefault();
+
+            const pastedText = event.clipboardData.getData("text/plain");
+
+            const selection = window.getSelection();
+
+            if (!selection || selection.rangeCount === 0) {
+                return;
+            }
+
+            const range = selection.getRangeAt(0);
+
+            // Insert a text node instead of pasted HTML.
+
+            range.deleteContents();
+
+            const textNode = document.createTextNode(pastedText);
+
+            range.insertNode(textNode);
+
+            range.setStartAfter(textNode);
+
+            range.collapse(true);
+
+            selection.removeAllRanges();
+
+            selection.addRange(range);
+
+            event.currentTarget.dispatchEvent(new Event("input", { bubbles: true }));
+
+        }
+
+
+        function preventLineBreak(event) {
+
+            // Each heading and paragraph stays a single block of text.
+
+            if (event.key === "Enter") {
+                event.preventDefault();
+            }
+
+        }
+
+
+        function escapeHTML(text) {
+
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+
+        }
+
+
+        // -----------------------------------------
+        // 8. Generate the standalone HTML document
+        // -----------------------------------------
+
+        function generateHTML() {
+
+            const introHTML = settings.showIntro
+                ? `
+        <div class="columns-intro">
+            <h2>${escapeHTML(sectionHeading.innerText.trim())}</h2>
+            <p>${escapeHTML(sectionIntroText.innerText.trim())}</p>
+        </div>
+`
+                : "";
+
+            // Only the visible cards (3, 6 or 9), with their latest text.
+
+            const cardsHTML = cardLinkParts.slice(0, settings.cardCount).map(function(part) {
+
+                const card = part.card;
+
+                const image = part.image;
+
+                const headingText = escapeHTML(part.headingText.innerText.trim());
+
+                const imageAttributes = Object.entries(getImageLinkAccessibility(part)).map(function([name, value]) {
+                    return ` ${name}="${escapeHTML(value)}"`;
+                }).join("");
+
+                const fileName = image.dataset.file;
+
+                return `
+            <article class="column-card">
+                ${settings.imageLinks ? `<a class="column-card-image-link" href="#"${imageAttributes}>` : ""}<img src="${exportedImageFolder}${fileName}" alt="${escapeHTML(settings.imageAlts[card.dataset.imageIndex].trim())}" width="460" height="280" loading="lazy" decoding="async">${settings.imageLinks ? "</a>" : ""}
+                <div class="column-card-body">
+                    <h3>${settings.headingLinks ? `<a href="#">${headingText}</a>` : headingText}</h3>
+                    <p>${escapeHTML(card.querySelector("p").innerText.trim())}</p>
+                </div>
+            </article>`;
+
+            }).join("\n");
+
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Columns Section</title>
+
+    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
+
+    <style type="text/tailwindcss">
+${sectionStyles.textContent}
+    </style>
+
+    <style type="text/tailwindcss">
+${sectionColourStyles.textContent}
+    </style>
+
+</head>
+
+<body>
+
+    <section class="${getSectionClasses().join(" ")}">
+${introHTML}
+        <div class="columns-grid">
+${cardsHTML}
+
+        </div>
+    </section>
+
+</body>
+</html>`;
+
+        }
+
+
+        function updateFallbackHTML() {
+
+            fallbackTextarea.value = generateHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 9. Pop-out palette panel
+        // -----------------------------------------
+
+        function openPalettePanel(button) {
+
+            palettePanel.hidden = false;
+
+            paletteOpener = button;
+
+            updateColourTargetButtons();
+
+            // Start keyboard users on the selected swatch.
+
+            const selectedSwatch =
+                palettePanel.querySelector('.palette-swatch[aria-pressed="true"]') ||
+                palettePanel.querySelector(".palette-swatch");
+
+            selectedSwatch.focus();
+
+        }
+
+
+        function closePalettePanel(returnFocus) {
+
+            if (palettePanel.hidden) {
+                return;
+            }
+
+            palettePanel.hidden = true;
+
+            updateColourTargetButtons();
+
+            if (returnFocus && paletteOpener && !paletteOpener.disabled) {
+                paletteOpener.focus();
+            }
+
+        }
+
+
+        function handleColourTargetClick(event) {
+
+            const button = event.currentTarget;
+
+            const target = button.dataset.target;
+
+            // Clicking the open row again closes the palette.
+
+            if (!palettePanel.hidden && settings.activeColourTarget === target) {
+                closePalettePanel(true);
+                return;
+            }
+
+            selectColourTarget(target);
+
+            openPalettePanel(button);
+
+        }
+
+
+        function handleOutsideClick(event) {
+
+            if (
+                !palettePanel.hidden &&
+                !palettePanel.contains(event.target) &&
+                !event.target.closest(".colour-target")
+            ) {
+                closePalettePanel(false);
+            }
+
+        }
+
+
+        function handleEscapeKey(event) {
+
+            if (event.key === "Escape") {
+                closePalettePanel(true);
+            }
+
+        }
+
+
+        // -----------------------------------------
+        // 10. Copy HTML to the clipboard
+        // -----------------------------------------
+
+        function showCopiedFeedback() {
+
+            copyButton.classList.add("copy-button-success");
+
+            copyButtonLabel.textContent = "Copied!";
+
+            copyIcon.hidden = true;
+
+            checkIcon.hidden = false;
+
+            clearTimeout(copyFeedbackTimer);
+
+            // Return the button to normal after two seconds.
+
+            copyFeedbackTimer = setTimeout(function() {
+
+                copyButton.classList.remove("copy-button-success");
+
+                copyButtonLabel.textContent = "Copy HTML";
+
+                copyIcon.hidden = false;
+
+                checkIcon.hidden = true;
+
+            }, 2000);
+
+        }
+
+
+        async function copyHTML() {
+
+            const generatedHTML = generateHTML();
+
+            copyStatus.textContent = "";
+
+            try {
+
+                if (!navigator.clipboard || !navigator.clipboard.writeText) {
+                    throw new Error("Clipboard API unavailable");
+                }
+
+                await navigator.clipboard.writeText(generatedHTML);
+
+                // Only report success after copying succeeds.
+
+                copyStatus.textContent = "HTML copied—paste it into VS Code.";
+
+                fallbackContainer.hidden = true;
+
+                showCopiedFeedback();
+
+            } catch (error) {
+
+                // Offer a manual-copy alternative.
+
+                fallbackTextarea.value = generatedHTML;
+
+                fallbackContainer.hidden = false;
+
+                copyStatus.textContent =
+                    "Automatic copying is unavailable. Select and copy the HTML below.";
+
+                fallbackTextarea.focus();
+
+                fallbackTextarea.select();
+
+            }
+
+        }
+
+
+        // -----------------------------------------
+        // 11. Event listeners
+        // -----------------------------------------
+
+        appearanceOptions.forEach(function(option) {
+            option.addEventListener("change", handleAppearanceChange);
+        });
+
+        sectionPreview.addEventListener("click", preventPreviewNavigation);
+
+        [showIntro, cardBackground, headingLinks, imageLinks, h3Bold, h3Italic].forEach(function(control) {
+            control.addEventListener("change", updateSection);
+        });
+
+        optionRadios.forEach(function(option) {
+            option.addEventListener("change", handleOptionChange);
+        });
+
+        altInputs.forEach(function(input) {
+            input.addEventListener("input", handleAltInput);
+        });
+
+        colourTargetButtons.forEach(function(button) {
+            button.addEventListener("click", handleColourTargetClick);
+        });
+
+        paletteCloseButton.addEventListener("click", function() {
+            closePalettePanel(true);
+        });
+
+        document.addEventListener("pointerdown", handleOutsideClick);
+
+        document.addEventListener("keydown", handleEscapeKey);
+
+        editableElements.forEach(function(element) {
+
+            element.addEventListener("paste", handlePlainTextPaste);
+
+            element.addEventListener("keydown", preventLineBreak);
+
+            element.addEventListener("input", function() {
+                updateLinks();
+                updateFallbackHTML();
+            });
+
+        });
+
+        copyButton.addEventListener("click", copyHTML);
+
+
+        // -----------------------------------------
+        // 12. Initialise the application
+        // -----------------------------------------
+
+        createPaletteSwatchStyles();
+
+        buildColourPalette();
+
+        updateColourStyles();
+
+        updateSection();
+
+    </script>
+
+</body>
+</html>
