@@ -114,6 +114,35 @@
                 }
             }
 
+            /* Card buttons: the last item in each card. The card body stretches,
+               so buttons line up along the bottom of each row of cards. */
+            .three-col-card-body {
+                @apply flex flex-1 flex-col;
+            }
+
+            .three-col-buttons {
+                @apply mt-auto flex flex-wrap gap-4 pt-6;
+            }
+
+            /* A link styled as a button; its shape and colours are classes in the HTML. */
+            .three-col-button {
+                @apply inline-flex items-center justify-center gap-2 border-2 border-transparent px-7 py-3 text-base font-semibold no-underline transition-colors duration-200 focus-visible:outline-offset-4;
+            }
+
+            /* Optional icon after the button text */
+            .three-col-button-icon {
+                @apply size-5 shrink-0 transition-transform duration-200;
+            }
+
+            /* Arrows nudge in their direction on hover */
+            .three-col-button:hover .three-col-icon-nudge-right {
+                @apply motion-safe:translate-x-0.75;
+            }
+
+            .three-col-button:hover .three-col-icon-nudge-up-right {
+                @apply motion-safe:translate-x-0.5 motion-safe:-translate-y-0.5;
+            }
+
             /* Edited text stays plain and wraps safely */
             .three-col-intro h2,
             .three-col-intro p,
@@ -511,6 +540,42 @@
         /* Preview only: hidden intro and extra cards take up no space */
         .three-col [hidden] {
             display: none !important;
+        }
+
+        /* ---------- Button controls ---------- */
+
+        .button-options[hidden] {
+            display: none !important;
+        }
+
+        .button-options-label {
+            @apply mt-4 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500;
+        }
+
+        /* Icon picker: one box per icon */
+        .icon-picker {
+            @apply grid grid-cols-6 gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .icon-option {
+            @apply flex h-9 cursor-pointer items-center justify-center rounded-md text-slate-500 hover:text-slate-900;
+        }
+
+        .icon-option svg {
+            @apply size-5;
+        }
+
+        .icon-option-none {
+            @apply text-xs font-medium;
+        }
+
+        .icon-option:has(input:checked) {
+            @apply bg-white text-slate-900 shadow-sm;
+        }
+
+        .icon-option:has(input:focus-visible) {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
         }
 
         /* ---------- Copy buttons ---------- */
@@ -1112,6 +1177,186 @@
 
             </details>
 
+            <!-- Card buttons: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>Card buttons</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group">
+
+                <legend class="sr-only">
+                    A button at the bottom of each card
+                </legend>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Show buttons</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-button">
+                    </label>
+
+                </div>
+
+                <div id="button-options" class="button-options" hidden>
+
+                    <p id="button-shape-label" class="button-options-label">Shape</p>
+
+                    <div class="segmented segmented-3" role="radiogroup" aria-labelledby="button-shape-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-shape" value="rectangle" class="sr-only">
+                            <span>Rectangle</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-shape" value="rounded" class="sr-only" checked>
+                            <span>Rounded</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-shape" value="pill" class="sr-only">
+                            <span>Pill</span>
+                        </label>
+
+                    </div>
+
+                    <div class="controls-row">
+
+                        <label class="control-label">
+                            <span>Show icon</span>
+                            <input type="checkbox" role="switch" class="toggle-input" id="show-button-icon" checked>
+                        </label>
+
+                    </div>
+
+                    <div id="button-icon-options" class="button-options">
+
+                        <p id="button-icon-label" class="button-options-label">Icon</p>
+
+                        <div class="icon-picker" role="radiogroup" aria-labelledby="button-icon-label">
+
+                            <label class="icon-option icon-option-none" title="No icon">
+                                <input type="radio" name="button-icon" value="none" class="sr-only">
+                                <span>None</span>
+                            </label>
+
+                            <label class="icon-option" title="Right arrow">
+                                <input type="radio" name="button-icon" value="arrow-right" class="sr-only" checked>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                                <span class="sr-only">Right arrow</span>
+                            </label>
+
+                            <label class="icon-option" title="Right arrow in a circle">
+                                <input type="radio" name="button-icon" value="arrow-right-circle" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"/></svg>
+                                <span class="sr-only">Right arrow in a circle</span>
+                            </label>
+
+                            <label class="icon-option" title="Tick">
+                                <input type="radio" name="button-icon" value="check" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                                <span class="sr-only">Tick</span>
+                            </label>
+
+                            <label class="icon-option" title="Tick in a circle">
+                                <input type="radio" name="button-icon" value="check-circle" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"/></svg>
+                                <span class="sr-only">Tick in a circle</span>
+                            </label>
+
+                            <label class="icon-option" title="Shopping cart">
+                                <input type="radio" name="button-icon" value="shopping-cart" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/></svg>
+                                <span class="sr-only">Shopping cart</span>
+                            </label>
+
+                            <label class="icon-option" title="Envelope">
+                                <input type="radio" name="button-icon" value="envelope" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+                                <span class="sr-only">Envelope</span>
+                            </label>
+
+                            <label class="icon-option" title="Play">
+                                <input type="radio" name="button-icon" value="play" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
+                                <span class="sr-only">Play</span>
+                            </label>
+
+                            <label class="icon-option" title="Phone">
+                                <input type="radio" name="button-icon" value="phone" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+                                <span class="sr-only">Phone</span>
+                            </label>
+
+                            <label class="icon-option" title="Calendar">
+                                <input type="radio" name="button-icon" value="calendar" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+                                <span class="sr-only">Calendar</span>
+                            </label>
+
+                            <label class="icon-option" title="Download">
+                                <input type="radio" name="button-icon" value="download" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                                <span class="sr-only">Download</span>
+                            </label>
+
+                            <label class="icon-option" title="External link">
+                                <input type="radio" name="button-icon" value="external-link" class="sr-only">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                                <span class="sr-only">External link</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <p class="button-options-label">Button colours (all cards)</p>
+
+                    <div class="colour-targets" role="group" aria-label="Choose which button colour to change">
+
+                        <button
+                            type="button"
+                            class="colour-target"
+                            data-target="buttonBackground"
+                            aria-pressed="false"
+                            aria-expanded="false"
+                            aria-controls="palette-panel"
+                        >
+                            <span>Button background</span>
+                            <span class="colour-target-value">
+                                <span class="colour-chip" data-colour="slate-900"></span>
+                                <span class="colour-target-name">slate-900</span>
+                                <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="colour-target"
+                            data-target="buttonText"
+                            aria-pressed="false"
+                            aria-expanded="false"
+                            aria-controls="palette-panel"
+                        >
+                            <span>Button text</span>
+                            <span class="colour-target-value">
+                                <span class="colour-chip" data-colour="white"></span>
+                                <span class="colour-target-name">white</span>
+                                <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
         </aside>
 
         <!-- Pop-out colour palette (opened from the Colours rows) -->
@@ -1180,7 +1425,7 @@
                     </h2>
 
                     <p class="editing-instruction">
-                        Click any heading or paragraph to edit the text.
+                        Click any heading, paragraph or button to edit the text.
                     </p>
                 </div>
 
@@ -1258,6 +1503,17 @@
                                         spellcheck="false"
                                     >Our friendly baristas are waiting to pour your favourite beverage. We use only expertly selected coffee beans and tea leaves.</p>
 
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 1 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
+
                                 </div>
 
                             </article>
@@ -1294,6 +1550,17 @@
                                         aria-multiline="false"
                                         spellcheck="false"
                                     >Level up your look with our ever-changing selection of on-trend brands. We ship to almost everywhere in the world.</p>
+
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 2 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
 
                                 </div>
 
@@ -1332,6 +1599,17 @@
                                         spellcheck="false"
                                     >Supercharge your web design career with the Lunevedy: JavaScript for Beginners training course. All important topics covered.</p>
 
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 3 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
+
                                 </div>
 
                             </article>
@@ -1368,6 +1646,17 @@
                                         aria-multiline="false"
                                         spellcheck="false"
                                     >Our friendly baristas are waiting to pour your favourite beverage. We use only expertly selected coffee beans and tea leaves.</p>
+
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 4 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
 
                                 </div>
 
@@ -1406,6 +1695,17 @@
                                         spellcheck="false"
                                     >Level up your look with our ever-changing selection of on-trend brands. We ship to almost everywhere in the world.</p>
 
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 5 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
+
                                 </div>
 
                             </article>
@@ -1442,6 +1742,17 @@
                                         aria-multiline="false"
                                         spellcheck="false"
                                     >Supercharge your web design career with the Lunevedy: JavaScript for Beginners training course. All important topics covered.</p>
+
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 6 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
 
                                 </div>
 
@@ -1480,6 +1791,17 @@
                                         spellcheck="false"
                                     >Our friendly baristas are waiting to pour your favourite beverage. We use only expertly selected coffee beans and tea leaves.</p>
 
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 7 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
+
                                 </div>
 
                             </article>
@@ -1517,6 +1839,17 @@
                                         spellcheck="false"
                                     >Level up your look with our ever-changing selection of on-trend brands. We ship to almost everywhere in the world.</p>
 
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 8 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
+
                                 </div>
 
                             </article>
@@ -1553,6 +1886,17 @@
                                         aria-multiline="false"
                                         spellcheck="false"
                                     >Supercharge your web design career with the Lunevedy: JavaScript for Beginners training course. All important topics covered.</p>
+
+                                    <div class="three-col-buttons" hidden>
+                                        <a href="#" class="three-col-button" data-card-button><span
+                                            data-button-text
+                                            contenteditable="true"
+                                            role="textbox"
+                                            aria-label="Edit card 9 button text"
+                                            aria-multiline="false"
+                                            spellcheck="false"
+                                        >Learn more</span></a>
+                                    </div>
 
                                 </div>
 
@@ -1654,6 +1998,80 @@
         // Every sidebar radio group except Light/Dark: sizes, card count, H2 weight and style.
         const optionRadios = document.querySelectorAll('.app-sidebar input[type="radio"]:not([name="appearance"])');
 
+        // The button in each card (cards hidden by the card count keep theirs).
+        const cardButtonLinks = sectionPreview.querySelectorAll("[data-card-button]");
+
+        const showButton = document.getElementById("show-button");
+
+        const buttonOptions = document.getElementById("button-options");
+
+        const showButtonIcon = document.getElementById("show-button-icon");
+
+        const buttonIconOptions = document.getElementById("button-icon-options");
+
+        // Tailwind shades, lightest first (used for the hover colour).
+        const shadeOrder = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
+
+        // Button icons from Heroicons (MIT licence, heroicons.com).
+        // Each icon follows the button's text colour.
+        const buttonIcons = {
+            "arrow-right": {
+                label: "Right arrow",
+                nudge: "right",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3\"/>"
+            },
+            "arrow-right-circle": {
+                label: "Right arrow in a circle",
+                nudge: "right",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z\"/>"
+            },
+            "check": {
+                label: "Tick",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m4.5 12.75 6 6 9-13.5\"/>"
+            },
+            "check-circle": {
+                label: "Tick in a circle",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z\"/>"
+            },
+            "shopping-cart": {
+                label: "Shopping cart",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z\"/>"
+            },
+            "envelope": {
+                label: "Envelope",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75\"/>"
+            },
+            "play": {
+                label: "Play",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z\"/>"
+            },
+            "phone": {
+                label: "Phone",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z\"/>"
+            },
+            "calendar": {
+                label: "Calendar",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5\"/>"
+            },
+            "download": {
+                label: "Download",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3\"/>"
+            },
+            "external-link": {
+                label: "External link",
+                nudge: "up-right",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25\"/>"
+            }
+        };
+
         const h2Effects = document.getElementById("h2-effects");
 
         const h3Bold = document.getElementById("h3-bold");
@@ -1733,12 +2151,14 @@
             light: {
                 background: "white", heading: "black", intro: "black",
                 cardHeading: "black", cardText: "black", cardBackground: "slate-100",
-                cardLink: "blue-700", cardLinkHover: "blue-900"
+                cardLink: "blue-700", cardLinkHover: "blue-900",
+                buttonBackground: "slate-900", buttonText: "white"
             },
             dark: {
                 background: "slate-900", heading: "white", intro: "white",
                 cardHeading: "white", cardText: "white", cardBackground: "slate-800",
-                cardLink: "sky-300", cardLinkHover: "sky-100"
+                cardLink: "sky-300", cardLinkHover: "sky-100",
+                buttonBackground: "white", buttonText: "slate-900"
             }
         };
 
@@ -1750,7 +2170,9 @@
             cardText: "Card text colour: ",
             cardBackground: "Column background: ",
             cardLink: "H3 link colour: ",
-            cardLinkHover: "H3 link hover colour: "
+            cardLinkHover: "H3 link hover colour: ",
+            buttonBackground: "Button background: ",
+            buttonText: "Button text: "
         };
 
 
@@ -1769,6 +2191,14 @@
             headingLinks: headingLinks.checked,
 
             imageLinks: imageLinks.checked,
+
+            showButton: showButton.checked,
+
+            buttonShape: "rounded",
+
+            buttonIconEnabled: showButtonIcon.checked,
+
+            buttonIcon: "arrow-right",
 
             cardCount: 3,
 
@@ -1930,6 +2360,10 @@
                 return !settings.cardBackground;
             }
 
+            if (target === "buttonBackground" || target === "buttonText") {
+                return !settings.showButton;
+            }
+
             return false;
 
         }
@@ -2037,6 +2471,104 @@
         // 6. Layout, sizes and text effects
         // -----------------------------------------
 
+        function getHoverColour(colour) {
+
+            // One shade lighter for hover. The lightest shades (and white)
+            // have nothing lighter, so they go one shade darker instead.
+
+            if (colour === "white") {
+                return "slate-200";
+            }
+
+            if (colour === "black") {
+                return "slate-800";
+            }
+
+            const match = colour.match(/^([a-z]+)-(\d+)$/);
+
+            if (!match) {
+                return colour;
+            }
+
+            const index = shadeOrder.indexOf(match[2]);
+
+            return match[1] + "-" + shadeOrder[index > 0 ? index - 1 : 1];
+
+        }
+
+
+        function getButtonIcon() {
+
+            // The icon the button shows, or "none".
+
+            return settings.buttonIconEnabled ? settings.buttonIcon : "none";
+
+        }
+
+
+        function getIconSVG(name) {
+
+            // The full SVG for an icon, with its nudge class if it has one.
+
+            const icon = buttonIcons[name];
+
+            const nudgeClass = icon.nudge ? " three-col-icon-nudge-" + icon.nudge : "";
+
+            return `<svg class="three-col-button-icon${nudgeClass}" ${icon.svg}</svg>`;
+
+        }
+
+
+        function setPreviewIcon(button, name) {
+
+            // Only change the icon when it differs, so hover effects aren't interrupted.
+
+            if (button.dataset.icon === name) {
+                return;
+            }
+
+            button.dataset.icon = name;
+
+            const oldIcon = button.querySelector(".three-col-button-icon");
+
+            if (oldIcon) {
+                oldIcon.remove();
+            }
+
+            if (name !== "none") {
+                button.insertAdjacentHTML("beforeend", getIconSVG(name));
+            }
+
+        }
+
+
+        function getCardButtonHTML(card, classes) {
+
+            // A card's button: a link, with its icon after the text when there is one.
+
+            if (!settings.showButton) {
+                return "";
+            }
+
+            const buttonText = escapeHTML(card.querySelector("[data-button-text]").innerText.trim());
+
+            const iconName = getButtonIcon();
+
+            const linkHTML = iconName === "none"
+                ? `<a href="#" class="${classes.button}">${buttonText}</a>`
+                : `<a href="#" class="${classes.button}">
+                        ${buttonText}
+                        ${getIconSVG(iconName)}
+                    </a>`;
+
+            return `
+                <div class="three-col-buttons">
+                    ${linkHTML}
+                </div>`;
+
+        }
+
+
         function getSectionClasses() {
 
             // Block classes for the section: the layout options, plus its
@@ -2068,7 +2600,14 @@
                 card: join(["three-col-card", settings.cardBackground ? "bg-" + c.cardBackground : ""]),
                 cardHeading: join([settings.headingLinks ? "" : "text-" + c.cardHeading, settings.h3Bold ? "font-bold" : "", settings.h3Italic ? "italic" : ""]),
                 cardLink: join(["text-" + c.cardLink, "hover:text-" + c.cardLinkHover]),
-                cardText: "text-" + c.cardText
+                cardText: "text-" + c.cardText,
+                button: join([
+                    "three-col-button",
+                    { rectangle: "", rounded: "rounded-lg", pill: "rounded-full" }[settings.buttonShape],
+                    "bg-" + c.buttonBackground,
+                    "text-" + c.buttonText,
+                    "hover:bg-" + getHoverColour(c.buttonBackground)
+                ])
             };
 
         }
@@ -2098,6 +2637,22 @@
 
             });
 
+            // Card buttons: hidden while switched off; their text and choices are kept.
+
+            cardButtonLinks.forEach(function(button) {
+
+                button.className = classes.button;
+
+                button.parentElement.hidden = !settings.showButton;
+
+                setPreviewIcon(button, getButtonIcon());
+
+            });
+
+            buttonOptions.hidden = !settings.showButton;
+
+            buttonIconOptions.hidden = !settings.buttonIconEnabled;
+
         }
 
 
@@ -2110,6 +2665,10 @@
             settings.headingLinks = headingLinks.checked;
 
             settings.imageLinks = imageLinks.checked;
+
+            settings.showButton = showButton.checked;
+
+            settings.buttonIconEnabled = showButtonIcon.checked;
 
             updateLinks();
 
@@ -2278,6 +2837,10 @@
                 settings.h2Bold = value === "bold";
             } else if (name === "h2-style") {
                 settings.h2Italic = value === "italic";
+            } else if (name === "button-shape") {
+                settings.buttonShape = value;
+            } else if (name === "button-icon") {
+                settings.buttonIcon = value;
             } else {
                 const settingForGroup = {
                     "heading-size": "headingSize",
@@ -2412,7 +2975,7 @@
             ${settings.imageLinks ? `<a class="three-col-image-link" href="#"${imageAttributes}>${imageHTML}</a>` : imageHTML}
             <div class="three-col-card-body">
                 <h3${headingClass}>${settings.headingLinks ? `<a href="#" class="${classes.cardLink}">${headingText}</a>` : headingText}</h3>
-                <p class="${classes.cardText}">${escapeHTML(card.querySelector(".three-col-card-body p").innerText.trim())}</p>
+                <p class="${classes.cardText}">${escapeHTML(card.querySelector(".three-col-card-body p").innerText.trim())}</p>${getCardButtonHTML(card, classes)}
             </div>
         </article>`;
 
@@ -2664,7 +3227,7 @@ ${cardsHTML}
 
         sectionPreview.addEventListener("click", preventPreviewNavigation);
 
-        [showIntro, cardBackground, headingLinks, imageLinks, h3Bold, h3Italic].forEach(function(control) {
+        [showIntro, cardBackground, headingLinks, imageLinks, showButton, showButtonIcon, h3Bold, h3Italic].forEach(function(control) {
             control.addEventListener("change", updateSection);
         });
 

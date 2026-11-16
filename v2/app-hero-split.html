@@ -1,0 +1,3924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Split Hero Generator</title>
+
+    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Hero block CSS: the same for every hero. Choices (colours,
+         fonts, letter spacing) are Tailwind classes in the HTML. -->
+    <style type="text/tailwindcss" id="block-styles">
+        @layer components {
+
+            .hero {
+                @apply flex w-full items-center justify-center px-6 py-16 md:px-12 md:py-20;
+            }
+
+            /* Two columns from lg (1024px): text and image side by side,
+               vertically centred. Below lg they stack, text first. */
+            .hero-split-grid {
+                @apply mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16;
+            }
+
+            .hero-content {
+                @apply w-full min-w-0;
+            }
+
+            /* "Image on left": add hero-split-reverse to the header */
+            .hero-split-reverse .hero-split-media {
+                @apply lg:order-first;
+            }
+
+            /* Image: fills its column at its natural 4:3 shape */
+            .hero-split-image {
+                @apply block h-auto w-full;
+            }
+
+            /* "Image fills column": add hero-split-fill to the header. The image
+               runs edge to edge and is cropped to fit (object-cover); the text
+               keeps its padding. On phones the image sits on top at 4:3. */
+            .hero-split-fill {
+                @apply items-stretch p-0 md:p-0;
+            }
+
+            .hero-split-fill .hero-split-grid {
+                @apply max-w-none items-stretch gap-0 lg:gap-0;
+            }
+
+            .hero-split-fill .hero-content {
+                @apply max-w-xl self-center justify-self-center px-6 py-16 md:px-12 md:py-20 lg:px-16;
+            }
+
+            .hero-split-fill .hero-split-media {
+                @apply relative aspect-[4/3] max-lg:order-first lg:aspect-auto;
+            }
+
+            .hero-split-fill .hero-split-image {
+                @apply absolute inset-0 h-full w-full object-cover;
+            }
+
+            .hero-min-height {
+                @apply min-h-[480px] md:min-h-[85vh];
+            }
+
+            .hero h1 {
+                @apply font-sans text-4xl font-normal leading-[1.15] tracking-tight md:text-5xl xl:text-6xl;
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
+            .hero h2 {
+                @apply mt-6 font-sans text-lg font-normal leading-normal md:text-xl;
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
+            /* Badge: a short label above the H1. Its shape and colours
+               are classes in the HTML. */
+            .hero-badge {
+                @apply mb-6 inline-block px-3 py-1.5 text-sm font-normal;
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
+            /* Buttons: links styled as buttons */
+            .hero-buttons {
+                @apply mt-10 flex flex-wrap gap-4 md:gap-x-6;
+            }
+
+            .hero-button {
+                @apply inline-flex items-center justify-center gap-2 border-2 border-transparent px-7 py-3 text-base font-semibold no-underline transition-colors duration-200 focus-visible:outline-offset-4;
+            }
+
+            .hero-button-secondary {
+                @apply bg-transparent;
+            }
+
+            /* Optional icon after the button text */
+            .hero-button-icon {
+                @apply size-5 shrink-0 transition-transform duration-200;
+            }
+
+            /* Arrows nudge in their direction on hover */
+            .hero-button:hover .hero-icon-nudge-right {
+                @apply motion-safe:translate-x-0.75;
+            }
+
+            .hero-button:hover .hero-icon-nudge-up-right {
+                @apply motion-safe:translate-x-0.5 motion-safe:-translate-y-0.5;
+            }
+
+            /* Text animations: the H2 and buttons start slightly after the H1. */
+
+            .hero-animate-from-bottom .hero-badge,
+            .hero-animate-from-bottom h1,
+            .hero-animate-from-bottom h2,
+            .hero-animate-from-bottom .hero-buttons {
+                animation: hero-from-bottom 0.8s ease-out both;
+            }
+
+            .hero-animate-from-left .hero-badge,
+            .hero-animate-from-left h1,
+            .hero-animate-from-left h2,
+            .hero-animate-from-left .hero-buttons {
+                animation: hero-from-left 0.8s ease-out both;
+            }
+
+            .hero-animate-from-right .hero-badge,
+            .hero-animate-from-right h1,
+            .hero-animate-from-right h2,
+            .hero-animate-from-right .hero-buttons {
+                animation: hero-from-right 0.8s ease-out both;
+            }
+
+            .hero-animate-fade .hero-badge,
+            .hero-animate-fade h1,
+            .hero-animate-fade h2,
+            .hero-animate-fade .hero-buttons {
+                animation: hero-fade 1s ease-out both;
+            }
+
+            .hero-animate-scale .hero-badge,
+            .hero-animate-scale h1,
+            .hero-animate-scale h2,
+            .hero-animate-scale .hero-buttons {
+                animation: hero-scale 0.8s ease-out both;
+            }
+
+            .hero[class*="hero-animate-"] h2 {
+                animation-delay: 0.15s;
+            }
+
+            .hero[class*="hero-animate-"] .hero-buttons {
+                animation-delay: 0.3s;
+            }
+
+            /* Stop sideways slides causing a horizontal scrollbar */
+            .hero-animate-from-left,
+            .hero-animate-from-right {
+                overflow-x: clip;
+            }
+
+            /* Respect visitors who prefer reduced motion */
+            @media (prefers-reduced-motion: reduce) {
+                .hero .hero-badge,
+                .hero h1,
+                .hero h2,
+                .hero .hero-buttons {
+                    animation: none !important;
+                }
+            }
+
+        }
+
+        @keyframes hero-from-bottom {
+            from { opacity: 0; transform: translateY(1.5rem); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        @keyframes hero-from-left {
+            from { opacity: 0; transform: translateX(-2rem); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        @keyframes hero-from-right {
+            from { opacity: 0; transform: translateX(2rem); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        @keyframes hero-fade {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes hero-scale {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: none; }
+        }
+    </style>
+
+    <!-- Direction wheel display: editor only -->
+    <style id="direction-dial-styles"></style>
+
+    <!-- Palette swatch colours -->
+    <style type="text/tailwindcss" id="palette-swatch-styles"></style>
+
+    <!-- Editor interface styles: excluded from exported HTML -->
+    <style type="text/tailwindcss" id="editor-styles">
+
+        /* ---------- Home link (back to the list of generators) ---------- */
+
+        .home-link {
+            @apply mb-3 inline-flex items-center gap-1 rounded text-sm font-medium text-slate-500 hover:text-slate-900;
+        }
+
+        .home-link:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* ---------- Page layout: sidebar + main area ---------- */
+
+        .app-container {
+            @apply min-h-screen bg-slate-100 text-slate-900;
+        }
+
+        .app-layout {
+            @apply grid min-h-screen grid-cols-[20rem_1fr];
+        }
+
+        .app-sidebar {
+            @apply sticky top-0 flex h-screen flex-col gap-8 overflow-y-auto border-r border-slate-200 bg-white px-6 py-6;
+        }
+
+        .app-main {
+            @apply min-w-0 px-8 py-6;
+        }
+
+        /* ---------- Sidebar header ---------- */
+
+        .app-title {
+            @apply text-xl font-bold tracking-tight;
+        }
+
+        .app-description {
+            @apply mt-1 text-sm leading-relaxed text-slate-600;
+        }
+
+        /* ---------- Settings ---------- */
+
+        .controls-heading {
+            @apply mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500;
+        }
+
+        .controls-row {
+            @apply flex flex-col divide-y divide-slate-100;
+        }
+
+        .control-label {
+            @apply flex cursor-pointer items-center justify-between gap-4 py-3 text-sm font-medium text-slate-700;
+        }
+
+        /* Native checkbox restyled as a toggle switch */
+        .toggle-input {
+            @apply relative h-6 w-10 shrink-0 cursor-pointer appearance-none rounded-full bg-slate-300 transition-colors;
+        }
+
+        .toggle-input::before {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 9999px;
+            background-color: var(--color-white);
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+            transition: transform 150ms ease;
+        }
+
+        .toggle-input:checked {
+            @apply bg-slate-900;
+        }
+
+        .toggle-input:checked::before {
+            transform: translateX(16px);
+        }
+
+        .toggle-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        /* Keep switches visible in Windows high-contrast mode */
+        @media (forced-colors: active) {
+            .toggle-input {
+                border: 1px solid CanvasText;
+            }
+            .toggle-input::before {
+                background-color: CanvasText;
+            }
+        }
+
+        /* ---------- Hero colour targets ---------- */
+
+        .colour-target {
+            @apply -mx-2 flex w-[calc(100%+1rem)] cursor-pointer items-center justify-between gap-3 rounded-md px-2 py-2.5 text-left text-sm font-medium text-slate-700 hover:bg-slate-50;
+        }
+
+        /* Highlight the target whose palette is open */
+        .colour-target[aria-expanded="true"] {
+            @apply bg-slate-100 text-slate-900;
+        }
+
+        .colour-target:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .colour-target:disabled {
+            @apply cursor-not-allowed opacity-40 hover:bg-transparent;
+        }
+
+        .colour-target-value {
+            @apply flex items-center gap-2 font-mono text-xs text-slate-500;
+        }
+
+        .colour-chip {
+            @apply h-5 w-5 shrink-0 rounded-md border border-slate-900/15;
+        }
+
+        .colour-target-arrow {
+            @apply h-4 w-4 shrink-0 text-slate-400;
+        }
+
+        .colour-target[hidden],
+        .gradient-controls[hidden] {
+            display: none;
+        }
+
+        /* ---------- Gradient controls ---------- */
+
+        .gradient-controls {
+            @apply mt-1 flex flex-col divide-y divide-slate-100 border-t border-slate-100;
+        }
+
+        .direction-control {
+            @apply flex items-center gap-4 py-3;
+        }
+
+        /* Circular wheel; its gradient preview and pointer angle
+           are written into #direction-dial-styles by JavaScript. */
+        .direction-dial {
+            @apply relative h-20 w-20 shrink-0 cursor-grab touch-none select-none rounded-full border-4 border-white bg-slate-200 shadow ring-1 ring-slate-300;
+        }
+
+        .direction-dial:active {
+            cursor: grabbing;
+        }
+
+        .direction-dial:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        .direction-dial-pointer {
+            @apply absolute inset-0;
+        }
+
+        /* Line from the centre to the knob */
+        .direction-dial-pointer::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0.75rem;
+            bottom: 50%;
+            width: 2px;
+            transform: translateX(-50%);
+            background-color: white;
+            box-shadow: 0 0 0 1px rgb(15 23 42 / 0.5);
+        }
+
+        .direction-dial-knob {
+            @apply absolute left-1/2 top-0.5 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-white ring-2 ring-slate-900;
+        }
+
+        .direction-dial-centre {
+            @apply absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white ring-2 ring-slate-900;
+        }
+
+        .direction-text {
+            @apply flex flex-col items-start gap-1;
+        }
+
+        .direction-hint {
+            @apply text-xs leading-snug text-slate-500;
+        }
+
+        /* ---------- Text animation ---------- */
+
+        .radio-input {
+            @apply h-4 w-4 shrink-0 cursor-pointer accent-slate-900;
+        }
+
+        .radio-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        .replay-button {
+            @apply mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white;
+        }
+
+        .replay-button svg {
+            @apply h-4 w-4;
+        }
+
+        .replay-button:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* ---------- Pop-out palette panel ---------- */
+
+        .palette-panel {
+            @apply fixed top-6 z-40 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-5 shadow-xl;
+            left: calc(20rem + 1rem);
+        }
+
+        .palette-panel[hidden] {
+            display: none;
+        }
+
+        .palette-panel-header {
+            @apply mb-4 flex items-start justify-between gap-6;
+        }
+
+        .palette-panel-title {
+            @apply text-sm font-semibold text-slate-800;
+        }
+
+        .active-colour-description {
+            @apply mt-1 font-mono text-xs text-slate-600;
+        }
+
+        .palette-close {
+            @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-900;
+        }
+
+        .palette-close svg {
+            @apply h-4 w-4;
+        }
+
+        .palette-close:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .palette-section-title {
+            @apply mb-2 mt-5 text-sm font-semibold text-slate-800;
+        }
+
+        .palette-viewport {
+            max-width: 100%;
+            overflow-x: auto;
+            overscroll-behavior-x: contain;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: 6rem repeat(11, 2.25rem);
+            min-width: max-content;
+            gap: 4px;
+            padding: 8px;
+        }
+
+        .palette-column-heading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2rem;
+            color: #475569;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .palette-row-heading {
+            display: flex;
+            align-items: center;
+            padding-left: 4px;
+            color: #334155;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .palette-swatch {
+            width: 2.25rem;
+            height: 2.25rem;
+            border: 1px solid rgb(15 23 42 / 15%);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .palette-swatch:hover {
+            outline: 2px solid #64748b;
+            outline-offset: 1px;
+        }
+
+        .palette-swatch[aria-pressed="true"] {
+            outline: 3px solid #0f172a;
+            outline-offset: 2px;
+            box-shadow: inset 0 0 0 2px white;
+        }
+
+        .palette-swatch:focus-visible {
+            outline: 3px solid #2563eb;
+            outline-offset: 3px;
+        }
+
+        .palette-special-grid {
+            display: grid;
+            grid-template-columns: 6rem repeat(2, 2.25rem);
+            gap: 4px;
+            width: max-content;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        /* ---------- H1 / H2 text-effect groups ---------- */
+
+        /* Collapsible wrapper */
+        .effects-section {
+            @apply -mt-4 border-t border-slate-200 pt-4;
+        }
+
+        .effects-summary {
+            @apply flex cursor-pointer list-none items-center justify-between rounded-md text-xs font-semibold uppercase tracking-wider text-slate-500 hover:text-slate-800;
+        }
+
+        /* Hide the browser's default triangle */
+        .effects-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .effects-summary:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 4px;
+        }
+
+        .effects-chevron {
+            @apply h-4 w-4 shrink-0 transition-transform;
+        }
+
+        .effects-section[open] .effects-chevron {
+            @apply rotate-180;
+        }
+
+        .effects-section[open] .effects-summary {
+            @apply mb-2 text-slate-800;
+        }
+
+        /* Dim the H2 heading while "Show subheading" is off */
+        .effects-section:has(.effects-group:disabled) .effects-summary {
+            @apply opacity-50;
+        }
+
+        .effects-group {
+            @apply min-w-0 border-0 p-0;
+        }
+
+        .effects-group:disabled {
+            @apply opacity-50;
+        }
+
+        .effects-group:disabled * {
+            cursor: not-allowed;
+        }
+
+        /* Only shown while the H2 group is disabled */
+        .effects-hint {
+            @apply hidden pb-1 text-xs text-slate-500;
+        }
+
+        .effects-group:disabled .effects-hint {
+            @apply block;
+        }
+
+        .spacing-control {
+            @apply flex flex-col gap-2 py-3;
+        }
+
+        .spacing-label-row {
+            @apply flex items-center justify-between gap-3;
+        }
+
+        .spacing-label {
+            @apply text-sm font-medium text-slate-700;
+        }
+
+        .spacing-value {
+            @apply rounded-md bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700 tabular-nums;
+        }
+
+        .spacing-slider {
+            @apply w-full cursor-pointer accent-slate-900;
+        }
+
+        .spacing-slider:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 4px;
+        }
+
+        /* ---------- Preview ---------- */
+
+        .preview-toolbar {
+            @apply mb-3 flex items-baseline justify-between gap-4;
+        }
+
+        .preview-label {
+            @apply text-sm font-semibold text-slate-800;
+        }
+
+        .editing-instruction {
+            @apply text-sm text-slate-500;
+        }
+
+        /* Fake browser window around the hero */
+        .browser-frame {
+            @apply overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm;
+        }
+
+        .browser-bar {
+            @apply flex items-center gap-3 border-b border-slate-200 bg-slate-50 px-4 py-2.5;
+        }
+
+        .browser-dots {
+            @apply flex gap-1.5;
+        }
+
+        .browser-dots span {
+            @apply h-3 w-3 rounded-full bg-slate-300;
+        }
+
+        .browser-address {
+            @apply flex-1 rounded-md bg-white px-3 py-1 text-xs text-slate-500 ring-1 ring-slate-200;
+        }
+
+        /* ---------- Editable headings ---------- */
+
+        .hero h2[hidden] {
+            display: none !important;
+        }
+
+        .hero [contenteditable="true"] {
+            cursor: text;
+        }
+
+        /* Buttons keep their own corner shape while being edited */
+        .hero h1[contenteditable="true"],
+        .hero h2[contenteditable="true"] {
+            border-radius: 4px;
+        }
+
+        .hero-badge[hidden],
+        .hero-buttons[hidden],
+        .hero-button[hidden],
+        .button-options[hidden] {
+            display: none !important;
+        }
+
+        .size-control-label {
+            @apply mb-2 mt-4 block text-sm font-medium text-slate-700;
+        }
+
+        .text-input {
+            @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800;
+        }
+
+        .text-input:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 1px;
+        }
+
+        .controls-note {
+            @apply mt-2 text-xs text-slate-500;
+        }
+
+        .button-options-label {
+            @apply mt-4 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500;
+        }
+
+        .segmented.segmented-3 {
+            @apply grid-cols-3;
+        }
+
+        /* Icon picker: one box per icon */
+        .icon-picker {
+            @apply grid grid-cols-6 gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .icon-option {
+            @apply flex h-9 cursor-pointer items-center justify-center rounded-md text-slate-500 hover:text-slate-900;
+        }
+
+        .icon-option svg {
+            @apply size-5;
+        }
+
+        .icon-option-none {
+            @apply text-xs font-medium;
+        }
+
+        .icon-option:has(input:checked) {
+            @apply bg-white text-slate-900 shadow-sm;
+        }
+
+        .icon-option:has(input:focus-visible) {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* Side-by-side choice boxes */
+        .segmented {
+            @apply grid grid-cols-2 gap-1 rounded-lg bg-slate-100 p-1;
+        }
+
+        .segmented-option {
+            @apply cursor-pointer rounded-md px-3 py-1.5 text-center text-sm font-medium text-slate-600 hover:text-slate-900;
+        }
+
+        .segmented-option:has(input:checked) {
+            @apply bg-white text-slate-900 shadow-sm;
+        }
+
+        .segmented-option:has(input:focus-visible) {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        .hero [contenteditable="true"]:hover {
+            outline: 2px dashed #94a3b8;
+            outline-offset: 5px;
+        }
+
+        .hero [contenteditable="true"]:focus {
+            outline: 3px solid #3b82f6;
+            outline-offset: 5px;
+        }
+
+        /* ---------- Copy buttons ---------- */
+
+        .action-buttons {
+            @apply fixed bottom-5 right-5 z-50 flex gap-3;
+        }
+
+        .action-button {
+            @apply inline-flex min-w-36 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        }
+
+        .action-button[hidden] {
+            display: none;
+        }
+
+        .action-button svg {
+            @apply h-4 w-4 shrink-0;
+        }
+
+        .action-button svg[hidden] {
+            display: none;
+        }
+
+        .action-primary {
+            @apply bg-slate-900 text-white hover:bg-slate-700;
+        }
+
+        .action-css {
+            @apply bg-blue-600 text-white hover:bg-blue-700;
+        }
+
+        .action-js {
+            @apply bg-violet-600 text-white hover:bg-violet-700;
+        }
+
+        .action-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Shown briefly after a successful copy */
+        .action-success {
+            @apply bg-emerald-600 text-white ring-0 hover:bg-emerald-600;
+        }
+
+        /* ---------- Status and manual-copy fallback ---------- */
+
+        .status-message {
+            @apply mt-4 text-sm text-slate-700;
+        }
+
+        .fallback-container {
+            @apply mt-4;
+        }
+
+        .fallback-label {
+            @apply mb-2 block text-sm font-semibold text-slate-800;
+        }
+
+        .fallback-textarea {
+            @apply min-h-64 w-full rounded-xl border border-slate-300 bg-white p-4 font-mono text-xs leading-relaxed text-slate-800 focus-visible:outline-2 focus-visible:outline-blue-500;
+        }
+
+        .page-bottom-space {
+            @apply h-28;
+        }
+
+    </style>
+</head>
+
+<body class="app-container">
+
+    <div class="app-layout">
+
+        <!-- Sidebar: app intro and settings -->
+        <aside class="app-sidebar">
+
+            <header>
+                <a class="home-link" href="index.html">← Home</a>
+                <h1 class="app-title">Split Hero Generator</h1>
+
+                <p class="app-description">
+                    Create a hero with text on one side and an image on the other.
+                    Edit the headings directly and copy your HTML when ready.
+                </p>
+            </header>
+
+            <section aria-labelledby="controls-heading">
+
+                <h2 id="controls-heading" class="controls-heading">
+                    Hero settings
+                </h2>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Dark appearance preset</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="dark-appearance">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Image on left</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="image-left">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Show subheading</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-subheading" checked>
+                    </label>
+
+                </div>
+
+            </section>
+
+            <!-- Image -->
+            <section aria-labelledby="image-heading">
+
+                <h2 id="image-heading" class="controls-heading">
+                    Image
+                </h2>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Image fills column</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="image-fill">
+                    </label>
+
+                </div>
+
+                <span id="image-format-label" class="size-control-label">Format (4:3)</span>
+
+                <div class="segmented" role="radiogroup" aria-labelledby="image-format-label">
+
+                    <label class="segmented-option">
+                        <input type="radio" name="image-format" value="jpg" class="sr-only" checked>
+                        <span>JPG</span>
+                    </label>
+
+                    <label class="segmented-option">
+                        <input type="radio" name="image-format" value="png" class="sr-only">
+                        <span>Transparent PNG</span>
+                    </label>
+
+                </div>
+
+                <label class="size-control-label" for="image-alt">Alt text</label>
+
+                <input type="text" id="image-alt" class="text-input" value="Placeholder image">
+
+                <p class="controls-note">
+                    Describe what the image shows. Leave empty if it is purely decorative.
+                </p>
+
+            </section>
+
+            <!-- Hero colours: each row opens the palette panel -->
+            <section aria-labelledby="colour-panel-title">
+
+                <h2 id="colour-panel-title" class="controls-heading">
+                    Hero colours
+                </h2>
+
+                <div class="controls-row">
+                    <label class="control-label">
+                        <span>Gradient background</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="gradient-background">
+                    </label>
+                </div>
+
+                <div class="colour-targets" role="group" aria-label="Choose which element to colour">
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="background"
+                        aria-pressed="true"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>Background</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="slate-50"></span>
+                            <span class="colour-target-name">slate-50</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="start"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                        hidden
+                    >
+                        <span>Start colour</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="slate-50"></span>
+                            <span class="colour-target-name">slate-50</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="end"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                        hidden
+                    >
+                        <span>End colour</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="blue-500"></span>
+                            <span class="colour-target-name">blue-500</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="h1"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>H1</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="slate-900"></span>
+                            <span class="colour-target-name">slate-900</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        class="colour-target"
+                        data-target="h2"
+                        aria-pressed="false"
+                        aria-expanded="false"
+                        aria-controls="palette-panel"
+                    >
+                        <span>H2</span>
+                        <span class="colour-target-value">
+                            <span class="colour-chip" data-colour="slate-700"></span>
+                            <span class="colour-target-name">slate-700</span>
+                            <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </span>
+                    </button>
+
+                </div>
+
+                <!-- Gradient direction and midpoint (shown when gradient is on) -->
+                <div id="gradient-controls" class="gradient-controls" hidden>
+
+                    <div class="direction-control">
+
+                        <div
+                            id="gradient-direction-dial"
+                            class="direction-dial"
+                            role="slider"
+                            tabindex="0"
+                            aria-label="Gradient direction"
+                            aria-valuemin="0"
+                            aria-valuemax="359"
+                            aria-valuenow="135"
+                            aria-valuetext="135 degrees"
+                        >
+                            <span class="direction-dial-pointer" aria-hidden="true">
+                                <span class="direction-dial-knob"></span>
+                            </span>
+                            <span class="direction-dial-centre" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="direction-text">
+                            <span class="spacing-label">Direction</span>
+                            <output id="gradient-direction-value" class="spacing-value">135°</output>
+                            <span class="direction-hint">Drag the wheel or use the arrow keys. Hold Shift to snap.</span>
+                        </div>
+
+                    </div>
+
+                    <div class="spacing-control">
+
+                        <div class="spacing-label-row">
+                            <label class="spacing-label" for="gradient-midpoint">
+                                Midpoint
+                            </label>
+
+                            <output
+                                id="gradient-midpoint-value"
+                                class="spacing-value"
+                                for="gradient-midpoint"
+                            >50%</output>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="gradient-midpoint"
+                            class="spacing-slider"
+                            min="5"
+                            max="95"
+                            step="1"
+                            value="50"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- H1 effects: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>H1 text effects</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group">
+
+                <legend class="sr-only">
+                    H1 text effects
+                </legend>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Serif font</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h1-serif">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Bold</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h1-bold" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>Italic</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h1-italic">
+                    </label>
+
+                    <div class="spacing-control">
+
+                        <div class="spacing-label-row">
+                            <label class="spacing-label" for="h1-letter-spacing">
+                                Letter spacing
+                            </label>
+
+                            <output
+                                id="h1-spacing-value"
+                                class="spacing-value"
+                                for="h1-letter-spacing"
+                                aria-live="polite"
+                            >-0.050em</output>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="h1-letter-spacing"
+                            class="spacing-slider"
+                            min="-0.05"
+                            max="0.10"
+                            step="0.005"
+                            value="-0.05"
+                            aria-label="H1 letter spacing"
+                        >
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
+            <!-- H2 effects: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>H2 text effects</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group" id="h2-effects">
+
+                <legend class="sr-only">
+                    H2 text effects
+                </legend>
+
+                <p class="effects-hint">
+                    Turn on “Show subheading” to edit these.
+                </p>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Serif font</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h2-serif">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Bold</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h2-bold">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Italic</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="h2-italic">
+                    </label>
+
+                    <div class="spacing-control">
+
+                        <div class="spacing-label-row">
+                            <label class="spacing-label" for="h2-letter-spacing">
+                                Letter spacing
+                            </label>
+
+                            <output
+                                id="h2-spacing-value"
+                                class="spacing-value"
+                                for="h2-letter-spacing"
+                                aria-live="polite"
+                            >-0.025em</output>
+                        </div>
+
+                        <input
+                            type="range"
+                            id="h2-letter-spacing"
+                            class="spacing-slider"
+                            min="-0.05"
+                            max="0.10"
+                            step="0.005"
+                            value="-0.025"
+                            aria-label="H2 letter spacing"
+                        >
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
+            <!-- Badge: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>Badge</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group">
+
+                <legend class="sr-only">
+                    Badge above the H1
+                </legend>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Show badge</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-badge">
+                    </label>
+
+                </div>
+
+                <div id="badge-options" class="button-options" hidden>
+
+                    <p id="badge-shape-label" class="button-options-label">Shape</p>
+
+                    <div class="segmented segmented-3" role="radiogroup" aria-labelledby="badge-shape-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="badge-shape" value="rectangle" class="sr-only">
+                            <span>Rectangle</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="badge-shape" value="rounded" class="sr-only" checked>
+                            <span>Rounded</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="badge-shape" value="pill" class="sr-only">
+                            <span>Pill</span>
+                        </label>
+
+                    </div>
+
+                    <p id="badge-weight-label" class="button-options-label">Text weight</p>
+
+                    <div class="segmented" role="radiogroup" aria-labelledby="badge-weight-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="badge-weight" value="bold" class="sr-only" checked>
+                            <span>Bold</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="badge-weight" value="normal" class="sr-only">
+                            <span>Normal</span>
+                        </label>
+
+                    </div>
+
+                    <p class="button-options-label">Badge colours</p>
+
+                    <div class="colour-targets" role="group" aria-label="Choose which badge colour to change">
+
+                        <button
+                            type="button"
+                            class="colour-target"
+                            data-target="badge-background"
+                            aria-pressed="false"
+                            aria-expanded="false"
+                            aria-controls="palette-panel"
+                        >
+                            <span>Badge background</span>
+                            <span class="colour-target-value">
+                                <span class="colour-chip" data-colour="black"></span>
+                                <span class="colour-target-name">black</span>
+                                <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="colour-target"
+                            data-target="badge-text"
+                            aria-pressed="false"
+                            aria-expanded="false"
+                            aria-controls="palette-panel"
+                        >
+                            <span>Badge text</span>
+                            <span class="colour-target-value">
+                                <span class="colour-chip" data-colour="white"></span>
+                                <span class="colour-target-name">white</span>
+                                <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
+            <!-- Buttons: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>Buttons</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group">
+
+                <legend class="sr-only">
+                    Hero buttons
+                </legend>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>Show buttons</span>
+                        <input type="checkbox" role="switch" class="toggle-input" id="show-buttons" checked>
+                    </label>
+
+                </div>
+
+                <div id="button-options" class="button-options" hidden>
+
+                    <p id="button-count-label" class="button-options-label">Number of buttons</p>
+
+                    <div class="segmented" role="radiogroup" aria-labelledby="button-count-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-count" value="1" class="sr-only">
+                            <span>One button</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-count" value="2" class="sr-only" checked>
+                            <span>Two buttons</span>
+                        </label>
+
+                    </div>
+
+                    <p id="button-shape-label" class="button-options-label">Shape</p>
+
+                    <div class="segmented segmented-3" role="radiogroup" aria-labelledby="button-shape-label">
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-shape" value="rectangle" class="sr-only">
+                            <span>Rectangle</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-shape" value="rounded" class="sr-only" checked>
+                            <span>Rounded</span>
+                        </label>
+
+                        <label class="segmented-option">
+                            <input type="radio" name="button-shape" value="pill" class="sr-only">
+                            <span>Pill</span>
+                        </label>
+
+                    </div>
+
+                    <div class="controls-row">
+
+                        <label class="control-label">
+                            <span>Show icons</span>
+                            <input type="checkbox" role="switch" class="toggle-input" id="show-icons">
+                        </label>
+
+                    </div>
+
+                    <div id="icon-options" class="button-options" hidden>
+
+                    <p id="primary-icon-label" class="button-options-label">Primary icon</p>
+
+                    <div class="icon-picker" role="radiogroup" aria-labelledby="primary-icon-label">
+
+                        <label class="icon-option icon-option-none" title="No icon">
+                            <input type="radio" name="primary-icon" value="none" class="sr-only">
+                            <span>None</span>
+                        </label>
+
+                        <label class="icon-option" title="Right arrow">
+                            <input type="radio" name="primary-icon" value="arrow-right" class="sr-only" checked>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                            <span class="sr-only">Right arrow</span>
+                        </label>
+
+                        <label class="icon-option" title="Right arrow in a circle">
+                            <input type="radio" name="primary-icon" value="arrow-right-circle" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"/></svg>
+                            <span class="sr-only">Right arrow in a circle</span>
+                        </label>
+
+                        <label class="icon-option" title="Tick">
+                            <input type="radio" name="primary-icon" value="check" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            <span class="sr-only">Tick</span>
+                        </label>
+
+                        <label class="icon-option" title="Tick in a circle">
+                            <input type="radio" name="primary-icon" value="check-circle" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"/></svg>
+                            <span class="sr-only">Tick in a circle</span>
+                        </label>
+
+                        <label class="icon-option" title="Shopping cart">
+                            <input type="radio" name="primary-icon" value="shopping-cart" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/></svg>
+                            <span class="sr-only">Shopping cart</span>
+                        </label>
+
+                        <label class="icon-option" title="Envelope">
+                            <input type="radio" name="primary-icon" value="envelope" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+                            <span class="sr-only">Envelope</span>
+                        </label>
+
+                        <label class="icon-option" title="Play">
+                            <input type="radio" name="primary-icon" value="play" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
+                            <span class="sr-only">Play</span>
+                        </label>
+
+                        <label class="icon-option" title="Phone">
+                            <input type="radio" name="primary-icon" value="phone" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+                            <span class="sr-only">Phone</span>
+                        </label>
+
+                        <label class="icon-option" title="Calendar">
+                            <input type="radio" name="primary-icon" value="calendar" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+                            <span class="sr-only">Calendar</span>
+                        </label>
+
+                        <label class="icon-option" title="Download">
+                            <input type="radio" name="primary-icon" value="download" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                            <span class="sr-only">Download</span>
+                        </label>
+
+                        <label class="icon-option" title="External link">
+                            <input type="radio" name="primary-icon" value="external-link" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                            <span class="sr-only">External link</span>
+                        </label>
+
+                    </div>
+
+                        <div id="secondary-icon-group" class="button-options">
+
+                    <p id="secondary-icon-label" class="button-options-label">Secondary icon</p>
+
+                    <div class="icon-picker" role="radiogroup" aria-labelledby="secondary-icon-label">
+
+                        <label class="icon-option icon-option-none" title="No icon">
+                            <input type="radio" name="secondary-icon" value="none" class="sr-only">
+                            <span>None</span>
+                        </label>
+
+                        <label class="icon-option" title="Right arrow">
+                            <input type="radio" name="secondary-icon" value="arrow-right" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                            <span class="sr-only">Right arrow</span>
+                        </label>
+
+                        <label class="icon-option" title="Right arrow in a circle">
+                            <input type="radio" name="secondary-icon" value="arrow-right-circle" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"/></svg>
+                            <span class="sr-only">Right arrow in a circle</span>
+                        </label>
+
+                        <label class="icon-option" title="Tick">
+                            <input type="radio" name="secondary-icon" value="check" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            <span class="sr-only">Tick</span>
+                        </label>
+
+                        <label class="icon-option" title="Tick in a circle">
+                            <input type="radio" name="secondary-icon" value="check-circle" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"/></svg>
+                            <span class="sr-only">Tick in a circle</span>
+                        </label>
+
+                        <label class="icon-option" title="Shopping cart">
+                            <input type="radio" name="secondary-icon" value="shopping-cart" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/></svg>
+                            <span class="sr-only">Shopping cart</span>
+                        </label>
+
+                        <label class="icon-option" title="Envelope">
+                            <input type="radio" name="secondary-icon" value="envelope" class="sr-only" checked>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+                            <span class="sr-only">Envelope</span>
+                        </label>
+
+                        <label class="icon-option" title="Play">
+                            <input type="radio" name="secondary-icon" value="play" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
+                            <span class="sr-only">Play</span>
+                        </label>
+
+                        <label class="icon-option" title="Phone">
+                            <input type="radio" name="secondary-icon" value="phone" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+                            <span class="sr-only">Phone</span>
+                        </label>
+
+                        <label class="icon-option" title="Calendar">
+                            <input type="radio" name="secondary-icon" value="calendar" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+                            <span class="sr-only">Calendar</span>
+                        </label>
+
+                        <label class="icon-option" title="Download">
+                            <input type="radio" name="secondary-icon" value="download" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                            <span class="sr-only">Download</span>
+                        </label>
+
+                        <label class="icon-option" title="External link">
+                            <input type="radio" name="secondary-icon" value="external-link" class="sr-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                            <span class="sr-only">External link</span>
+                        </label>
+
+                    </div>
+
+                        </div>
+
+                    </div>
+
+                    <p class="button-options-label">Button colours</p>
+
+                    <div class="colour-targets" role="group" aria-label="Choose which button colour to change">
+
+                        <button
+                            type="button"
+                            class="colour-target"
+                            data-target="primary-background"
+                            aria-pressed="false"
+                            aria-expanded="false"
+                            aria-controls="palette-panel"
+                        >
+                            <span>Primary background</span>
+                            <span class="colour-target-value">
+                                <span class="colour-chip" data-colour="slate-900"></span>
+                                <span class="colour-target-name">slate-900</span>
+                                <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="colour-target"
+                            data-target="primary-text"
+                            aria-pressed="false"
+                            aria-expanded="false"
+                            aria-controls="palette-panel"
+                        >
+                            <span>Primary text</span>
+                            <span class="colour-target-value">
+                                <span class="colour-chip" data-colour="white"></span>
+                                <span class="colour-target-name">white</span>
+                                <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="colour-target"
+                            data-target="secondary"
+                            aria-pressed="false"
+                            aria-expanded="false"
+                            aria-controls="palette-panel"
+                        >
+                            <span>Secondary colour</span>
+                            <span class="colour-target-value">
+                                <span class="colour-chip" data-colour="slate-900"></span>
+                                <span class="colour-target-name">slate-900</span>
+                                <svg class="colour-target-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </fieldset>
+
+            </details>
+
+            <!-- Text animation: collapsible -->
+            <details class="effects-section">
+
+                <summary class="effects-summary">
+                    <span>Text animation</span>
+                    <svg class="effects-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </summary>
+
+            <fieldset class="effects-group">
+
+                <legend class="sr-only">
+                    Text animation for H1 and H2
+                </legend>
+
+                <div class="controls-row">
+
+                    <label class="control-label">
+                        <span>None</span>
+                        <input type="radio" name="text-animation" class="radio-input" value="none" checked>
+                    </label>
+
+                    <label class="control-label">
+                        <span>From bottom</span>
+                        <input type="radio" name="text-animation" class="radio-input" value="from-bottom">
+                    </label>
+
+                    <label class="control-label">
+                        <span>From left</span>
+                        <input type="radio" name="text-animation" class="radio-input" value="from-left">
+                    </label>
+
+                    <label class="control-label">
+                        <span>From right</span>
+                        <input type="radio" name="text-animation" class="radio-input" value="from-right">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Fade in</span>
+                        <input type="radio" name="text-animation" class="radio-input" value="fade">
+                    </label>
+
+                    <label class="control-label">
+                        <span>Scale in</span>
+                        <input type="radio" name="text-animation" class="radio-input" value="scale">
+                    </label>
+
+                </div>
+
+                <button type="button" id="replay-animation" class="replay-button" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+                    Replay animation
+                </button>
+
+            </fieldset>
+
+            </details>
+
+        </aside>
+
+        <!-- Pop-out colour palette (opened from the Hero colours rows) -->
+        <div
+            id="palette-panel"
+            class="palette-panel"
+            role="dialog"
+            aria-labelledby="palette-panel-title"
+            hidden
+        >
+
+            <div class="palette-panel-header">
+
+                <div>
+                    <h2 id="palette-panel-title" class="palette-panel-title">
+                        Tailwind colour palette
+                    </h2>
+
+                    <p
+                        id="active-colour-description"
+                        class="active-colour-description"
+                        aria-live="polite"
+                    >
+                        Background colour: slate-50
+                    </p>
+                </div>
+
+                <button type="button" id="palette-close" class="palette-close" aria-label="Close colour palette">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+
+            </div>
+
+            <div class="palette-viewport" tabindex="0" aria-label="Scrollable Tailwind colour palette">
+
+                <div
+                    id="palette-grid"
+                    class="palette-grid"
+                    role="group"
+                    aria-label="Tailwind colour families and shades"
+                ></div>
+
+            </div>
+
+            <h3 class="palette-section-title">
+                Black and white
+            </h3>
+
+            <div
+                id="palette-special-grid"
+                class="palette-special-grid"
+                role="group"
+                aria-label="Black and white colours"
+            ></div>
+
+        </div>
+
+        <!-- Main area: live preview -->
+        <main class="app-main">
+
+            <section aria-labelledby="preview-heading">
+
+                <div class="preview-toolbar">
+                    <h2 id="preview-heading" class="preview-label">
+                        Live preview
+                    </h2>
+
+                    <p class="editing-instruction">
+                        Click a heading, badge or button to edit its text.
+                    </p>
+                </div>
+
+                <div class="browser-frame">
+
+                    <!-- Decorative browser bar -->
+                    <div class="browser-bar" aria-hidden="true">
+                        <div class="browser-dots"><span></span><span></span><span></span></div>
+                        <div class="browser-address">my-hero-section.html</div>
+                    </div>
+
+                    <header
+                        id="hero-preview"
+                        class="hero hero-min-height bg-slate-50"
+                    >
+
+                        <div class="hero-split-grid">
+
+                        <div class="hero-content">
+
+                            <p
+                                id="hero-badge"
+                                class="hero-badge"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit badge text"
+                                aria-multiline="false"
+                                spellcheck="false"
+                                hidden
+                            >10% off all week</p>
+
+                            <h1
+                                id="hero-heading"
+                                class="font-bold text-slate-900 tracking-[-0.050em]"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit main hero heading"
+                                aria-multiline="false"
+                                spellcheck="false"
+                            >Lorem ipsum dolor sit amet</h1>
+
+                            <h2
+                                id="hero-subheading"
+                                class="text-slate-700 tracking-[-0.025em]"
+                                contenteditable="true"
+                                role="textbox"
+                                aria-label="Edit hero subheading"
+                                aria-multiline="false"
+                                spellcheck="false"
+                            >Consectetur adipiscing elit. Integer vitae libero ac risus egestas placerat.</h2>
+
+                            <div id="hero-buttons" class="hero-buttons" hidden>
+
+                                <a href="#" id="hero-primary-button" class="hero-button"><span
+                                    id="hero-primary-text"
+                                    contenteditable="true"
+                                    role="textbox"
+                                    aria-label="Edit primary button text"
+                                    aria-multiline="false"
+                                    spellcheck="false"
+                                >Order now</span></a>
+
+                                <a href="#" id="hero-secondary-button" class="hero-button"><span
+                                    id="hero-secondary-text"
+                                    contenteditable="true"
+                                    role="textbox"
+                                    aria-label="Edit secondary button text"
+                                    aria-multiline="false"
+                                    spellcheck="false"
+                                >Learn more</span></a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="hero-split-media">
+                            <img
+                                id="hero-image"
+                                class="hero-split-image"
+                                src="https://lunevedy.com/v2/assets/img/1200x900.jpg"
+                                alt="Placeholder image"
+                                width="1200"
+                                height="900"
+                            >
+                        </div>
+
+                        </div>
+
+                    </header>
+
+                </div>
+
+            </section>
+
+            <!-- Accessible copy status -->
+            <p
+                id="copy-status"
+                class="status-message"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- Manual copying fallback -->
+            <section
+                id="fallback-container"
+                class="fallback-container"
+                hidden
+                aria-labelledby="fallback-heading"
+            >
+
+                <label
+                    id="fallback-heading"
+                    class="fallback-label"
+                    for="fallback-html"
+                >
+                    Your generated HTML – select and copy manually
+                </label>
+
+                <textarea
+                    id="fallback-html"
+                    class="fallback-textarea"
+                    readonly
+                    spellcheck="false"
+                ></textarea>
+
+            </section>
+
+            <div class="page-bottom-space"></div>
+
+        </main>
+
+    </div>
+
+    <!-- Fixed copy buttons -->
+    <div class="action-buttons">
+
+        <button type="button" id="copy-css-button" class="action-button action-css">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy CSS</span>
+        </button>
+
+        <button type="button" id="copy-html-button" class="action-button action-primary">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy HTML</span>
+        </button>
+
+    </div>
+
+    <script>
+
+        // -----------------------------------------
+        // 1. Find the page elements
+        // -----------------------------------------
+
+        const heroPreview = document.getElementById("hero-preview");
+
+        const heroHeading = document.getElementById("hero-heading");
+
+        const heroSubheading = document.getElementById("hero-subheading");
+
+        const heroButtons = document.getElementById("hero-buttons");
+
+        const heroPrimaryButton = document.getElementById("hero-primary-button");
+
+        const heroSecondaryButton = document.getElementById("hero-secondary-button");
+
+        const heroPrimaryText = document.getElementById("hero-primary-text");
+
+        const heroBadge = document.getElementById("hero-badge");
+
+        const showBadge = document.getElementById("show-badge");
+
+        const badgeOptions = document.getElementById("badge-options");
+
+        const badgeShapeOptions = document.querySelectorAll('input[name="badge-shape"]');
+
+        const badgeWeightOptions = document.querySelectorAll('input[name="badge-weight"]');
+
+        // Which setting each badge colour row changes.
+        const badgeColourSettings = {
+            "badge-background": "badgeBackgroundColour",
+            "badge-text": "badgeTextColour"
+        };
+
+        const heroSecondaryText = document.getElementById("hero-secondary-text");
+
+        const showIcons = document.getElementById("show-icons");
+
+        const iconOptions = document.getElementById("icon-options");
+
+        const secondaryIconGroup = document.getElementById("secondary-icon-group");
+
+        const primaryIconOptions = document.querySelectorAll('input[name="primary-icon"]');
+
+        const secondaryIconOptions = document.querySelectorAll('input[name="secondary-icon"]');
+
+        // Button icons from Heroicons (MIT licence, heroicons.com).
+        // Each icon follows the button's text colour.
+        const heroIcons = {
+            "arrow-right": {
+                label: "Right arrow",
+                nudge: "right",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3\"/>"
+            },
+            "arrow-right-circle": {
+                label: "Right arrow in a circle",
+                nudge: "right",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z\"/>"
+            },
+            "check": {
+                label: "Tick",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m4.5 12.75 6 6 9-13.5\"/>"
+            },
+            "check-circle": {
+                label: "Tick in a circle",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z\"/>"
+            },
+            "shopping-cart": {
+                label: "Shopping cart",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z\"/>"
+            },
+            "envelope": {
+                label: "Envelope",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75\"/>"
+            },
+            "play": {
+                label: "Play",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z\"/>"
+            },
+            "phone": {
+                label: "Phone",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z\"/>"
+            },
+            "calendar": {
+                label: "Calendar",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5\"/>"
+            },
+            "download": {
+                label: "Download",
+                nudge: "",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3\"/>"
+            },
+            "external-link": {
+                label: "External link",
+                nudge: "up-right",
+                svg: "xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25\"/>"
+            }
+        };
+
+        const showButtons = document.getElementById("show-buttons");
+
+        const buttonOptions = document.getElementById("button-options");
+
+        const buttonCountOptions = document.querySelectorAll('input[name="button-count"]');
+
+        const buttonShapeOptions = document.querySelectorAll('input[name="button-shape"]');
+
+        // Which setting each button colour row changes.
+        const buttonColourSettings = {
+            "primary-background": "primaryBackgroundColour",
+            "primary-text": "primaryTextColour",
+            "secondary": "secondaryColour"
+        };
+
+        // Tailwind shades, lightest first (used for hover colours).
+        const shadeOrder = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
+
+        const darkAppearance = document.getElementById("dark-appearance");
+
+        const imageLeft = document.getElementById("image-left");
+
+        const imageFill = document.getElementById("image-fill");
+
+        const imageFormatOptions = document.querySelectorAll('input[name="image-format"]');
+
+        const imageAlt = document.getElementById("image-alt");
+
+        const heroImage = document.getElementById("hero-image");
+
+        // Sample images are hosted online, so the same full URLs work
+        // in the preview and in pages saved on students' own computers.
+
+        const imageFolder = "https://lunevedy.com/v2/assets/img/";
+
+        // One entry per format: file name and its width and height.
+
+        const imageFiles = {
+            jpg: { name: "1200x900.jpg", width: 1200, height: 900 },
+            png: { name: "1200x900-trans.png", width: 1448, height: 1086 }
+        };
+
+
+        const showSubheading = document.getElementById("show-subheading");
+
+        const h1Serif = document.getElementById("h1-serif");
+
+        const h2Serif = document.getElementById("h2-serif");
+
+        const h1Bold = document.getElementById("h1-bold");
+
+        const h2Bold = document.getElementById("h2-bold");
+
+        const h1Italic = document.getElementById("h1-italic");
+
+        const h2Italic = document.getElementById("h2-italic");
+
+        const h1LetterSpacing = document.getElementById("h1-letter-spacing");
+
+        const h2LetterSpacing = document.getElementById("h2-letter-spacing");
+
+        const h1SpacingValue = document.getElementById("h1-spacing-value");
+
+        const h2SpacingValue = document.getElementById("h2-spacing-value");
+
+        const h2Effects = document.getElementById("h2-effects");
+
+        const colourTargetButtons = document.querySelectorAll(".colour-target");
+
+        const activeColourDescription = document.getElementById("active-colour-description");
+
+        const paletteGrid = document.getElementById("palette-grid");
+
+        const paletteSpecialGrid = document.getElementById("palette-special-grid");
+
+        const paletteSwatchStyles = document.getElementById("palette-swatch-styles");
+
+        const gradientBackground = document.getElementById("gradient-background");
+
+        const gradientControls = document.getElementById("gradient-controls");
+
+        const gradientDirectionDial = document.getElementById("gradient-direction-dial");
+
+        const gradientDirectionValue = document.getElementById("gradient-direction-value");
+
+        const gradientMidpoint = document.getElementById("gradient-midpoint");
+
+        const gradientMidpointValue = document.getElementById("gradient-midpoint-value");
+
+
+        const directionDialStyles = document.getElementById("direction-dial-styles");
+
+        const animationOptions = document.querySelectorAll('input[name="text-animation"]');
+
+        const replayAnimationButton = document.getElementById("replay-animation");
+
+        const animationClasses = [
+            "hero-animate-from-bottom",
+            "hero-animate-from-left",
+            "hero-animate-from-right",
+            "hero-animate-fade",
+            "hero-animate-scale"
+        ];
+
+        const palettePanel = document.getElementById("palette-panel");
+
+        const paletteCloseButton = document.getElementById("palette-close");
+
+        const copyHtmlButton = document.getElementById("copy-html-button");
+
+        const copyCssButton = document.getElementById("copy-css-button");
+
+        const fallbackHeading = document.getElementById("fallback-heading");
+
+        // Remembers the timers that reset the copy button labels.
+        const feedbackTimers = new Map();
+
+
+
+
+
+        // Remembers which target button opened the palette.
+        let paletteOpener = null;
+
+        const copyStatus = document.getElementById("copy-status");
+
+        const fallbackContainer = document.getElementById("fallback-container");
+
+        const fallbackTextarea = document.getElementById("fallback-html");
+
+        const blockStyles = document.getElementById("block-styles");
+
+
+
+
+        // -----------------------------------------
+        // 2. Define the Tailwind colour palette
+        // -----------------------------------------
+
+        const colourFamilies = [
+            "slate",
+            "gray",
+            "zinc",
+            "neutral",
+            "stone",
+            "red",
+            "orange",
+            "amber",
+            "yellow",
+            "lime",
+            "green",
+            "emerald",
+            "teal",
+            "cyan",
+            "sky",
+            "blue",
+            "indigo",
+            "violet",
+            "purple",
+            "fuchsia",
+            "pink",
+            "rose"
+        ];
+
+        const colourShades = [
+            "50",
+            "100",
+            "200",
+            "300",
+            "400",
+            "500",
+            "600",
+            "700",
+            "800",
+            "900",
+            "950"
+        ];
+
+        const specialColours = [
+            "black",
+            "white"
+        ];
+
+
+        // -----------------------------------------
+        // 3. Store all settings in one object
+        // -----------------------------------------
+
+        const settings = {
+
+            dark: darkAppearance.checked,
+
+            imageLeft: imageLeft.checked,
+
+            imageFill: imageFill.checked,
+
+            imageFormat: "jpg",
+
+            imageAlt: imageAlt.value,
+
+            // Always on in the split hero.
+            minimumHeight: true,
+
+            showSubheading: showSubheading.checked,
+
+            h1Serif: h1Serif.checked,
+
+            h2Serif: h2Serif.checked,
+
+            h1Bold: h1Bold.checked,
+
+            h2Bold: h2Bold.checked,
+
+            h1Italic: h1Italic.checked,
+
+            h2Italic: h2Italic.checked,
+
+            h1LetterSpacing: Number(h1LetterSpacing.value),
+
+            h2LetterSpacing: Number(h2LetterSpacing.value),
+
+            activeColourTarget: "background",
+
+            backgroundColour: "slate-50",
+
+            h1Colour: "slate-900",
+
+            h2Colour: "slate-700",
+
+            buttonsEnabled: true,
+
+            badgeEnabled: false,
+
+            badgeShape: "rounded",
+
+            badgeBold: true,
+
+            badgeBackgroundColour: "black",
+
+            badgeTextColour: "white",
+
+            buttonCount: 2,
+
+            buttonShape: "rounded",
+
+            iconsEnabled: false,
+
+            primaryIcon: "arrow-right",
+
+            secondaryIcon: "envelope",
+
+            primaryBackgroundColour: "slate-900",
+
+            primaryTextColour: "white",
+
+            secondaryColour: "slate-900",
+
+            gradientEnabled: false,
+
+            gradientInitialised: false,
+
+            gradientStartColour: "slate-50",
+
+            gradientEndColour: "blue-500",
+
+            gradientAngle: 135,
+
+            gradientMidpoint: 50,
+
+            textAnimation: "none"
+
+        };
+
+
+        // -----------------------------------------
+        // 4. Create the palette swatch styles
+        // -----------------------------------------
+
+        function createPaletteSwatchStyles() {
+
+            const allColours = [];
+
+            colourFamilies.forEach(function(family) {
+
+                colourShades.forEach(function(shade) {
+
+                    allColours.push(family + "-" + shade);
+
+                });
+
+            });
+
+            allColours.push(...specialColours);
+
+            const rules = allColours.map(function(colour) {
+
+                return `
+                    .palette-swatch[data-colour="${colour}"],
+                    .colour-chip[data-colour="${colour}"] {
+                        background-color: var(--color-${colour});
+                    }
+                `;
+
+            });
+
+            paletteSwatchStyles.textContent = rules.join("\n");
+
+        }
+
+
+        // -----------------------------------------
+        // 5. Create an individual colour swatch
+        // -----------------------------------------
+
+        function createColourSwatch(colourName) {
+
+            const button = document.createElement("button");
+
+            button.type = "button";
+
+            button.className = "palette-swatch";
+
+            button.dataset.colour = colourName;
+
+            button.setAttribute(
+                "aria-label",
+                colourName.replace("-", " ") + " colour"
+            );
+
+            button.setAttribute("aria-pressed", "false");
+
+            button.title = colourName;
+
+            button.addEventListener("click", function() {
+
+                selectColour(colourName);
+
+            });
+
+            return button;
+
+        }
+
+
+        // -----------------------------------------
+        // 6. Build the palette rows and columns
+        // -----------------------------------------
+
+        function buildColourPalette() {
+
+            // Add the shade headings.
+
+            const blankHeading = document.createElement("span");
+
+            blankHeading.className = "palette-column-heading";
+
+            blankHeading.textContent = "Colour";
+
+            paletteGrid.appendChild(blankHeading);
+
+            colourShades.forEach(function(shade) {
+
+                const heading = document.createElement("span");
+
+                heading.className = "palette-column-heading";
+
+                heading.textContent = shade;
+
+                paletteGrid.appendChild(heading);
+
+            });
+
+
+            // Add one row for each colour family.
+
+            colourFamilies.forEach(function(family) {
+
+                const rowHeading = document.createElement("span");
+
+                rowHeading.className = "palette-row-heading";
+
+                rowHeading.textContent =
+                    family.charAt(0).toUpperCase() + family.slice(1);
+
+                paletteGrid.appendChild(rowHeading);
+
+                colourShades.forEach(function(shade) {
+
+                    const colourName = family + "-" + shade;
+
+                    paletteGrid.appendChild(
+                        createColourSwatch(colourName)
+                    );
+
+                });
+
+            });
+
+
+            // Add separate black and white swatches.
+
+            const specialHeading = document.createElement("span");
+
+            specialHeading.className = "palette-row-heading";
+
+            specialHeading.textContent = "Colour";
+
+            paletteSpecialGrid.appendChild(specialHeading);
+
+            specialColours.forEach(function(colourName) {
+
+                paletteSpecialGrid.appendChild(
+                    createColourSwatch(colourName)
+                );
+
+            });
+
+        }
+
+
+        // -----------------------------------------
+        // 7. Format letter-spacing values
+        // -----------------------------------------
+
+        function formatLetterSpacing(value) {
+
+            return Number(value).toFixed(3) + "em";
+
+        }
+
+
+        // -----------------------------------------
+        // 8. Update the letter-spacing stylesheet
+        // -----------------------------------------
+
+        function updateImage() {
+
+            // Swap the image file and keep its size attributes accurate.
+
+            const imageFile = imageFiles[settings.imageFormat];
+
+            heroImage.src = imageFolder + imageFile.name;
+
+            heroImage.width = imageFile.width;
+
+            heroImage.height = imageFile.height;
+
+            heroImage.alt = settings.imageAlt;
+
+        }
+
+
+        function handleImageFormatChange(event) {
+
+            settings.imageFormat = event.target.value;
+
+            updateImage();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function handleImageAltInput() {
+
+            settings.imageAlt = imageAlt.value;
+
+            updateImage();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function getIconSVG(name) {
+
+            // The full SVG for an icon, with its nudge class if it has one.
+
+            const icon = heroIcons[name];
+
+            const nudgeClass = icon.nudge ? " hero-icon-nudge-" + icon.nudge : "";
+
+            return `<svg class="hero-button-icon${nudgeClass}" ${icon.svg}</svg>`;
+
+        }
+
+
+        function getButtonIcon(which) {
+
+            // The icon a button shows, or "none".
+
+            return settings.iconsEnabled ? settings[which + "Icon"] : "none";
+
+        }
+
+
+        function setPreviewIcon(button, name) {
+
+            // Only change the icon when it differs, so hover effects aren't interrupted.
+
+            if (button.dataset.icon === name) {
+                return;
+            }
+
+            button.dataset.icon = name;
+
+            const oldIcon = button.querySelector(".hero-button-icon");
+
+            if (oldIcon) {
+                oldIcon.remove();
+            }
+
+            if (name !== "none") {
+                button.insertAdjacentHTML("beforeend", getIconSVG(name));
+            }
+
+        }
+
+
+        function getButtonHTML(classes, textElement, iconName) {
+
+            // A button link, with its icon after the text when there is one.
+
+            const text = escapeHTML(textElement.innerText.trim());
+
+            if (iconName === "none") {
+                return `<a href="#" class="${classes}">${text}</a>`;
+            }
+
+            return `<a href="#" class="${classes}">
+                ${text}
+                ${getIconSVG(iconName)}
+            </a>`;
+
+        }
+
+
+        function getHoverColour(colour) {
+
+            // One shade lighter for hover. The lightest shades (and white)
+            // have nothing lighter, so they go one shade darker instead.
+
+            if (colour === "white") {
+                return "slate-200";
+            }
+
+            if (colour === "black") {
+                return "slate-800";
+            }
+
+            const match = colour.match(/^([a-z]+)-(\d+)$/);
+
+            if (!match) {
+                return colour;
+            }
+
+            const index = shadeOrder.indexOf(match[2]);
+
+            return match[1] + "-" + shadeOrder[index > 0 ? index - 1 : 1];
+
+        }
+
+
+        function getHeroClasses() {
+
+            // The hero's choices as Tailwind classes. Structure lives in the CSS.
+
+            const background = settings.gradientEnabled
+                ? [
+                    "bg-" + settings.gradientStartColour,
+                    `bg-[linear-gradient(${settings.gradientAngle}deg,var(--color-${settings.gradientStartColour}),${settings.gradientMidpoint}%,var(--color-${settings.gradientEndColour}))]`
+                ]
+                : ["bg-" + settings.backgroundColour];
+
+            function headingClasses(level) {
+                return [
+                    settings[level + "Serif"] ? "font-serif" : "",
+                    settings[level + "Bold"] ? "font-bold" : "",
+                    settings[level + "Italic"] ? "italic" : "",
+                    "text-" + settings[level + "Colour"],
+                    `tracking-[${formatLetterSpacing(settings[level + "LetterSpacing"])}]`
+                ].filter(Boolean).join(" ");
+            }
+
+            // Rectangle needs no class: buttons have square corners by default.
+
+            const buttonShape = {
+                rectangle: "",
+                rounded: "rounded-lg",
+                pill: "rounded-full"
+            }[settings.buttonShape];
+
+            return {
+                hero: [
+                    "hero",
+                    settings.imageLeft ? "hero-split-reverse" : "",
+                    settings.imageFill ? "hero-split-fill" : "",
+                    settings.minimumHeight ? "hero-min-height" : "",
+                    settings.textAnimation !== "none"
+                        ? "hero-animate-" + settings.textAnimation
+                        : "",
+                    ...background
+                ].filter(Boolean).join(" "),
+                heading: headingClasses("h1"),
+                subheading: headingClasses("h2"),
+                badge: [
+                    "hero-badge",
+                    { rectangle: "", rounded: "rounded-md", pill: "rounded-full" }[settings.badgeShape],
+                    settings.badgeBold ? "font-bold" : "",
+                    "bg-" + settings.badgeBackgroundColour,
+                    "text-" + settings.badgeTextColour
+                ].filter(Boolean).join(" "),
+                primaryButton: [
+                    "hero-button",
+                    buttonShape,
+                    "bg-" + settings.primaryBackgroundColour,
+                    "text-" + settings.primaryTextColour,
+                    "hover:bg-" + getHoverColour(settings.primaryBackgroundColour)
+                ].filter(Boolean).join(" "),
+                secondaryButton: [
+                    "hero-button",
+                    "hero-button-secondary",
+                    buttonShape,
+                    "border-" + settings.secondaryColour,
+                    "text-" + settings.secondaryColour,
+                    "hover:border-" + getHoverColour(settings.secondaryColour),
+                    "hover:text-" + getHoverColour(settings.secondaryColour)
+                ].filter(Boolean).join(" ")
+            };
+
+        }
+
+
+        function applyBlockClasses() {
+
+            const classes = getHeroClasses();
+
+            heroPreview.className = classes.hero;
+
+            heroHeading.className = classes.heading;
+
+            heroSubheading.className = classes.subheading;
+
+            heroBadge.className = classes.badge;
+
+            heroBadge.hidden = !settings.badgeEnabled;
+
+            badgeOptions.hidden = !settings.badgeEnabled;
+
+            heroPrimaryButton.className = classes.primaryButton;
+
+            heroSecondaryButton.className = classes.secondaryButton;
+
+            heroButtons.hidden = !settings.buttonsEnabled;
+
+            heroSecondaryButton.hidden = settings.buttonCount < 2;
+
+            buttonOptions.hidden = !settings.buttonsEnabled;
+
+            iconOptions.hidden = !settings.iconsEnabled;
+
+            secondaryIconGroup.hidden = settings.buttonCount < 2;
+
+            setPreviewIcon(heroPrimaryButton, getButtonIcon("primary"));
+
+            setPreviewIcon(heroSecondaryButton, getButtonIcon("secondary"));
+
+        }
+
+
+        // -----------------------------------------
+        // 9. Update the displayed slider values
+        // -----------------------------------------
+
+        function updateSpacingLabels() {
+
+            h1SpacingValue.textContent = formatLetterSpacing(
+                settings.h1LetterSpacing
+            );
+
+            h2SpacingValue.textContent = formatLetterSpacing(
+                settings.h2LetterSpacing
+            );
+
+        }
+
+
+        // -----------------------------------------
+        // 10. Get the colour for the active target
+        // -----------------------------------------
+
+        function getTargetColour(target) {
+
+            const colourForTarget = {
+                background: settings.backgroundColour,
+                start: settings.gradientStartColour,
+                end: settings.gradientEndColour,
+                h1: settings.h1Colour,
+                h2: settings.h2Colour,
+                "primary-background": settings.primaryBackgroundColour,
+                "primary-text": settings.primaryTextColour,
+                "secondary": settings.secondaryColour,
+                "badge-background": settings.badgeBackgroundColour,
+                "badge-text": settings.badgeTextColour
+            };
+
+            return colourForTarget[target];
+
+        }
+
+
+        function getActiveColour() {
+
+            return getTargetColour(settings.activeColourTarget);
+
+        }
+
+
+        // -----------------------------------------
+        // 11. Update the shared colour stylesheet
+        // -----------------------------------------
+
+        function updateColourStyles() {
+
+            applyBlockClasses();
+
+            updateGradientStyles();
+
+        }
+
+
+        // -----------------------------------------
+        // Gradient direction and midpoint
+        // -----------------------------------------
+
+        function updateGradientStyles() {
+
+            const angle = settings.gradientAngle + "deg";
+
+            const midpoint = settings.gradientMidpoint + "%";
+
+            applyBlockClasses();
+
+            // The wheel previews the gradient and points at the end colour.
+
+            directionDialStyles.textContent = `
+                .direction-dial {
+                    background-image: linear-gradient(${angle}, var(--color-${settings.gradientStartColour}), ${midpoint}, var(--color-${settings.gradientEndColour}));
+                }
+
+                .direction-dial-pointer {
+                    transform: rotate(${angle});
+                }
+            `;
+
+            gradientDirectionValue.textContent = settings.gradientAngle + "°";
+
+            gradientDirectionDial.setAttribute("aria-valuenow", String(settings.gradientAngle));
+
+            gradientDirectionDial.setAttribute("aria-valuetext", settings.gradientAngle + " degrees");
+
+            gradientMidpoint.value = String(settings.gradientMidpoint);
+
+            gradientMidpointValue.textContent = midpoint;
+
+            gradientControls.hidden = !settings.gradientEnabled;
+
+        }
+
+
+        function setGradientAngle(angle) {
+
+            // Keep the angle a whole number from 0 to 359.
+
+            settings.gradientAngle = ((Math.round(angle) % 360) + 360) % 360;
+
+            updateGradientStyles();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function getAngleFromPointer(event) {
+
+            const dialBox = gradientDirectionDial.getBoundingClientRect();
+
+            const xFromCentre = event.clientX - (dialBox.left + dialBox.width / 2);
+
+            const yFromCentre = event.clientY - (dialBox.top + dialBox.height / 2);
+
+            // 0° points up and angles increase clockwise, like CSS gradients.
+
+            let angle = Math.atan2(xFromCentre, -yFromCentre) * 180 / Math.PI;
+
+            // Hold Shift to snap to 15° steps.
+
+            if (event.shiftKey) {
+                angle = Math.round(angle / 15) * 15;
+            }
+
+            return angle;
+
+        }
+
+
+        let dialIsDragging = false;
+
+        function handleDialPointerDown(event) {
+
+            dialIsDragging = true;
+
+            gradientDirectionDial.setPointerCapture(event.pointerId);
+
+            gradientDirectionDial.focus();
+
+            setGradientAngle(getAngleFromPointer(event));
+
+        }
+
+
+        function handleDialPointerMove(event) {
+
+            if (dialIsDragging) {
+                setGradientAngle(getAngleFromPointer(event));
+            }
+
+        }
+
+
+        function handleDialPointerUp() {
+
+            dialIsDragging = false;
+
+        }
+
+
+        function handleDialKeydown(event) {
+
+            const step = event.shiftKey ? 15 : 1;
+
+            const changes = {
+                ArrowRight: step,
+                ArrowUp: step,
+                ArrowLeft: -step,
+                ArrowDown: -step,
+                PageUp: 45,
+                PageDown: -45
+            };
+
+            if (event.key === "Home") {
+
+                event.preventDefault();
+
+                setGradientAngle(0);
+
+            } else if (event.key in changes) {
+
+                event.preventDefault();
+
+                setGradientAngle(settings.gradientAngle + changes[event.key]);
+
+            }
+
+        }
+
+
+        function handleMidpointInput() {
+
+            settings.gradientMidpoint = Number(gradientMidpoint.value);
+
+            updateGradientStyles();
+
+            updateFallbackHTML();
+
+        }
+
+
+        function handleGradientBackgroundChange() {
+
+            settings.gradientEnabled = gradientBackground.checked;
+
+            // The first time, start from the current background colour.
+
+            if (settings.gradientEnabled && !settings.gradientInitialised) {
+
+                settings.gradientStartColour = settings.backgroundColour;
+
+                settings.gradientInitialised = true;
+
+            }
+
+            // Swap Background for Start/End colour targets (and back).
+
+            if (settings.gradientEnabled && settings.activeColourTarget === "background") {
+                settings.activeColourTarget = "start";
+            }
+
+            if (
+                !settings.gradientEnabled &&
+                (settings.activeColourTarget === "start" || settings.activeColourTarget === "end")
+            ) {
+                settings.activeColourTarget = "background";
+            }
+
+            updateColourStyles();
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 12. Update the active colour target
+        // -----------------------------------------
+
+        function updateColourTargetButtons() {
+
+            colourTargetButtons.forEach(function(button) {
+
+                const isActive =
+                    button.dataset.target === settings.activeColourTarget;
+
+                button.setAttribute(
+                    "aria-pressed",
+                    String(isActive)
+                );
+
+                button.disabled =
+                    button.dataset.target === "h2" &&
+                    !settings.showSubheading;
+
+                // Show this target's current colour in its row.
+
+                const targetColour = getTargetColour(button.dataset.target);
+
+                // Show Start/End rows for a gradient, Background otherwise.
+
+                const target = button.dataset.target;
+
+                button.hidden =
+                    target === "start" || target === "end"
+                        ? !settings.gradientEnabled
+                        : target === "background" && settings.gradientEnabled;
+
+                // The secondary button row only when there are two buttons.
+
+                if (target === "secondary") {
+                    button.hidden = settings.buttonCount < 2;
+                }
+
+                button.querySelector(".colour-chip").dataset.colour = targetColour;
+
+                button.querySelector(".colour-target-name").textContent = targetColour;
+
+                // Mark the row whose palette is open.
+
+                button.setAttribute(
+                    "aria-expanded",
+                    String(isActive && !palettePanel.hidden)
+                );
+
+            });
+
+            const targetLabels = {
+                background: "Background colour: ",
+                start: "Gradient start colour: ",
+                end: "Gradient end colour: ",
+                h1: "H1 colour: ",
+                h2: "H2 colour: ",
+                "primary-background": "Primary button background: ",
+                "primary-text": "Primary button text: ",
+                "secondary": "Secondary button outline and text: ",
+                "badge-background": "Badge background: ",
+                "badge-text": "Badge text: "
+            };
+
+            activeColourDescription.textContent =
+                targetLabels[settings.activeColourTarget] + getActiveColour();
+
+        }
+
+
+        // -----------------------------------------
+        // 13. Update the selected palette swatch
+        // -----------------------------------------
+
+        function updateSelectedSwatch() {
+
+            const selectedColour = getActiveColour();
+
+            document.querySelectorAll(".palette-swatch").forEach(function(swatch) {
+
+                const isSelected =
+                    swatch.dataset.colour === selectedColour;
+
+                swatch.setAttribute(
+                    "aria-pressed",
+                    String(isSelected)
+                );
+
+            });
+
+        }
+
+
+        // -----------------------------------------
+        // 14. Select a colour target
+        // -----------------------------------------
+
+        function selectColourTarget(target) {
+
+            if (target === "h2" && !settings.showSubheading) {
+                return;
+            }
+
+            if (target in buttonColourSettings && !settings.buttonsEnabled) {
+                return;
+            }
+
+            if (target in badgeColourSettings && !settings.badgeEnabled) {
+                return;
+            }
+
+            settings.activeColourTarget = target;
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+        }
+
+
+        // -----------------------------------------
+        // 15. Select a colour from the palette
+        // -----------------------------------------
+
+        function selectColour(colourName) {
+
+            if (settings.activeColourTarget === "background") {
+
+                settings.backgroundColour = colourName;
+
+            } else if (settings.activeColourTarget === "start") {
+
+                settings.gradientStartColour = colourName;
+
+            } else if (settings.activeColourTarget === "end") {
+
+                settings.gradientEndColour = colourName;
+
+            } else if (settings.activeColourTarget === "h1") {
+
+                settings.h1Colour = colourName;
+
+            } else if (settings.activeColourTarget === "h2") {
+
+                if (!settings.showSubheading) {
+                    return;
+                }
+
+                settings.h2Colour = colourName;
+
+            } else if (settings.activeColourTarget in buttonColourSettings) {
+
+                settings[buttonColourSettings[settings.activeColourTarget]] = colourName;
+
+            } else if (settings.activeColourTarget in badgeColourSettings) {
+
+                settings[badgeColourSettings[settings.activeColourTarget]] = colourName;
+
+            }
+
+            updateColourStyles();
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 16. Reset all colours for the dark preset
+        // -----------------------------------------
+
+        function resetPresetColours() {
+
+            if (settings.dark) {
+
+                settings.backgroundColour = "slate-900";
+
+                settings.h1Colour = "slate-50";
+
+                settings.h2Colour = "slate-300";
+
+                settings.badgeBackgroundColour = "white";
+
+                settings.badgeTextColour = "black";
+
+                settings.primaryBackgroundColour = "white";
+
+                settings.primaryTextColour = "slate-900";
+
+                settings.secondaryColour = "white";
+
+            } else {
+
+                settings.backgroundColour = "slate-50";
+
+                settings.h1Colour = "slate-900";
+
+                settings.h2Colour = "slate-700";
+
+                settings.badgeBackgroundColour = "black";
+
+                settings.badgeTextColour = "white";
+
+                settings.primaryBackgroundColour = "slate-900";
+
+                settings.primaryTextColour = "white";
+
+                settings.secondaryColour = "slate-900";
+
+            }
+
+            updateColourStyles();
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+        }
+
+
+        // -----------------------------------------
+        // 17. Update the hero appearance and settings
+        // -----------------------------------------
+
+        function updateHero() {
+
+            // Read the current checkbox states.
+
+            settings.dark = darkAppearance.checked;
+
+            settings.imageLeft = imageLeft.checked;
+
+            settings.imageFill = imageFill.checked;
+
+
+            settings.showSubheading = showSubheading.checked;
+
+            settings.h1Serif = h1Serif.checked;
+
+            settings.h2Serif = h2Serif.checked;
+
+            settings.h1Bold = h1Bold.checked;
+
+            settings.h2Bold = h2Bold.checked;
+
+            settings.h1Italic = h1Italic.checked;
+
+            settings.h2Italic = h2Italic.checked;
+
+            settings.buttonsEnabled = showButtons.checked;
+
+            settings.iconsEnabled = showIcons.checked;
+
+            settings.badgeEnabled = showBadge.checked;
+
+
+            // Read the current numeric slider values.
+
+            settings.h1LetterSpacing = Number(
+                h1LetterSpacing.value
+            );
+
+            settings.h2LetterSpacing = Number(
+                h2LetterSpacing.value
+            );
+
+
+            // Update the preview's classes.
+
+            applyBlockClasses();
+
+
+            // Hide or display the existing H2.
+            // Its text and colour are preserved.
+
+            heroSubheading.hidden = !settings.showSubheading;
+
+
+            // Disable H2 effects when H2 is hidden.
+
+            h2Effects.disabled = !settings.showSubheading;
+
+
+            // If H2 was the active target, switch to Start colour
+            // (gradient) or Background (solid).
+
+            if (
+                !settings.showSubheading &&
+                settings.activeColourTarget === "h2"
+            ) {
+
+                settings.activeColourTarget = settings.gradientEnabled ? "start" : "background";
+
+            }
+
+
+            // Move off the badge colour rows when the badge is switched off.
+
+            if (
+                settings.activeColourTarget in badgeColourSettings &&
+                !settings.badgeEnabled
+            ) {
+
+                settings.activeColourTarget = settings.gradientEnabled ? "start" : "background";
+
+            }
+
+            // Move off button colour rows that are no longer shown.
+
+            if (
+                settings.activeColourTarget in buttonColourSettings &&
+                !settings.buttonsEnabled
+            ) {
+
+                settings.activeColourTarget = settings.gradientEnabled ? "start" : "background";
+
+            } else if (
+                settings.activeColourTarget === "secondary" &&
+                settings.buttonCount < 2
+            ) {
+
+                settings.activeColourTarget = "primary-background";
+
+            }
+
+
+            // Update the colour target controls.
+
+            updateColourTargetButtons();
+
+            updateSelectedSwatch();
+
+
+            // Update the displayed letter-spacing values.
+
+            updateSpacingLabels();
+
+
+            // Refresh the generated HTML.
+
+            updateFallbackHTML();
+
+        }
+
+
+        // -----------------------------------------
+        // 18. Handle changes to the dark preset
+        // -----------------------------------------
+
+        function handleDarkPresetChange() {
+
+            settings.dark = darkAppearance.checked;
+
+            // Changing the preset resets all three colours.
+
+            resetPresetColours();
+
+            updateHero();
+
+        }
+
+
+        // -----------------------------------------
+        // 19. Keep heading editing plain text
+        // -----------------------------------------
+
+        function handlePlainTextPaste(event) {
+
+            event.preventDefault();
+
+            const pastedText =
+                event.clipboardData.getData("text/plain");
+
+            const selection = window.getSelection();
+
+            if (!selection || selection.rangeCount === 0) {
+                return;
+            }
+
+            const range = selection.getRangeAt(0);
+
+            // Insert a text node instead of pasted HTML.
+
+            range.deleteContents();
+
+            const textNode = document.createTextNode(pastedText);
+
+            range.insertNode(textNode);
+
+            // Place the cursor after the inserted text.
+
+            range.setStartAfter(textNode);
+
+            range.collapse(true);
+
+            selection.removeAllRanges();
+
+            selection.addRange(range);
+
+            // Notify the browser that the heading changed.
+
+            event.currentTarget.dispatchEvent(
+                new Event("input", { bubbles: true })
+            );
+
+        }
+
+
+        function preventHeadingLineBreak(event) {
+
+            // Keep each heading as a single editable text block.
+
+            if (event.key === "Enter") {
+                event.preventDefault();
+            }
+
+        }
+
+
+        // -----------------------------------------
+        // 20. Escape text for safe HTML output
+        // -----------------------------------------
+
+        function escapeHTML(text) {
+
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+
+        }
+
+
+        // -----------------------------------------
+        // 21. Generate the standalone HTML document
+        // -----------------------------------------
+
+        function generateHTML() {
+
+            const classes = getHeroClasses();
+
+            const headingText = escapeHTML(heroHeading.innerText);
+
+            const subheadingHTML = settings.showSubheading
+                ? `
+        <h2 class="${classes.subheading}">${escapeHTML(heroSubheading.innerText)}</h2>`
+                : "";
+
+            // The badge sits above the H1.
+
+            const badgeHTML = settings.badgeEnabled
+                ? `
+        <p class="${classes.badge}">${escapeHTML(heroBadge.innerText.trim())}</p>`
+                : "";
+
+            // Buttons are links: they take visitors somewhere.
+
+            let buttonsHTML = "";
+
+            if (settings.buttonsEnabled) {
+
+                const secondaryHTML = settings.buttonCount === 2
+                    ? `
+            ${getButtonHTML(classes.secondaryButton, heroSecondaryText, getButtonIcon("secondary"))}`
+                    : "";
+
+                buttonsHTML = `
+        <div class="hero-buttons">
+            ${getButtonHTML(classes.primaryButton, heroPrimaryText, getButtonIcon("primary"))}${secondaryHTML}
+        </div>`;
+
+            }
+
+            // The text column, indented one level deeper inside the grid.
+
+            const textHTML = `<div class="hero-content">${badgeHTML}
+        <h1 class="${classes.heading}">${headingText}</h1>${subheadingHTML}${buttonsHTML}
+    </div>`.replace(/\n/g, "\n    ");
+
+            // The hero image is seen straight away, so it is not lazy-loaded.
+
+            const imageFile = imageFiles[settings.imageFormat];
+
+            return `<!-- Hero (split) -->
+<header class="${classes.hero}">
+    <div class="hero-split-grid">
+
+        ${textHTML}
+
+        <div class="hero-split-media">
+            <img class="hero-split-image" src="${imageFolder}${imageFile.name}" alt="${escapeHTML(settings.imageAlt.trim())}" width="${imageFile.width}" height="${imageFile.height}" fetchpriority="high">
+        </div>
+
+    </div>
+</header>
+`;
+
+        }
+
+
+        // -----------------------------------------
+        // 22. Keep the manual-copy textarea updated
+        // -----------------------------------------
+
+        function updateFallbackHTML() {
+
+            // Keep the manual-copy box up to date with the latest settings.
+
+            fallbackTextarea.value = getCopyDetails(fallbackKind).text;
+
+        }
+
+
+        // -----------------------------------------
+        // 23. Copy HTML to the clipboard
+        // -----------------------------------------
+
+        function openPalettePanel(button) {
+
+            palettePanel.hidden = false;
+
+            paletteOpener = button;
+
+            updateColourTargetButtons();
+
+            // Move focus to the selected swatch so keyboard users start there.
+
+            const selectedSwatch =
+                palettePanel.querySelector('.palette-swatch[aria-pressed="true"]') ||
+                palettePanel.querySelector(".palette-swatch");
+
+            selectedSwatch.focus();
+
+        }
+
+
+        function closePalettePanel(returnFocus) {
+
+            if (palettePanel.hidden) {
+                return;
+            }
+
+            palettePanel.hidden = true;
+
+            updateColourTargetButtons();
+
+            // Return focus to the row that opened the palette.
+
+            if (returnFocus && paletteOpener && !paletteOpener.disabled) {
+                paletteOpener.focus();
+            }
+
+        }
+
+
+        function handleColourTargetClick(event) {
+
+            const button = event.currentTarget;
+
+            const target = button.dataset.target;
+
+            // Clicking the open row again closes the palette.
+
+            if (!palettePanel.hidden && settings.activeColourTarget === target) {
+
+                closePalettePanel(true);
+
+                return;
+
+            }
+
+            selectColourTarget(target);
+
+            openPalettePanel(button);
+
+        }
+
+
+        function handleOutsideClick(event) {
+
+            // Close the palette when clicking anywhere else on the page.
+
+            if (
+                !palettePanel.hidden &&
+                !palettePanel.contains(event.target) &&
+                !event.target.closest(".colour-target")
+            ) {
+
+                closePalettePanel(false);
+
+            }
+
+        }
+
+
+        function handleEscapeKey(event) {
+
+            if (event.key === "Escape") {
+                closePalettePanel(true);
+            }
+
+        }
+
+
+        function applyAnimationClass() {
+
+            // Remove any previous animation class, then add the chosen one.
+
+            heroPreview.classList.remove(...animationClasses);
+
+            if (settings.textAnimation !== "none") {
+                heroPreview.classList.add("hero-animate-" + settings.textAnimation);
+            }
+
+            replayAnimationButton.disabled = settings.textAnimation === "none";
+
+        }
+
+
+        function playHeroAnimation() {
+
+            // Removing the class and forcing a layout lets the
+            // browser restart the animation when it is added again.
+
+            heroPreview.classList.remove(...animationClasses);
+
+            void heroPreview.offsetWidth;
+
+            applyAnimationClass();
+
+        }
+
+
+        function handleAnimationChange(event) {
+
+            settings.textAnimation = event.target.value;
+
+            playHeroAnimation();
+
+            updateFallbackHTML();
+
+        }
+
+
+
+
+        // Which text the manual-copy box shows if copying is unavailable.
+        let fallbackKind = "html";
+
+
+        function getCopyDetails(kind) {
+
+            // What each copy button copies, and what to tell the student.
+
+            if (kind === "css") {
+                return {
+                    button: copyCssButton,
+                    text: generateCSS(),
+                    success: "CSS copied—paste it into the <style> element in your page’s <head>. You only need it once per block type.",
+                    fallbackLabel: "Your block CSS – select and copy manually"
+                };
+            }
+
+            return {
+                button: copyHtmlButton,
+                text: generateHTML(),
+                success: "HTML copied—paste it into your page in VS Code.",
+                fallbackLabel: "Your block HTML – select and copy manually"
+            };
+
+        }
+
+
+        function showCopiedFeedback(button) {
+
+            const label = button.querySelector(".button-label");
+
+            if (!button.dataset.label) {
+                button.dataset.label = label.textContent;
+            }
+
+            button.classList.add("action-success");
+
+            label.textContent = "Copied!";
+
+            button.querySelector(".idle-icon").hidden = true;
+
+            button.querySelector(".done-icon").hidden = false;
+
+            clearTimeout(feedbackTimers.get(button));
+
+            // Return the button to normal after two seconds.
+
+            feedbackTimers.set(button, setTimeout(function() {
+
+                button.classList.remove("action-success");
+
+                label.textContent = button.dataset.label;
+
+                button.querySelector(".idle-icon").hidden = false;
+
+                button.querySelector(".done-icon").hidden = true;
+
+            }, 2000));
+
+        }
+
+
+        async function copyToClipboard(kind) {
+
+            const details = getCopyDetails(kind);
+
+            copyStatus.textContent = "";
+
+            try {
+
+                if (!navigator.clipboard || !navigator.clipboard.writeText) {
+                    throw new Error("Clipboard API unavailable");
+                }
+
+                await navigator.clipboard.writeText(details.text);
+
+                // Only report success after copying succeeds.
+
+                copyStatus.textContent = details.success;
+
+                fallbackContainer.hidden = true;
+
+                showCopiedFeedback(details.button);
+
+            } catch (error) {
+
+                // Offer a manual-copy alternative.
+
+                fallbackKind = kind;
+
+                fallbackHeading.textContent = details.fallbackLabel;
+
+                fallbackTextarea.value = details.text;
+
+                fallbackContainer.hidden = false;
+
+                copyStatus.textContent =
+                    "Automatic copying is unavailable. Select and copy the text below.";
+
+                fallbackTextarea.focus();
+
+                fallbackTextarea.select();
+
+            }
+
+        }
+
+
+        function generateCSS() {
+
+            // The block's structural CSS, the same for every block of this type.
+            // Remove the shared indentation so it pastes neatly anywhere.
+
+            const lines = blockStyles.textContent.replace(/^\s*\n/, "").replace(/\s+$/, "").split("\n");
+
+            const indent = Math.min(...lines.filter(function(line) {
+                return line.trim() !== "";
+            }).map(function(line) {
+                return line.match(/^ */)[0].length;
+            }));
+
+            return "/* ===== Hero (split) ===== */\n\n" + lines.map(function(line) {
+                return line.slice(indent);
+            }).join("\n") + "\n";
+
+        }
+
+
+        // -----------------------------------------
+        // 24. Listen for original checkbox changes
+        // -----------------------------------------
+
+        darkAppearance.addEventListener(
+            "change",
+            handleDarkPresetChange
+        );
+
+        imageLeft.addEventListener("change", updateHero);
+
+        imageFill.addEventListener("change", updateHero);
+
+        imageFormatOptions.forEach(function(option) {
+            option.addEventListener("change", handleImageFormatChange);
+        });
+
+        imageAlt.addEventListener("input", handleImageAltInput);
+
+
+        showSubheading.addEventListener("change", updateHero);
+
+
+        // -----------------------------------------
+        // 25. Listen for colour target changes
+        // -----------------------------------------
+
+        colourTargetButtons.forEach(function(button) {
+
+            button.addEventListener("click", handleColourTargetClick);
+
+        });
+
+        gradientBackground.addEventListener("change", handleGradientBackgroundChange);
+
+        gradientDirectionDial.addEventListener("pointerdown", handleDialPointerDown);
+
+        gradientDirectionDial.addEventListener("pointermove", handleDialPointerMove);
+
+        gradientDirectionDial.addEventListener("pointerup", handleDialPointerUp);
+
+        gradientDirectionDial.addEventListener("pointercancel", handleDialPointerUp);
+
+        gradientDirectionDial.addEventListener("keydown", handleDialKeydown);
+
+        gradientMidpoint.addEventListener("input", handleMidpointInput);
+
+        animationOptions.forEach(function(option) {
+
+            option.addEventListener("change", handleAnimationChange);
+
+        });
+
+        replayAnimationButton.addEventListener("click", playHeroAnimation);
+
+        paletteCloseButton.addEventListener("click", function() {
+
+            closePalettePanel(true);
+
+        });
+
+        document.addEventListener("pointerdown", handleOutsideClick);
+
+        document.addEventListener("keydown", handleEscapeKey);
+
+
+        // -----------------------------------------
+        // 26. Listen for serif checkbox changes
+        // -----------------------------------------
+
+        h1Serif.addEventListener("change", updateHero);
+
+        h2Serif.addEventListener("change", updateHero);
+
+        h1Bold.addEventListener("change", updateHero);
+
+        h2Bold.addEventListener("change", updateHero);
+
+        h1Italic.addEventListener("change", updateHero);
+
+        h2Italic.addEventListener("change", updateHero);
+
+
+        // -----------------------------------------
+        // 27. Listen for letter-spacing slider changes
+        // -----------------------------------------
+
+        // Use input rather than change so the preview
+        // updates immediately while dragging.
+
+        h1LetterSpacing.addEventListener("input", updateHero);
+
+        h2LetterSpacing.addEventListener("input", updateHero);
+
+
+        // -----------------------------------------
+        // 28. Listen for heading edits
+        // -----------------------------------------
+
+        [heroBadge, heroHeading, heroSubheading, heroPrimaryText, heroSecondaryText].forEach(function(heading) {
+
+            heading.addEventListener("paste", handlePlainTextPaste);
+
+            heading.addEventListener("keydown", preventHeadingLineBreak);
+
+            heading.addEventListener("input", function() {
+
+                // Update the manual-copy HTML after editing.
+
+                updateFallbackHTML();
+
+            });
+
+        });
+
+
+        // -----------------------------------------
+        // 29. Listen for the copy button
+        // -----------------------------------------
+
+        copyHtmlButton.addEventListener("click", function() {
+            copyToClipboard("html");
+        });
+
+        copyCssButton.addEventListener("click", function() {
+            copyToClipboard("css");
+        });
+
+
+        // -----------------------------------------
+        // 30. Initialise the application
+        // -----------------------------------------
+
+        // -----------------------------------------
+        // Listen for the button controls
+        // -----------------------------------------
+
+        showButtons.addEventListener("change", updateHero);
+
+        buttonCountOptions.forEach(function(option) {
+
+            option.addEventListener("change", function(event) {
+
+                settings.buttonCount = Number(event.target.value);
+
+                updateHero();
+
+            });
+
+        });
+
+        buttonShapeOptions.forEach(function(option) {
+
+            option.addEventListener("change", function(event) {
+
+                settings.buttonShape = event.target.value;
+
+                updateHero();
+
+            });
+
+        });
+
+        showIcons.addEventListener("change", updateHero);
+
+        showBadge.addEventListener("change", updateHero);
+
+        badgeShapeOptions.forEach(function(option) {
+
+            option.addEventListener("change", function(event) {
+
+                settings.badgeShape = event.target.value;
+
+                updateHero();
+
+            });
+
+        });
+
+        badgeWeightOptions.forEach(function(option) {
+
+            option.addEventListener("change", function(event) {
+
+                settings.badgeBold = event.target.value === "bold";
+
+                updateHero();
+
+            });
+
+        });
+
+        primaryIconOptions.forEach(function(option) {
+
+            option.addEventListener("change", function(event) {
+
+                settings.primaryIcon = event.target.value;
+
+                updateHero();
+
+            });
+
+        });
+
+        secondaryIconOptions.forEach(function(option) {
+
+            option.addEventListener("change", function(event) {
+
+                settings.secondaryIcon = event.target.value;
+
+                updateHero();
+
+            });
+
+        });
+
+        // The preview buttons are for editing, not following.
+
+        [heroPrimaryButton, heroSecondaryButton].forEach(function(button) {
+
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+
+        });
+
+
+        createPaletteSwatchStyles();
+
+        buildColourPalette();
+
+        updateColourStyles();
+
+        updateHero();
+
+        updateFallbackHTML();
+
+    </script>
+
+</body>
+</html>
