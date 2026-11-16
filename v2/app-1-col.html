@@ -10,129 +10,71 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- Shared section styles: used by preview and exported HTML -->
-    <style type="text/tailwindcss" id="section-styles">
+    <!-- Block CSS: copied by "Copy CSS". Structure only: each block's colours,
+         text sizes and bold/italic are Tailwind classes in its HTML, which
+         override these defaults because components rank below utilities. -->
+    <style type="text/tailwindcss" id="block-styles">
 
-        .section-block {
-            @apply w-full px-6 py-16 md:px-12 md:py-24;
+        @layer components {
+
+            .one-col {
+                @apply w-full px-6 py-16 md:px-12 md:py-24;
+            }
+
+            /* Single column, at most 90ch wide (about 900px at 18px text)
+               from the md breakpoint. ch scales with the text size. */
+            .one-col-content {
+                @apply mx-auto w-full text-lg md:max-w-[90ch];
+            }
+
+            .one-col-centre {
+                @apply text-center;
+            }
+
+            .one-col h2 {
+                @apply text-3xl md:text-4xl font-normal leading-tight tracking-tight;
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
+            .one-col p {
+                @apply mt-5 leading-relaxed;
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
+            .one-col h2 + p {
+                @apply mt-3;
+            }
+
+            /* Image: fills the column and scales down */
+            .one-col-image {
+                @apply mt-6 block h-auto w-full;
+            }
+
+            .one-col-image + p {
+                @apply mt-6;
+            }
+
+            /* Whatever comes first starts at the top */
+            .one-col-content > :first-child {
+                @apply mt-0;
+            }
+
+            /* Link: underlined in both states; its colours are classes in the HTML.
+               Thickness and offset are in em, so they scale with the text. */
+            .one-col-link {
+                @apply underline decoration-[length:0.11em] underline-offset-[0.3em] transition-colors;
+            }
+
+            .one-col-link:focus-visible {
+                outline: 2px solid currentColor;
+                outline-offset: 2px;
+                border-radius: 2px;
+            }
+
         }
 
-        /* Single column. Width is measured in characters (ch),
-           so it scales with the text size: 90ch is about 900px
-           at this 18px text size. Full width below the md breakpoint. */
-        .section-content {
-            @apply mx-auto w-full text-lg md:max-w-[90ch];
-        }
-
-        .section-centre {
-            text-align: center;
-        }
-
-        .section-block h2 {
-            @apply text-3xl md:text-4xl font-normal leading-tight tracking-tight;
-            overflow-wrap: anywhere;
-            white-space: pre-wrap;
-        }
-
-        .section-block h2.section-h2-bold {
-            @apply font-bold;
-        }
-
-        .section-block h2.section-h2-italic {
-            @apply italic;
-        }
-
-        .section-block p {
-            @apply mt-5 leading-relaxed;
-            overflow-wrap: anywhere;
-            white-space: pre-wrap;
-        }
-
-        .section-block h2 + p {
-            @apply mt-3;
-        }
-
-        /* Larger text options (the content width stays 90ch,
-           because ch is measured from .section-content, not the p) */
-        .section-block.section-heading-large h2 {
-            @apply text-4xl md:text-5xl;
-        }
-
-        .section-block.section-heading-xlarge h2 {
-            @apply text-5xl md:text-6xl;
-        }
-
-        .section-block.section-text-large p {
-            @apply text-xl;
-        }
-
-        .section-block.section-text-xlarge p {
-            @apply text-2xl;
-        }
-
-        /* Hidden heading and paragraphs take up no space */
-        .section-block h2[hidden],
-        .section-block p[hidden] {
-            display: none !important;
-        }
-
-        /* Without a heading, the first paragraph starts at the top */
-        .section-block h2[hidden] + p,
-        .section-content > p:first-child {
-            @apply mt-0;
-        }
-
-        /* Image: fills the column and scales down; sits under the h2 */
-        .section-block .section-image {
-            @apply mt-6 block h-auto w-full;
-        }
-
-        .section-block .section-image + p {
-            @apply mt-6;
-        }
-
-        .section-block h2[hidden] + .section-image,
-        .section-content > .section-image:first-child {
-            @apply mt-0;
-        }
-
-        /* Link: underlined in both states; colours come from the colour rules.
-           Thickness and offset are in em, so they scale with the text size
-           (about 2px thick, set 0.3em below the baseline so it clears
-           descenders such as g and y at the Normal size). */
-        .section-block .section-link {
-            @apply underline decoration-[length:0.11em] underline-offset-[0.3em] transition-colors;
-        }
-
-        .section-block .section-link:focus-visible {
-            outline: 2px solid currentColor;
-            outline-offset: 2px;
-            border-radius: 2px;
-        }
-
-    </style>
-
-    <!-- Colour rules: shared by preview and exported HTML -->
-    <style type="text/tailwindcss" id="section-colour-styles">
-        .section-block.section-custom-colours {
-            background-color: var(--color-white);
-        }
-
-        .section-block.section-custom-colours h2 {
-            color: var(--color-black);
-        }
-
-        .section-block.section-custom-colours p {
-            color: var(--color-black);
-        }
-
-        .section-block.section-custom-colours .section-link {
-            color: var(--color-blue-700);
-        }
-
-        .section-block.section-custom-colours .section-link:hover {
-            color: var(--color-blue-900);
-        }
     </style>
 
     <!-- Palette swatch colours (editor only) -->
@@ -496,42 +438,73 @@
 
         /* ---------- Editable headings ---------- */
 
-        .section-block [contenteditable="true"] {
+        .one-col [contenteditable="true"] {
             cursor: text;
             border-radius: 4px;
         }
 
-        .section-block [contenteditable="true"]:hover {
+        .one-col [contenteditable="true"]:hover {
             outline: 2px dashed #94a3b8;
             outline-offset: 5px;
         }
 
-        .section-block [contenteditable="true"]:focus {
+        .one-col [contenteditable="true"]:focus {
             outline: 3px solid #3b82f6;
             outline-offset: 5px;
         }
 
-        /* ---------- Copy button ---------- */
-
-        .copy-button {
-            @apply fixed bottom-5 right-5 z-50 inline-flex min-w-40 items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        /* Preview only: hidden heading and paragraphs take up no space,
+           and whatever follows a hidden heading starts at the top. */
+        .one-col [hidden] {
+            display: none !important;
         }
 
-        .copy-button:active {
-            transform: translateY(1px);
+        .one-col h2[hidden] + p,
+        .one-col h2[hidden] + .one-col-image {
+            margin-top: 0;
         }
 
-        .copy-button svg {
-            @apply h-4 w-4 shrink-0;
+        /* ---------- Copy buttons ---------- */
+
+        .action-buttons {
+            @apply fixed bottom-5 right-5 z-50 flex gap-3;
         }
 
-        .copy-button svg[hidden] {
+        .action-button {
+            @apply inline-flex min-w-36 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        }
+
+        .action-button[hidden] {
             display: none;
         }
 
-        /* Shown briefly after a successful copy. */
-        .copy-button-success {
-            @apply bg-emerald-600 hover:bg-emerald-600;
+        .action-button svg {
+            @apply h-4 w-4 shrink-0;
+        }
+
+        .action-button svg[hidden] {
+            display: none;
+        }
+
+        .action-primary {
+            @apply bg-slate-900 text-white hover:bg-slate-700;
+        }
+
+        .action-css {
+            @apply bg-blue-600 text-white hover:bg-blue-700;
+        }
+
+        .action-js {
+            @apply bg-violet-600 text-white hover:bg-violet-700;
+        }
+
+        .action-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Shown briefly after a successful copy */
+        .action-success {
+            @apply bg-emerald-600 text-white ring-0 hover:bg-emerald-600;
         }
 
         /* ---------- Status and manual-copy fallback ---------- */
@@ -553,7 +526,7 @@
         }
 
         .page-bottom-space {
-            @apply h-24;
+            @apply h-28;
         }
 
         /* ---------- Light / Dark switch ---------- */
@@ -1049,14 +1022,14 @@
 
                     <section
                         id="section-preview"
-                        class="section-block section-custom-colours"
+                        class="one-col bg-white"
                     >
 
-                        <div class="section-content">
+                        <div class="one-col-content">
 
                             <h2
                                 id="section-heading"
-                                class="section-h2-bold"
+                                class="text-black font-bold"
                                 contenteditable="true"
                                 role="textbox"
                                 aria-label="Edit section heading"
@@ -1066,7 +1039,7 @@
 
                             <img
                                 id="section-image"
-                                class="section-image"
+                                class="one-col-image"
                                 src="https://lunevedy.com/v2/assets/img/1920x1080.jpg"
                                 alt="Placeholder image, 1920 by 1080 pixels"
                                 width="1920"
@@ -1082,7 +1055,7 @@
                                 aria-label="Edit paragraph 1"
                                 aria-multiline="false"
                                 spellcheck="false"
-                            >Leverage <a href="#" class="section-link">agile frameworks</a> to provide a robust synopsis for high-level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. At the end of the day, going forward, a new paradigm that has evolved from Generation X is on the runway heading towards a streamlined cloud solution. User-generated content in real-time will have multiple touchpoints.</p>
+                            >Leverage <a href="#" class="one-col-link text-blue-700 hover:text-blue-900">agile frameworks</a> to provide a robust synopsis for high-level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. At the end of the day, going forward, a new paradigm that has evolved from Generation X is on the runway heading towards a streamlined cloud solution. User-generated content in real-time will have multiple touchpoints.</p>
 
                             <p
                                 id="section-paragraph-2"
@@ -1161,16 +1134,22 @@
 
     </div>
 
-    <!-- Fixed copy button -->
-    <button
-        type="button"
-        id="copy-button"
-        class="copy-button"
-    >
-        <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
-        <span id="copy-button-label">Copy HTML</span>
-    </button>
+    <!-- Fixed copy buttons -->
+    <div class="action-buttons">
+
+        <button type="button" id="copy-css-button" class="action-button action-css">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy CSS</span>
+        </button>
+
+        <button type="button" id="copy-html-button" class="action-button action-primary">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy HTML</span>
+        </button>
+
+    </div>
 
 
     <script>
@@ -1183,7 +1162,7 @@
 
         const sectionHeading = document.getElementById("section-heading");
 
-        const sectionParagraphs = document.querySelectorAll(".section-content p");
+        const sectionParagraphs = document.querySelectorAll(".one-col-content p");
 
         const appearanceOptions = document.querySelectorAll('input[name="appearance"]');
 
@@ -1205,7 +1184,7 @@
 
         const sectionImage = document.getElementById("section-image");
 
-        const sectionContent = document.querySelector(".section-content");
+        const sectionContent = document.querySelector(".one-col-content");
 
         // Sample images are hosted online, so the same full URLs work
         // in the preview and in pages saved on students' own computers.
@@ -1247,19 +1226,21 @@
 
         const paletteCloseButton = document.getElementById("palette-close");
 
-        const sectionStyles = document.getElementById("section-styles");
-
-        const sectionColourStyles = document.getElementById("section-colour-styles");
+        const blockStyles = document.getElementById("block-styles");
 
         const paletteSwatchStyles = document.getElementById("palette-swatch-styles");
 
-        const copyButton = document.getElementById("copy-button");
+        const copyHtmlButton = document.getElementById("copy-html-button");
 
-        const copyButtonLabel = document.getElementById("copy-button-label");
+        const copyCssButton = document.getElementById("copy-css-button");
 
-        const copyIcon = document.getElementById("copy-icon");
+        const fallbackHeading = document.getElementById("fallback-heading");
 
-        const checkIcon = document.getElementById("check-icon");
+        // Remembers the timers that reset the copy button labels.
+        const feedbackTimers = new Map();
+
+
+
 
         const copyStatus = document.getElementById("copy-status");
 
@@ -1267,8 +1248,6 @@
 
         const fallbackTextarea = document.getElementById("fallback-html");
 
-        // Remembers the timer that resets the copy button label.
-        let copyFeedbackTimer = null;
 
         // Remembers which colour row opened the palette.
         let paletteOpener = null;
@@ -1489,29 +1468,73 @@
 
         function updateColourStyles() {
 
-            // Tailwind-processed, so the CDN creates every colour variable used.
+            // Colours are Tailwind classes on the block's elements.
 
-            sectionColourStyles.textContent = `
-        .section-block.section-custom-colours {
-            background-color: var(--color-${settings.backgroundColour});
+            applyBlockClasses();
+
         }
 
-        .section-block.section-custom-colours h2 {
-            color: var(--color-${settings.headingColour});
+
+        function getBlockClasses() {
+
+            // Every choice becomes a Tailwind class in the block's HTML,
+            // so two one-column blocks on a page can look different.
+
+            const headingSizes = {
+                normal: "",
+                large: "text-4xl md:text-5xl",
+                xlarge: "text-5xl md:text-6xl"
+            };
+
+            const textSizes = {
+                normal: "",
+                large: "text-xl",
+                xlarge: "text-2xl"
+            };
+
+            const join = function(list) {
+                return list.filter(Boolean).join(" ");
+            };
+
+            return {
+                section: join(["one-col", settings.centre ? "one-col-centre" : "", "bg-" + settings.backgroundColour]),
+                heading: join(["text-" + settings.headingColour, settings.h2Bold ? "font-bold" : "", settings.h2Italic ? "italic" : "", headingSizes[settings.headingSize]]),
+                paragraph: join(["text-" + settings.paragraphColour, textSizes[settings.textSize]]),
+                link: join(["one-col-link", "text-" + settings.linkColour, "hover:text-" + settings.linkHoverColour]),
+                image: "one-col-image"
+            };
+
         }
 
-        .section-block.section-custom-colours p {
-            color: var(--color-${settings.paragraphColour});
-        }
 
-        .section-block.section-custom-colours .section-link {
-            color: var(--color-${settings.linkColour});
-        }
+        function applyBlockClasses() {
 
-        .section-block.section-custom-colours .section-link:hover {
-            color: var(--color-${settings.linkHoverColour});
-        }
-    `;
+            // The preview uses exactly the classes that Copy HTML exports.
+
+            const classes = getBlockClasses();
+
+            sectionPreview.className = classes.section;
+
+            sectionHeading.className = classes.heading;
+
+            sectionParagraphs.forEach(function(paragraph) {
+                paragraph.className = classes.paragraph;
+            });
+
+            sectionImage.className = classes.image;
+
+            // Link: keep the element (and its edited text), but show it
+            // as plain text while switched off.
+
+            const sectionLink = sectionParagraphs[0].querySelector("a");
+
+            if (sectionLink) {
+                if (settings.showLink) {
+                    sectionLink.className = classes.link;
+                } else {
+                    sectionLink.removeAttribute("class");
+                }
+            }
 
         }
 
@@ -1710,21 +1733,7 @@
 
             settings.h2Italic = h2Italic.checked;
 
-            sectionPreview.classList.toggle("section-centre", settings.centre);
-
-            // Text sizes: "normal" needs no extra class.
-
-            sectionPreview.classList.toggle("section-heading-large", settings.headingSize === "large");
-
-            sectionPreview.classList.toggle("section-heading-xlarge", settings.headingSize === "xlarge");
-
-            sectionPreview.classList.toggle("section-text-large", settings.textSize === "large");
-
-            sectionPreview.classList.toggle("section-text-xlarge", settings.textSize === "xlarge");
-
-            sectionHeading.classList.toggle("section-h2-bold", settings.h2Bold);
-
-            sectionHeading.classList.toggle("section-h2-italic", settings.h2Italic);
+            applyBlockClasses();
 
             // Hide the heading without deleting it, so its text returns.
             // Disable its controls meanwhile; their settings are kept.
@@ -1736,15 +1745,6 @@
             headingSizeOptions.forEach(function(option) {
                 option.disabled = !settings.showHeading;
             });
-
-            // Link: keep the element (and its edited text) but show it as
-            // plain text while switched off.
-
-            const sectionLink = sectionParagraphs[0].querySelector("a");
-
-            if (sectionLink) {
-                sectionLink.classList.toggle("section-link", settings.showLink);
-            }
 
             updateImage();
 
@@ -1899,27 +1899,20 @@
 
         function generateHTML() {
 
-            const headingText = escapeHTML(sectionHeading.innerText);
+            // The block only: paste it into your page. Its CSS comes from Copy CSS.
 
-            const h2Classes = [
-                settings.h2Bold ? "section-h2-bold" : "",
-                settings.h2Italic ? "section-h2-italic" : ""
-            ].filter(Boolean).join(" ");
-
-            const h2ClassAttribute = h2Classes ? ` class="${h2Classes}"` : "";
-
-            // Include the h2 only when Show heading is on.
+            const classes = getBlockClasses();
 
             const headingHTML = settings.showHeading
                 ? `
-            <h2${h2ClassAttribute}>${headingText}</h2>`
+        <h2 class="${classes.heading}">${escapeHTML(sectionHeading.innerText.trim())}</h2>`
                 : "";
 
             const imageFile = imageFiles[settings.imageFormat];
 
             const imageHTML = settings.showImage
                 ? `
-            <img class="section-image" src="${exportedImageFolder}${imageFile.name}" alt="${escapeHTML(settings.imageAlt.trim())}" width="${imageFile.width}" height="${imageFile.height}" loading="lazy" decoding="async">`
+        <img class="${classes.image}" src="${exportedImageFolder}${imageFile.name}" alt="${escapeHTML(settings.imageAlt.trim())}" width="${imageFile.width}" height="${imageFile.height}" loading="lazy" decoding="async">`
                 : "";
 
             // Only the visible paragraphs, with their latest text.
@@ -1928,54 +1921,16 @@
                 .slice(0, settings.paragraphCount)
                 .map(function(paragraph) {
                     return `
-            <p>${paragraphToHTML(paragraph)}</p>`;
+        <p class="${classes.paragraph}">${paragraphToHTML(paragraph)}</p>`;
                 })
-                .join("\n");
+                .join("");
 
-            const sectionClasses = [
-                "section-block",
-                "section-custom-colours",
-                settings.centre ? "section-centre" : "",
-                settings.showHeading && settings.headingSize !== "normal"
-                    ? "section-heading-" + settings.headingSize
-                    : "",
-                settings.textSize !== "normal" ? "section-text-" + settings.textSize : ""
-            ].filter(Boolean).join(" ");
-
-            return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Section</title>
-
-    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
-
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
-
-    <style type="text/tailwindcss">
-${sectionStyles.textContent}
-    </style>
-
-    <style type="text/tailwindcss">
-${sectionColourStyles.textContent}
-    </style>
-
-</head>
-
-<body>
-
-    <section class="${sectionClasses}">
-        <div class="section-content">
-${headingHTML}${imageHTML}
-${paragraphHTML}
-
-        </div>
-    </section>
-
-</body>
-</html>`;
+            return `<!-- One-column section -->
+<section class="${classes.section}">
+    <div class="one-col-content">${headingHTML}${imageHTML}${paragraphHTML}
+    </div>
+</section>
+`;
 
         }
 
@@ -1989,7 +1944,7 @@ ${paragraphHTML}
                 const text = escapeHTML(node.textContent);
 
                 if (node.nodeName === "A" && settings.showLink) {
-                    return `<a href="#" class="section-link">${text}</a>`;
+                    return `<a href="#" class="${getBlockClasses().link}">${text}</a>`;
                 }
 
                 return text;
@@ -2001,7 +1956,9 @@ ${paragraphHTML}
 
         function updateFallbackHTML() {
 
-            fallbackTextarea.value = generateHTML();
+            // Keep the manual-copy box up to date with the latest settings.
+
+            fallbackTextarea.value = getCopyDetails(fallbackKind).text;
 
         }
 
@@ -2092,38 +2049,71 @@ ${paragraphHTML}
         // 11. Copy HTML to the clipboard
         // -----------------------------------------
 
-        function showCopiedFeedback() {
+        // Which text the manual-copy box shows if copying is unavailable.
+        let fallbackKind = "html";
 
-            copyButton.classList.add("copy-button-success");
 
-            copyButtonLabel.textContent = "Copied!";
+        function getCopyDetails(kind) {
 
-            copyIcon.hidden = true;
+            // What each copy button copies, and what to tell the student.
 
-            checkIcon.hidden = false;
+            if (kind === "css") {
+                return {
+                    button: copyCssButton,
+                    text: generateCSS(),
+                    success: "CSS copied—paste it into the <style> element in your page’s <head>. You only need it once per block type.",
+                    fallbackLabel: "Your block CSS – select and copy manually"
+                };
+            }
 
-            clearTimeout(copyFeedbackTimer);
-
-            // Return the button to normal after two seconds.
-
-            copyFeedbackTimer = setTimeout(function() {
-
-                copyButton.classList.remove("copy-button-success");
-
-                copyButtonLabel.textContent = "Copy HTML";
-
-                copyIcon.hidden = false;
-
-                checkIcon.hidden = true;
-
-            }, 2000);
+            return {
+                button: copyHtmlButton,
+                text: generateHTML(),
+                success: "HTML copied—paste it into your page in VS Code.",
+                fallbackLabel: "Your block HTML – select and copy manually"
+            };
 
         }
 
 
-        async function copyHTML() {
+        function showCopiedFeedback(button) {
 
-            const generatedHTML = generateHTML();
+            const label = button.querySelector(".button-label");
+
+            if (!button.dataset.label) {
+                button.dataset.label = label.textContent;
+            }
+
+            button.classList.add("action-success");
+
+            label.textContent = "Copied!";
+
+            button.querySelector(".idle-icon").hidden = true;
+
+            button.querySelector(".done-icon").hidden = false;
+
+            clearTimeout(feedbackTimers.get(button));
+
+            // Return the button to normal after two seconds.
+
+            feedbackTimers.set(button, setTimeout(function() {
+
+                button.classList.remove("action-success");
+
+                label.textContent = button.dataset.label;
+
+                button.querySelector(".idle-icon").hidden = false;
+
+                button.querySelector(".done-icon").hidden = true;
+
+            }, 2000));
+
+        }
+
+
+        async function copyToClipboard(kind) {
+
+            const details = getCopyDetails(kind);
 
             copyStatus.textContent = "";
 
@@ -2133,32 +2123,56 @@ ${paragraphHTML}
                     throw new Error("Clipboard API unavailable");
                 }
 
-                await navigator.clipboard.writeText(generatedHTML);
+                await navigator.clipboard.writeText(details.text);
 
                 // Only report success after copying succeeds.
 
-                copyStatus.textContent = "HTML copied—paste it into VS Code.";
+                copyStatus.textContent = details.success;
 
                 fallbackContainer.hidden = true;
 
-                showCopiedFeedback();
+                showCopiedFeedback(details.button);
 
             } catch (error) {
 
                 // Offer a manual-copy alternative.
 
-                fallbackTextarea.value = generatedHTML;
+                fallbackKind = kind;
+
+                fallbackHeading.textContent = details.fallbackLabel;
+
+                fallbackTextarea.value = details.text;
 
                 fallbackContainer.hidden = false;
 
                 copyStatus.textContent =
-                    "Automatic copying is unavailable. Select and copy the HTML below.";
+                    "Automatic copying is unavailable. Select and copy the text below.";
 
                 fallbackTextarea.focus();
 
                 fallbackTextarea.select();
 
             }
+
+        }
+
+
+        function generateCSS() {
+
+            // The block's structural CSS, the same for every block of this type.
+            // Remove the shared indentation so it pastes neatly anywhere.
+
+            const lines = blockStyles.textContent.replace(/^\s*\n/, "").replace(/\s+$/, "").split("\n");
+
+            const indent = Math.min(...lines.filter(function(line) {
+                return line.trim() !== "";
+            }).map(function(line) {
+                return line.match(/^ */)[0].length;
+            }));
+
+            return "/* ===== One-column section ===== */\n\n" + lines.map(function(line) {
+                return line.slice(indent);
+            }).join("\n") + "\n";
 
         }
 
@@ -2227,7 +2241,13 @@ ${paragraphHTML}
 
         });
 
-        copyButton.addEventListener("click", copyHTML);
+        copyHtmlButton.addEventListener("click", function() {
+            copyToClipboard("html");
+        });
+
+        copyCssButton.addEventListener("click", function() {
+            copyToClipboard("css");
+        });
 
 
         // -----------------------------------------

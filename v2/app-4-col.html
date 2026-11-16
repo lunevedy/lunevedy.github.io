@@ -10,145 +10,128 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- Shared section styles: used by preview and exported HTML -->
-    <style type="text/tailwindcss" id="section-styles">
+    <!-- Block CSS: copied by "Copy CSS". Structure only: each block's colours,
+         text sizes and bold/italic are Tailwind classes in its HTML, which
+         override these defaults because components rank below utilities. -->
+    <style type="text/tailwindcss" id="block-styles">
 
-        .section-block {
-            @apply w-full px-6 py-16 md:px-12 md:py-24;
-        }
+        @layer components {
 
-        /* Intro: centred above the columns. Width is measured in
-           characters (60ch is about 600px at this 18px text size). */
-        .columns-intro {
-            @apply mx-auto mb-12 max-w-[60ch] text-center text-lg md:mb-16;
-        }
-
-        .columns-intro[hidden] {
-            display: none !important;
-        }
-
-        .columns-intro h2 {
-            @apply text-4xl md:text-5xl font-normal leading-tight tracking-tight;
-        }
-
-        .columns-intro p {
-            @apply mt-3 text-xl leading-relaxed;
-        }
-
-        /* Phones: one centred column no wider than the images (460px).
-           From md (768px): two columns. From xl (1280px): four columns. */
-        .columns-grid {
-            @apply mx-auto grid w-full max-w-[460px] grid-cols-1 gap-12 md:max-w-7xl md:grid-cols-2 md:gap-x-8 md:gap-y-12 xl:grid-cols-4 xl:gap-x-6;
-        }
-
-        /* Optional: two columns on phones too */
-        .columns-small-2 .columns-grid {
-            @apply max-w-7xl grid-cols-2 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12 xl:grid-cols-4 xl:gap-x-6;
-        }
-
-        .column-card {
-            @apply flex flex-col;
-        }
-
-        /* Cards beyond the chosen count (3, 6 or 9) take up no space */
-        .column-card[hidden] {
-            display: none !important;
-        }
-
-        .column-card img {
-            @apply block h-auto w-full;
-        }
-
-        /* Fixed card text sizes, which suit the narrow columns */
-        .column-card h3 {
-            @apply mt-4 text-lg md:text-xl font-normal leading-snug;
-        }
-
-        .column-card p {
-            @apply mt-2 text-base leading-normal;
-        }
-
-        /* Column background: coloured cards with padding and rounded corners;
-           the image runs edge to edge across the top. */
-        .columns-card-bg .column-card {
-            @apply overflow-hidden rounded-xl;
-        }
-
-        .columns-card-bg .column-card-body {
-            @apply px-6 pb-6;
-        }
-
-        /* H3 links: always underlined to show they are clickable.
-           Thickness and offset are in em, so they scale with the text. */
-        .column-card h3 a {
-            @apply underline decoration-[length:0.11em] underline-offset-[0.3em] transition-colors;
-        }
-
-        .column-card h3 a:focus-visible {
-            outline: 2px solid currentColor;
-            outline-offset: 3px;
-            border-radius: 2px;
-        }
-
-        /* Image links: on hover or keyboard focus the image zooms in
-           slightly within its frame and darkens a little. */
-        .column-card-image-link {
-            @apply block overflow-hidden;
-        }
-
-        .column-card-image-link img {
-            transition: transform 300ms ease-out, filter 300ms ease-out;
-        }
-
-        .column-card-image-link:hover img,
-        .column-card-image-link:focus-visible img {
-            transform: scale(1.05);
-            filter: brightness(0.85);
-        }
-
-        /* Focus ring drawn inside the image, so rounded cards cannot clip it */
-        .column-card-image-link:focus-visible {
-            outline: 3px solid white;
-            outline-offset: -6px;
-        }
-
-        /* Reduced motion: keep the darkening, drop the zoom */
-        @media (prefers-reduced-motion: reduce) {
-            .column-card-image-link img {
-                transition: filter 300ms ease-out;
+            .four-col {
+                @apply w-full px-6 py-16 md:px-12 md:py-24;
             }
 
-            .column-card-image-link:hover img,
-            .column-card-image-link:focus-visible img {
-                transform: none;
+            /* Intro: centred above the columns. Width is measured in
+               characters (60ch is about 600px at this 18px text size). */
+            .four-col-intro {
+                @apply mx-auto mb-12 max-w-[60ch] text-center text-lg md:mb-16;
             }
+
+            .four-col-intro h2 {
+                @apply text-4xl md:text-5xl font-normal leading-tight tracking-tight;
+            }
+
+            .four-col-intro p {
+                @apply mt-3 text-xl leading-relaxed;
+            }
+
+            /* Phones: one centred column no wider than the images (460px).
+               From md (768px): two columns. From xl (1280px): four columns. */
+            .four-col-grid {
+                @apply mx-auto grid w-full max-w-[460px] grid-cols-1 gap-12 md:max-w-7xl md:grid-cols-2 md:gap-x-8 md:gap-y-12 xl:grid-cols-4 xl:gap-x-6;
+            }
+
+            /* Optional: two columns on phones too */
+            .four-col-small-2 .four-col-grid {
+                @apply max-w-7xl grid-cols-2 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12 xl:grid-cols-4 xl:gap-x-6;
+            }
+
+            .four-col-card {
+                @apply flex flex-col;
+            }
+
+            .four-col-card img {
+                @apply block h-auto w-full;
+            }
+
+            /* Fixed card text sizes, which suit the narrow columns */
+            .four-col-card h3 {
+                @apply mt-4 text-lg md:text-xl font-normal leading-snug;
+            }
+
+            .four-col-card p {
+                @apply mt-2 text-base leading-normal;
+            }
+
+            /* Column background: coloured cards with padding and rounded corners;
+               the image runs edge to edge across the top. */
+            .four-col-card-bg .four-col-card {
+                @apply overflow-hidden rounded-xl;
+            }
+
+            .four-col-card-bg .four-col-card-body {
+                @apply px-6 pb-6;
+            }
+
+            /* H3 links: always underlined to show they are clickable.
+               Their colours are classes in the HTML.
+               Thickness and offset are in em, so they scale with the text. */
+            .four-col-card h3 a {
+                @apply underline decoration-[length:0.11em] underline-offset-[0.3em] transition-colors;
+            }
+
+            .four-col-card h3 a:focus-visible {
+                outline: 2px solid currentColor;
+                outline-offset: 3px;
+                border-radius: 2px;
+            }
+
+            /* Image links: on hover or keyboard focus the image zooms in
+               slightly within its frame and darkens a little. */
+            .four-col-image-link {
+                @apply block overflow-hidden;
+            }
+
+            .four-col-image-link img {
+                transition: transform 300ms ease-out, filter 300ms ease-out;
+            }
+
+            .four-col-image-link:hover img,
+            .four-col-image-link:focus-visible img {
+                transform: scale(1.05);
+                filter: brightness(0.85);
+            }
+
+            /* Focus ring drawn inside the image, so rounded cards cannot clip it */
+            .four-col-image-link:focus-visible {
+                outline: 3px solid white;
+                outline-offset: -6px;
+            }
+
+            /* Reduced motion: keep the darkening, drop the zoom */
+            @media (prefers-reduced-motion: reduce) {
+                .four-col-image-link img {
+                    transition: filter 300ms ease-out;
+                }
+
+                .four-col-image-link:hover img,
+                .four-col-image-link:focus-visible img {
+                    transform: none;
+                }
+            }
+
+            /* Edited text stays plain and wraps safely */
+            .four-col-intro h2,
+            .four-col-intro p,
+            .four-col-card h3,
+            .four-col-card p {
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
         }
-
-        /* Edited text stays plain and wraps safely */
-        .columns-intro h2,
-        .columns-intro p,
-        .column-card h3,
-        .column-card p {
-            overflow-wrap: anywhere;
-            white-space: pre-wrap;
-        }
-
-        /* Bold and italic options */
-        .columns-h2-bold .columns-intro h2 { @apply font-bold; }
-        .columns-h2-italic .columns-intro h2 { @apply italic; }
-        .columns-h3-bold .column-card h3 { @apply font-bold; }
-        .columns-h3-italic .column-card h3 { @apply italic; }
-
-        /* "Larger" intro text options. The intro width stays 60ch, because ch
-           is measured from .columns-intro, not from the paragraph.
-           Card text sizes are fixed: H3 text-lg (md:text-xl), paragraphs text-base. */
-        .columns-h2-larger .columns-intro h2 { @apply text-5xl md:text-6xl; }
-        .columns-intro-larger .columns-intro p { @apply text-2xl; }
 
     </style>
-
-    <!-- Colour rules: shared by preview and exported HTML -->
-    <style type="text/tailwindcss" id="section-colour-styles"></style>
 
     <!-- Palette swatch colours (editor only) -->
     <style type="text/tailwindcss" id="palette-swatch-styles"></style>
@@ -511,17 +494,17 @@
 
         /* ---------- Editable headings ---------- */
 
-        .section-block [contenteditable="true"] {
+        .four-col [contenteditable="true"] {
             cursor: text;
             border-radius: 4px;
         }
 
-        .section-block [contenteditable="true"]:hover {
+        .four-col [contenteditable="true"]:hover {
             outline: 2px dashed #94a3b8;
             outline-offset: 5px;
         }
 
-        .section-block [contenteditable="true"]:focus {
+        .four-col [contenteditable="true"]:focus {
             outline: 3px solid #3b82f6;
             outline-offset: 5px;
         }
@@ -531,27 +514,52 @@
             display: none;
         }
 
-        /* ---------- Copy button ---------- */
-
-        .copy-button {
-            @apply fixed bottom-5 right-5 z-50 inline-flex min-w-40 items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        /* Preview only: hidden intro and extra cards take up no space */
+        .four-col [hidden] {
+            display: none !important;
         }
 
-        .copy-button:active {
-            transform: translateY(1px);
+        /* ---------- Copy buttons ---------- */
+
+        .action-buttons {
+            @apply fixed bottom-5 right-5 z-50 flex gap-3;
         }
 
-        .copy-button svg {
-            @apply h-4 w-4 shrink-0;
+        .action-button {
+            @apply inline-flex min-w-36 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
         }
 
-        .copy-button svg[hidden] {
+        .action-button[hidden] {
             display: none;
         }
 
-        /* Shown briefly after a successful copy. */
-        .copy-button-success {
-            @apply bg-emerald-600 hover:bg-emerald-600;
+        .action-button svg {
+            @apply h-4 w-4 shrink-0;
+        }
+
+        .action-button svg[hidden] {
+            display: none;
+        }
+
+        .action-primary {
+            @apply bg-slate-900 text-white hover:bg-slate-700;
+        }
+
+        .action-css {
+            @apply bg-blue-600 text-white hover:bg-blue-700;
+        }
+
+        .action-js {
+            @apply bg-violet-600 text-white hover:bg-violet-700;
+        }
+
+        .action-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Shown briefly after a successful copy */
+        .action-success {
+            @apply bg-emerald-600 text-white ring-0 hover:bg-emerald-600;
         }
 
         /* ---------- Status and manual-copy fallback ---------- */
@@ -573,7 +581,7 @@
         }
 
         .page-bottom-space {
-            @apply h-24;
+            @apply h-28;
         }
 
         /* ---------- Light / Dark switch ---------- */
@@ -1211,11 +1219,11 @@
 
                     <section
                         id="section-preview"
-                        class="section-block section-custom-colours columns-h2-bold columns-h3-bold"
+                        class="four-col bg-white"
                     >
 
                         <!-- Intro -->
-                        <div id="columns-intro" class="columns-intro">
+                        <div id="columns-intro" class="four-col-intro">
 
                             <h2
                                 id="section-heading"
@@ -1240,10 +1248,10 @@
                         </div>
 
                         <!-- Three columns -->
-                        <div class="columns-grid">
+                        <div class="four-col-grid">
 
                             <!-- Card 1 -->
-                            <article class="column-card" data-image-index="0">
+                            <article class="four-col-card" data-image-index="0">
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-bakery.png"
@@ -1255,7 +1263,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1280,7 +1288,7 @@
                             </article>
 
                             <!-- Card 2 -->
-                            <article class="column-card" data-image-index="1">
+                            <article class="four-col-card" data-image-index="1">
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-fashion-yellow.png"
@@ -1292,7 +1300,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1317,7 +1325,7 @@
                             </article>
 
                             <!-- Card 3 -->
-                            <article class="column-card" data-image-index="2">
+                            <article class="four-col-card" data-image-index="2">
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-student.png"
@@ -1329,7 +1337,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1354,7 +1362,7 @@
                             </article>
 
                             <!-- Card 4 -->
-                            <article class="column-card" data-image-index="3">
+                            <article class="four-col-card" data-image-index="3">
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-lisbon.jpg"
@@ -1366,7 +1374,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1391,7 +1399,7 @@
                             </article>
 
                             <!-- Card 5 -->
-                            <article class="column-card" data-image-index="0" hidden>
+                            <article class="four-col-card" data-image-index="0" hidden>
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-bakery.png"
@@ -1403,7 +1411,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1428,7 +1436,7 @@
                             </article>
 
                             <!-- Card 6 -->
-                            <article class="column-card" data-image-index="1" hidden>
+                            <article class="four-col-card" data-image-index="1" hidden>
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-fashion-yellow.png"
@@ -1440,7 +1448,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1465,7 +1473,7 @@
                             </article>
 
                             <!-- Card 7 -->
-                            <article class="column-card" data-image-index="2" hidden>
+                            <article class="four-col-card" data-image-index="2" hidden>
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-student.png"
@@ -1477,7 +1485,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1502,7 +1510,7 @@
                             </article>
 
                             <!-- Card 8 -->
-                            <article class="column-card" data-image-index="3" hidden>
+                            <article class="four-col-card" data-image-index="3" hidden>
 
                                 <img
                                     src="https://lunevedy.com/v2/assets/img/460x280-lisbon.jpg"
@@ -1514,7 +1522,7 @@
                                     decoding="async"
                                 >
 
-                                <div class="column-card-body">
+                                <div class="four-col-card-body">
 
                                     <h3><span
                                         class="editable heading-text"
@@ -1585,16 +1593,22 @@
 
     </div>
 
-    <!-- Fixed copy button -->
-    <button
-        type="button"
-        id="copy-button"
-        class="copy-button"
-    >
-        <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
-        <span id="copy-button-label">Copy HTML</span>
-    </button>
+    <!-- Fixed copy buttons -->
+    <div class="action-buttons">
+
+        <button type="button" id="copy-css-button" class="action-button action-css">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy CSS</span>
+        </button>
+
+        <button type="button" id="copy-html-button" class="action-button action-primary">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy HTML</span>
+        </button>
+
+    </div>
 
 
     <script>
@@ -1611,9 +1625,9 @@
 
         const sectionIntroText = document.getElementById("section-intro-text");
 
-        const columnCards = document.querySelectorAll(".column-card");
+        const columnCards = document.querySelectorAll(".four-col-card");
 
-        const editableElements = document.querySelectorAll(".section-block .editable");
+        const editableElements = sectionPreview.querySelectorAll('[contenteditable="true"]');
 
         const appearanceOptions = document.querySelectorAll('input[name="appearance"]');
 
@@ -1648,19 +1662,21 @@
 
         const paletteCloseButton = document.getElementById("palette-close");
 
-        const sectionStyles = document.getElementById("section-styles");
-
-        const sectionColourStyles = document.getElementById("section-colour-styles");
+        const blockStyles = document.getElementById("block-styles");
 
         const paletteSwatchStyles = document.getElementById("palette-swatch-styles");
 
-        const copyButton = document.getElementById("copy-button");
+        const copyHtmlButton = document.getElementById("copy-html-button");
 
-        const copyButtonLabel = document.getElementById("copy-button-label");
+        const copyCssButton = document.getElementById("copy-css-button");
 
-        const copyIcon = document.getElementById("copy-icon");
+        const fallbackHeading = document.getElementById("fallback-heading");
 
-        const checkIcon = document.getElementById("check-icon");
+        // Remembers the timers that reset the copy button labels.
+        const feedbackTimers = new Map();
+
+
+
 
         const copyStatus = document.getElementById("copy-status");
 
@@ -1675,8 +1691,6 @@
 
         const exportedImageFolder = "https://lunevedy.com/v2/assets/img/";
 
-        // Remembers the timer that resets the copy button label.
-        let copyFeedbackTimer = null;
 
         // Remembers which colour row opened the palette.
         let paletteOpener = null;
@@ -1887,43 +1901,9 @@
 
         function updateColourStyles() {
 
-            // Tailwind-processed, so the CDN creates every colour variable used.
+            // Colours are Tailwind classes on the block's elements.
 
-            const c = settings.colours;
-
-            sectionColourStyles.textContent = `
-        .section-block.section-custom-colours {
-            background-color: var(--color-${c.background});
-        }
-
-        .section-block.section-custom-colours .columns-intro h2 {
-            color: var(--color-${c.heading});
-        }
-
-        .section-block.section-custom-colours .columns-intro p {
-            color: var(--color-${c.intro});
-        }
-
-        .section-block.section-custom-colours .column-card h3 {
-            color: var(--color-${c.cardHeading});
-        }
-
-        .section-block.section-custom-colours .column-card p {
-            color: var(--color-${c.cardText});
-        }
-
-        .section-block.section-custom-colours.columns-card-bg .column-card {
-            background-color: var(--color-${c.cardBackground});
-        }
-
-        .section-block.section-custom-colours .column-card h3 a {
-            color: var(--color-${c.cardLink});
-        }
-
-        .section-block.section-custom-colours .column-card h3 a:hover {
-            color: var(--color-${c.cardLinkHover});
-        }
-    `;
+            applyBlockClasses();
 
         }
 
@@ -2050,21 +2030,65 @@
 
         function getSectionClasses() {
 
-            // The same class list is used by the preview and the export.
+            // Block classes for the section: the layout options, plus its
+            // background colour as a Tailwind class.
 
             return [
-                "section-block",
-                "section-custom-colours",
-                settings.cardBackground ? "columns-card-bg" : "",
-                settings.showIntro && settings.h2Bold ? "columns-h2-bold" : "",
-                settings.showIntro && settings.h2Italic ? "columns-h2-italic" : "",
-                settings.h3Bold ? "columns-h3-bold" : "",
-                settings.h3Italic ? "columns-h3-italic" : "",
-                settings.showIntro && settings.headingSize === "larger" ? "columns-h2-larger" : "",
-                settings.showIntro && settings.introSize === "larger" ? "columns-intro-larger" : "",
-                settings.smallColumns === 2 ? "columns-small-2" : ""
-
+                "four-col",
+                settings.cardBackground ? "four-col-card-bg" : "",
+                settings.smallColumns === 2 ? "four-col-small-2" : "",
+                "bg-" + settings.colours.background
             ].filter(Boolean);
+
+        }
+
+
+        function getElementClasses() {
+
+            // Every other choice is a Tailwind class on the element it affects,
+            // so two four-column sections on one page can look different.
+
+            const c = settings.colours;
+
+            const join = function(list) {
+                return list.filter(Boolean).join(" ");
+            };
+
+            return {
+                heading: join(["text-" + c.heading, settings.h2Bold ? "font-bold" : "", settings.h2Italic ? "italic" : "", settings.headingSize === "larger" ? "text-5xl md:text-6xl" : ""]),
+                intro: join(["text-" + c.intro, settings.introSize === "larger" ? "text-2xl" : ""]),
+                card: join(["four-col-card", settings.cardBackground ? "bg-" + c.cardBackground : ""]),
+                cardHeading: join([settings.headingLinks ? "" : "text-" + c.cardHeading, settings.h3Bold ? "font-bold" : "", settings.h3Italic ? "italic" : ""]),
+                cardLink: join(["text-" + c.cardLink, "hover:text-" + c.cardLinkHover]),
+                cardText: "text-" + c.cardText
+            };
+
+        }
+
+
+        function applyBlockClasses() {
+
+            // The preview uses exactly the classes that Copy HTML exports.
+
+            const classes = getElementClasses();
+
+            sectionPreview.className = getSectionClasses().join(" ");
+
+            sectionHeading.className = classes.heading;
+
+            sectionIntroText.className = classes.intro;
+
+            cardLinkParts.forEach(function(part) {
+
+                part.card.className = classes.card;
+
+                part.heading.className = classes.cardHeading;
+
+                part.headingLink.className = classes.cardLink;
+
+                part.card.querySelector(".four-col-card-body p").className = classes.cardText;
+
+            });
 
         }
 
@@ -2095,7 +2119,7 @@
 
             settings.h3Italic = h3Italic.checked;
 
-            sectionPreview.className = getSectionClasses().join(" ");
+            applyBlockClasses();
 
             // Hide the intro without deleting it, so its text returns.
             // Disable its controls meanwhile; their settings are kept.
@@ -2141,7 +2165,7 @@
 
             imageLink.href = "#";
 
-            imageLink.className = "column-card-image-link";
+            imageLink.className = "four-col-image-link";
 
             return {
                 card: card,
@@ -2269,7 +2293,7 @@
 
             settings.imageAlts[imageIndex] = event.target.value;
 
-            document.querySelectorAll(`.column-card[data-image-index="${imageIndex}"] img`).forEach(function(image) {
+            document.querySelectorAll(`.four-col-card[data-image-index="${imageIndex}"] img`).forEach(function(image) {
                 image.alt = event.target.value;
             });
 
@@ -2348,22 +2372,24 @@
 
         function generateHTML() {
 
+            // The block only: paste it into your page. Its CSS comes from Copy CSS.
+
+            const classes = getElementClasses();
+
             const introHTML = settings.showIntro
                 ? `
-        <div class="columns-intro">
-            <h2>${escapeHTML(sectionHeading.innerText.trim())}</h2>
-            <p>${escapeHTML(sectionIntroText.innerText.trim())}</p>
-        </div>
+    <div class="four-col-intro">
+        <h2 class="${classes.heading}">${escapeHTML(sectionHeading.innerText.trim())}</h2>
+        <p class="${classes.intro}">${escapeHTML(sectionIntroText.innerText.trim())}</p>
+    </div>
 `
                 : "";
 
-            // Only the visible cards (3, 6 or 9), with their latest text.
+            // Only the visible cards, with their latest text.
 
             const cardsHTML = cardLinkParts.slice(0, settings.cardCount).map(function(part) {
 
                 const card = part.card;
-
-                const image = part.image;
 
                 const headingText = escapeHTML(part.headingText.innerText.trim());
 
@@ -2371,60 +2397,39 @@
                     return ` ${name}="${escapeHTML(value)}"`;
                 }).join("");
 
-                const fileName = image.dataset.file;
+                const imageHTML = `<img src="${exportedImageFolder}${part.image.dataset.file}" alt="${escapeHTML(settings.imageAlts[card.dataset.imageIndex].trim())}" width="460" height="280" loading="lazy" decoding="async">`;
+
+                const headingClass = classes.cardHeading ? ` class="${classes.cardHeading}"` : "";
 
                 return `
-            <article class="column-card">
-                ${settings.imageLinks ? `<a class="column-card-image-link" href="#"${imageAttributes}>` : ""}<img src="${exportedImageFolder}${fileName}" alt="${escapeHTML(settings.imageAlts[card.dataset.imageIndex].trim())}" width="460" height="280" loading="lazy" decoding="async">${settings.imageLinks ? "</a>" : ""}
-                <div class="column-card-body">
-                    <h3>${settings.headingLinks ? `<a href="#">${headingText}</a>` : headingText}</h3>
-                    <p>${escapeHTML(card.querySelector("p").innerText.trim())}</p>
-                </div>
-            </article>`;
+        <article class="${classes.card}">
+            ${settings.imageLinks ? `<a class="four-col-image-link" href="#"${imageAttributes}>${imageHTML}</a>` : imageHTML}
+            <div class="four-col-card-body">
+                <h3${headingClass}>${settings.headingLinks ? `<a href="#" class="${classes.cardLink}">${headingText}</a>` : headingText}</h3>
+                <p class="${classes.cardText}">${escapeHTML(card.querySelector(".four-col-card-body p").innerText.trim())}</p>
+            </div>
+        </article>`;
 
             }).join("\n");
 
-            return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Four-Column Section</title>
-
-    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
-
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
-
-    <style type="text/tailwindcss">
-${sectionStyles.textContent}
-    </style>
-
-    <style type="text/tailwindcss">
-${sectionColourStyles.textContent}
-    </style>
-
-</head>
-
-<body>
-
-    <section class="${getSectionClasses().join(" ")}">
+            return `<!-- Four-column section -->
+<section class="${getSectionClasses().join(" ")}">
 ${introHTML}
-        <div class="columns-grid">
+    <div class="four-col-grid">
 ${cardsHTML}
 
-        </div>
-    </section>
-
-</body>
-</html>`;
+    </div>
+</section>
+`;
 
         }
 
 
         function updateFallbackHTML() {
 
-            fallbackTextarea.value = generateHTML();
+            // Keep the manual-copy box up to date with the latest settings.
+
+            fallbackTextarea.value = getCopyDetails(fallbackKind).text;
 
         }
 
@@ -2515,38 +2520,71 @@ ${cardsHTML}
         // 10. Copy HTML to the clipboard
         // -----------------------------------------
 
-        function showCopiedFeedback() {
+        // Which text the manual-copy box shows if copying is unavailable.
+        let fallbackKind = "html";
 
-            copyButton.classList.add("copy-button-success");
 
-            copyButtonLabel.textContent = "Copied!";
+        function getCopyDetails(kind) {
 
-            copyIcon.hidden = true;
+            // What each copy button copies, and what to tell the student.
 
-            checkIcon.hidden = false;
+            if (kind === "css") {
+                return {
+                    button: copyCssButton,
+                    text: generateCSS(),
+                    success: "CSS copied—paste it into the <style> element in your page’s <head>. You only need it once per block type.",
+                    fallbackLabel: "Your block CSS – select and copy manually"
+                };
+            }
 
-            clearTimeout(copyFeedbackTimer);
-
-            // Return the button to normal after two seconds.
-
-            copyFeedbackTimer = setTimeout(function() {
-
-                copyButton.classList.remove("copy-button-success");
-
-                copyButtonLabel.textContent = "Copy HTML";
-
-                copyIcon.hidden = false;
-
-                checkIcon.hidden = true;
-
-            }, 2000);
+            return {
+                button: copyHtmlButton,
+                text: generateHTML(),
+                success: "HTML copied—paste it into your page in VS Code.",
+                fallbackLabel: "Your block HTML – select and copy manually"
+            };
 
         }
 
 
-        async function copyHTML() {
+        function showCopiedFeedback(button) {
 
-            const generatedHTML = generateHTML();
+            const label = button.querySelector(".button-label");
+
+            if (!button.dataset.label) {
+                button.dataset.label = label.textContent;
+            }
+
+            button.classList.add("action-success");
+
+            label.textContent = "Copied!";
+
+            button.querySelector(".idle-icon").hidden = true;
+
+            button.querySelector(".done-icon").hidden = false;
+
+            clearTimeout(feedbackTimers.get(button));
+
+            // Return the button to normal after two seconds.
+
+            feedbackTimers.set(button, setTimeout(function() {
+
+                button.classList.remove("action-success");
+
+                label.textContent = button.dataset.label;
+
+                button.querySelector(".idle-icon").hidden = false;
+
+                button.querySelector(".done-icon").hidden = true;
+
+            }, 2000));
+
+        }
+
+
+        async function copyToClipboard(kind) {
+
+            const details = getCopyDetails(kind);
 
             copyStatus.textContent = "";
 
@@ -2556,32 +2594,56 @@ ${cardsHTML}
                     throw new Error("Clipboard API unavailable");
                 }
 
-                await navigator.clipboard.writeText(generatedHTML);
+                await navigator.clipboard.writeText(details.text);
 
                 // Only report success after copying succeeds.
 
-                copyStatus.textContent = "HTML copied—paste it into VS Code.";
+                copyStatus.textContent = details.success;
 
                 fallbackContainer.hidden = true;
 
-                showCopiedFeedback();
+                showCopiedFeedback(details.button);
 
             } catch (error) {
 
                 // Offer a manual-copy alternative.
 
-                fallbackTextarea.value = generatedHTML;
+                fallbackKind = kind;
+
+                fallbackHeading.textContent = details.fallbackLabel;
+
+                fallbackTextarea.value = details.text;
 
                 fallbackContainer.hidden = false;
 
                 copyStatus.textContent =
-                    "Automatic copying is unavailable. Select and copy the HTML below.";
+                    "Automatic copying is unavailable. Select and copy the text below.";
 
                 fallbackTextarea.focus();
 
                 fallbackTextarea.select();
 
             }
+
+        }
+
+
+        function generateCSS() {
+
+            // The block's structural CSS, the same for every block of this type.
+            // Remove the shared indentation so it pastes neatly anywhere.
+
+            const lines = blockStyles.textContent.replace(/^\s*\n/, "").replace(/\s+$/, "").split("\n");
+
+            const indent = Math.min(...lines.filter(function(line) {
+                return line.trim() !== "";
+            }).map(function(line) {
+                return line.match(/^ */)[0].length;
+            }));
+
+            return "/* ===== Four-column section ===== */\n\n" + lines.map(function(line) {
+                return line.slice(indent);
+            }).join("\n") + "\n";
 
         }
 
@@ -2633,7 +2695,13 @@ ${cardsHTML}
 
         });
 
-        copyButton.addEventListener("click", copyHTML);
+        copyHtmlButton.addEventListener("click", function() {
+            copyToClipboard("html");
+        });
+
+        copyCssButton.addEventListener("click", function() {
+            copyToClipboard("css");
+        });
 
 
         // -----------------------------------------

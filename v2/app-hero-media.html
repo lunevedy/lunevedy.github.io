@@ -13,83 +13,112 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- Shared hero styles: used by preview and exported HTML -->
-    <style type="text/tailwindcss" id="hero-styles">
+    <!-- Hero block CSS: the same for every hero. Choices (colours,
+         fonts, letter spacing, overlay) are Tailwind classes in the HTML. -->
+    <style type="text/tailwindcss" id="block-styles">
+        @layer components {
 
-        /* Layers, bottom to top:
-           1. image or poster   2. video   3. tinted overlay   4. headings */
+            /* Layers, bottom to top:
+               1. image or poster   2. video   3. tinted overlay   4. headings */
 
-        .hero {
-            @apply relative isolate flex w-full items-center justify-center overflow-hidden px-6 py-16 md:px-12 md:py-20;
+            .hero {
+                @apply relative isolate flex w-full items-center justify-center overflow-hidden px-6 py-16 md:px-12 md:py-20;
+            }
+
+            .hero-content {
+                @apply relative z-30 w-full max-w-5xl;
+            }
+
+            .hero-centre {
+                text-align: center;
+            }
+
+            .hero-centre .hero-content {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-min-height {
+                @apply min-h-[480px] md:min-h-[85vh];
+            }
+
+            .hero h1 {
+                @apply font-sans text-4xl font-normal leading-tight tracking-tight text-shadow-lg/30 md:text-6xl;
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
+            .hero h2 {
+                @apply mt-6 font-sans text-lg font-normal leading-relaxed text-shadow-lg/30 md:text-2xl;
+                overflow-wrap: anywhere;
+                white-space: pre-wrap;
+            }
+
+            /* Image background */
+            .hero-image {
+                @apply absolute inset-0 z-0 bg-cover bg-center bg-no-repeat;
+                background-image: url("https://lunevedy.com/v2/assets/img/hero-image.jpg");
+            }
+
+            /* Video background: the poster shows until the video plays */
+            .hero-poster {
+                @apply absolute inset-0 z-0 bg-cover bg-center bg-no-repeat;
+                background-image: url("https://lunevedy.com/v2/assets/videos/hero-poster.jpg");
+            }
+
+            .hero-video {
+                @apply pointer-events-none absolute inset-0 z-10 h-full w-full object-cover object-center opacity-0 transition-opacity duration-200 motion-reduce:transition-none;
+            }
+
+            .hero-video.is-playing {
+                @apply opacity-100;
+            }
+
+            /* Tinted overlay */
+            .hero-overlay {
+                @apply pointer-events-none absolute inset-0 z-20;
+            }
+
+            /* Text animations: the H2 starts slightly after the H1. */
+
+            .hero-animate-from-bottom h1,
+            .hero-animate-from-bottom h2 {
+                animation: hero-from-bottom 0.8s ease-out both;
+            }
+
+            .hero-animate-from-left h1,
+            .hero-animate-from-left h2 {
+                animation: hero-from-left 0.8s ease-out both;
+            }
+
+            .hero-animate-from-right h1,
+            .hero-animate-from-right h2 {
+                animation: hero-from-right 0.8s ease-out both;
+            }
+
+            .hero-animate-fade h1,
+            .hero-animate-fade h2 {
+                animation: hero-fade 1s ease-out both;
+            }
+
+            .hero-animate-scale h1,
+            .hero-animate-scale h2 {
+                animation: hero-scale 0.8s ease-out both;
+            }
+
+            .hero[class*="hero-animate-"] h2 {
+                animation-delay: 0.15s;
+            }
+
+            /* Respect visitors who prefer reduced motion */
+            @media (prefers-reduced-motion: reduce) {
+                .hero h1,
+                .hero h2 {
+                    animation: none !important;
+                }
+            }
+
         }
-
-        .hero-content {
-            @apply relative z-30 w-full max-w-5xl;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 20;
-            pointer-events: none;
-        }
-
-        .hero-centre {
-            text-align: center;
-        }
-
-        .hero-min-height {
-            @apply min-h-[480px];
-        }
-
-        .hero h1 {
-            @apply text-4xl md:text-6xl font-normal font-sans leading-tight tracking-tight text-white text-shadow-lg/30;
-            overflow-wrap: anywhere;
-            white-space: pre-wrap;
-        }
-
-        .hero h2 {
-            @apply mt-6 text-lg md:text-2xl font-normal font-sans leading-relaxed text-white text-shadow-lg/30;
-            overflow-wrap: anywhere;
-            white-space: pre-wrap;
-        }
-
-        .hero h1.hero-h1-serif {
-            @apply font-serif;
-        }
-
-        .hero h2.hero-h2-serif {
-            @apply font-serif;
-        }
-
-        /* Bold and italic options for each heading */
-        .hero h1.hero-h1-bold {
-            @apply font-bold;
-        }
-
-        .hero h2.hero-h2-bold {
-            @apply font-bold;
-        }
-
-        .hero h1.hero-h1-italic {
-            @apply italic;
-        }
-
-        .hero h2.hero-h2-italic {
-            @apply italic;
-        }
-
-        .hero-centre .hero-content {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero h2[hidden] {
-            display: none !important;
-        }
-
-        /* Text animations: H1 and H2 animate together,
-           with the H2 starting slightly after the H1. */
 
         @keyframes hero-from-bottom {
             from { opacity: 0; transform: translateY(1.5rem); }
@@ -115,130 +144,7 @@
             from { opacity: 0; transform: scale(0.92); }
             to   { opacity: 1; transform: none; }
         }
-
-        .hero-animate-from-bottom h1,
-        .hero-animate-from-bottom h2 {
-            animation: hero-from-bottom 0.8s ease-out both;
-        }
-
-        .hero-animate-from-left h1,
-        .hero-animate-from-left h2 {
-            animation: hero-from-left 0.8s ease-out both;
-        }
-
-        .hero-animate-from-right h1,
-        .hero-animate-from-right h2 {
-            animation: hero-from-right 0.8s ease-out both;
-        }
-
-        .hero-animate-fade h1,
-        .hero-animate-fade h2 {
-            animation: hero-fade 1s ease-out both;
-        }
-
-        .hero-animate-scale h1,
-        .hero-animate-scale h2 {
-            animation: hero-scale 0.8s ease-out both;
-        }
-
-        .hero[class*="hero-animate-"] h2 {
-            animation-delay: 0.15s;
-        }
-
-        /* Respect visitors who prefer reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            .hero h1,
-            .hero h2 {
-                animation: none !important;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .hero-min-height {
-                min-height: 85vh;
-            }
-        }
-
     </style>
-
-    <!-- Image background layer: exported only in Image mode -->
-    <style id="image-media-styles">
-        .hero-image {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background-image: url("https://lunevedy.com/v2/assets/img/hero-image.jpg");
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-    </style>
-
-    <!-- Poster and video layers: exported only in Video mode -->
-    <style id="video-media-styles">
-        .hero-poster {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background-image: url("https://lunevedy.com/v2/assets/videos/hero-poster.jpg");
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
-
-        .hero-video {
-            position: absolute;
-            inset: 0;
-            z-index: 10;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 200ms ease;
-        }
-
-        /* Shown only once the video is actually playing */
-        .hero-video.is-playing {
-            opacity: 1;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .hero-video {
-                transition: none;
-            }
-        }
-    </style>
-
-    <!-- Dedicated letter-spacing styles -->
-    <style id="letter-spacing-styles">
-        .hero .hero-heading {
-            letter-spacing: -0.050em;
-        }
-
-        .hero .hero-subheading {
-            letter-spacing: -0.025em;
-        }
-    </style>
-
-    <!-- Colour rules: shared by preview and exported HTML -->
-    <style type="text/tailwindcss" id="hero-colour-styles">
-        .hero.hero-custom-colours .hero-overlay {
-            background-color: var(--color-black);
-        }
-
-        .hero.hero-custom-colours h1 {
-            color: var(--color-white);
-        }
-
-        .hero.hero-custom-colours h2 {
-            color: var(--color-white);
-        }
-    </style>
-
-    <!-- Overlay opacity, gradient direction and midpoint: shared by preview and export -->
-    <style id="hero-overlay-styles"></style>
 
     <!-- Direction wheel display: editor only -->
     <style id="direction-dial-styles"></style>
@@ -711,6 +617,10 @@
 
         /* ---------- Editable headings ---------- */
 
+        .hero h2[hidden] {
+            display: none !important;
+        }
+
         .hero [contenteditable="true"] {
             cursor: text;
             border-radius: 4px;
@@ -726,27 +636,47 @@
             outline-offset: 5px;
         }
 
-        /* ---------- Copy button ---------- */
+        /* ---------- Copy buttons ---------- */
 
-        .copy-button {
-            @apply fixed bottom-5 right-5 z-50 inline-flex min-w-40 items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
+        .action-buttons {
+            @apply fixed bottom-5 right-5 z-50 flex gap-3;
         }
 
-        .copy-button:active {
-            transform: translateY(1px);
+        .action-button {
+            @apply inline-flex min-w-36 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500;
         }
 
-        .copy-button svg {
-            @apply h-4 w-4 shrink-0;
-        }
-
-        .copy-button svg[hidden] {
+        .action-button[hidden] {
             display: none;
         }
 
-        /* Shown briefly after a successful copy. */
-        .copy-button-success {
-            @apply bg-emerald-600 hover:bg-emerald-600;
+        .action-button svg {
+            @apply h-4 w-4 shrink-0;
+        }
+
+        .action-button svg[hidden] {
+            display: none;
+        }
+
+        .action-primary {
+            @apply bg-slate-900 text-white hover:bg-slate-700;
+        }
+
+        .action-css {
+            @apply bg-blue-600 text-white hover:bg-blue-700;
+        }
+
+        .action-js {
+            @apply bg-violet-600 text-white hover:bg-violet-700;
+        }
+
+        .action-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Shown briefly after a successful copy */
+        .action-success {
+            @apply bg-emerald-600 text-white ring-0 hover:bg-emerald-600;
         }
 
         /* ---------- Status and manual-copy fallback ---------- */
@@ -768,7 +698,7 @@
         }
 
         .page-bottom-space {
-            @apply h-24;
+            @apply h-28;
         }
 
     </style>
@@ -1301,7 +1231,7 @@
 
                     <header
                         id="hero-preview"
-                        class="hero hero-min-height hero-custom-colours"
+                        class="hero hero-min-height"
                     >
 
                         <!-- Image mode -->
@@ -1326,13 +1256,13 @@
                         </video>
 
                         <!-- Tinted overlay -->
-                        <div class="hero-overlay" aria-hidden="true"></div>
+                        <div id="hero-overlay" class="hero-overlay bg-black opacity-40" aria-hidden="true"></div>
 
                         <div class="hero-content">
 
                             <h1
                                 id="hero-heading"
-                                class="hero-heading hero-h1-bold"
+                                class="font-bold text-white tracking-[-0.050em]"
                                 contenteditable="true"
                                 role="textbox"
                                 aria-label="Edit main hero heading"
@@ -1342,7 +1272,7 @@
 
                             <h2
                                 id="hero-subheading"
-                                class="hero-subheading"
+                                class="text-white tracking-[-0.025em]"
                                 contenteditable="true"
                                 role="textbox"
                                 aria-label="Edit hero subheading"
@@ -1397,16 +1327,28 @@
 
     </div>
 
-    <!-- Fixed copy button -->
-    <button
-        type="button"
-        id="copy-button"
-        class="copy-button"
-    >
-        <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
-        <span id="copy-button-label">Copy HTML</span>
-    </button>
+    <!-- Fixed copy buttons -->
+    <div class="action-buttons">
+
+        <button type="button" id="copy-css-button" class="action-button action-css">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy CSS</span>
+        </button>
+
+        <button type="button" id="copy-html-button" class="action-button action-primary">
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy HTML</span>
+        </button>
+
+        <button type="button" id="copy-js-button" class="action-button action-js" hidden>
+            <svg class="idle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17 10 11 4 5"/><path d="M12 19h8"/></svg>
+            <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M20 6 9 17l-5-5"/></svg>
+            <span class="button-label">Copy JS</span>
+        </button>
+
+    </div>
 
     <!-- Decorative video playback: also copied into exported Video pages -->
     <script id="hero-playback-script">
@@ -1487,9 +1429,7 @@ function initialiseDecorativeVideo(video) {
 
         const heroVideo = document.getElementById("hero-video");
 
-        const imageMediaStyles = document.getElementById("image-media-styles");
 
-        const videoMediaStyles = document.getElementById("video-media-styles");
 
         const playbackScript = document.getElementById("hero-playback-script");
 
@@ -1500,11 +1440,6 @@ function initialiseDecorativeVideo(video) {
         // Sample assets are hosted online, so the same full URLs work
         // in the preview and in pages saved on students' own computers.
 
-        const appImagePath = "https://lunevedy.com/v2/assets/img/hero-image.jpg";
-        const appPosterPath = "https://lunevedy.com/v2/assets/videos/hero-poster.jpg";
-        const appVideoPath = "https://lunevedy.com/v2/assets/videos/hero-video.mp4";
-
-        const exportedImagePath = "https://lunevedy.com/v2/assets/img/hero-image.jpg";
         const exportedPosterPath = "https://lunevedy.com/v2/assets/videos/hero-poster.jpg";
         const exportedVideoPath = "https://lunevedy.com/v2/assets/videos/hero-video.mp4";
 
@@ -1561,7 +1496,6 @@ function initialiseDecorativeVideo(video) {
 
         const gradientMidpointValue = document.getElementById("gradient-midpoint-value");
 
-        const heroOverlayStyles = document.getElementById("hero-overlay-styles");
 
         const directionDialStyles = document.getElementById("direction-dial-styles");
 
@@ -1581,16 +1515,20 @@ function initialiseDecorativeVideo(video) {
 
         const paletteCloseButton = document.getElementById("palette-close");
 
-        const copyButton = document.getElementById("copy-button");
+        const copyHtmlButton = document.getElementById("copy-html-button");
 
-        const copyButtonLabel = document.getElementById("copy-button-label");
+        const copyCssButton = document.getElementById("copy-css-button");
 
-        const copyIcon = document.getElementById("copy-icon");
+        const copyJsButton = document.getElementById("copy-js-button");
 
-        const checkIcon = document.getElementById("check-icon");
+        const fallbackHeading = document.getElementById("fallback-heading");
 
-        // Remembers the timer that resets the button label.
-        let copyFeedbackTimer = null;
+        // Remembers the timers that reset the copy button labels.
+        const feedbackTimers = new Map();
+
+
+
+
 
         // Remembers which target button opened the palette.
         let paletteOpener = null;
@@ -1601,11 +1539,11 @@ function initialiseDecorativeVideo(video) {
 
         const fallbackTextarea = document.getElementById("fallback-html");
 
-        const heroStyles = document.getElementById("hero-styles");
+        const blockStyles = document.getElementById("block-styles");
 
-        const letterSpacingStyles = document.getElementById("letter-spacing-styles");
+        const heroOverlay = document.getElementById("hero-overlay");
 
-        const heroColourStyles = document.getElementById("hero-colour-styles");
+
 
 
         // -----------------------------------------
@@ -1875,27 +1813,59 @@ function initialiseDecorativeVideo(video) {
         // 8. Update the letter-spacing stylesheet
         // -----------------------------------------
 
-        function updateLetterSpacingStyles() {
+        function getHeroClasses() {
 
-            const h1Spacing = formatLetterSpacing(
-                settings.h1LetterSpacing
-            );
+            // The hero's choices as Tailwind classes. Structure lives in the CSS.
 
-            const h2Spacing = formatLetterSpacing(
-                settings.h2LetterSpacing
-            );
+            const overlayColour = settings.gradientEnabled
+                ? [
+                    "bg-" + settings.gradientStartColour,
+                    `bg-[linear-gradient(${settings.gradientAngle}deg,var(--color-${settings.gradientStartColour}),${settings.gradientMidpoint}%,var(--color-${settings.gradientEndColour}))]`
+                ]
+                : ["bg-" + settings.overlayColour];
 
-            letterSpacingStyles.textContent = `
+            function headingClasses(level) {
+                return [
+                    settings[level + "Serif"] ? "font-serif" : "",
+                    settings[level + "Bold"] ? "font-bold" : "",
+                    settings[level + "Italic"] ? "italic" : "",
+                    "text-" + settings[level + "Colour"],
+                    `tracking-[${formatLetterSpacing(settings[level + "LetterSpacing"])}]`
+                ].filter(Boolean).join(" ");
+            }
 
-                .hero .hero-heading {
-                    letter-spacing: ${h1Spacing};
-                }
+            return {
+                hero: [
+                    "hero",
+                    settings.centre ? "hero-centre" : "",
+                    settings.minimumHeight ? "hero-min-height" : "",
+                    settings.textAnimation !== "none"
+                        ? "hero-animate-" + settings.textAnimation
+                        : ""
+                ].filter(Boolean).join(" "),
+                overlay: [
+                    "hero-overlay",
+                    ...overlayColour,
+                    "opacity-" + Math.round(settings.overlayOpacity * 100)
+                ].join(" "),
+                heading: headingClasses("h1"),
+                subheading: headingClasses("h2")
+            };
 
-                .hero .hero-subheading {
-                    letter-spacing: ${h2Spacing};
-                }
+        }
 
-            `;
+
+        function applyBlockClasses() {
+
+            const classes = getHeroClasses();
+
+            heroPreview.className = classes.hero;
+
+            heroOverlay.className = classes.overlay;
+
+            heroHeading.className = classes.heading;
+
+            heroSubheading.className = classes.subheading;
 
         }
 
@@ -1949,29 +1919,7 @@ function initialiseDecorativeVideo(video) {
 
         function updateColourStyles() {
 
-            // Solid colour, or a gradient whose angle and midpoint
-            // come from the separate hero-overlay-styles element.
-
-            const backgroundRule = settings.gradientEnabled
-                ? `background-color: var(--color-${settings.gradientStartColour});
-                    background-image: linear-gradient(var(--hero-gradient-angle), var(--color-${settings.gradientStartColour}), var(--hero-gradient-midpoint), var(--color-${settings.gradientEndColour}));`
-                : `background-color: var(--color-${settings.overlayColour});`;
-
-            heroColourStyles.textContent = `
-
-                .hero.hero-custom-colours .hero-overlay {
-                    ${backgroundRule}
-                }
-
-                .hero.hero-custom-colours h1 {
-                    color: var(--color-${settings.h1Colour});
-                }
-
-                .hero.hero-custom-colours h2 {
-                    color: var(--color-${settings.h2Colour});
-                }
-
-            `;
+            applyBlockClasses();
 
             updateOverlayStyles();
 
@@ -1988,18 +1936,7 @@ function initialiseDecorativeVideo(video) {
 
             const midpoint = settings.gradientMidpoint + "%";
 
-            // Plain CSS (not Tailwind), so dragging updates instantly.
-
-            heroOverlayStyles.textContent = `
-        .hero.hero-custom-colours {
-            --hero-gradient-angle: ${angle};
-            --hero-gradient-midpoint: ${midpoint};
-        }
-
-        .hero.hero-custom-colours .hero-overlay {
-            opacity: ${settings.overlayOpacity};
-        }
-    `;
+            applyBlockClasses();
 
             overlayOpacity.value = String(settings.overlayOpacity);
 
@@ -2361,38 +2298,9 @@ function initialiseDecorativeVideo(video) {
             );
 
 
-            // Update the main hero appearance.
+            // Update the preview's classes.
 
-            heroPreview.classList.toggle(
-                "hero-centre",
-                settings.centre
-            );
-
-            heroPreview.classList.toggle(
-                "hero-min-height",
-                settings.minimumHeight
-            );
-
-
-            // Update the individual heading font classes.
-
-            heroHeading.classList.toggle(
-                "hero-h1-serif",
-                settings.h1Serif
-            );
-
-            heroSubheading.classList.toggle(
-                "hero-h2-serif",
-                settings.h2Serif
-            );
-
-            heroHeading.classList.toggle("hero-h1-bold", settings.h1Bold);
-
-            heroSubheading.classList.toggle("hero-h2-bold", settings.h2Bold);
-
-            heroHeading.classList.toggle("hero-h1-italic", settings.h1Italic);
-
-            heroSubheading.classList.toggle("hero-h2-italic", settings.h2Italic);
+            applyBlockClasses();
 
 
             // Hide or display the existing H2.
@@ -2426,9 +2334,7 @@ function initialiseDecorativeVideo(video) {
             updateSelectedSwatch();
 
 
-            // Update letter spacing and displayed values.
-
-            updateLetterSpacingStyles();
+            // Update the displayed letter-spacing values.
 
             updateSpacingLabels();
 
@@ -2519,171 +2425,48 @@ function initialiseDecorativeVideo(video) {
 
         function generateHTML() {
 
-            // Read the latest heading text.
+            const classes = getHeroClasses();
 
-            const headingText = escapeHTML(
-                heroHeading.innerText
-            );
+            const headingText = escapeHTML(heroHeading.innerText);
 
-            const subheadingText = escapeHTML(
-                heroSubheading.innerText
-            );
-
-
-            // Build the H2 only when it is enabled.
-
-            let subheadingHTML = "";
-
-            if (settings.showSubheading) {
-
-                const h2Classes = [
-                    "hero-subheading",
-                    settings.h2Serif ? "hero-h2-serif" : "",
-                    settings.h2Bold ? "hero-h2-bold" : "",
-                    settings.h2Italic ? "hero-h2-italic" : ""
-                ].filter(Boolean).join(" ");
-
-                subheadingHTML = `
-            <h2 class="${h2Classes}">${subheadingText}</h2>`;
-
-            }
-
-
-            // Build the H1 classes.
-
-            const h1Classes = [
-                "hero-heading",
-                settings.h1Serif ? "hero-h1-serif" : "",
-                settings.h1Bold ? "hero-h1-bold" : "",
-                settings.h1Italic ? "hero-h1-italic" : ""
-            ].filter(Boolean).join(" ");
-
-
-            // Build the correct hero classes.
-
-            const heroClasses = [
-                "hero",
-                "hero-custom-colours",
-                settings.centre ? "hero-centre" : "",
-                settings.minimumHeight ? "hero-min-height" : "",
-                settings.textAnimation !== "none"
-                    ? "hero-animate-" + settings.textAnimation
-                    : ""
-            ].filter(Boolean).join(" ");
-
-
-            // Read the shared stylesheets.
-
-            const sharedHeroCSS = heroStyles.textContent;
-
-            const sharedLetterSpacingCSS =
-                letterSpacingStyles.textContent;
-
-            const sharedColourCSS =
-                heroColourStyles.textContent;
-
-            const sharedOverlayCSS =
-                heroOverlayStyles.textContent;
-
-
-            // Media-specific pieces, using the exported asset paths.
-
-            const isVideo = settings.backgroundMedia === "video";
-
-            const mediaCSS = isVideo
-                ? videoMediaStyles.textContent
-                    .replaceAll(appPosterPath, exportedPosterPath)
-                : imageMediaStyles.textContent
-                    .replaceAll(appImagePath, exportedImagePath);
-
-            const preloadPath = isVideo ? exportedPosterPath : exportedImagePath;
-
-            const mediaHTML = isVideo
+            const subheadingHTML = settings.showSubheading
                 ? `
-        <div class="hero-poster" aria-hidden="true"></div>
+        <h2 class="${classes.subheading}">${escapeHTML(heroSubheading.innerText)}</h2>`
+                : "";
 
-        <video
-            id="hero-video"
-            class="hero-video"
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            poster="${exportedPosterPath}"
-            aria-hidden="true"
-            tabindex="-1"
-        >
-            <source src="${exportedVideoPath}" type="video/mp4">
-        </video>
-`
-                : `
-        <div class="hero-image" aria-hidden="true"></div>
+            // Video mode also needs the script from Copy JS.
+
+            const mediaHTML = settings.backgroundMedia === "video"
+                ? `<div class="hero-poster" aria-hidden="true"></div>
+    <video id="hero-video" class="hero-video" muted loop playsinline preload="metadata" poster="${exportedPosterPath}" aria-hidden="true" tabindex="-1">
+        <source src="${exportedVideoPath}" type="video/mp4">
+    </video>`
+                : `<div class="hero-image" aria-hidden="true"></div>`;
+
+            return `<!-- Hero -->
+<header class="${classes.hero}">
+    ${mediaHTML}
+    <div class="${classes.overlay}" aria-hidden="true"></div>
+    <div class="hero-content">
+        <h1 class="${classes.heading}">${headingText}</h1>${subheadingHTML}
+    </div>
+</header>
 `;
 
-            const playbackHTML = isVideo
-                ? `
-    <script>
+        }
+
+
+        function generateJS() {
+
+            // The script that plays the background video (Video mode only).
+
+            return `<!-- Hero background video -->
+<script>
 ${playbackScript.textContent.trim()}
 
 initialiseDecorativeVideo(document.getElementById("hero-video"));
-    <\/script>
-`
-                : "";
-
-
-            // Return a complete standalone HTML document.
-
-            return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Hero Section</title>
-
-    <meta name="description" content="Short, unique description of web page. Often used as the snippet shown in search results. About 120 characters is ideal.">
-
-    <link rel="preload" as="image" href="${preloadPath}">
-
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
-
-    <style type="text/tailwindcss">
-${sharedHeroCSS}
-    </style>
-
-    <style>
-${mediaCSS}
-    </style>
-
-    <style>
-${sharedLetterSpacingCSS}
-    </style>
-
-    <style>
-${sharedOverlayCSS}
-    </style>
-
-    <style type="text/tailwindcss">
-${sharedColourCSS}
-    </style>
-
-</head>
-
-<body>
-
-    <header class="${heroClasses}">
-${mediaHTML}
-        <div class="hero-overlay" aria-hidden="true"></div>
-
-        <div class="hero-content">
-
-            <h1 class="${h1Classes}">${headingText}</h1>${subheadingHTML}
-
-        </div>
-    </header>
-${playbackHTML}
-</body>
-</html>`;
+<\/script>
+`;
 
         }
 
@@ -2694,7 +2477,9 @@ ${playbackHTML}
 
         function updateFallbackHTML() {
 
-            fallbackTextarea.value = generateHTML();
+            // Keep the manual-copy box up to date with the latest settings.
+
+            fallbackTextarea.value = getCopyDetails(fallbackKind).text;
 
         }
 
@@ -2790,36 +2575,6 @@ ${playbackHTML}
         }
 
 
-        function showCopiedFeedback() {
-
-            // Turn the button green and swap its icon and label.
-            copyButton.classList.add("copy-button-success");
-
-            copyButtonLabel.textContent = "Copied!";
-
-            copyIcon.hidden = true;
-
-            checkIcon.hidden = false;
-
-            // If clicked again quickly, restart the countdown.
-            clearTimeout(copyFeedbackTimer);
-
-            // Return the button to normal after two seconds.
-            copyFeedbackTimer = setTimeout(function() {
-
-                copyButton.classList.remove("copy-button-success");
-
-                copyButtonLabel.textContent = "Copy HTML";
-
-                copyIcon.hidden = false;
-
-                checkIcon.hidden = true;
-
-            }, 2000);
-
-        }
-
-
         function applyBackgroundMedia() {
 
             const isVideo = settings.backgroundMedia === "video";
@@ -2832,6 +2587,15 @@ ${playbackHTML}
             heroPosterLayer.hidden = !isVideo;
 
             heroVideo.hidden = !isVideo;
+
+            copyJsButton.hidden = !isVideo;
+
+            // Don't leave the video script in the manual-copy box in Image mode.
+
+            if (!isVideo && fallbackKind === "js") {
+                fallbackKind = "html";
+                fallbackContainer.hidden = true;
+            }
 
             if (isVideo) {
 
@@ -2912,53 +2676,141 @@ ${playbackHTML}
         }
 
 
-        async function copyHTML() {
 
-            // Always generate from the latest content and settings.
 
-            const generatedHTML = generateHTML();
+        // Which text the manual-copy box shows if copying is unavailable.
+        let fallbackKind = "html";
+
+
+        function getCopyDetails(kind) {
+
+            // What each copy button copies, and what to tell the student.
+
+            if (kind === "css") {
+                return {
+                    button: copyCssButton,
+                    text: generateCSS(),
+                    success: "CSS copied—paste it into the <style> element in your page’s <head>. You only need it once per block type.",
+                    fallbackLabel: "Your block CSS – select and copy manually"
+                };
+            }
+
+            if (kind === "js") {
+                return {
+                    button: copyJsButton,
+                    text: generateJS(),
+                    success: "JavaScript copied—paste it just before </body> in your page.",
+                    fallbackLabel: "Your block JavaScript – select and copy manually"
+                };
+            }
+
+            return {
+                button: copyHtmlButton,
+                text: generateHTML(),
+                success: "HTML copied—paste it into your page in VS Code.",
+                fallbackLabel: "Your block HTML – select and copy manually"
+            };
+
+        }
+
+
+        function showCopiedFeedback(button) {
+
+            const label = button.querySelector(".button-label");
+
+            if (!button.dataset.label) {
+                button.dataset.label = label.textContent;
+            }
+
+            button.classList.add("action-success");
+
+            label.textContent = "Copied!";
+
+            button.querySelector(".idle-icon").hidden = true;
+
+            button.querySelector(".done-icon").hidden = false;
+
+            clearTimeout(feedbackTimers.get(button));
+
+            // Return the button to normal after two seconds.
+
+            feedbackTimers.set(button, setTimeout(function() {
+
+                button.classList.remove("action-success");
+
+                label.textContent = button.dataset.label;
+
+                button.querySelector(".idle-icon").hidden = false;
+
+                button.querySelector(".done-icon").hidden = true;
+
+            }, 2000));
+
+        }
+
+
+        async function copyToClipboard(kind) {
+
+            const details = getCopyDetails(kind);
 
             copyStatus.textContent = "";
 
             try {
 
-                // Use the browser Clipboard API.
-
                 if (!navigator.clipboard || !navigator.clipboard.writeText) {
                     throw new Error("Clipboard API unavailable");
                 }
 
-                await navigator.clipboard.writeText(generatedHTML);
+                await navigator.clipboard.writeText(details.text);
 
-                // Only show success after copying succeeds.
+                // Only report success after copying succeeds.
 
-                copyStatus.textContent =
-                    "HTML copied—paste it into VS Code.";
-
-                // Hide the fallback after a successful copy.
+                copyStatus.textContent = details.success;
 
                 fallbackContainer.hidden = true;
 
-                // Give visual feedback on the button itself.
-
-                showCopiedFeedback();
+                showCopiedFeedback(details.button);
 
             } catch (error) {
 
-                // Provide an accessible manual-copy alternative.
+                // Offer a manual-copy alternative.
 
-                fallbackTextarea.value = generatedHTML;
+                fallbackKind = kind;
+
+                fallbackHeading.textContent = details.fallbackLabel;
+
+                fallbackTextarea.value = details.text;
 
                 fallbackContainer.hidden = false;
 
                 copyStatus.textContent =
-                    "Automatic copying is unavailable. Select and copy the HTML below.";
+                    "Automatic copying is unavailable. Select and copy the text below.";
 
                 fallbackTextarea.focus();
 
                 fallbackTextarea.select();
 
             }
+
+        }
+
+
+        function generateCSS() {
+
+            // The block's structural CSS, the same for every block of this type.
+            // Remove the shared indentation so it pastes neatly anywhere.
+
+            const lines = blockStyles.textContent.replace(/^\s*\n/, "").replace(/\s+$/, "").split("\n");
+
+            const indent = Math.min(...lines.filter(function(line) {
+                return line.trim() !== "";
+            }).map(function(line) {
+                return line.match(/^ */)[0].length;
+            }));
+
+            return "/* ===== Hero ===== */\n\n" + lines.map(function(line) {
+                return line.slice(indent);
+            }).join("\n") + "\n";
 
         }
 
@@ -3079,7 +2931,17 @@ ${playbackHTML}
         // 29. Listen for the copy button
         // -----------------------------------------
 
-        copyButton.addEventListener("click", copyHTML);
+        copyHtmlButton.addEventListener("click", function() {
+            copyToClipboard("html");
+        });
+
+        copyCssButton.addEventListener("click", function() {
+            copyToClipboard("css");
+        });
+
+        copyJsButton.addEventListener("click", function() {
+            copyToClipboard("js");
+        });
 
 
         // -----------------------------------------
